@@ -1,0 +1,934 @@
+
+R : Copyright 2004, The R Foundation for Statistical Computing
+Version 2.0.0 alpha (2004-09-16), ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for a HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library( micEcon )
+Loading required package: systemfit 
+This package is still an alpha version. This means that this package has not been thoroughly tested yet. Thus, there might be several bugs in it and I do not guarantee that all results are correct. 
+Please send bug reports to ahenningsen@agric-econ.uni-kiel.de
+> 
+> ## Missong77
+> data( Missong77 )
+> ## price indices for Missong77
+> cat( "\nLaspeyres Price Indices for Missong77\n" )
+
+Laspeyres Price Indices for Missong77
+> print( priceIndex( c( "p.beef", "p.veal", "p.pork" ),
++    c( "q.beef", "q.veal", "q.pork" ), 1, Missong77 ) )
+     1986      1987      1988      1989 
+1.0000000 0.9839897 0.9966514 1.1254719 
+> 
+> cat( "\nPaasche Price Indices for Missong77\n" )
+
+Paasche Price Indices for Missong77
+> print( priceIndex( c( "p.beef", "p.veal", "p.pork" ),
++    c( "q.beef", "q.veal", "q.pork" ), 1, Missong77, "Paasche" ) )
+     1986      1987      1988      1989 
+1.0000000 0.9839652 0.9966153 1.1251109 
+> 
+> cat( "\nFisher Price Indices for Missong77\n" )
+
+Fisher Price Indices for Missong77
+> print( priceIndex( c( "p.beef", "p.veal", "p.pork" ),
++    c( "q.beef", "q.veal", "q.pork" ), 1, Missong77, "Fisher" ) )
+     1986      1987      1988      1989 
+1.0000000 0.9839775 0.9966334 1.1252914 
+> 
+> ## quantity indices for Missong77
+> cat( "\nLaspeyres Quantity Indices for Missong77\n" )
+
+Laspeyres Quantity Indices for Missong77
+> print( quantityIndex( c( "p.beef", "p.veal", "p.pork" ),
++    c( "q.beef", "q.veal", "q.pork" ), 1, Missong77 ) )
+     1986      1987      1988      1989 
+1.0000000 0.9706006 0.8833432 0.7429413 
+> 
+> cat( "\nPaasche Quantity Indices for Missong77\n" )
+
+Paasche Quantity Indices for Missong77
+> print( quantityIndex( c( "p.beef", "p.veal", "p.pork" ),
++    c( "q.beef", "q.veal", "q.pork" ), 1, Missong77, "Paasche" ) )
+     1986      1987      1988      1989 
+1.0000000 0.9705765 0.8833112 0.7427030 
+> 
+> cat( "\nFisher Quantity Indices for Missong77\n" )
+
+Fisher Quantity Indices for Missong77
+> print( quantityIndex( c( "p.beef", "p.veal", "p.pork" ),
++    c( "q.beef", "q.veal", "q.pork" ), 1, Missong77, "Fisher" ) )
+     1986      1987      1988      1989 
+1.0000000 0.9705885 0.8833272 0.7428221 
+> 
+> 
+> ## Bleymueller251
+> data( Bleymueller251 )
+> ## price indices for Bleymueller251
+> cat( "\nLaspeyres Price Indices for Bleymueller251\n" )
+
+Laspeyres Price Indices for Bleymueller251
+> print( priceIndex( c( "p.A", "p.B", "p.C", "p.D" ),
++    c( "q.A", "q.B", "q.C", "q.D" ),  1, Bleymueller251 ) )
+    1970     1974     1978 
+1.000000 1.697436 1.887179 
+> 
+> cat( "\nPaasche Price Indices for Bleymueller251\n" )
+
+Paasche Price Indices for Bleymueller251
+> print( priceIndex( c( "p.A", "p.B", "p.C", "p.D" ),
++    c( "q.A", "q.B", "q.C", "q.D" ), 1, Bleymueller251, "Paasche" ) )
+    1970     1974     1978 
+1.000000 1.582278 1.799337 
+> 
+> cat( "\nFisher Price Indices for Bleymueller251\n" )
+
+Fisher Price Indices for Bleymueller251
+> print( priceIndex( c( "p.A", "p.B", "p.C", "p.D" ),
++    c("q.A", "q.B", "q.C", "q.D" ), 1, Bleymueller251, "Fisher" ) )
+    1970     1974     1978 
+1.000000 1.638846 1.842735 
+> 
+> ## quantity indices for Bleymueller251
+> cat( "\nLaspeyres Quantity Indices for Bleymueller251\n" )
+
+Laspeyres Quantity Indices for Bleymueller251
+> print( quantityIndex( c( "p.A", "p.B", "p.C", "p.D" ),
++    c("q.A", "q.B", "q.C", "q.D" ), 1, Bleymueller251 ) )
+    1970     1974     1978 
+1.000000 1.215385 1.546154 
+> 
+> cat( "\nPaasche Quantity Indices for Bleymueller251\n" )
+
+Paasche Quantity Indices for Bleymueller251
+> print( quantityIndex( c( "p.A", "p.B", "p.C", "p.D" ),
++    c("q.A", "q.B", "q.C", "q.D" ), 1, Bleymueller251, "Paasche" ) )
+    1970     1974     1978 
+1.000000 1.132931 1.474185 
+> 
+> cat( "\nFisher Quantity Indices for Bleymueller251\n" )
+
+Fisher Quantity Indices for Bleymueller251
+> print( quantityIndex( c( "p.A", "p.B", "p.C", "p.D" ),
++    c("q.A", "q.B", "q.C", "q.D" ), 1, Bleymueller251, "Fisher" ) )
+    1970     1974     1978 
+1.000000 1.173434 1.509741 
+> 
+> 
+> ## Blanciforti
+> data( Blanciforti86 )
+> ## preparing data of Blanciforti
+> pNames <- c( "pFood1", "pFood2", "pFood3", "pFood4" )
+> qNames <- c( "qFood1", "qFood2", "qFood3", "qFood4" )
+> wNames <- c( "wFood1", "wFood2", "wFood3", "wFood4" )
+> for( i in 1:4 ) {
++    Blanciforti86[[ qNames[ i ] ]] <- Blanciforti86[[ wNames[ i ] ]] *
++       Blanciforti86[[ "xFood" ]] / Blanciforti86[[ pNames[ i ] ]]
++ }
+> allObs <- rep( TRUE, nrow( Blanciforti86 ) )
+> 
+> ## price indices for Blanciforti
+> cat( "\nLaspeyres Price Indices for Blanciforti\n" )
+
+Laspeyres Price Indices for Blanciforti
+> print( priceIndex( pNames, qNames, 1, Blanciforti86 ) )
+    1947     1948     1949     1950     1951     1952     1953     1954 
+1.000000 1.086783 1.045316 1.062266 1.184266 1.202185 1.195876 1.197583 
+    1955     1956     1957     1958     1959     1960     1961     1962 
+1.178280 1.184553 1.222526 1.262161 1.240811 1.255530 1.276661 1.285206 
+    1963     1964     1965     1966     1967     1968     1969     1970 
+1.303181 1.323464 1.347238 1.417561 1.434193 1.481474 1.555367 1.647089 
+    1971     1972     1973     1974     1975     1976     1977     1978 
+1.702021 1.759742 2.001901 2.314574 2.526273 2.638970 2.838022 3.075210 
+> 
+> cat( "\nPaasche Price Indices for Blanciforti\n" )
+
+Paasche Price Indices for Blanciforti
+> print( priceIndex( pNames, qNames, 1, Blanciforti86, "Paasche" ) )
+    1947     1948     1949     1950     1951     1952     1953     1954 
+1.000000 1.086447 1.045215 1.062420 1.182329 1.202646 1.194199 1.193242 
+    1955     1956     1957     1958     1959     1960     1961     1962 
+1.171940 1.176156 1.216970 1.261806 1.239618 1.253313 1.272497 1.281601 
+    1963     1964     1965     1966     1967     1968     1969     1970 
+1.298582 1.317879 1.345488 1.414362 1.427900 1.475971 1.550297 1.637674 
+    1971     1972     1973     1974     1975     1976     1977     1978 
+1.689065 1.756509 2.012755 2.299396 2.508079 2.602940 2.766265 3.040091 
+> 
+> cat( "\nFisher Price Indices for Blanciforti\n" )
+
+Fisher Price Indices for Blanciforti
+> print( priceIndex( pNames, qNames, 1, Blanciforti86, "Fisher" ) )
+    1947     1948     1949     1950     1951     1952     1953     1954 
+1.000000 1.086615 1.045265 1.062343 1.183297 1.202416 1.195037 1.195411 
+    1955     1956     1957     1958     1959     1960     1961     1962 
+1.175106 1.180347 1.219745 1.261983 1.240214 1.254421 1.274577 1.283402 
+    1963     1964     1965     1966     1967     1968     1969     1970 
+1.300880 1.320668 1.346363 1.415961 1.431043 1.478719 1.552830 1.642375 
+    1971     1972     1973     1974     1975     1976     1977     1978 
+1.695530 1.758125 2.007321 2.306972 2.517159 2.620893 2.801914 3.057600 
+> 
+> ## quantity indices for Blanciforti
+> cat( "\nLaspeyres Quantity Indices for Blanciforti\n" )
+
+Laspeyres Quantity Indices for Blanciforti
+> print( quantityIndex( pNames, qNames, 1, Blanciforti86 ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+1.0000000 0.9666754 0.9702990 0.9527667 0.9465748 0.9557560 0.9622472 0.9400766 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.9670572 0.9802940 0.9680596 0.9599509 0.9877854 0.9975491 0.9903565 1.0049325 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+1.0133683 1.0178365 1.0268708 1.0369810 1.0546665 1.0663580 1.0682070 1.0727678 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0611022 1.0762818 1.0735080 1.0719053 1.0602775 1.0763253 1.0429313 1.0539772 
+> 
+> cat( "\nPaasche Quantity Indices for Blanciforti\n" )
+
+Paasche Quantity Indices for Blanciforti
+> print( quantityIndex( pNames, qNames, 1, Blanciforti86, "Paasche" ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+1.0000000 0.9663765 0.9702048 0.9529052 0.9450265 0.9561225 0.9608976 0.9366691 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.9618539 0.9733456 0.9636603 0.9596815 0.9868359 0.9957882 0.9871263 1.0021139 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+1.0097922 1.0135407 1.0255368 1.0346412 1.0500388 1.0623970 1.0647256 1.0666357 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0530251 1.0743045 1.0793284 1.0648761 1.0526413 1.0616301 1.0165616 1.0419408 
+> 
+> cat( "\nFisher Quantity Indices for Blanciforti\n" )
+
+Fisher Quantity Indices for Blanciforti
+> print( quantityIndex( pNames, qNames, 1, Blanciforti86, "Fisher" ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+1.0000000 0.9665259 0.9702519 0.9528359 0.9458003 0.9559392 0.9615722 0.9383713 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.9644521 0.9768136 0.9658575 0.9598162 0.9873105 0.9966683 0.9887401 1.0035222 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+1.0115787 1.0156863 1.0262036 1.0358104 1.0523501 1.0643757 1.0664649 1.0696974 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0570560 1.0752927 1.0764143 1.0683849 1.0564525 1.0689524 1.0296620 1.0479417 
+> 
+> ## price indices for Blanciforti and base=mean
+> cat( "\nLaspeyres Price Indices for Blanciforti and base=mean\n" )
+
+Laspeyres Price Indices for Blanciforti and base=mean
+> print( priceIndex( pNames, qNames, allObs, Blanciforti86 ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+0.6516937 0.7086049 0.6822933 0.6929117 0.7719862 0.7849749 0.7775798 0.7773080 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.7637394 0.7670745 0.7925816 0.8222712 0.8073774 0.8162337 0.8289335 0.8352925 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+0.8471071 0.8597185 0.8765924 0.9228186 0.9311632 0.9630803 1.0114135 1.0696579 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.1042752 1.1462087 1.3117331 1.5057436 1.6390823 1.7075843 1.8300987 1.9928666 
+> 
+> cat( "\nPaasche Price Indices for Blanciforti and base=mean\n" )
+
+Paasche Price Indices for Blanciforti and base=mean
+> print( priceIndex( pNames, qNames, allObs, Blanciforti86, "Paasche" ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+0.6497953 0.7055114 0.6786347 0.6902105 0.7674670 0.7816825 0.7774416 0.7773155 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.7637814 0.7670193 0.7925135 0.8214566 0.8070950 0.8161932 0.8289877 0.8349441 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+0.8467222 0.8594160 0.8766772 0.9225184 0.9310425 0.9627521 1.0115672 1.0694460 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.1024378 1.1469942 1.3127243 1.5035042 1.6377320 1.7004827 1.8068476 1.9845326 
+> 
+> cat( "\nFisher Price Indices for Blanciforti and base=mean\n" )
+
+Fisher Price Indices for Blanciforti and base=mean
+> print( priceIndex( pNames, qNames, allObs, Blanciforti86, "Fisher" ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+0.6507438 0.7070564 0.6804616 0.6915598 0.7697233 0.7833270 0.7775107 0.7773117 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.7637604 0.7670469 0.7925475 0.8218638 0.8072362 0.8162135 0.8289606 0.8351183 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+0.8469146 0.8595672 0.8766348 0.9226685 0.9311028 0.9629162 1.0114903 1.0695520 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.1033561 1.1466014 1.3122286 1.5046235 1.6384070 1.7040298 1.8184360 1.9886952 
+> 
+> ## quantity indices for Blanciforti and base=mean
+> cat( "\nLaspeyres Quantity Indices for Blanciforti and base=mean\n" )
+
+Laspeyres Quantity Indices for Blanciforti and base=mean
+> print( quantityIndex( pNames, qNames, allObs, Blanciforti86 ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+0.9898144 0.9574486 0.9611812 0.9432602 0.9379157 0.9457685 0.9506612 0.9281643 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.9543747 0.9668196 0.9561054 0.9483910 0.9757896 0.9852155 0.9777559 0.9921166 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+0.9995997 1.0038765 1.0136459 1.0225550 1.0403361 1.0514692 1.0529458 1.0565854 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0456342 1.0600970 1.0586514 1.0543766 1.0443550 1.0596583 1.0269711 1.0384603 
+> 
+> cat( "\nPaasche Quantity Indices for Blanciforti and base=mean\n" )
+
+Paasche Quantity Indices for Blanciforti and base=mean
+> print( quantityIndex( pNames, qNames, allObs, Blanciforti86, "Paasche" ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+0.9869310 0.9532688 0.9560272 0.9395831 0.9324251 0.9418017 0.9504922 0.9281733 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.9544271 0.9667501 0.9560232 0.9474514 0.9754482 0.9851667 0.9778199 0.9917028 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+0.9991455 1.0035233 1.0137440 1.0222224 1.0402014 1.0511109 1.0531059 1.0563760 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0438943 1.0608234 1.0594514 1.0528085 1.0434946 1.0552513 1.0139236 1.0341175 
+> 
+> cat( "\nFisher Quantity Indices for Blanciforti and base=mean\n" )
+
+Fisher Quantity Indices for Blanciforti and base=mean
+> print( quantityIndex( pNames, qNames, allObs, Blanciforti86, "Fisher" ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+0.9883717 0.9553564 0.9586008 0.9414199 0.9351664 0.9437830 0.9505767 0.9281688 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.9544009 0.9667848 0.9560643 0.9479211 0.9756189 0.9851911 0.9777879 0.9919097 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+0.9993726 1.0036999 1.0136950 1.0223887 1.0402687 1.0512900 1.0530259 1.0564807 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0447639 1.0604601 1.0590513 1.0535923 1.0439247 1.0574525 1.0204265 1.0362866 
+> 
+> 
+> ## Blanciforti with some NA prices
+> ## manipulating data of Blanciforti
+> for( i in 1:4 ) {
++    Blanciforti86[[ pNames[ i ] ]][ c( 2, i * 4, i * 8 ) ] <- NA
++ }
+> 
+> ## price indices for Blanciforti with some NA prices
+> cat( "\nLaspeyres Price Indices for Blanciforti with some NA prices\n" )
+
+Laspeyres Price Indices for Blanciforti with some NA prices
+> print( priceIndex( pNames, qNames, 1, Blanciforti86 ) )
+    1947     1948     1949     1950     1951     1952     1953     1954 
+1.000000       NA 1.045316       NA 1.184266 1.202185 1.195876       NA 
+    1955     1956     1957     1958     1959     1960     1961     1962 
+1.178280 1.184553 1.222526       NA 1.240811 1.255530 1.276661       NA 
+    1963     1964     1965     1966     1967     1968     1969     1970 
+1.303181 1.323464 1.347238 1.417561 1.434193 1.481474 1.555367       NA 
+    1971     1972     1973     1974     1975     1976     1977     1978 
+1.702021 1.759742 2.001901 2.314574 2.526273 2.638970 2.838022       NA 
+> 
+> cat( "\nPaasche Price Indices for Blanciforti with some NA prices\n" )
+
+Paasche Price Indices for Blanciforti with some NA prices
+> print( priceIndex( pNames, qNames, 1, Blanciforti86, "Paasche" ) )
+    1947     1948     1949     1950     1951     1952     1953     1954 
+1.000000       NA 1.045215       NA 1.182329 1.202646 1.194199       NA 
+    1955     1956     1957     1958     1959     1960     1961     1962 
+1.171940 1.176156 1.216970       NA 1.239618 1.253313 1.272497       NA 
+    1963     1964     1965     1966     1967     1968     1969     1970 
+1.298582 1.317879 1.345488 1.414362 1.427900 1.475971 1.550297       NA 
+    1971     1972     1973     1974     1975     1976     1977     1978 
+1.689065 1.756509 2.012755 2.299396 2.508079 2.602940 2.766265       NA 
+> 
+> cat( "\nFisher Price Indices for Blanciforti with some NA prices\n" )
+
+Fisher Price Indices for Blanciforti with some NA prices
+> print( priceIndex( pNames, qNames, 1, Blanciforti86, "Fisher" ) )
+    1947     1948     1949     1950     1951     1952     1953     1954 
+1.000000       NA 1.045265       NA 1.183297 1.202416 1.195037       NA 
+    1955     1956     1957     1958     1959     1960     1961     1962 
+1.175106 1.180347 1.219745       NA 1.240214 1.254421 1.274577       NA 
+    1963     1964     1965     1966     1967     1968     1969     1970 
+1.300880 1.320668 1.346363 1.415961 1.431043 1.478719 1.552830       NA 
+    1971     1972     1973     1974     1975     1976     1977     1978 
+1.695530 1.758125 2.007321 2.306972 2.517159 2.620893 2.801914       NA 
+> 
+> ## quantity indices for Blanciforti with some NA prices
+> cat( "\nLaspeyres Quantity Indices for Blanciforti with some NA prices\n" )
+
+Laspeyres Quantity Indices for Blanciforti with some NA prices
+> print( quantityIndex( pNames, qNames, 1, Blanciforti86 ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+1.0000000 0.9666754 0.9702990 0.9527667 0.9465748 0.9557560 0.9622472 0.9400766 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.9670572 0.9802940 0.9680596 0.9599509 0.9877854 0.9975491 0.9903565 1.0049325 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+1.0133683 1.0178365 1.0268708 1.0369810 1.0546665 1.0663580 1.0682070 1.0727678 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0611022 1.0762818 1.0735080 1.0719053 1.0602775 1.0763253 1.0429313 1.0539772 
+> 
+> cat( "\nPaasche Quantity Indices for Blanciforti with some NA prices\n" )
+
+Paasche Quantity Indices for Blanciforti with some NA prices
+> print( quantityIndex( pNames, qNames, 1, Blanciforti86, "Paasche" ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+1.0000000        NA 0.9702048        NA 0.9450265 0.9561225 0.9608976        NA 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.9618539 0.9733456 0.9636603        NA 0.9868359 0.9957882 0.9871263        NA 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+1.0097922 1.0135407 1.0255368 1.0346412 1.0500388 1.0623970 1.0647256        NA 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0530251 1.0743045 1.0793284 1.0648761 1.0526413 1.0616301 1.0165616        NA 
+> 
+> cat( "\nFisher Quantity Indices for Blanciforti with some NA prices\n" )
+
+Fisher Quantity Indices for Blanciforti with some NA prices
+> print( quantityIndex( pNames, qNames, 1, Blanciforti86, "Fisher" ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+1.0000000        NA 0.9702519        NA 0.9458003 0.9559392 0.9615722        NA 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.9644521 0.9768136 0.9658575        NA 0.9873105 0.9966683 0.9887401        NA 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+1.0115787 1.0156863 1.0262036 1.0358104 1.0523501 1.0643757 1.0664649        NA 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0570560 1.0752927 1.0764143 1.0683849 1.0564525 1.0689524 1.0296620        NA 
+> 
+> ## price indices for Blanciforti with some NA prices and na.rm=TRUE
+> cat( "\nLaspeyres Price Indices for Blanciforti with some NA prices and na.rm=TRUE\n" )
+
+Laspeyres Price Indices for Blanciforti with some NA prices and na.rm=TRUE
+> print( priceIndex( pNames, qNames, 1, Blanciforti86, na.rm = TRUE ) )
+    1947     1948     1949     1950     1951     1952     1953     1954 
+1.000000       NA 1.045316       NA 1.184266 1.202185 1.195876       NA 
+    1955     1956     1957     1958     1959     1960     1961     1962 
+1.178280 1.184553 1.222526       NA 1.240811 1.255530 1.276661       NA 
+    1963     1964     1965     1966     1967     1968     1969     1970 
+1.303181 1.323464 1.347238 1.417561 1.434193 1.481474 1.555367       NA 
+    1971     1972     1973     1974     1975     1976     1977     1978 
+1.702021 1.759742 2.001901 2.314574 2.526273 2.638970 2.838022       NA 
+> 
+> cat( "\nPaasche Price Indices for Blanciforti with some NA prices and na.rm=TRUE\n" )
+
+Paasche Price Indices for Blanciforti with some NA prices and na.rm=TRUE
+> print( priceIndex( pNames, qNames, 1, Blanciforti86, "Paasche", na.rm = TRUE ) )
+    1947     1948     1949     1950     1951     1952     1953     1954 
+1.000000       NA 1.045215       NA 1.182329 1.202646 1.194199       NA 
+    1955     1956     1957     1958     1959     1960     1961     1962 
+1.171940 1.176156 1.216970       NA 1.239618 1.253313 1.272497       NA 
+    1963     1964     1965     1966     1967     1968     1969     1970 
+1.298582 1.317879 1.345488 1.414362 1.427900 1.475971 1.550297       NA 
+    1971     1972     1973     1974     1975     1976     1977     1978 
+1.689065 1.756509 2.012755 2.299396 2.508079 2.602940 2.766265       NA 
+> 
+> cat( "\nFisher Price Indices for Blanciforti with some NA prices and na.rm=TRUE\n" )
+
+Fisher Price Indices for Blanciforti with some NA prices and na.rm=TRUE
+> print( priceIndex( pNames, qNames, 1, Blanciforti86, "Fisher", na.rm = TRUE ) )
+    1947     1948     1949     1950     1951     1952     1953     1954 
+1.000000       NA 1.045265       NA 1.183297 1.202416 1.195037       NA 
+    1955     1956     1957     1958     1959     1960     1961     1962 
+1.175106 1.180347 1.219745       NA 1.240214 1.254421 1.274577       NA 
+    1963     1964     1965     1966     1967     1968     1969     1970 
+1.300880 1.320668 1.346363 1.415961 1.431043 1.478719 1.552830       NA 
+    1971     1972     1973     1974     1975     1976     1977     1978 
+1.695530 1.758125 2.007321 2.306972 2.517159 2.620893 2.801914       NA 
+> 
+> ## quantity indices for Blanciforti with some NA prices and na.rm=TRUE
+> cat( "\nLaspeyres Quantity Indices for Blanciforti with some NA prices and na.rm=TRUE\n" )
+
+Laspeyres Quantity Indices for Blanciforti with some NA prices and na.rm=TRUE
+> print( quantityIndex( pNames, qNames, 1, Blanciforti86, na.rm = TRUE ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+1.0000000 0.9666754 0.9702990 0.9527667 0.9465748 0.9557560 0.9622472 0.9400766 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.9670572 0.9802940 0.9680596 0.9599509 0.9877854 0.9975491 0.9903565 1.0049325 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+1.0133683 1.0178365 1.0268708 1.0369810 1.0546665 1.0663580 1.0682070 1.0727678 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0611022 1.0762818 1.0735080 1.0719053 1.0602775 1.0763253 1.0429313 1.0539772 
+> 
+> cat( "\nPaasche Quantity Indices for Blanciforti with some NA prices and na.rm=TRUE\n" )
+
+Paasche Quantity Indices for Blanciforti with some NA prices and na.rm=TRUE
+> print( quantityIndex( pNames, qNames, 1, Blanciforti86, "Paasche", na.rm = TRUE ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+1.0000000        NA 0.9702048        NA 0.9450265 0.9561225 0.9608976        NA 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.9618539 0.9733456 0.9636603        NA 0.9868359 0.9957882 0.9871263        NA 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+1.0097922 1.0135407 1.0255368 1.0346412 1.0500388 1.0623970 1.0647256        NA 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0530251 1.0743045 1.0793284 1.0648761 1.0526413 1.0616301 1.0165616        NA 
+> 
+> cat( "\nFisher Quantity Indices for Blanciforti with some NA prices and na.rm=TRUE\n" )
+
+Fisher Quantity Indices for Blanciforti with some NA prices and na.rm=TRUE
+> print( quantityIndex( pNames, qNames, 1, Blanciforti86, "Fisher", na.rm = TRUE ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+1.0000000        NA 0.9702519        NA 0.9458003 0.9559392 0.9615722        NA 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.9644521 0.9768136 0.9658575        NA 0.9873105 0.9966683 0.9887401        NA 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+1.0115787 1.0156863 1.0262036 1.0358104 1.0523501 1.0643757 1.0664649        NA 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0570560 1.0752927 1.0764143 1.0683849 1.0564525 1.0689524 1.0296620        NA 
+> 
+> ## price indices for Blanciforti with some NA prices and base=mean
+> cat( "\nLaspeyres Price Indices for Blanciforti with some NA prices and base=mean\n" )
+
+Laspeyres Price Indices for Blanciforti with some NA prices and base=mean
+> print( priceIndex( pNames, qNames, 16, Blanciforti86 ) )
+1947 1948 1949 1950 1951 1952 1953 1954 1955 1956 1957 1958 1959 1960 1961 1962 
+  NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 
+1963 1964 1965 1966 1967 1968 1969 1970 1971 1972 1973 1974 1975 1976 1977 1978 
+  NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 
+> 
+> cat( "\nPaasche Price Indices for Blanciforti with some NA prices and base=mean\n" )
+
+Paasche Price Indices for Blanciforti with some NA prices and base=mean
+> print( priceIndex( pNames, qNames, allObs, Blanciforti86, "Paasche" ) )
+1947 1948 1949 1950 1951 1952 1953 1954 1955 1956 1957 1958 1959 1960 1961 1962 
+  NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 
+1963 1964 1965 1966 1967 1968 1969 1970 1971 1972 1973 1974 1975 1976 1977 1978 
+  NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 
+> 
+> cat( "\nFisher Price Indices for Blanciforti with some NA prices and base=mean\n" )
+
+Fisher Price Indices for Blanciforti with some NA prices and base=mean
+> print( priceIndex( pNames, qNames, allObs, Blanciforti86, "Fisher" ) )
+1947 1948 1949 1950 1951 1952 1953 1954 1955 1956 1957 1958 1959 1960 1961 1962 
+  NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 
+1963 1964 1965 1966 1967 1968 1969 1970 1971 1972 1973 1974 1975 1976 1977 1978 
+  NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 
+> 
+> ## quantity indices for Blanciforti with some NA prices and base=mean
+> cat( "\nLaspeyres Quantity Indices for Blanciforti with some NA prices and base=mean\n" )
+
+Laspeyres Quantity Indices for Blanciforti with some NA prices and base=mean
+> print( quantityIndex( pNames, qNames, 16, Blanciforti86 ) )
+1947 1948 1949 1950 1951 1952 1953 1954 1955 1956 1957 1958 1959 1960 1961 1962 
+  NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 
+1963 1964 1965 1966 1967 1968 1969 1970 1971 1972 1973 1974 1975 1976 1977 1978 
+  NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 
+> 
+> cat( "\nPaasche Quantity Indices for Blanciforti with some NA prices and base=mean\n" )
+
+Paasche Quantity Indices for Blanciforti with some NA prices and base=mean
+> print( quantityIndex( pNames, qNames, allObs, Blanciforti86, "Paasche" ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+0.9869310        NA 0.9560272        NA 0.9324251 0.9418017 0.9504922        NA 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.9544271 0.9667501 0.9560232        NA 0.9754482 0.9851667 0.9778199        NA 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+0.9991455 1.0035233 1.0137440 1.0222224 1.0402014 1.0511109 1.0531059        NA 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0438943 1.0608234 1.0594514 1.0528085 1.0434946 1.0552513 1.0139236        NA 
+> 
+> cat( "\nFisher Quantity Indices for Blanciforti with some NA prices and base=mean\n" )
+
+Fisher Quantity Indices for Blanciforti with some NA prices and base=mean
+> print( quantityIndex( pNames, qNames, allObs, Blanciforti86, "Fisher" ) )
+1947 1948 1949 1950 1951 1952 1953 1954 1955 1956 1957 1958 1959 1960 1961 1962 
+  NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 
+1963 1964 1965 1966 1967 1968 1969 1970 1971 1972 1973 1974 1975 1976 1977 1978 
+  NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 
+> 
+> ## price indices for Blanciforti with some NA prices and na.rm=TRUE and base=mean
+> cat( paste( "\nLaspeyres Price Indices for Blanciforti with some NA prices",
++    "and na.rm=TRUE and base=mean\n" ) )
+
+Laspeyres Price Indices for Blanciforti with some NA prices and na.rm=TRUE and base=mean
+> print( priceIndex( pNames, qNames, allObs, Blanciforti86, na.rm = TRUE ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+0.6471838        NA 0.6775717        NA 0.7666439 0.7795428 0.7721988        NA 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.7584542 0.7617662 0.7870968        NA 0.8017902 0.8105852 0.8231971        NA 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+0.8412450 0.8537691 0.8705262 0.9164325 0.9247194 0.9564156 1.0044143        NA 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0966335 1.1382768 1.3026556 1.4953236 1.6277396 1.6957675 1.8174341        NA 
+> 
+> cat( paste( "\nPaasche Price Indices for Blanciforti with some NA prices",
++    "and na.rm=TRUE and base=mean\n" ) )
+
+Paasche Price Indices for Blanciforti with some NA prices and na.rm=TRUE and base=mean
+> print( priceIndex( pNames, qNames, allObs, Blanciforti86, "Paasche", na.rm = TRUE ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+0.6464970        NA 0.6752379        NA 0.7632548 0.7772458 0.7725024        NA 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.7585558 0.7618198 0.7869408        NA 0.8017528 0.8108653 0.8234173        NA 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+0.8411958 0.8534259 0.8707765 0.9162710 0.9242181 0.9558810 1.0041887        NA 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0930946 1.1383016 1.3036129 1.4929109 1.6250908 1.6853403 1.7894135        NA 
+> 
+> cat( paste( "\nFisher Price Indices for Blanciforti with some NA prices",
++    "and na.rm=TRUE and base=mean\n" ) )
+
+Fisher Price Indices for Blanciforti with some NA prices and na.rm=TRUE and base=mean
+> print( priceIndex( pNames, qNames, allObs, Blanciforti86, "Fisher", na.rm = TRUE ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+0.6468403        NA 0.6764038        NA 0.7649475 0.7783934 0.7723506        NA 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.7585050 0.7617930 0.7870188        NA 0.8017715 0.8107252 0.8233072        NA 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+0.8412204 0.8535975 0.8706513 0.9163517 0.9244687 0.9561483 1.0043015        NA 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0948626 1.1382892 1.3031342 1.4941168 1.6264146 1.6905459 1.8033694        NA 
+> 
+> ## quantity indices for Blanciforti with some NA prices and na.rm=TRUE and base=mean
+> cat( paste( "\nLaspeyres Quantity Indices for Blanciforti with some NA prices",
++    "and na.rm=TRUE and base=mean\n" ) )
+
+Laspeyres Quantity Indices for Blanciforti with some NA prices and na.rm=TRUE and base=mean
+> print( quantityIndex( pNames, qNames, allObs, Blanciforti86, na.rm = TRUE ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+0.9879796 0.9554936 0.9593316 0.9419414 0.9365655 0.9445850 0.9501188 0.9281387 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.9542993 0.9666821 0.9562127 0.9478499 0.9754937 0.9848264 0.9775584 0.9918964 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+0.9992039 1.0039268 1.0134526 1.0224027 1.0407655 1.0516988 1.0533424 1.0572142 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0472739 1.0608003 1.0586734 1.0545099 1.0451955 1.0617801 1.0298008 1.0409865 
+> 
+> cat( paste( "\nPaasche Quantity Indices for Blanciforti with some NA prices",
++    "and na.rm=TRUE and base=mean\n" ) )
+
+Paasche Quantity Indices for Blanciforti with some NA prices and na.rm=TRUE and base=mean
+> print( quantityIndex( pNames, qNames, allObs, Blanciforti86, "Paasche", na.rm = TRUE ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+0.9869310        NA 0.9560272        NA 0.9324251 0.9418017 0.9504922        NA 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.9544271 0.9667501 0.9560232        NA 0.9754482 0.9851667 0.9778199        NA 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+0.9991455 1.0035233 1.0137440 1.0222224 1.0402014 1.0511109 1.0531059        NA 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0438943 1.0608234 1.0594514 1.0528085 1.0434946 1.0552513 1.0139236        NA 
+> 
+> cat( paste( "\nFisher Quantity Indices for Blanciforti with some NA prices",
++    "and na.rm=TRUE and base=mean\n" ) )
+
+Fisher Quantity Indices for Blanciforti with some NA prices and na.rm=TRUE and base=mean
+> print( quantityIndex( pNames, qNames, allObs, Blanciforti86, "Fisher", na.rm = TRUE ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+0.9874552        NA 0.9576780        NA 0.9344930 0.9431923 0.9503055        NA 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.9543632 0.9667161 0.9561179        NA 0.9754710 0.9849966 0.9776891        NA 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+0.9991747 1.0037250 1.0135983 1.0223125 1.0404834 1.0514048 1.0532242        NA 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0455827 1.0608118 1.0590623 1.0536589 1.0443447 1.0585107 1.0218314        NA 
+> 
+> 
+> ## Blanciforti with some NA prices and quantities
+> ## manipulating data of Blanciforti
+> for( i in 1:4 ) {
++    Blanciforti86[[ qNames[ i ] ]][ c( 2, ( i + 1 ) * 4, i * 8 ) ] <- NA
++ }
+> 
+> ## price indices for Blanciforti with some NA prices and quantities
+> cat( "\nLaspeyres Price Indices for Blanciforti with NA prices and quantities\n" )
+
+Laspeyres Price Indices for Blanciforti with NA prices and quantities
+> print( priceIndex( pNames, qNames, 1, Blanciforti86 ) )
+    1947     1948     1949     1950     1951     1952     1953     1954 
+1.000000       NA 1.045316       NA 1.184266 1.202185 1.195876       NA 
+    1955     1956     1957     1958     1959     1960     1961     1962 
+1.178280 1.184553 1.222526       NA 1.240811 1.255530 1.276661       NA 
+    1963     1964     1965     1966     1967     1968     1969     1970 
+1.303181 1.323464 1.347238 1.417561 1.434193 1.481474 1.555367       NA 
+    1971     1972     1973     1974     1975     1976     1977     1978 
+1.702021 1.759742 2.001901 2.314574 2.526273 2.638970 2.838022       NA 
+> 
+> cat( "\nPaasche Price Indices for Blanciforti with NA prices and quantities\n" )
+
+Paasche Price Indices for Blanciforti with NA prices and quantities
+> print( priceIndex( pNames, qNames, 1, Blanciforti86, "Paasche" ) )
+    1947     1948     1949     1950     1951     1952     1953     1954 
+1.000000       NA 1.045215       NA 1.182329 1.202646 1.194199       NA 
+    1955     1956     1957     1958     1959     1960     1961     1962 
+1.171940 1.176156 1.216970       NA 1.239618 1.253313 1.272497       NA 
+    1963     1964     1965     1966     1967     1968     1969     1970 
+1.298582 1.317879 1.345488       NA 1.427900 1.475971 1.550297       NA 
+    1971     1972     1973     1974     1975     1976     1977     1978 
+1.689065 1.756509 2.012755 2.299396 2.508079 2.602940 2.766265       NA 
+> 
+> cat( "\nFisher Price Indices for Blanciforti with NA prices and quantities\n" )
+
+Fisher Price Indices for Blanciforti with NA prices and quantities
+> print( priceIndex( pNames, qNames, 1, Blanciforti86, "Fisher" ) )
+    1947     1948     1949     1950     1951     1952     1953     1954 
+1.000000       NA 1.045265       NA 1.183297 1.202416 1.195037       NA 
+    1955     1956     1957     1958     1959     1960     1961     1962 
+1.175106 1.180347 1.219745       NA 1.240214 1.254421 1.274577       NA 
+    1963     1964     1965     1966     1967     1968     1969     1970 
+1.300880 1.320668 1.346363       NA 1.431043 1.478719 1.552830       NA 
+    1971     1972     1973     1974     1975     1976     1977     1978 
+1.695530 1.758125 2.007321 2.306972 2.517159 2.620893 2.801914       NA 
+> 
+> ## quantity indices for Blanciforti with some NA prices and quantities
+> cat( "\nLaspeyres Quantity Indices for Blanciforti with NA prices and quantities\n" )
+
+Laspeyres Quantity Indices for Blanciforti with NA prices and quantities
+> print( quantityIndex( pNames, qNames, 1, Blanciforti86 ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+1.0000000        NA 0.9702990 0.9527667 0.9465748 0.9557560 0.9622472        NA 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.9670572 0.9802940 0.9680596        NA 0.9877854 0.9975491 0.9903565        NA 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+1.0133683 1.0178365 1.0268708        NA 1.0546665 1.0663580 1.0682070        NA 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0611022 1.0762818 1.0735080 1.0719053 1.0602775 1.0763253 1.0429313        NA 
+> 
+> cat( "\nPaasche Quantity Indices for Blanciforti with NA prices and quantities\n" )
+
+Paasche Quantity Indices for Blanciforti with NA prices and quantities
+> print( quantityIndex( pNames, qNames, 1, Blanciforti86, "Paasche" ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+1.0000000        NA 0.9702048        NA 0.9450265 0.9561225 0.9608976        NA 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.9618539 0.9733456 0.9636603        NA 0.9868359 0.9957882 0.9871263        NA 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+1.0097922 1.0135407 1.0255368        NA 1.0500388 1.0623970 1.0647256        NA 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0530251 1.0743045 1.0793284 1.0648761 1.0526413 1.0616301 1.0165616        NA 
+> 
+> cat( "\nFisher Quantity Indices for Blanciforti with NA prices and quantities\n" )
+
+Fisher Quantity Indices for Blanciforti with NA prices and quantities
+> print( quantityIndex( pNames, qNames, 1, Blanciforti86, "Fisher" ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+1.0000000        NA 0.9702519        NA 0.9458003 0.9559392 0.9615722        NA 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.9644521 0.9768136 0.9658575        NA 0.9873105 0.9966683 0.9887401        NA 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+1.0115787 1.0156863 1.0262036        NA 1.0523501 1.0643757 1.0664649        NA 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0570560 1.0752927 1.0764143 1.0683849 1.0564525 1.0689524 1.0296620        NA 
+> 
+> ## price indices for Blanciforti with some NA prices and quantities and na.rm=TRUE
+> cat( paste( "\nLaspeyres Price Indices for Blanciforti with NA prices and",
++    "quantities and na.rm=TRUE\n" ) )
+
+Laspeyres Price Indices for Blanciforti with NA prices and quantities and na.rm=TRUE
+> print( priceIndex( pNames, qNames, 1, Blanciforti86, na.rm = TRUE ) )
+    1947     1948     1949     1950     1951     1952     1953     1954 
+1.000000       NA 1.045316       NA 1.184266 1.202185 1.195876       NA 
+    1955     1956     1957     1958     1959     1960     1961     1962 
+1.178280 1.184553 1.222526       NA 1.240811 1.255530 1.276661       NA 
+    1963     1964     1965     1966     1967     1968     1969     1970 
+1.303181 1.323464 1.347238 1.417561 1.434193 1.481474 1.555367       NA 
+    1971     1972     1973     1974     1975     1976     1977     1978 
+1.702021 1.759742 2.001901 2.314574 2.526273 2.638970 2.838022       NA 
+> 
+> cat( paste( "\nPaasche Price Indices for Blanciforti with NA prices and",
++    "quantities and na.rm=TRUE\n" ) )
+
+Paasche Price Indices for Blanciforti with NA prices and quantities and na.rm=TRUE
+> print( priceIndex( pNames, qNames, 1, Blanciforti86, "Paasche", na.rm = TRUE ) )
+    1947     1948     1949     1950     1951     1952     1953     1954 
+1.000000       NA 1.045215       NA 1.182329 1.202646 1.194199       NA 
+    1955     1956     1957     1958     1959     1960     1961     1962 
+1.171940 1.176156 1.216970       NA 1.239618 1.253313 1.272497       NA 
+    1963     1964     1965     1966     1967     1968     1969     1970 
+1.298582 1.317879 1.345488       NA 1.427900 1.475971 1.550297       NA 
+    1971     1972     1973     1974     1975     1976     1977     1978 
+1.689065 1.756509 2.012755 2.299396 2.508079 2.602940 2.766265       NA 
+> 
+> cat( paste( "\nFisher Price Indices for Blanciforti with NA prices and",
++    "quantities and na.rm=TRUE\n" ) )
+
+Fisher Price Indices for Blanciforti with NA prices and quantities and na.rm=TRUE
+> print( priceIndex( pNames, qNames, 1, Blanciforti86, "Fisher", na.rm = TRUE ) )
+    1947     1948     1949     1950     1951     1952     1953     1954 
+1.000000       NA 1.045265       NA 1.183297 1.202416 1.195037       NA 
+    1955     1956     1957     1958     1959     1960     1961     1962 
+1.175106 1.180347 1.219745       NA 1.240214 1.254421 1.274577       NA 
+    1963     1964     1965     1966     1967     1968     1969     1970 
+1.300880 1.320668 1.346363       NA 1.431043 1.478719 1.552830       NA 
+    1971     1972     1973     1974     1975     1976     1977     1978 
+1.695530 1.758125 2.007321 2.306972 2.517159 2.620893 2.801914       NA 
+> 
+> ## quantity indices for Blanciforti with some NA prices and quantities and na.rm=TRUE
+> cat( paste( "\nLaspeyres Quantity Indices for Blanciforti with NA prices and",
++    "quantities and na.rm=TRUE\n" ) )
+
+Laspeyres Quantity Indices for Blanciforti with NA prices and quantities and na.rm=TRUE
+> print( quantityIndex( pNames, qNames, 1, Blanciforti86, na.rm = TRUE ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+1.0000000        NA 0.9702990 0.9527667 0.9465748 0.9557560 0.9622472        NA 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.9670572 0.9802940 0.9680596        NA 0.9877854 0.9975491 0.9903565        NA 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+1.0133683 1.0178365 1.0268708        NA 1.0546665 1.0663580 1.0682070        NA 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0611022 1.0762818 1.0735080 1.0719053 1.0602775 1.0763253 1.0429313        NA 
+> 
+> cat( paste( "\nPaasche Quantity Indices for Blanciforti with NA prices and",
++    "quantities and na.rm=TRUE\n" ) )
+
+Paasche Quantity Indices for Blanciforti with NA prices and quantities and na.rm=TRUE
+> print( quantityIndex( pNames, qNames, 1, Blanciforti86, "Paasche", na.rm = TRUE ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+1.0000000        NA 0.9702048        NA 0.9450265 0.9561225 0.9608976        NA 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.9618539 0.9733456 0.9636603        NA 0.9868359 0.9957882 0.9871263        NA 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+1.0097922 1.0135407 1.0255368        NA 1.0500388 1.0623970 1.0647256        NA 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0530251 1.0743045 1.0793284 1.0648761 1.0526413 1.0616301 1.0165616        NA 
+> 
+> cat( paste( "\nFisher Quantity Indices for Blanciforti with some NA prices and",
++    "na.rm=TRUE\n" ) )
+
+Fisher Quantity Indices for Blanciforti with some NA prices and na.rm=TRUE
+> print( quantityIndex( pNames, qNames, 1, Blanciforti86, "Fisher", na.rm = TRUE ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+1.0000000        NA 0.9702519        NA 0.9458003 0.9559392 0.9615722        NA 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.9644521 0.9768136 0.9658575        NA 0.9873105 0.9966683 0.9887401        NA 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+1.0115787 1.0156863 1.0262036        NA 1.0523501 1.0643757 1.0664649        NA 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0570560 1.0752927 1.0764143 1.0683849 1.0564525 1.0689524 1.0296620        NA 
+> 
+> ## price indices for Blanciforti with some NA prices and quantities and base=mean
+> cat( paste( "\nLaspeyres Price Indices for Blanciforti with NA prices and",
++    "quantities and base=mean\n" ) )
+
+Laspeyres Price Indices for Blanciforti with NA prices and quantities and base=mean
+> print( priceIndex( pNames, qNames, 16, Blanciforti86 ) )
+1947 1948 1949 1950 1951 1952 1953 1954 1955 1956 1957 1958 1959 1960 1961 1962 
+  NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 
+1963 1964 1965 1966 1967 1968 1969 1970 1971 1972 1973 1974 1975 1976 1977 1978 
+  NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 
+> 
+> cat( paste( "\nPaasche Price Indices for Blanciforti with NA prices and",
++    "quantities and base=mean\n" ) )
+
+Paasche Price Indices for Blanciforti with NA prices and quantities and base=mean
+> print( priceIndex( pNames, qNames, allObs, Blanciforti86, "Paasche" ) )
+1947 1948 1949 1950 1951 1952 1953 1954 1955 1956 1957 1958 1959 1960 1961 1962 
+  NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 
+1963 1964 1965 1966 1967 1968 1969 1970 1971 1972 1973 1974 1975 1976 1977 1978 
+  NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 
+> 
+> cat( paste( "\nFisher Price Indices for Blanciforti with NA prices and",
++    "quantities and base=mean\n" ) )
+
+Fisher Price Indices for Blanciforti with NA prices and quantities and base=mean
+> print( priceIndex( pNames, qNames, allObs, Blanciforti86, "Fisher" ) )
+1947 1948 1949 1950 1951 1952 1953 1954 1955 1956 1957 1958 1959 1960 1961 1962 
+  NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 
+1963 1964 1965 1966 1967 1968 1969 1970 1971 1972 1973 1974 1975 1976 1977 1978 
+  NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 
+> 
+> ## quantity indices for Blanciforti with some NA prices and quantities and base=mean
+> cat( paste( "\nLaspeyres Quantity Indices for Blanciforti with NA prices and",
++    "quantities and base=mean\n" ) )
+
+Laspeyres Quantity Indices for Blanciforti with NA prices and quantities and base=mean
+> print( quantityIndex( pNames, qNames, 16, Blanciforti86 ) )
+1947 1948 1949 1950 1951 1952 1953 1954 1955 1956 1957 1958 1959 1960 1961 1962 
+  NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 
+1963 1964 1965 1966 1967 1968 1969 1970 1971 1972 1973 1974 1975 1976 1977 1978 
+  NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 
+> 
+> cat( paste( "\nPaasche Quantity Indices for Blanciforti with NA prices and",
++    "quantities and base=mean\n" ) )
+
+Paasche Quantity Indices for Blanciforti with NA prices and quantities and base=mean
+> print( quantityIndex( pNames, qNames, allObs, Blanciforti86, "Paasche" ) )
+1947 1948 1949 1950 1951 1952 1953 1954 1955 1956 1957 1958 1959 1960 1961 1962 
+  NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 
+1963 1964 1965 1966 1967 1968 1969 1970 1971 1972 1973 1974 1975 1976 1977 1978 
+  NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 
+> 
+> cat( paste( "\nFisher Quantity Indices for Blanciforti with NA prices and",
++    "quantities and base=mean\n" ) )
+
+Fisher Quantity Indices for Blanciforti with NA prices and quantities and base=mean
+> print( quantityIndex( pNames, qNames, allObs, Blanciforti86, "Fisher" ) )
+1947 1948 1949 1950 1951 1952 1953 1954 1955 1956 1957 1958 1959 1960 1961 1962 
+  NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 
+1963 1964 1965 1966 1967 1968 1969 1970 1971 1972 1973 1974 1975 1976 1977 1978 
+  NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA 
+> 
+> ## price indices for Blanciforti with some NA prices and quantities and na.rm=TRUE and base=mean
+> cat( paste( "\nLaspeyres Price Indices for Blanciforti with NA prices and quantities",
++    "and na.rm=TRUE and base=mean\n" ) )
+
+Laspeyres Price Indices for Blanciforti with NA prices and quantities and na.rm=TRUE and base=mean
+> print( priceIndex( pNames, qNames, allObs, Blanciforti86, na.rm = TRUE ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+0.6472282        NA 0.6776556        NA 0.7667367 0.7796499 0.7721996        NA 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.7583620 0.7616284 0.7870026        NA 0.8017818 0.8105447 0.8231244        NA 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+0.8411831 0.8536749 0.8704911 0.9164289 0.9246336 0.9563472 1.0043756        NA 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0965043 1.1382937 1.3029513 1.4952657 1.6275725 1.6954523 1.8168607        NA 
+> 
+> cat( paste( "\nPaasche Price Indices for Blanciforti with NA prices and quantities",
++    "and na.rm=TRUE and base=mean\n" ) )
+
+Paasche Price Indices for Blanciforti with NA prices and quantities and na.rm=TRUE and base=mean
+> print( priceIndex( pNames, qNames, allObs, Blanciforti86, "Paasche", na.rm = TRUE ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+0.6464970        NA 0.6752379        NA 0.7632548 0.7772458 0.7725024        NA 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.7585558 0.7618198 0.7869408        NA 0.8017528 0.8108653 0.8234173        NA 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+0.8411958 0.8534259 0.8707765        NA 0.9242181 0.9558810 1.0041887        NA 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0930946 1.1383016 1.3036129 1.4929109 1.6250908 1.6853403 1.7894135        NA 
+> 
+> cat( paste( "\nFisher Price Indices for Blanciforti with NA prices and quantities",
++    "and na.rm=TRUE and base=mean\n" ) )
+
+Fisher Price Indices for Blanciforti with NA prices and quantities and na.rm=TRUE and base=mean
+> print( priceIndex( pNames, qNames, allObs, Blanciforti86, "Fisher", na.rm = TRUE ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+0.6468625        NA 0.6764456        NA 0.7649937 0.7784469 0.7723510        NA 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.7584589 0.7617241 0.7869717        NA 0.8017673 0.8107050 0.8232708        NA 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+0.8411894 0.8535504 0.8706338        NA 0.9244258 0.9561141 1.0042822        NA 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0947981 1.1382977 1.3032821 1.4940879 1.6263312 1.6903887 1.8030849        NA 
+> 
+> ## quantity indices for Blanciforti with some NA prices and quantities and na.rm=TRUE and base=mean
+> cat( paste( "\nLaspeyres Quantity Indices for Blanciforti with NA prices and quantities",
++    "and na.rm=TRUE and base=mean\n" ) )
+
+Laspeyres Quantity Indices for Blanciforti with NA prices and quantities and na.rm=TRUE and base=mean
+> print( quantityIndex( pNames, qNames, allObs, Blanciforti86, na.rm = TRUE ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+0.9843597        NA 0.9558166 0.9384902 0.9331340 0.9411241 0.9466376        NA 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.9508028 0.9631402 0.9527092        NA 0.9719196 0.9812181 0.9739767        NA 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+0.9955429 1.0002485 1.0097394        NA 1.0369522 1.0478454 1.0494831        NA 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0434367 1.0569136 1.0547945 1.0506463 1.0413659 1.0578898 1.0260276        NA 
+> 
+> cat( paste( "\nPaasche Quantity Indices for Blanciforti with NA prices and quantities",
++    "and na.rm=TRUE and base=mean\n" ) )
+
+Paasche Quantity Indices for Blanciforti with NA prices and quantities and na.rm=TRUE and base=mean
+> print( quantityIndex( pNames, qNames, allObs, Blanciforti86, "Paasche", na.rm = TRUE ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+0.9832475        NA 0.9524065        NA 0.9288964 0.9382221 0.9470087        NA 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.9510457 0.9633822 0.9526344        NA 0.9718844 0.9816062 0.9743233        NA 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+0.9955580 0.9999567 1.0100704        NA 1.0364863 1.0473346 1.0492878        NA 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0401921 1.0569209 1.0553301 1.0489917 1.0397781 1.0515804 1.0105275        NA 
+> 
+> cat( paste( "\nFisher Quantity Indices for Blanciforti with NA prices and quantities",
++    "and na.rm=TRUE and base=mean\n" ) )
+
+Fisher Quantity Indices for Blanciforti with NA prices and quantities and na.rm=TRUE and base=mean
+> print( quantityIndex( pNames, qNames, allObs, Blanciforti86, "Fisher", na.rm = TRUE ) )
+     1947      1948      1949      1950      1951      1952      1953      1954 
+0.9838035        NA 0.9541101        NA 0.9310128 0.9396720 0.9468231        NA 
+     1955      1956      1957      1958      1959      1960      1961      1962 
+0.9509242 0.9632612 0.9526718        NA 0.9719020 0.9814121 0.9741500        NA 
+     1963      1964      1965      1966      1967      1968      1969      1970 
+0.9955505 1.0001026 1.0099049        NA 1.0367192 1.0475900 1.0493855        NA 
+     1971      1972      1973      1974      1975      1976      1977      1978 
+1.0418132 1.0569172 1.0550623 1.0498187 1.0405717 1.0547304 1.0182481        NA 
+> 
+> 
