@@ -35,10 +35,10 @@
    \item{estMethod}{estimation method (e.g. "SUR",
       see \code{\link[systemfit]{systemfit}}).}
    \item{maxiterMk}{maximum number of iterations of the
-      Michalek and Keyzer estimation}
-   \item{tolMk}{tolerance level of the Michalek and Keyzer iteration}
-   \item{alpha0}{the intercept of the translog price index (\eqn{\alpha_0})}
-   \item{...}{argunents passed to \code{\link[systemfit]{systemfit}}}
+      Michalek and Keyzer estimation.}
+   \item{tolMk}{tolerance level of the Michalek and Keyzer iteration.}
+   \item{alpha0}{the intercept of the translog price index (\eqn{\alpha_0}).}
+   \item{...}{arguments passed to \code{\link[systemfit]{systemfit}}.}
 }
 
 \details{

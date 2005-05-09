@@ -8,7 +8,7 @@
 
 \usage{
    aidsTestConsist( pNames, wNames, xtName, data, coef = NULL,
-      alpha0 = ifelse( is.null( coef$alpha0 ), 0, coef$alpha0 )
+      alpha0 = ifelse( is.null( coef$alpha0 ), 0, coef$alpha0 ) )
 }
 
 \arguments{

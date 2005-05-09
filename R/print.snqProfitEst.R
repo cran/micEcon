@@ -1,7 +1,4 @@
-print.snqProfitEst <- function( x, digits=6,... ) {
-
-   save.digits <- unlist( options( digits = digits ) )
-   on.exit( options( digits = save.digits ) )
+print.snqProfitEst <- function( x, ... ) {
 
    table <- NULL
    labels <- NULL
@@ -31,13 +28,13 @@ print.snqProfitEst <- function( x, digits=6,... ) {
       }
    }
    cat( "\nEstimated coefficients:\n" )
-   print( x$coef$stats )
+   print( x$coef$stats, ... )
 
    cat( "\nR-squared values of the netput equations:\n" )
-   print( x$r2 )
+   print( x$r2, ... )
 
    cat( "\nPrice elasticities of the netputs:\n" )
-   print( x$ela )
+   print( x$ela, ... )
 
    if( x$convexity ) {
       #cat( "\nThis profit function is convex in netputs." )

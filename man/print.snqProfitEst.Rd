@@ -8,13 +8,12 @@
 }
 
 \usage{
-   \method{print}{snqProfitEst}( x, digits=6, \dots )
+   \method{print}{snqProfitEst}( x, \dots )
 }
 
 \arguments{
   \item{x}{an object of class \code{snqProfitEst}.}
-  \item{digits}{number of digits to print.}
-  \item{\dots}{other arguments.}
+  \item{\dots}{arguments passed to \code{\link{print}}.}
 }
 
 \author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}

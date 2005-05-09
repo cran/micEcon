@@ -115,10 +115,11 @@ snqProfitEst <- function( pNames, qNames, fNames = NULL,
    if( nIV == 0 ) {
       inst <- NULL
    } else {
-      inst <- as.formula( paste( "~", paste( ivNames, collapse = "+" ) ) )
+      inst <- as.formula( paste( "~", paste( paste( "iv", c( 1:nIV ), sep="" ),
+         collapse = " + " ) ) )
       for( i in 1:nIV ) {
          modelData[[ paste( "iv", as.character( i ), sep = "" ) ]] <-
-            data[[ ivNames[ i ] ]]
+            data[[ ivNames[ i ] ]] / mean( data[[ ivNames[ i ] ]] )
       }
    }
    system <- snqProfitSystem( nNetput, nFix )    # equation system
@@ -127,7 +128,7 @@ snqProfitEst <- function( pNames, qNames, fNames = NULL,
       TX = restrict, inst = inst, ... )
    result$coef <- snqProfitCoef( coef = result$est$bt, nNetput = nNetput,
       nFix = nFix, form = form, coefCov = result$est$btcov,
-      df = nNetput * nObs - nCoef, 
+      df = nNetput * nObs - nCoef,
       qNames = qNames, pNames = pNames, fNames = fNames )
       # estimated coefficients
    result$coef$liCoef <- result$est$bt
@@ -248,6 +249,7 @@ snqProfitEst <- function( pNames, qNames, fNames = NULL,
       result$qMeans, weights )   # estimated elasticities
    result$estData  <- estData
    result$weights  <- weights
+   names( result$weights ) <- pNames
    result$normPrice <- modelData$normPrice
    result$convexity  <- semidefiniteness( result$hessian[
       1:( nNetput - 1 ), 1:( nNetput - 1 ) ] )$positive

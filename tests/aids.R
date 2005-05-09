@@ -1,5 +1,6 @@
 library( micEcon )
 data( Blanciforti86 )
+options( digits = 6 )
 
 pNames <- c( "pFood1", "pFood2", "pFood3", "pFood4" )
 wNames <- c( "wFood1", "wFood2", "wFood3", "wFood4" )
