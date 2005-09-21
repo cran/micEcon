@@ -148,7 +148,7 @@ print.heckit <- function( x, digits = 6, ... ) {
    colnames( table ) <- c( "Estimate", "Std. Error", "t value",
       "Pr(>|t|)", "" )
 
-   print.matrix( table, quote = FALSE, right = TRUE )
+   print( table, quote = FALSE, right = TRUE )
    cat( "---\nSignif. codes: ", attr( Signif, "legend" ), "\n" )
 
    if( class( x$lm ) == "lm" ) {

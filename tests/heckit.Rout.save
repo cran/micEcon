@@ -1,6 +1,6 @@
 
-R : Copyright 2004, The R Foundation for Statistical Computing
-Version 2.0.1  (2004-11-15), ISBN 3-900051-07-0
+R : Copyright 2005, The R Foundation for Statistical Computing
+Version 2.1.1  (2005-06-20), ISBN 3-900051-07-0
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -15,7 +15,7 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 Type 'q()' to quit R.
 
 > library( micEcon )
-Loading required package: systemfit 
+Loading required package: systemfit
 This package is still an alpha version. This means that this package has not been thoroughly tested yet. Thus, there might be several bugs in it and I do not guarantee that all results are correct. 
 Please send bug reports to ahenningsen@agric-econ.uni-kiel.de
 > data( Mroz87 )
@@ -34,7 +34,7 @@ educ          0.417019   0.100255  4.159588  3.9e-05 ***
 city          0.443838   0.315908  1.404961 0.160769    
 probitLambda -1.097587   1.265848 -0.867077 0.386393    
 ---
-Signif. codes:  0 `***' 0.001 `**' 0.01 `*' 0.05 `.' 0.1 ` ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 Multiple R-Squared: 0.126368 Adjusted R-Squared: 0.116016 
 
               Estimate Std. Error   t value Pr(>|t|)    
@@ -45,7 +45,7 @@ educ          0.417019   0.100255  4.159588  3.9e-05 ***
 city          0.443838   0.315908  1.404961 0.160769    
 probitLambda -1.097587   1.265848 -0.867077 0.386393    
 ---
-Signif. codes:  0 `***' 0.001 `**' 0.01 `*' 0.05 `.' 0.1 ` ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 Multiple R-Squared: 0.126368 Adjusted R-Squared: 0.116016 
 
 > print( summary( greene$lm ) )
@@ -67,7 +67,7 @@ educ          0.417019   0.099003    4.21  3.1e-05 ***
 city          0.443838   0.317921    1.40     0.16    
 probitLambda -1.097587   1.252901   -0.88     0.38    
 ---
-Signif. codes:  0 `***' 0.001 `**' 0.01 `*' 0.05 `.' 0.1 ` ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
 Residual standard error: 3.11 on 422 degrees of freedom
 Multiple R-Squared: 0.126,	Adjusted R-squared: 0.116 
@@ -92,7 +92,7 @@ faminc       4.58e-06   4.31e-06    1.06  0.28742
 kidsTRUE    -4.49e-01   1.30e-01   -3.45  0.00055 ***
 educ         9.82e-02   2.29e-02    4.29  1.8e-05 ***
 ---
-Signif. codes:  0 `***' 0.001 `**' 0.01 `*' 0.05 `.' 0.1 ` ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
 (Dispersion parameter for binomial family taken to be 1)
 
@@ -108,22 +108,20 @@ Number of Fisher Scoring iterations: 4
 probitLambda 
     -0.34299 
 > print( greene$vcov )
-              
-               (Intercept)        exper   I(exper^2)         educ         city
-  (Intercept)    4.2409288 -0.043762398  1.30440e-03 -1.90407e-01 -2.74387e-02
-  exper         -0.0437624  0.003901827 -1.11941e-04  7.24307e-04 -8.60933e-04
-  I(exper^2)     0.0013044 -0.000111941  3.52759e-06 -2.52787e-05  2.31491e-05
-  educ          -0.1904071  0.000724307 -2.52787e-05  1.00511e-02 -2.82493e-03
-  city          -0.0274387 -0.000860933  2.31491e-05 -2.82493e-03  9.97979e-02
-  probitLambda  -2.3212486  0.016060356 -5.59922e-04  9.35845e-02  7.77066e-03
-              
-               probitLambda
-  (Intercept)  -2.321248650
-  exper         0.016060356
-  I(exper^2)   -0.000559922
-  educ          0.093584486
-  city          0.007770664
-  probitLambda  1.602371324
+             (Intercept)        exper   I(exper^2)         educ         city
+(Intercept)    4.2409288 -0.043762398  1.30440e-03 -1.90407e-01 -2.74387e-02
+exper         -0.0437624  0.003901827 -1.11941e-04  7.24307e-04 -8.60933e-04
+I(exper^2)     0.0013044 -0.000111941  3.52759e-06 -2.52787e-05  2.31491e-05
+educ          -0.1904071  0.000724307 -2.52787e-05  1.00511e-02 -2.82493e-03
+city          -0.0274387 -0.000860933  2.31491e-05 -2.82493e-03  9.97979e-02
+probitLambda  -2.3212486  0.016060356 -5.59922e-04  9.35845e-02  7.77066e-03
+             probitLambda
+(Intercept)  -2.321248650
+exper         0.016060356
+I(exper^2)   -0.000559922
+educ          0.093584486
+city          0.007770664
+probitLambda  1.602371324
 > 
 > ## Wooldridge( 2003 ): example 17.5, page 590
 > data( Mroz87 )
@@ -137,7 +135,7 @@ exper         0.043887   0.016261  2.698911 0.007235  **
 I(exper^2)   -0.000859   0.000439 -1.957349 0.050964   .
 probitLambda  0.032261   0.133626  0.241432 0.809338    
 ---
-Signif. codes:  0 `***' 0.001 `**' 0.01 `*' 0.05 `.' 0.1 ` ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 Multiple R-Squared: 0.156935 Adjusted R-Squared: 0.148963 
 
               Estimate Std. Error   t value Pr(>|t|)    
@@ -147,7 +145,7 @@ exper         0.043887   0.016261  2.698911 0.007235  **
 I(exper^2)   -0.000859   0.000439 -1.957349 0.050964   .
 probitLambda  0.032261   0.133626  0.241432 0.809338    
 ---
-Signif. codes:  0 `***' 0.001 `**' 0.01 `*' 0.05 `.' 0.1 ` ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 Multiple R-Squared: 0.156935 Adjusted R-Squared: 0.148963 
 
 > print( summary( wooldridge$lm ) )
@@ -168,7 +166,7 @@ exper         0.043887   0.016353    2.68   0.0076 **
 I(exper^2)   -0.000859   0.000441   -1.95   0.0523 .  
 probitLambda  0.032261   0.134388    0.24   0.8104    
 ---
-Signif. codes:  0 `***' 0.001 `**' 0.01 `*' 0.05 `.' 0.1 ` ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
 Residual standard error: 0.667 on 423 degrees of freedom
 Multiple R-Squared: 0.157,	Adjusted R-squared: 0.149 
@@ -195,7 +193,7 @@ age         -0.05285    0.00846   -6.25  4.2e-10 ***
 kids5       -0.86833    0.11838   -7.34  2.2e-13 ***
 kids618      0.03601    0.04403    0.82   0.4135    
 ---
-Signif. codes:  0 `***' 0.001 `**' 0.01 `*' 0.05 `.' 0.1 ` ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
 (Dispersion parameter for binomial family taken to be 1)
 
@@ -211,11 +209,10 @@ Number of Fisher Scoring iterations: 4
 probitLambda 
    0.0486137 
 > print( wooldridge$vcov )
-              
-                (Intercept)         educ        exper   I(exper^2) probitLambda
-  (Intercept)   9.30291e-02 -3.96932e-03 -3.18492e-03  6.91104e-05 -3.10310e-02
-  educ         -3.96932e-03  2.40963e-04  5.15430e-05 -9.17872e-07  8.72257e-04
-  exper        -3.18492e-03  5.15430e-05  2.64424e-04 -6.79952e-06  1.28455e-03
-  I(exper^2)    6.91104e-05 -9.17872e-07 -6.79952e-06  1.92648e-07 -2.65227e-05
-  probitLambda -3.10310e-02  8.72257e-04  1.28455e-03 -2.65227e-05  1.78558e-02
+              (Intercept)         educ        exper   I(exper^2) probitLambda
+(Intercept)   9.30291e-02 -3.96932e-03 -3.18492e-03  6.91104e-05 -3.10310e-02
+educ         -3.96932e-03  2.40963e-04  5.15430e-05 -9.17872e-07  8.72257e-04
+exper        -3.18492e-03  5.15430e-05  2.64424e-04 -6.79952e-06  1.28455e-03
+I(exper^2)    6.91104e-05 -9.17872e-07 -6.79952e-06  1.92648e-07 -2.65227e-05
+probitLambda -3.10310e-02  8.72257e-04  1.28455e-03 -2.65227e-05  1.78558e-02
 > 
