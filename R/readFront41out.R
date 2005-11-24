@@ -13,7 +13,7 @@ readFront41out <- function( file = "front41.out", translog = FALSE ) {
             break
          }
          if( line2 >= length( output ) ) {
-            stop( paste( "Did not find '", regexp, "'", sep = "" ) )
+            stop( "did not find '", regexp, "'" )
          }
          if( line2 >= stop ) {
             line2 <- NULL
@@ -57,7 +57,7 @@ readFront41out <- function( file = "front41.out", translog = FALSE ) {
                      break
                   }
                } else {
-                  stop( "If 'name' is NULL, 'startNo' has also to be NULL.")
+                  stop( "if 'name' is NULL, 'startNo' has also to be NULL")
                }
             } else {
                if( is.null( startNo ) ) {
@@ -66,7 +66,7 @@ readFront41out <- function( file = "front41.out", translog = FALSE ) {
                         2:length( strings ) ] ) )
                      rownames( values )[ nrow( values ) ] <- name
                   } else {
-                     stop( paste( "Did not find '", name, "'.", sep = "" ) )
+                     stop( "did not find '", name )
                   }
                   break
                } else {

@@ -2,7 +2,7 @@ aidsTestConsist <- function( pNames, wNames, xtName, data = NULL,
    coef = NULL, alpha0 = ifelse( is.null( coef$alpha0 ), 0, coef$alpha0 ) ) {
 
    if( length( pNames ) != length( wNames ) ) {
-      stop( "arguments 'pNames' and 'wNames' must have the same length." )
+      stop( "arguments 'pNames' and 'wNames' must have the same length" )
    }
 
    result <- list()

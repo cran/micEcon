@@ -1,0 +1,71 @@
+aidsBestA0              Find 'best' Value for alpha 0 in the AIDS
+aidsCalc                Shares and Quantities of the Almost Ideal
+                        Demand System
+aidsEla                 Elasticities of the AIDS model
+aidsEst                 Estimation of the Almost Ideal Demand System
+                        (AIDS)
+aidsPx                  Price Index for the AIDS
+aidsTestConsist         Consistency Test of the AIDS
+Blanciforti86           U.S. consumption data
+Bleymueller79E25.1      Artificial Prices and Quantities
+coefTable               Coefficient Table
+Coelli                  Data provided with Coelli's Frontier 4.1
+compare.derivatives     function to compare analytic and numeric
+                        derivatives
+germanFarms             Output and Inputs of Farms in West-Germany
+heckit                  2-step Heckman (heckit) estimation
+heckitVcov              Heckit Variance Covariance Matrix
+insertCol               Insert Column into a Matrix
+insertRow               Insert Row into a Matrix
+invMillsRatio           Inverse Mill's Ratio of probit models
+linearPredictors        Calculates linear predictors for different
+                        models
+maxBFGS                 BFGS maximisation
+maxBHHH                 BHHH maximisation
+maxLik                  Maximum likelihood estimation
+maxNR                   Newton-Raphson maximisation
+Missong03E7.7           Meat Prices and Quantities in Germany
+Mroz87                  U.S. Women's Labor Force Participation
+numericGradient         Functions to Calculate Numeric Derivatives
+priceIndex              Calculate Price Indices
+print.snqProfitEst      Print output of estimated SNQ profit function
+probit                  Probit binary choice model
+quadFuncCalc            Calculate dependent variable of a quadratic
+                        function
+quadFuncDeriv           Derivatives of a quadratic function
+quadFuncEst             Estimate a quadratic function
+quantityIndex           Calculate Quantity Indices
+quasiconcavity          Test for quasiconcavity / quasiconvexity
+readFront41out          Read output of Frontier 4.1
+rSquared                Calculate R squared value
+semidefiniteness        Test for negative and positive semidefiniteness
+snqProfitCalc           Calculations with the SNQ Profit function
+snqProfitEla            Price Elasticities of SNQ Profit function
+snqProfitEst            Estimation of a SNQ Profit function
+snqProfitFixEla         Fixed Factor Elasticities of SNQ Profit
+                        function
+snqProfitHessian        SNQ Profit function: Hessian matrix
+snqProfitHessianDeriv   SNQ Profit function: Derivatives of the Hessian
+snqProfitImposeConvexity
+                        Imposing Convexity on a SNQ Profit function
+snqProfitShadowPrices   Shadow Prices of a SNQ Profit function
+snqProfitWeights        SNQ Profit function: Weights of prices for
+                        normalization
+summary.heckit          Print output of heckit estimation
+summary.maximisation    Summary method for maximisation/minimisation
+summary.maxLik          summary the Maximum-Likelihood estimation
+symMatrix               Symmetric Matrix
+tobit2                  function to calculate Heckman-type selection
+                        models
+translogCalc            Calculate dependent variable of a translog
+                        function
+translogDeriv           Derivatives of a translog function
+translogEst             Estimate a translog function
+translogHessian         Hessian matrix of a translog function
+triang                  Upper triangular matrix from a vector
+vecli                   Vector of linear independent values
+vecli2m                 Convert vector of linear independent values
+                        into a Matrix
+veclipos                Position in a vector of linear independent
+                        values
+writeFront41in          Write instruction file for Frontier 4.1

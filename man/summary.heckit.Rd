@@ -11,7 +11,7 @@
 }
 
 \arguments{
-   \item{object}{an object of calss \code{heckit}.}
+   \item{object}{an object of class \code{heckit}.}
    \item{...}{further arguments passed to \code{\link{summary.glm}}
       and \code{\link{summary.lm}}.}
 }
@@ -26,8 +26,8 @@
 
 \examples{
 data( Mroz87 )
-wooldridge <- heckit( log( wage ) ~ educ + exper + I( exper^2 ),
-   lfp ~ nwifeinc + educ + exper + I( exper^2 ) + age + kids5 + kids618, Mroz87 )
+wooldridge <- heckit( lfp ~ nwifeinc + educ + exper + I( exper^2 ) + age + 
+   kids5 + kids618, log( wage ) ~ educ + exper + I( exper^2 ), Mroz87 )
 summary( wooldridge )        # summary of the 1st step probit estimation
                              # (Example 17.1, p. 562f) and 2nd step OLS regression
 }

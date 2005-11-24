@@ -9,20 +9,20 @@ writeFront41in <- function( data, crossSectionName, timePeriodName,
       names( data ) )
 
    if( !modelType %in% c( 1, 2 ) ) {
-      stop( "Argument 'modelType' must be either 1 or 2." )
+      stop( "argument 'modelType' must be either 1 or 2" )
    }
    if( !functionType %in% c( 1, 2 ) ) {
-      stop( "Argument 'functionType' must be either 1 or 2." )
+      stop( "argument 'functionType' must be either 1 or 2" )
    }
    if( !is.logical( logDepVar ) ) {
-      stop( "Argument 'logDepVar' must be logical." )
+      stop( "argument 'logDepVar' must be logical" )
    }
    if( !is.logical( mu ) ) {
-      stop( "Argument 'mu' must be logical." )
+      stop( "argument 'mu' must be logical" )
    }
    if( modelType == 1 ) {
       if( !is.logical( eta ) ) {
-         stop( "Argument 'eta' must be logical." )
+         stop( "argument 'eta' must be logical" )
       }
    }
 

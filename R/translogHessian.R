@@ -7,8 +7,8 @@ translogHessian <- function( xNames, data, allCoef, quadHalf = TRUE,
    nCoef <- 1 + nExog + nExog * ( nExog + 1 ) / 2
 
    if( nCoef != length( allCoef ) ) {
-      stop( paste( "A translog function with", nExog, "exogenous variables",
-         "must have exactly", nCoef, "coefficients." ) )
+      stop( "a translog function with ", nExog, " exogenous variables",
+         " must have exactly ", nCoef, " coefficients" )
    }
 
    result <- list()

@@ -2,7 +2,7 @@
 snqProfitWeights <- function( pNames, qNames, data, method = "DW92", base = 1 ) {
 
    if( length( qNames ) != length( pNames ) ) {
-      stop( "arguments 'qNames' and 'pNames' must have the same length." )
+      stop( "arguments 'qNames' and 'pNames' must have the same length" )
    }
 
    nNetput <- length( qNames )
@@ -40,7 +40,7 @@ snqProfitWeights <- function( pNames, qNames, data, method = "DW92", base = 1 ) 
             data[[ qNames[ i ] ]] ) ) / mean( totalValues )
       }
    } else {
-      stop( "argument 'message' must be either 'DW92', 'Kohli' or 'Ooms'." )
+      stop( "argument 'method' must be either 'DW92', 'Kohli' or 'Ooms'" )
    }
 
    return( weights )

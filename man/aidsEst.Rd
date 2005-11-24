@@ -13,56 +13,61 @@
       method = "LA:L", hom = TRUE, sym = TRUE,
       elaFormula = "Ch", pxBase,
       estMethod = ifelse( is.null( ivNames ), "SUR", "3SLS" ),
-      maxiterMk = 50, tolMk = 1e-5, alpha0 = 0, ... )
+      maxiterIL = 50, tolIL = 1e-5, alpha0 = 0, TX = FALSE, ... )
 }
 
 \arguments{
-   \item{pNames}{a vector of strings containing the names of prices.}
-   \item{wNames}{a vector of strings containing the names of expenditure
+   \item{pNames}{a vector of strings containing the names of the prices.}
+   \item{wNames}{a vector of strings containing the names of the expenditure
       shares.}
-   \item{xtName}{a name of the total expenditure variable.}
+   \item{xtName}{a string containing the variable name of total expenditure.}
    \item{data}{a data frame containing the data.}
    \item{ivNames}{a vector of strings containing the names of instrumental
       variables.}
    \item{qNames}{an optional vector of strings containing the names of
       the quantities (just to label elasticities).}
    \item{method}{the method to estimate the aids (see details).}
-   \item{hom}{should the homogeneity condition be imposed?}
-   \item{sym}{should the symmetry condition be imposed?}
+   \item{hom}{logical. Should the homogeneity condition be imposed?}
+   \item{sym}{logical. Should the symmetry condition be imposed?}
    \item{elaFormula}{the elasticity formula (see \code{\link{aidsEla}}).}
    \item{pxBase}{The base to calculate the LA-AIDS price indices
       (see \code{\link{aidsPx}}).}
-   \item{estMethod}{estimation method (e.g. "SUR",
+   \item{estMethod}{estimation method (e.g. 'SUR' or '3SLS',
       see \code{\link[systemfit]{systemfit}}).}
-   \item{maxiterMk}{maximum number of iterations of the
-      Michalek and Keyzer estimation.}
-   \item{tolMk}{tolerance level of the Michalek and Keyzer iteration.}
+   \item{maxiterIL}{maximum number of iterations of the
+      'Iterated Linear Least Squares Estimation'.}
+   \item{tolIL}{tolerance level of the 'Iterated Linear Least Squares
+      Estimation'.}
    \item{alpha0}{the intercept of the translog price index (\eqn{\alpha_0}).}
+   \item{TX}{logical. Method to impose homogeneity and symmetry restrictions:
+      either via R.restr (default) or via TX
+      (see \code{\link[systemfit]{systemfit}}).}
    \item{...}{arguments passed to \code{\link[systemfit]{systemfit}}.}
 }
 
 \details{
    At the moment two basic estimation methods are available:
-   The 'Linear Approximate AIDS' (LA) and the iterative estimation method
-   of Michalek and Keyzer (MK).\cr
-   The LA-AIDS can be estimated with\cr
-   * Stone price index ('LA:S'),\cr
-   * Stone price index with lagged shares ('LA:SL'),\cr
-   * loglinear analogue to the Paasche price index ('LA:P'),\cr
-   * loglinear analogue of the Laspeyres price index ('LA:L'), and\cr
-   * Tornqvist price index ('LA:T').
+   The 'Linear Approximate AIDS' (LA) and the 'Iterative Linear Least Squares
+   Estimator' (IL) proposed by Blundell and Robin (1999).\cr
+   The LA-AIDS can be estimated with
+   \begin{itemize}
+   \item Stone price index ('LA:S'),
+   \item Stone price index with lagged shares ('LA:SL'),
+   \item loglinear analogue to the Paasche price index ('LA:P'),
+   \item loglinear analogue of the Laspeyres price index ('LA:L'), and
+   \item Tornqvist price index ('LA:T').
+   \end{itemize}
 
-   The iterative estimation method of Michalek and Keyzer needs starting
-   values for the (translog) price index. Which price index is used to
+   The 'Iterative Linear Least Squares Estimator' (IL) needs starting
+   values for the (translog) price index. The price index used to
    calculate the initial price index can be specified in the same way
-   as for the LA-AIDS (e.g. 'MK:L')
+   as for the LA-AIDS (e.g. 'IL:L')
 }
 
 \value{
    a list of class \code{aidsEst} containing following objects:
    \item{coef}{a list containing the vectors/matrix of the estimated
-      coefficients (alpha = \eqn{\alpha_i}, beta = \eqn{\beta_i},
-      gamma = \eqn{\gamma_{ij}}.}
+      coefficients (alpha, beta, and gamma).}
    \item{ela}{a list containing the elasticities
       (see \code{\link{aidsEla}}).}
    \item{r2}{\eqn{R^2}-values of all budget share equations.}
@@ -72,14 +77,16 @@
    \item{qObs}{observed quantities / quantitiy indices.}
    \item{qFitted}{fitted quantities / quantitiy indices.}
    \item{qResid}{residuals of the estimated quantities.}
-   \item{iter}{iterations of SUR/3SLS estimation a vector containing
-      the iterations of each iteration of the Michalek and Keyzer
-      estimation.}
-   \item{iterMk}{iterations of the Michalek and Keyzer estimation.}
+   \item{iter}{iterations of SUR/3SLS estimation(s).
+      If the AIDS is estimated by the 'Iterated Linear Least Squares
+      Estimator' (ILLE):
+      a vector containing the SUR/3SLS iterations at each iteration.}
+   \item{iterIL}{number of iterations of the 'Iterated Linear Least Squares
+      Estimation'.}
    \item{method}{the method used to estimate the aids (see details).}
    \item{lnp}{log of the price index used for estimation.}
-   \item{hom}{was the homogeneity condition imposed?}
-   \item{sym}{was the symmetry condition imposed?}
+   \item{hom}{logical. Was the homogeneity condition imposed?}
+   \item{sym}{logical. Was the symmetry condition imposed?}
    \item{estMethod}{estimation method (see \code{\link[systemfit]{systemfit}}).}
    \item{rcovformula}{formula used to calculate the estimated residual
       covariance matrix (see \code{\link[systemfit]{systemfit}}).}
@@ -90,10 +97,10 @@
    An Almost Ideal Demand System.
    \emph{American Economic Review}, 70, p. 312-326.
 
-   Michalek, J. and M. A. Keyzer (1992)
-   Estimation of a two-stage LES-AIDS consumer demand system
-   for eight EC countries.
-   \emph{European Review of Agricultural Economics}, 19 (2), p. 137-163.
+   Blundell, R. and J.M. Robin (1999)
+   Estimationin Large and Disaggregated Demand Systems:
+   An Estimator for Conditionally Linear Systems.
+   \emph{Journal of Applied Econometrics}, 14, p. 209-232.
 }
 
 \seealso{\code{\link{aidsEla}}, \code{\link{aidsCalc}}.}
@@ -101,8 +108,11 @@
 \author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
 
 \examples{
-   ## Repeating the demand analysis of Blanciforti, Green & King (1986)
    data( Blanciforti86 )
+   # Data on food consumption are available only for the first 32 years
+   Blanciforti86 <- Blanciforti86[ 1:32, ]
+
+   ## Repeating the demand analysis of Blanciforti, Green & King (1986)
    estResult <- aidsEst( c( "pFood1", "pFood2", "pFood3", "pFood4" ),
       c( "wFood1", "wFood2", "wFood3", "wFood4" ), "xFood",
       data = Blanciforti86, method = "LA:SL", elaFormula = "Ch",
@@ -117,9 +127,9 @@
 
    # AIDS
    estResultA <- aidsEst( pNames, wNames, "xFood",
-    data = Blanciforti86[ 2:nrow( Blanciforti86 ), ], maxiter = 1,
+      data = Blanciforti86[ -1, ], maxiter = 1,
       elaFormula = "AIDS", rcovformula=1, tol=1e-7,
-   method = "MK:L" )
+      method = "IL:L" )
    print( diag( estResultA$ela$marshall ) )
 
    # LA-AIDS + formula of AIDS

@@ -396,6 +396,12 @@ qOutput   -0.362253  0.284526 0.07772727
 qVarInput -0.556325  0.406594 0.14973151
 qLabor    -0.336577  0.331602 0.00497498
 
+$fixEla
+                  land
+qOutput    1.026356790
+qVarInput -0.139265313
+qLabor     0.000271127
+
 $estData
    nr  pOutput  qOutput pVarInput qVarInput  pLabor   qLabor  land
 1   1 1.000000  91119.6   1.00000  -45934.2 1.00000 -11934.0 23.40
@@ -775,7 +781,7 @@ $form
 19 180369 -67679.3 -23283.561 -10623.930
 20 185706 -68957.3 -24145.518 -13980.711
 > if( max( abs( estResultCalc - estResult$fitted ) ) > 1e-5 ) {
-+    stop( "values from snqProfitCalc are not equal to fitted values." )
++    stop( "values from snqProfitCalc are not equal to fitted values" )
 + }
 > 
 > estResultEla <- snqProfitEla( estResult$coef$beta,
@@ -1257,6 +1263,12 @@ qOutput   0.170447 -0.115728 -0.0547190
 qVarInput 0.226279 -0.159635 -0.0666437
 qLabor    0.236946 -0.147592 -0.0893538
 
+$fixEla
+                land     time
+qOutput    0.8211871 0.165438
+qVarInput  0.0407162 0.185521
+qLabor    -0.0100624 0.163247
+
 $estData
    nr  pOutput  qOutput pVarInput qVarInput  pLabor   qLabor  land time
 1   1 1.000000  91119.6   1.00000  -45934.2 1.00000 -11934.0 23.40    0
@@ -1321,7 +1333,7 @@ $form
 19 182075.7 -62671.2 -13651.2 30911.5
 20 192423.3 -63773.1 -13799.3 38436.8
 > if( max( abs( estResultCalc - estResult$fitted ) ) > 1e-5 ) {
-+    stop( "values from snqProfitCalc are not equal to fitted values." )
++    stop( "values from snqProfitCalc are not equal to fitted values" )
 + }
 > 
 > estResultEla <- snqProfitEla( estResult$coef$beta,
@@ -2060,7 +2072,7 @@ $form
 19 180916.9 -60605.1 -13372.4 33628.9
 20 191672.2 -63259.7 -13462.9 39717.4
 > if( max( abs( estResultCalc - estResult$fitted ) ) > 1e-5 ) {
-+    stop( "values from snqProfitCalc are not equal to fitted values." )
++    stop( "values from snqProfitCalc are not equal to fitted values" )
 + }
 > 
 > estResultEla <- snqProfitEla( estResult$coef$beta,

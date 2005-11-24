@@ -35,7 +35,7 @@ snqProfitCoefNames <- function( nNetput, nFix, form = 0, all=FALSE ) {
             }
          }
       } else {
-         stop( "argument 'form' must be either 0 or 1." )
+         stop( "argument 'form' must be either 0 or 1" )
       }
    }
    return( names )

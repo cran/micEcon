@@ -26,7 +26,7 @@ estResultCalc <- snqProfitCalc( pNamesT, NULL, estResult$estData,
    estResult$weights, estResult$coef )
 print( estResultCalc )
 if( max( abs( estResultCalc - estResult$fitted ) ) > 1e-5 ) {
-   stop( "values from snqProfitCalc are not equal to fitted values." )
+   stop( "values from snqProfitCalc are not equal to fitted values" )
 }
 
 estResultEla <- snqProfitEla( estResult$coef$beta,
@@ -52,7 +52,7 @@ estResultCalc <- snqProfitCalc( pNamesT, fNamesT, estResult$estData,
    estResult$weights, estResult$coef )
 print( estResultCalc )
 if( max( abs( estResultCalc - estResult$fitted ) ) > 1e-5 ) {
-   stop( "values from snqProfitCalc are not equal to fitted values." )
+   stop( "values from snqProfitCalc are not equal to fitted values" )
 }
 
 estResultEla <- snqProfitEla( estResult$coef$beta,
@@ -81,7 +81,7 @@ estResultCalc <- snqProfitCalc( pNamesT, fNamesT, estResult$estData,
    estResult$weights, estResult$coef, form = 1 )
 print( estResultCalc )
 if( max( abs( estResultCalc - estResult$fitted ) ) > 1e-5 ) {
-   stop( "values from snqProfitCalc are not equal to fitted values." )
+   stop( "values from snqProfitCalc are not equal to fitted values" )
 }
 
 estResultEla <- snqProfitEla( estResult$coef$beta,

@@ -2,8 +2,8 @@ aidsCalc <- function( pNames, xtName, data = NULL, px = "TL", lnp = NULL,
    coef = NULL, alpha0 = ifelse( is.null( coef$alpha0 ), 0, coef$alpha0 ) ) {
 
    if( px != "TL" && is.null( lnp ) ) {
-      stop( paste( "At the moment only the translog (TL) price index works",
-         "if argument 'lnp' is not specified" ) )
+      stop( "at the moment only the translog (TL) price index works",
+         " if argument 'lnp' is not specified" )
    }
    nGoods <- length( pNames )
 

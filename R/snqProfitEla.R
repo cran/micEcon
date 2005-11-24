@@ -1,20 +1,20 @@
 ## ===== calculation of elasticities from beta matrix ===
 snqProfitEla <- function( beta, prices, quant, weights ) {
    if( !is.matrix( beta ) ) {
-      stop( "argument 'beta' must be a matrix." )
+      stop( "argument 'beta' must be a matrix" )
    }
    if( nrow( beta ) != ncol( beta ) ) {
-      stop( "argument 'beta' must be a quadratic matrix." )
+      stop( "argument 'beta' must be a quadratic matrix" )
    }
    if( length( prices ) != length( quant ) ) {
-      stop( "arguments 'prices' and 'quant' must have the same length." )
+      stop( "arguments 'prices' and 'quant' must have the same length" )
    }
    if( length( prices ) != length( weights ) ) {
-      stop( "arguments 'prices' and 'weights' must have the same length." )
+      stop( "arguments 'prices' and 'weights' must have the same length" )
    }
    if( nrow( beta ) != length( prices ) ) {
-      stop( paste( "arguments 'prices' must have as many elements as",
-         "argument 'beta' has rows." ) )
+      stop( "arguments 'prices' must have as many elements as",
+         " argument 'beta' has rows" )
    }
    nNetput  <- ncol( beta )
    prices   <- unlist( prices )

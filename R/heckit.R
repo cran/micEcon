@@ -1,59 +1,59 @@
-heckit <- function( formula, probitformula, data, inst = NULL,
+heckit <- function( selection, formula, data, inst = NULL,
    print.level = 0 ) {
 
    if( class( formula ) != "formula" ) {
       stop( "argument 'formula' must be a formula" )
    } else if( length( formula ) != 3 ) {
       stop( "argument 'formula' must be a 2-sided formula" )
-   } else if( "probit" %in% substr( all.vars( formula ), 1, 6 ) ) {
-      stop( paste( "argument 'formula' may not include variable names",
-      "starting with 'probit'" ) )
-   } else if( class( probitformula ) != "formula" ) {
-      stop( "argument 'probitformula' must be a formula" )
-   } else if( length( probitformula ) != 3 ) {
-      stop( "argument 'probitformula' must be a 2-sided formula" )
-   } else if( "probit" %in% substr( all.vars( probitformula ), 1, 6 ) ) {
-      stop( paste( "argument 'probitformula' may not include a variable",
-         "names starting with 'probit'" ) )
+   } else if( "invMillsRatio" %in% all.vars( formula ) ) {
+      stop( "argument 'formula' may not include a variable name",
+         " 'invMillsRatio'" )
+   } else if( class( selection ) != "formula" ) {
+      stop( "argument 'selection' must be a formula" )
+   } else if( length( selection ) != 3 ) {
+      stop( "argument 'selection' must be a 2-sided formula" )
+   } else if( "probit" %in% substr( all.vars( selection ), 1, 6 ) ) {
+      stop( "argument 'selection' may not include a variable",
+         " names starting with 'probit'" )
    } else if( !is.null( inst ) ) {
       if( class ( inst ) != "formula" || length( inst ) != 2 ) {
          stop( "argument 'inst' must be a 1-sided formula" )
       }
    }
 
-
    result <- list()
 
-   data$probitdummy <- model.frame( probitformula, data = data )[ , 1 ]
-   test <- levels( as.factor( as.numeric( data$probitdummy ) ) )
-   if( length( test ) != 2 ) {
-      stop( paste( "The left hand side of 'probitformula' may only contain",
-         "1 and 0 or TRUE and FALSE" ) )
-   } else if( !all.equal( test, c( "0", "1" ) ) ) {
-      stop( paste( "The left hand side of 'probitformula' may only contain",
-         "1 and 0 or TRUE and FALSE" ) )
+   probitEndogenous <- model.frame( selection, data = data )[ , 1 ]
+   probitLevels <- levels( as.factor( probitEndogenous ) )
+   if( length( probitLevels ) != 2 ) {
+      stop( "the left hand side of 'selection' has to contain",
+         " exactly two levels (e.g. FALSE and TRUE)" )
    }
+   probitDummy <- probitEndogenous == probitLevels[ 2 ]
 
    if( print.level > 0 ) {
       cat ( "\nEstimating 1st step Probit model . . ." )
    }
-   result$probit <- glm( probitformula, binomial( link = "probit" ), data )
-   if( print.level > 0 ) cat( " OK\n" )
-
-   data$probitLambda <- dnorm( result$probit$linear.predictors ) /
-      pnorm( result$probit$linear.predictors )
-
-   data$probitDelta <- data$probitLambda * ( data$probitLambda +
-      result$probit$linear.predictors )
+#   result$probit <- glm( selection, binomial( link = "probit" ), data )
+   result$probit <- probit(selection, data=data, x=TRUE, print.level=print.level - 1)
+   if( print.level > 0 )
+       cat( " OK\n" )
+#    data$probitLambda <- dnorm(linearPredictors(result$probit)) /
+#        pnorm(linearPredictors(result$probit))
+#    data$probitDelta <- data$probitLambda * ( data$probitLambda +
+#                                             linearPredictors(result$probit))
+   imrData <- invMillsRatio( result$probit )
+   data$invMillsRatio <- imrData$IMR1
+   result$imrDelta <- imrData$delta1
 
    step2formula <- as.formula( paste( formula[ 2 ], "~", formula[ 3 ],
-      "+ probitLambda" ) )
+                                     "+ invMillsRatio" ) )
 
    if( is.null( inst ) ) {
       if( print.level > 0 ) {
          cat ( "Estimating 2nd step OLS model . . ." )
       }
-      result$lm <- lm( step2formula, data, data$probitdummy == 1 )
+      result$lm <- lm( step2formula, data, subset = probitDummy )
       resid <- residuals( result$lm )
        step2coef <- coefficients( result$lm )
       if( print.level > 0 ) cat( " OK\n" )
@@ -62,61 +62,41 @@ heckit <- function( formula, probitformula, data, inst = NULL,
          cat ( "Estimating 2nd step 2SLS/IV model . . ." )
       }
       formulaList <- list( step2formula )
-      instImr <- as.formula( paste( "~", inst[ 2 ], "+ probitLambda" ) )
+      instImr <- as.formula( paste( "~", inst[ 2 ], "+ invMillsRatio" ) )
       library( systemfit )
       result$lm <- systemfit( "2SLS", formulaList, inst = instImr,
-         data = data[ data$probitdummy == 1, ] )
+         data = data[ probitDummy, ] )
       resid <- residuals( result$lm )[ , 1 ]
        step2coef <- coefficients( result$lm$eq[[ 1 ]] )
       if( print.level > 0 ) cat( " OK\n" )
    }
-
    result$sigma <- as.numeric( sqrt( crossprod( resid ) /
-      sum( data$probitdummy == 1 ) +
-      mean( data$probitDelta[ data$probitdummy == 1 ] ) *
-       step2coef[ "probitLambda" ]^2 ) )
-
-   result$rho <-  step2coef[ "probitLambda" ] / result$sigma
-   result$probitLambda <- data$probitLambda
-   result$probitDelta  <- data$probitDelta
+      sum( probitDummy ) +
+      mean(result$imrDelta[ probitDummy ] ) *
+       step2coef[ "invMillsRatio" ]^2 ) )
+   result$rho <-  step2coef[ "invMillsRatio" ] / result$sigma
+   names(result$rho) <- NULL
+                                        # otherwise the name of step2coef is left...
+   result$invMillsRatio <- data$invMillsRatio
    if( print.level > 0 ) {
       cat ( "Calculating coefficient covariance matrix . . ." )
    }
-   # the foolowing variables are named according to Greene (2003), p. 785
+   # the following variables are named according to Greene (2003), p. 785
    if( is.null( inst ) ) {
       xMat <- model.matrix( result$lm )
    } else {
       xMat <- result$lm$eq[[ 1 ]]$x
    }
-   wMat <- model.matrix( result$probit )[ data$probitdummy == 1, ]
-   #fMat <- t( xMat ) %*% diag( result$probitDelta[
-   #   data$probitdummy == 1 ] ) %*% wMat
-   # replaced the previous lines by the following to avoid the
-   # diagonal matrix that gets too large for large data sets.
-   txdMat <- t( xMat )
-   dVec <- result$probitDelta[  data$probitdummy == 1 ]
-   for( i in 1:nrow( txdMat ) ) {
-      txdMat[ i, ] <- txdMat[ i, ] * dVec
-   }
-   fMat <- txdMat %*% wMat
-   rm( txdMat, dVec )
-   qMat <- result$rho^2 * ( fMat %*% vcov( result$probit )%*% t( fMat ) )
-   #result$vcov<-result$sigma^2*solve(crossprod(xMat))%*%
-   #(t(xMat)%*%diag(1-result$rho^2*
-   #result$probitDelta[data$probitdummy==1])%*%
-   #(txd2Mat%*%
-   #xMat+qMat)%*%solve(crossprod(xMat))
-   # replaced the previous lines by the following to avoid the
-   # diagonal matrix that gets too large for large data sets.
-   txd2Mat <- t( xMat )
-   d2Vec <-  1 - result$rho^2 * result$probitDelta[ data$probitdummy == 1 ]
-   for( i in 1:nrow( txd2Mat ) ) {
-      txd2Mat[ i, ] <- txd2Mat[ i, ] * d2Vec
-   }
-   result$vcov <- result$sigma^2 * solve( crossprod( xMat ) ) %*%
-      ( txd2Mat %*%
-      xMat + qMat ) %*% solve( crossprod( xMat ) )
-   rm( txd2Mat, d2Vec )
+   result$vcov <- heckitVcov( xMat,
+      model.matrix( result$probit )[ probitDummy, ],
+      vcov( result$probit ),
+      result$rho,
+      result$imrDelta[ probitDummy ],
+      result$sigma )
+# result$vcov <- result$sigma^2 * solve( crossprod( xMat ) ) %*%
+#      ( txd2Mat %*%
+#      xMat + qMat ) %*% solve( crossprod( xMat ) )
+#   rm( txd2Mat, d2Vec )
    if( print.level > 0 ) cat( " OK\n" )
    result$coef <- matrix( NA, nrow = length( step2coef ), ncol = 4 )
    rownames( result$coef ) <- names( step2coef )

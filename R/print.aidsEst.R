@@ -17,8 +17,8 @@ print.aidsEst <- function( x, ... ) {
       } else {
          cat( "unknown price index\n" )
       }
-   } else if( substr( x$method, 1, 2 ) == "MK" ) {
-      cat( "Michalek & Keyzer (MK) starting with " )
+   } else if( substr( x$method, 1, 2 ) %in% c( "MK", "IL" ) ) {
+      cat( "'Iterated Linear Least Squares Estimator' (IL) starting with " )
       if( x$px == "S" ) {
          cat( "Stone Index (S)\n" )
       } else if( x$px == "SL" ) {

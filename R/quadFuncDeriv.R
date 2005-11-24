@@ -9,8 +9,8 @@ quadFuncDeriv <- function( xNames, data, allCoef, allCoefCov = NULL,
    nCoef <- 1 + nExog + nExog * ( nExog + 1 ) / 2
 
    if( nCoef != length( allCoef ) ) {
-      stop( paste( "A quadratic function with", nExog, "exogenous variables",
-         "must have exactly", nCoef, "coefficients." ) )
+      stop( "a quadratic function with ", nExog, " exogenous variables",
+         " must have exactly ", nCoef, " coefficients" )
    }
 
    alpha  <- allCoef[ 2:( nExog + 1 ) ]

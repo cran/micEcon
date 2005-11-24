@@ -6,7 +6,7 @@
 }
 
 \usage{snqProfitImposeConvexity( estResult, rankReduction = 0,
-   start = 10, ... )
+   start = 10, optimMethod = "BFGS", control = list( maxit=5000 ) )
 }
 
 \arguments{
@@ -14,7 +14,8 @@
    \item{rankReduction}{an integer specifying the reduction of the rank
       of the \eqn{\beta} matrix.}
    \item{start}{starting values of the triangular Cholesky matrix.}
-   \item{...}{arguments passed to \code{\link{optim}}}
+   \item{optimMethod}{method to be used by \code{\link{optim}}.}
+   \item{control}{list of control parameters passed to \code{\link{optim}}.}
 }
 
 \details{
@@ -34,7 +35,9 @@
       * gamma = \eqn{\gamma_{ij}} (only if quasi-fix inputs are present).\cr
       * allCoef = vector of all coefficients.\cr
    }
-   \item{ela}{matrix with the price elasticities at mean prices and mean quantities.}
+   \item{ela}{matrix of the price elasticities at mean prices and mean quantities.}
+   \item{ela}{matrix of the fixed factor elasticities at mean prices and mean
+      quantities.}
    \item{hessian}{hessian matrix of the profit function with respect to prices
       evaluated at mean prices.}
    \item{convexity}{logical. Convexity of the profit function.}

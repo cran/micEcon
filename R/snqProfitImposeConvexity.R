@@ -1,8 +1,12 @@
 snqProfitImposeConvexity <- function( estResult, rankReduction = 0,
-   start = 10, ... ) {
+   start = 10, optimMethod = "BFGS", control = list( maxit=5000 ) ) {
 
    if( class( estResult ) != "snqProfitEst" ) {
-      stop( "argument 'estResult' must be of class 'snqProfitEst'." )
+      stop( "argument 'estResult' must be of class 'snqProfitEst'" )
+   }
+   if( estResult$convexity ) {
+      warning( "This profit function is already convex in prices" )
+      return( estResult )
    }
    pNames  <- names( estResult$pMeans )
    qNames  <- names( estResult$qMeans )
@@ -36,12 +40,13 @@ snqProfitImposeConvexity <- function( estResult, rankReduction = 0,
       rankReduction * ( rankReduction + 1 ) / 2
       # number of non-zero values in the Cholesky matrix
    cholVec <- array( start, c( nCholValues ) ) # starting values
-   mindist <- optim( cholVec, hessianDistance, ... )
+   mindist <- optim( cholVec, hessianDistance, method = optimMethod,
+      control = control )
    if( mindist$convergence != 0 ) {
       if( mindist$convergence == 1 ) {
-         stop( "non-linear minimization with optim(): iteration limit exceeded." )
+         stop( "non-linear minimization with optim(): iteration limit exceeded" )
       } else {
-         stop( "non-linear minimization: 'optim' did not converge." )
+         stop( "non-linear minimization: 'optim' did not converge" )
       }
    }
 
@@ -86,6 +91,10 @@ snqProfitImposeConvexity <- function( estResult, rankReduction = 0,
       estResult$weights ) # constrained Hessian matrix
    result$ela <- snqProfitEla( result$coef$beta, estResult$pMean, estResult$qMean,
       estResult$weights ) # elasticities of constrained model
+   if( nFix > 0 && estResult$form == 0 ) {
+      result$fixEla <- snqProfitFixEla( result$coef$delta, result$coef$gamma,
+         result$qMeans, result$fMeans, estResult$weights )
+   }
    result$estData <- estResult$estData
    result$weights <- estResult$weights
    result$normPrice <- estResult$normPrice

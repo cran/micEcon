@@ -6,8 +6,8 @@ quadFuncCalc <- function( xNames, data, allCoef, quadHalf = TRUE ) {
    nCoef <- 1 + nExog + nExog * ( nExog + 1 ) / 2
 
    if( nCoef != length( allCoef ) ) {
-      stop( paste( "A quadratic function with", nExog, "exogenous variables",
-         "must have exactly", nCoef, "coefficients." ) )
+      stop( "a quadratic function with ", nExog, " exogenous variables",
+         " must have exactly ", nCoef, " coefficients" )
    }
 
    alpha0 <- allCoef[ 1 ]

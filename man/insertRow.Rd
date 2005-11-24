@@ -3,15 +3,15 @@
 \title{Insert Row into a Matrix}
 
 \description{
-   Insert Row into a Matrix.
+   Insert a new row into a matrix.
 }
 
 \usage{insertRow( m, r, v = NA )}
 
 \arguments{
-   \item{ m }{Matrix.}
-   \item{ r }{Row number where the new Rown should be inserted.}
-   \item{ v }{Optional values for the new Row.}
+   \item{ m }{matrix.}
+   \item{ r }{row number where the new row should be inserted.}
+   \item{ v }{optional values for the new row.}
 }
 
 \value{

@@ -18,6 +18,11 @@ aidsCoef <- function( b, cov = NULL, df = 1, LA = TRUE,
       }
       all     <- M %*% b
       all[nGoods]  <- all[nGoods]+1
+      names( all ) <- c(
+            paste( "alpha", c( 1:nGoods ) ),
+            paste( "beta", c( 1:nGoods ) ),
+            paste( "gamma", rep( 1:nGoods, each = nGoods ),
+               rep( 1:nGoods, nGoods ) ) )
       alpha   <- all[1:nGoods]
       beta    <- all[(nGoods+1):(2*nGoods)]
       gamma   <- t(array(all[(2*nGoods+1):(nGoods*(nGoods+2))],c(nGoods,nGoods)))
@@ -25,11 +30,7 @@ aidsCoef <- function( b, cov = NULL, df = 1, LA = TRUE,
       stat    <- NULL
       if(!is.null(cov)) {
          allcov   <- M %*% cov %*% t(M)
-         stat     <- array(NA,c(2*nGoods+nGoods^2,4))
-         stat[,1] <- all
-         stat[,2] <- sqrt(diag(allcov))
-         stat[,3] <- abs(stat[,1])/stat[,2]
-         stat[,4] <- 2*(1-pt(stat[,3],df))
+         stat     <- coefTable( all, sqrt( diag( allcov ) ), df )
       }
    }
    if( !is.null( wNames ) ) {

@@ -1,16 +1,16 @@
-\name{Missong77}
+\name{Missong03E7.7}
 \docType{data}
-\alias{Missong77}
+\alias{Missong03E7.7}
 
 \title{Meat Prices and Quantities in Germany}
 
 \description{
-   The \code{Missong77} data frame contains meat prices and demanded quantities
+   The \code{Missong03E7.7} data frame contains meat prices and demanded quantities
    of a representative (West-)German household for the years 1986 to 1989.
    This data are part of Exercise 7.7 of Missong (2003).
 }
 
-\usage{data(Missong77)}
+\usage{data(Missong03E7.7)}
 
 \format{
    This data frame contains the following columns:

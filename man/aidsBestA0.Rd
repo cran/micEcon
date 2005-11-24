@@ -1,30 +1,28 @@
 \name{aidsBestA0}
 \alias{aidsBestA0}
-\title{Find 'best' Value for Coefficient alpha 0}
+\title{Find 'best' Value for alpha 0 in the AIDS}
 
 \description{
    Search for the intercept of the translog price index
-   (\eqn{\alpha_0}) that gives the best fit to the model,
-   i.e. the value that leads to the smallest determinant
-   of the residual covariance matrix (see Michalek
-   and Keyzer, 1992).
+   (\eqn{\alpha_0}) that gives the best fit to the
+   Almost Ideal Demand System (see Michalek and Keyzer, 1992)
 }
 
 \usage{
    aidsBestA0( pNames, wNames, xtName,
-      data = NULL, ivNames = NULL, method = "MK:L",
+      data = NULL, ivNames = NULL, method = "IL:L",
       a0min = -50, a0max = 50, stoprange = 3, stopiter = 10,
       verbose = FALSE, ... )
 }
 
 \arguments{
-   \item{pNames}{a vector of strings containing the names of prices.}
-   \item{wNames}{a vector of strings containing the names of expenditure
+   \item{pNames}{a vector of strings containing the names of the prices.}
+   \item{wNames}{a vector of strings containing the names of the expenditure
       shares.}
-   \item{xtName}{a name of the total expenditure variable.}
+   \item{xtName}{a string containing the variable name of total expenditure.}
    \item{data}{a data frame containing the data.}
-   \item{ivNames}{a vector of strings containing the names of instrumental
-      variables.}
+   \item{ivNames}{an optional vector of strings containing the names of the
+      instrumental variables.}
    \item{method}{the method to estimate the aids (see \code{\link{aidsEst}}).}
    \item{a0min}{lower limit of the range for searching for \eqn{\alpha_0}.}
    \item{a0max}{upper limit of the range for searching for \eqn{\alpha_0}.}
@@ -33,11 +31,22 @@
    \item{stopiter}{maximal number of iterations.}
    \item{verbose}{print each determinant of the residual covariance matrix
       immediately after its calculation.}
-   \item{...}{argunents passed to \code{\link{aidsEst}}.}
+   \item{...}{arguments passed to \code{\link{aidsEst}}.}
 }
 
 \details{
-   Since the call of \code{\link{aidsEst}} takes some time,
+   The demand system is estimated using the Iterative Linear Least Squares
+   Estimator (ILLE) suggested by Blundell and Robin (1999).
+   This iterative procedure is equivalent to the method proposed by
+   Michalek and Keyzer (1992). However, the latter do not correct
+   the coefficient covariance matrix.
+
+   The fit of the model is measured in terms of the likelihood value.
+   Since the determinant of the residual covariance matrix is monotonically
+   decreasing with the likelihood value, we search for the smallest
+   determinant of the residual covariance matrix.
+
+   Since each call of \code{\link{aidsEst}} generally takes a long time,
    the search algorithm is constructed to minimize the
    calls of the function \code{\link{aidsEst}}.
 }
@@ -45,12 +54,17 @@
 \value{
    a list containing following objects:
   \item{alpha0}{\eqn{\alpha_0} that gives the best fit.}
-  \item{allValues}{all \eqn{\alpha_0} tested and the corresponding
-      determinants of the residual covariance matrix.}
+  \item{allValues}{all \eqn{\alpha_0} values that have been tested and
+      the determinants of the corresponding residual covariance matrices.}
   \item{iter}{number of iterations.}
 }
 
 \references{
+   Blundell, R. and J.M. Robin (1999)
+   Estimationin Large and Disaggregated Demand Systems:
+   An Estimator for Conditionally Linear Systems.
+   \emph{Journal of Applied Econometrics}, 14, p. 209-232.
+
    Deaton, A.S. and J. Muellbauer (1980)
    An Almost Ideal Demand System.
    \emph{American Economic Review}, 70, p. 312-326.
@@ -67,10 +81,13 @@
 
 \examples{
    data( Blanciforti86 )
+   # Data on food consumption are available only for the first 32 years
+   Blanciforti86 <- Blanciforti86[ 1:32, ]
+
    bestA0 <- aidsBestA0( c( "pFood1", "pFood2", "pFood3", "pFood4" ),
       c( "wFood1", "wFood2", "wFood3", "wFood4" ), "xFood",
-      data = Blanciforti86, method = "MK:L" ) # may take some time
-   bestA0$alpha0
+      data = Blanciforti86, method = "IL:L" ) # may take some time
+   print( bestA0$alpha0 )
    plot( bestA0$allValues ) # this should be convex
 }
 

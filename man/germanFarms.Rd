@@ -6,7 +6,7 @@
 
 \description{
    The \code{germanFarms} data frame contains annual data of an average
-   full-time farm in West-Germany. Additionally, the price indeces
+   full-time farm in West-Germany. Additionally, the price indices
    for agricultural output and agricultural variable input are
    included. 20 book-keeping years are included - starting in
    1975/76 and ending in 1994/95.

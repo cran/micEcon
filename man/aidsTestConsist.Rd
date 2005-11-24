@@ -12,13 +12,13 @@
 }
 
 \arguments{
-   \item{pNames}{a vector of strings containing the names of prices.}
-   \item{wNames}{a vector of strings containing the names of expenditure
+   \item{pNames}{a vector of strings containing the names of the prices.}
+   \item{wNames}{a vector of strings containing the names of the expenditure
       shares.}
-   \item{xtName}{a name of the total expenditure variable.}
+   \item{xtName}{a string containing the variable name of total expenditure.}
    \item{data}{a data frame containing the data.}
    \item{coef}{a list containing the coefficients alpha, beta and gamma.}
-   \item{alpha0}{coefficient \eqn{\alpha_0} in the translog price index.}
+   \item{alpha0}{coefficient \eqn{\alpha_0} of the translog price index.}
 }
 
 \value{
@@ -50,11 +50,14 @@
 
 \examples{
    data( Blanciforti86 )
+   # Data on food consumption are available only for the first 32 years
+   Blanciforti86 <- Blanciforti86[ 1:32, ]
+
    pNames <- c( "pFood1", "pFood2", "pFood3", "pFood4" )
    wNames <- c( "wFood1", "wFood2", "wFood3", "wFood4" )
 
    estResult <- aidsEst( pNames, wNames, "xFood",
-      data = Blanciforti86, method = "MK:L" )
+      data = Blanciforti86, method = "IL:L" )
    tc <- aidsTestConsist( pNames, wNames, "xFood", Blanciforti86,
       coef = estResult$coef )
    tc$mPercent   # great!

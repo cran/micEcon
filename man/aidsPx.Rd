@@ -13,31 +13,35 @@
 
 \arguments{
    \item{px}{the prices index to be used (see details).}
-   \item{pNames}{a vector of strings containing the names of prices.}
-   \item{wNames}{a vector of strings containing the names of expenditure
+   \item{pNames}{a vector of strings containing the names of the prices.}
+   \item{wNames}{a vector of strings containing the names of the expenditure
       shares.}
    \item{data}{a data frame containing the data.}
-   \item{base}{The base to calculate the indices (see details).}
+   \item{base}{the base to calculate the indices (see details).}
    \item{coef}{a list containing the coefficients alpha, beta and gamma
       (only needed for the translog price index).}
-   \item{alpha0}{coefficient \eqn{\alpha_0} in the translog price index.}
+   \item{alpha0}{coefficient \eqn{\alpha_0} of the translog price index.}
 }
 \details{
-   Currently 6 different price indices are implemented: \cr
-   * translog price index ('TL'),\cr
-   * Stone price index ('S'),\cr
-   * Stone price index with lagged shares ('SL'),\cr
-   * loglinear analogue to the Paasche price index ('P'),\cr
-   * loglinear analogue of the Laspeyres price index ('L'), and\cr
-   * Tornqvist price index ('T').
-   \cr
-   The argument \code{base} can be either \cr
-   (a) a single number: the row number of the base prices and quantities, \cr
-   (b) a vector indicating several observations: The means of these
-   observations are used as base prices and quantities, or \cr
-   (c) a logical vector with the same length as the \code{data}: The
-   means of the observations indicated as 'TRUE' are used as base prices
-   and quantities.
+   Currently 6 different price indices are implemented:
+   \begin{itemize}
+   \item translog price index ('TL'),
+   \item Stone price index ('S'),
+   \item Stone price index with lagged shares ('SL'),
+   \item loglinear analogue to the Paasche price index ('P'),
+   \item loglinear analogue of the Laspeyres price index ('L'), and
+   \item Tornqvist price index ('T').
+   \end{itemize}
+
+   The argument \code{base} can be either
+   \begin{itemize}
+   \item a single number: the row number of the base prices and quantities,
+   \item a vector indicating several observations: The means of these
+      observations are used as base prices and quantities, or
+   \item a logical vector with the same length as the \code{data}: The
+      means of the observations indicated as 'TRUE' are used as base prices
+      and quantities.
+   \end{itemize}
 }
 
 \value{

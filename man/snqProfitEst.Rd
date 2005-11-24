@@ -98,7 +98,9 @@
       * stats = all coefficients with standard errors, t-values and p-values.\cr
       * liCoef = vector of linear independent coefficients.\cr
       * liCoefCov = covariance matrix of linear independent coefficients.}
-   \item{ela}{matrix with the price elasticities at mean prices and mean quantities.}
+   \item{ela}{matrix of the price elasticities at mean prices and mean quantities.}
+   \item{fixEla}{matrix of the fixed factor elasticities at mean prices and
+      mean quantities.}
    \item{hessian}{hessian matrix of the profit function with respect to prices
       evaluated at mean prices.}
    \item{convexity}{logical. Convexity of the profit function.}

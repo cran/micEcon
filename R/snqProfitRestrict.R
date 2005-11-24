@@ -11,7 +11,7 @@ snqProfitRestrict <- function( nNetput, nFix, form = 0 ) {
       nCoef <- nNetput + nNetput * ( nNetput - 1 ) / 2 + nNetput * nFix +
          nNetput * ( nFix + 1 ) * nFix/2  #number of coefficients
    } else {
-      stop( "argument 'form' must be either 0 or 1." )
+      stop( "argument 'form' must be either 0 or 1" )
    }
 
    MR <- array( 0, c( nNetput * nxe, nCoef ) ) # restriction matrix
@@ -98,7 +98,7 @@ snqProfitRestrict <- function( nNetput, nFix, form = 0 ) {
             }
          }
       } else {
-         stop( "argument 'form' must be either 0 or 1." )
+         stop( "argument 'form' must be either 0 or 1" )
       }
    }
    return( MR )

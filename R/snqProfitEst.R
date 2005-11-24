@@ -6,19 +6,19 @@ snqProfitEst <- function( pNames, qNames, fNames = NULL,
    checkNames( c( pNames, qNames, fNames, ivNames ), names( data ) )
 
    if( length( qNames ) != length( pNames ) ) {
-      stop( "arguments 'qNames' and 'pNames' must have the same length." )
+      stop( "arguments 'qNames' and 'pNames' must have the same length" )
    }
    if( length( pNames ) < 2 ) {
-      stop( "you must specify at least 2 netputs." )
+      stop( "you must specify at least 2 netputs" )
    }
    if( length( pNames ) != length( weights ) ) {
-      stop( "arguments 'pNames' and 'weights' must have the same length." )
+      stop( "arguments 'pNames' and 'weights' must have the same length" )
    }
    if( min( weights ) < 0 ) {
-      warning( paste( "At least one weight of the prices for normalization",
-         "(argument 'weights') is negative. Thus, in this case positive",
-         "semidefiniteness of the 'beta' matrix does not ensure",
-         "a convex profit function." ) )
+      warning( "At least one weight of the prices for normalization",
+         " (argument 'weights') is negative. Thus, in this case positive",
+         " semidefiniteness of the 'beta' matrix does not ensure",
+         " a convex profit function." )
    }
 
    nNetput <- length( qNames )  # number of netputs
@@ -33,7 +33,7 @@ snqProfitEst <- function( pNames, qNames, fNames = NULL,
       nCoef   <- nNetput + nNetput * ( nNetput - 1 ) / 2 + nNetput * nFix +
          nNetput * ( nFix + 1 ) * nFix/2  #number of coefficients
    } else {
-      stop( "argument 'form' must be either 0 or 1." )
+      stop( "argument 'form' must be either 0 or 1" )
    }
 
    result  <- list()
@@ -247,6 +247,11 @@ snqProfitEst <- function( pNames, qNames, fNames = NULL,
       # Hessian matrix
    result$ela <- snqProfitEla( result$coef$beta, result$pMeans,
       result$qMeans, weights )   # estimated elasticities
+   if( nFix > 0 && form == 0 ) {
+      result$fixEla <- snqProfitFixEla( result$coef$delta, result$coef$gamma,
+         result$qMeans, result$fMeans, weights )
+   }
+
    result$estData  <- estData
    result$weights  <- weights
    names( result$weights ) <- pNames

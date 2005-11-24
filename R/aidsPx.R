@@ -48,8 +48,8 @@ aidsPx <- function( px, pNames, wNames = NULL, data = NULL, base = 1,
          }
       }
    } else {
-      stop( paste( "The argument 'px' (price index) must be either 'S',",
-         "'SL', 'P', 'L', 'T' or 'TL'" ) )
+      stop( "the argument 'px' (price index) must be either 'S',",
+         " 'SL', 'P', 'L', 'T' or 'TL'" )
    }
    return( lnp )
 }

@@ -1,6 +1,6 @@
 \name{snqProfitEla}
 \alias{snqProfitEla}
-\title{Elasticities of SNQ Profit function}
+\title{Price Elasticities of SNQ Profit function}
 
 \description{
    Calculates the Price Elasticities of a Symmetric Normalized Quadratic (SNQ)

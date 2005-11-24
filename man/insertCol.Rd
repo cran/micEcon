@@ -3,15 +3,15 @@
 \title{Insert Column into a Matrix}
 
 \description{
-   Insert Column into a Matrix.
+   Insert a new column into a matrix.
 }
 
 \usage{insertCol( m, c, v = NA )}
 
 \arguments{
-   \item{ m }{Matrix.}
+   \item{ m }{matrix.}
    \item{ c }{column number where the new column should be inserted.}
-   \item{ v }{Optional values of the new column.}
+   \item{ v }{optional values of the new column.}
 }
 
 \value{

@@ -3,42 +3,50 @@ aidsEst <- function( pNames, wNames, xtName,
       method = "LA:L", hom = TRUE, sym = TRUE,
       elaFormula = "Ch", pxBase = 1,
       estMethod = ifelse( is.null( ivNames ), "SUR", "3SLS" ),
-      maxiterMk = 50, tolMk = 1e-5, alpha0 = 0, ... ) {
+      maxiterIL = 50, tolIL = 1e-5, alpha0 = 0, TX = FALSE, ... ) {
 
    if( length( pNames ) != length( wNames ) ) {
-      stop( "arguments 'pNames' and 'wNames' must have the same length." )
+      stop( "arguments 'pNames' and 'wNames' must have the same length" )
    }
    nGoods <- length( pNames )
    extractPx <- function( method ) {
       px <- substr( method, 4, nchar( method ) )
       if( !( px %in% c( "S", "SL", "P", "L", "T" ) ) ) {
-         stop( "No valid price index specified!" )
+         stop( "no valid price index specified!" )
       }
       return( px )
    }
 
-   if( substr( method, 1, 2 ) != "LA" ) {
+   if( substr( method, 1, 2 ) == "LA" ) {
       if( nchar( method ) < 4 ) {
          warning( "No price index specified: using Laspeyres price index" )
          px <- "L"
       } else {
          px <- extractPx( method )
       }
-   } else if ( substr( method, 1, 2 ) != "MK" ) {
+   } else if ( substr( method, 1, 2 ) %in% c( "MK", "IL" ) ) {
       if( nchar( method ) < 4 ) {
-         warning( paste( "No initial price index specified:",
-            "using Laspeyres price index" ) )
+         warning( "No initial price index specified:",
+            " using Laspeyres price index" )
          px <- "L"
       } else {
          px <- extractPx( method )
       }
    } else {
-      stop( paste( "At the moment only the methods 'Linear Approximation'",
-         "(LA) and 'Michalek & Keyzer' (MK) are supported" ) )
+      stop( "at the moment only the methods",
+         " 'Linear Approximation' (LA) and",
+         " 'Iterated Linear Least Squares' (IL)",
+         " are supported" )
    }
    if( sym && !hom ) {
       hom <- TRUE  # symmetry implies homogeneity
       warning( "symmetry implies homogeneity: imposing additionally homogeniety" )
+   }
+   allVarNames <- c( pNames, wNames, xtName, ivNames )
+   if( sum( is.na( data[ , allVarNames ] ) ) > 0 ) {
+      warning( "there are some NAs in the data,",
+         " all observations (rows) with NAs are excluded from the analysis" )
+      data <- data[ !is.na( rowSums( data[ , allVarNames ] ) ), ]
    }
    nObs   <- nrow( data )      # number of observations
    sample <- if( px == "SL") c( 2:nObs ) else c( 1:nObs )
@@ -52,15 +60,11 @@ aidsEst <- function( pNames, wNames, xtName,
    # log of price index
    lnp  <- aidsPx( px, pNames, wNames, data, base = pxBase )
    # prepare data.frame
-   sysData <- data.frame( lxtr = ( log( data[[ xtName ]] ) - lnp ) )
+   sysData <- data.frame( xt = data[[ xtName ]],
+      lxtr = ( log( data[[ xtName ]] ) - lnp ) )
    for( i in 1:nGoods ) {
-      sysData <- cbind( sysData, data[[ wNames[ i ] ]] )
-      names( sysData )[ length( sysData ) ] <-
-         paste( "w", as.character( i ), sep = "" )
-
-      sysData <- cbind( sysData, log( data[[ pNames[ i ] ]] ) )
-      names( sysData )[ length( sysData ) ] <-
-         paste( "lp", as.character( i ), sep = "" )
+      sysData[[ paste( "w", i, sep = "" ) ]] <- data[[ wNames[ i ] ]]
+      sysData[[ paste( "lp", i, sep = "" ) ]] <- log( data[[ pNames[ i ] ]] )
    }
    if( is.null( ivNames )) {
       ivFormula <- NULL
@@ -68,18 +72,22 @@ aidsEst <- function( pNames, wNames, xtName,
       estMethod <- "3SLS"
       ivFormula <- "~"
       for( i in 1:length( ivNames ) ) {
-         sysData <- cbind( sysData, data[[ ivNames[ i ] ]] )
-         names( sysData )[ length( sysData ) ] <-
-            paste( "i", as.character( i ), sep = "" )
+         sysData[[ paste( "i", i, sep = "" ) ]] <- data[[ ivNames[ i ] ]]
          ivFormula <- paste( ivFormula, " + i", as.character( i ), sep = "" )
       }
       ivFormula <- as.formula( ivFormula )
    }
-   restr <- aidsRestr( nGoods, hom, sym )
+   restr <- aidsRestr( nGoods, hom, sym, TX = TX )
       # restrictions for homogeneity and symmetry
    system <- aidsSystem( nGoods )    # LA-AIDS equation system
-   est <- systemfit( estMethod, system, data = sysData, R.restr = restr,
-      inst = ivFormula, ... )   # estimate system
+   # estimate system
+   if( TX ) {
+      est <- systemfit( estMethod, system, data = sysData, TX = restr,
+         inst = ivFormula, ... )
+   } else {
+      est <- systemfit( estMethod, system, data = sysData, R.restr = restr,
+         inst = ivFormula, ... )
+   }
    if( substr( method, 1, 2 ) == "LA" ) {
       result$coef <- aidsCoef( est$b, est$bcov, pNames = pNames,
          wNames = wNames, df = est$df )   # coefficients
@@ -91,28 +99,65 @@ aidsEst <- function( pNames, wNames, xtName,
       result$wFitted <- aidsCalc( pNames, xtName, data = data,
          coef = result$coef, lnp = lnp )$shares   # estimated budget shares
       iter <- est$iter
-   } else if( substr( method, 1, 2 ) == "MK" ) {
+   } else if( substr( method, 1, 2 ) %in% c( "MK", "IL" ) ) {
       b       <- est$b      # coefficients
       bd      <- est$b      # difference of coefficients between
                             # this and previous step
       iter    <- est$iter   # iterations of each SUR estimation
-      iterMk <- 1          # iterations of M+K Loop
-      while( ( ( t( bd ) %*% bd ) / ( t( b ) %*% b ) )^0.5 > tolMk &&
-            iterMk < maxiterMk ) {
-         iterMk <- iterMk + 1      # iterations of M+K Loop
+      iterIL <- 1          # iterations of IL Loop
+      while( ( ( t( bd ) %*% bd ) / ( t( b ) %*% b ) )^0.5 > tolIL &&
+            iterIL < maxiterIL ) {
+         iterIL <- iterIL + 1      # iterations of IL Loop
          bl     <- b              # coefficients of previous step
          sysData$lxtr <- log( data[[ xtName ]] ) -
             aidsPx( "TL", pNames, wNames, data = data,
             alpha0 = alpha0, coef = aidsCoef( est$b ) )
             # real total expenditure using Translog price index
-         est <- systemfit( estMethod, system, data = sysData, R.restr = restr,
-            inst = ivFormula, ... )    # estimate system
+         if( TX ) {
+            est <- systemfit( estMethod, system, data = sysData, TX = restr,
+               inst = ivFormula, ... )    # estimate system
+         } else {
+            est <- systemfit( estMethod, system, data = sysData, R.restr = restr,
+               inst = ivFormula, ... )    # estimate system
+         }
          iter <- c( iter, est$iter ) # iterations of each estimation
          b    <- est$b   # coefficients
          bd   <- b - bl  # difference between coefficients from this
                          # and previous step
       }
-      result$coef <- aidsCoef( est$b, est$bcov, pNames = pNames,
+      # calculating log of "real" (deflated) total expenditure
+      sysData$lxtr <- log( data[[ xtName ]] ) -
+         aidsPx( "TL", pNames, data = data,
+         alpha0 = alpha0, coef = aidsCoef( est$b ) )
+      # calculating matrix G
+      Gmat <- cbind( rep( 1, nObs ), sysData$lxtr )
+      for( i in 1:( nGoods ) ) {
+         Gmat <- cbind( Gmat, sysData[[ paste( "lp", i, sep = "" ) ]] )
+      }
+      # testing matrix G
+      if( FALSE ) {
+         for( i in 1:( nGoods - 1 ) ) {
+            print( est$eq[[ i ]]$fitted - Gmat %*%
+               est$b[ ( ( i - 1 ) * ( nGoods + 2 ) + 1 ):( i * (nGoods + 2 ) ) ] )
+         }
+      }
+      # calculating matrix J
+      jacobian <- aidsJacobian( est$b, pNames, xtName, data = data,
+         alpha0 = alpha0 )
+      if( hom ) {
+         TXmat <- aidsRestr( nGoods, hom, sym, TX = TRUE )
+      } else {
+         TXmat <- diag( ( nGoods - 1 ) * ( nGoods + 2 ) )
+      }
+      # Jmat <- t( TXmat ) %*% ( diag( nGoods - 1 ) %x% t( Gmat ) ) %*% jacobian
+      # JmatInv <- TXmat %*% solve( Jmat ) %*% t( TXmat )
+      # bcov <- JmatInv  %*% ( est$rcov %x% ( t( Gmat ) %*% Gmat ) ) %*%
+      #    t( JmatInv )
+      Jmat <- crossprod( TXmat, ( diag( nGoods - 1 ) %x% t( Gmat ) ) ) %*% jacobian
+      JmatInv <- TXmat %*% solve( Jmat, t( TXmat ) )
+      bcov <- JmatInv  %*% ( est$rcov %x% crossprod( Gmat ) ) %*%
+         t( JmatInv )
+      result$coef <- aidsCoef( est$b, bcov, pNames = pNames,
          wNames = wNames, df = est$df )  # coefficients
       result$coef$alpha0 <- alpha0
       result$ela  <- aidsEla( result$coef, wMeans, pMeans,
@@ -120,7 +165,7 @@ aidsEst <- function( pNames, wNames, xtName,
       result$wFitted <- aidsCalc( pNames, xtName, data = data,
          coef = result$coef, alpha0 = alpha0, px = "TL" )$shares
          # estimated budget shares
-      result$iterMk <- iterMk
+      result$iterIL <- iterIL
    }
    names( result$wFitted ) <- paste( "wFitted", as.character( 1:nGoods ),
       sep = "" )
