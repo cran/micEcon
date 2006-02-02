@@ -7,7 +7,9 @@
    profit function.
 }
 
-\usage{ snqProfitEla(  beta, prices, quant, weights )}
+\usage{ snqProfitEla(  beta, prices, quant, weights,
+   scalingFactors = rep( 1, length( weights ) ),
+   coefVcov = NULL, df = NULL )}
 
 \arguments{
    \item{beta}{matrix of estimated \eqn{\beta} coefficients.}
@@ -16,6 +18,10 @@
    \item{quant}{vector of netput quantities at which the elasticities
       should be calculated.}
    \item{weights}{vector of weights of prices used for normalization.}
+   \item{scalingFactors}{factors to scale prices (and quantities).}
+   \item{coefVcov}{variance covariance matrix of the coefficients (optional).}
+   \item{df}{degrees of freedom to calculate P-values of the elasticities
+      (optional).}
 }
 
 \note{
@@ -26,6 +32,15 @@
    Thus, e.g. \eqn{E_{ij}=0.5} means that if the price of netput j (\eqn{p_j})
    increases by 1\%, the quantity of netput i (\eqn{q_i}) will
    increase by 0.5\%.
+}
+
+\value{
+  a list of class \code{snqProfitEla} containing following elements:
+  \item{ela}{matrix of the price elasticities.}
+  \item{vcov}{variance covariance matrix of the price elasticities.}
+  \item{stEr}{standard errors of the price elasticities.}
+  \item{tval}{t-values of the price elasticities.}
+  \item{pval}{P-values of the price elasticities.}
 }
 
 \seealso{\code{\link{snqProfitEst}}.}
@@ -50,8 +65,9 @@
    estResult$ela  # price elasticities at mean prices and mean quantities
 
    # price elasticities at the last observation (1994/95)
-   snqProfitEla( estResult$coef$beta, estResult$estData[ 20, pNames ],
-      estResult$estData[ 20, qNames ], estResult$weights )
+   snqProfitEla( estResult$coef$beta, estResult$data[ 20, pNames ],
+      estResult$data[ 20, qNames ], estResult$weights,
+      estResult$scalingFactors )
 }
 
 \keyword{models}

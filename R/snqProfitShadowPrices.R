@@ -1,5 +1,6 @@
 snqProfitShadowPrices <- function( pNames, fNames, estResult = NULL,
-   data = estResult$estData, weights = estResult$weights,
+   data = estResult$data, weights = estResult$weights,
+   scalingFactors = estResult$scalingFactors,
    coef = estResult$coef, form = estResult$form ) {
 
    checkNames( c( pNames, fNames ), names( data ) )
@@ -13,14 +14,15 @@ snqProfitShadowPrices <- function( pNames, fNames, estResult = NULL,
 
    normPrice <- numeric( nObs )
    for( i in 1:nNetput ) {
-      normPrice <- normPrice + data[[ pNames[ i ] ]] * weights[ i ]
+      normPrice <- normPrice + data[[ pNames[ i ] ]] * scalingFactors[ i ] *
+         weights[ i ]
    }
 
    shadowPrices <- array( 0, c( nObs, nFix ) )
    for( j in 1:nFix ) {
       for( i in 1:nNetput ) {
          shadowPrices[ , j ] <- shadowPrices[ , j ] + coef$delta[ i, j ] *
-            data[[ pNames[ i ] ]]
+            data[[ pNames[ i ] ]] * scalingFactors[ i ]
       }
       if( form == 0 ) {
          for( k in 1:nFix ) {
@@ -32,7 +34,7 @@ snqProfitShadowPrices <- function( pNames, fNames, estResult = NULL,
             for( k in 1:nFix ) {
                shadowPrices[ , j ] <- shadowPrices[ , j ] +
                   coef$gamma[ i, j, k ] * data[[ pNames[ i ] ]] *
-                  data[[ fNames[ k ] ]]
+                  scalingFactors[ i ] * data[[ fNames[ k ] ]]
             }
          }
       }

@@ -27,6 +27,7 @@ maxNR                   Newton-Raphson maximisation
 Missong03E7.7           Meat Prices and Quantities in Germany
 Mroz87                  U.S. Women's Labor Force Participation
 numericGradient         Functions to Calculate Numeric Derivatives
+predict.snqProfitEst    Predictions from an SNQ profit function
 priceIndex              Calculate Price Indices
 print.snqProfitEst      Print output of estimated SNQ profit function
 probit                  Probit binary choice model
@@ -37,6 +38,8 @@ quadFuncEst             Estimate a quadratic function
 quantityIndex           Calculate Quantity Indices
 quasiconcavity          Test for quasiconcavity / quasiconvexity
 readFront41out          Read output of Frontier 4.1
+residuals.snqProfitEst
+                        Residuals of an SNQ profit function
 rSquared                Calculate R squared value
 semidefiniteness        Test for negative and positive semidefiniteness
 snqProfitCalc           Calculations with the SNQ Profit function

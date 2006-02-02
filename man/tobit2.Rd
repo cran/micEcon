@@ -68,17 +68,16 @@ tobit2(selection, formula, data = sys.frame(sys.parent()), method="ml",
    \code{\link{probit}} for probit models}
 \examples{
 ## uniform observable covariates (note that exclusion restriction is
-## fulfilled)! 
-z <- runif(500)
-x <- runif(500)
+## fulfilled)!
+myData <- data.frame( z = runif(500), x = runif(500) )
 ## latent selection variable
-y1s <- 2*z + rnorm(500)
-y1 <- y1s > 0
+myData$y1s <- 2 * myData$z + rnorm(500)
+myData$y1  <- myData$y1s > 0
 ## latent regressions
-y2s <- x + 0.5*rnorm(500)
-y2 <- ifelse(y1==1, y2s, 0)
-plot(z, y2)
-a <- tobit2(y1~z, y2~x)
+myData$y2s <- myData$x + 0.5 * rnorm(500)
+myData$y2  <- ifelse( myData$y1 == 1, myData$y2s, 0)
+plot( myData$z, myData$y2 )
+a <- tobit2( y1~z, y2~x, data = myData )
 summary(a)
 }
 \keyword{models}

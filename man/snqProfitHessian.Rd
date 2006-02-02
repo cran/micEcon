@@ -6,13 +6,15 @@
    Quadratic (SNQ) Profit Function.
 }
 
-\usage{snqProfitHessian( beta, prices, weights )}
+\usage{snqProfitHessian( beta, prices, weights,
+   scalingFactors = rep( 1, length( weights ) ) )}
 
 \arguments{
    \item{beta}{matrix of the \eqn{beta} coefficients.}
    \item{prices}{vector of netput prices at which the Hessian
       should be calculated.}
    \item{weights}{vector of weights of prices for normalization.}
+   \item{scalingFactors}{factors to scale prices (and quantities).}
 }
 
 \seealso{\code{\link{snqProfitEst}}, \code{\link{snqProfitEla}} and
@@ -38,8 +40,8 @@
    estResult$hessian  # the Hessian at mean prices and mean quantities
 
    # Hessian at the last observation (1994/95)
-   snqProfitHessian( estResult$coef$beta, estResult$estData[ 20, pNames ],
-      estResult$weights )
+   snqProfitHessian( estResult$coef$beta, estResult$data[ 20, pNames ],
+      estResult$weights, estResult$scalingFactors )
 }
 
 \keyword{models}

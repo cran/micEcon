@@ -1,18 +1,24 @@
 snqProfitImposeConvexity <- function( estResult, rankReduction = 0,
-   start = 10, optimMethod = "BFGS", control = list( maxit=5000 ) ) {
+   start = 10, optimMethod = "BFGS", control = list( maxit=5000 ),
+   stErMethod = "none", nRep = 1000, verbose = 0 ) {
 
    if( class( estResult ) != "snqProfitEst" ) {
       stop( "argument 'estResult' must be of class 'snqProfitEst'" )
+   }
+   if( !( stErMethod %in% c( "none", "jackknife", "resample", "coefSim" ) ) ) {
+      stop( "argument 'stErMethod' must be either 'none', 'resample',",
+         " 'jackknife' or 'coefSim'" )
    }
    if( estResult$convexity ) {
       warning( "This profit function is already convex in prices" )
       return( estResult )
    }
-   pNames  <- names( estResult$pMeans )
-   qNames  <- names( estResult$qMeans )
-   fNames  <- names( estResult$fMeans )
+   pNames  <- estResult$pNames
+   qNames  <- estResult$qNames
+   fNames  <- estResult$fNames
    nNetput <- length( pNames )
    nFix    <- length( fNames )
+   nObs    <- nrow( estResult$data )
    result  <- list()
 
    ## preparations for minimum distance estimation
@@ -36,6 +42,9 @@ snqProfitImposeConvexity <- function( estResult, rankReduction = 0,
    }
 
    ## non-linear minimization of the distance function
+   if( verbose >= 1 ) {
+      cat( "Starting minimization of the distance function\n" )
+   }
    nCholValues <- nNetput * ( nNetput - 1 ) / 2 -
       rankReduction * ( rankReduction + 1 ) / 2
       # number of non-zero values in the Cholesky matrix
@@ -61,6 +70,20 @@ snqProfitImposeConvexity <- function( estResult, rankReduction = 0,
       t( hessianDeriv ) ) %*% ( cVecliHessian - uVecliHessian )
       # vector of li indep. constrained coefficients
 
+   ## computation of the coefficient variance covariance matrix
+   if( stErMethod == "none" ) {
+      coefVcov <- NULL
+   } else {
+      if( verbose >= 1 ) {
+         cat( "Starting simulation to obtain standard errors\n" )
+      }
+      result$sim <- .snqProfitImposeConvexityStEr( estResult = estResult,
+         rankReduction = rankReduction, start = start,
+         optimMethod = optimMethod, control = control,
+         stErMethod = stErMethod, nRep = nRep, verbose = verbose )
+      coefVcov <- result$sim$coefVcov
+   }
+
    ## results of constrained model
    result$pMeans <- estResult$pMeans
    result$qMeans <- estResult$qMeans
@@ -68,38 +91,48 @@ snqProfitImposeConvexity <- function( estResult, rankReduction = 0,
    result$mindist <- mindist
    result$coef <- snqProfitCoef( coef, nNetput, nFix, form = estResult$form,
       qNames = names( estResult$qMeans ), pNames = names( estResult$pMeans ),
-      fNames = names( estResult$fMeans ) )
+      fNames = names( estResult$fMeans ), coefCov = coefVcov,
+      df = estResult$est$df )
       # constrained coefficients
-   result$fitted <- snqProfitCalc( pNames, fNames, data = estResult$estData,
-      weights = estResult$weights, coef = result$coef, form = estResult$form )
-   result$residuals <- data.frame( nr = c( 1:nrow( estResult$estData ) ) )
+   result$fitted <- snqProfitCalc( pNames, fNames, data = estResult$data,
+      weights = estResult$weights, scalingFactors = estResult$scalingFactors,
+      coef = result$coef, form = estResult$form, qNames = qNames )
+   result$residuals <- data.frame( nr = c( 1:nObs ) )
    for( i in 1:nNetput ) {
-      result$residuals[[ qNames[ i ] ]] <- estResult$estData[[ qNames[ i ] ]] -
-         result$fitted[ , i ]
+      result$residuals[[ qNames[ i ] ]] <- estResult$data[[ qNames[ i ] ]] /
+         estResult$scalingFactors[ i ] - result$fitted[ , i ]
    }
    if( !( "nr" %in% qNames ) ) {
       result$residuals[[ "nr" ]] <- NULL
    }
    result$r2 <- array( NA, c( nNetput ) )
    for( i in 1:nNetput ) {
-      result$r2[ i ] <- rSquared( estResult$estData[[ qNames[ i ] ]],
-         result$residuals[[ qNames[ i ] ]] )
+      result$r2[ i ] <- rSquared( estResult$data[[ qNames[ i ] ]] /
+         estResult$scalingFactors[ i ], result$residuals[[ qNames[ i ] ]] )
    }
    names( result$r2 ) <- names( estResult$qMeans )
 
-   result$hessian <- snqProfitHessian( result$coef$beta, estResult$pMean,
+   result$hessian <- snqProfitHessian( result$coef$beta, estResult$pMeans,
       estResult$weights ) # constrained Hessian matrix
-   result$ela <- snqProfitEla( result$coef$beta, estResult$pMean, estResult$qMean,
-      estResult$weights ) # elasticities of constrained model
+   result$ela <- snqProfitEla( result$coef$beta, estResult$pMeans, estResult$qMeans,
+      estResult$weights, coefVcov = result$coef$allCoefCov,
+      df = result$est$df ) # elasticities of constrained model
    if( nFix > 0 && estResult$form == 0 ) {
       result$fixEla <- snqProfitFixEla( result$coef$delta, result$coef$gamma,
          result$qMeans, result$fMeans, estResult$weights )
    }
-   result$estData <- estResult$estData
-   result$weights <- estResult$weights
+   result$est       <- estResult$est
+   result$data      <- estResult$data
+   result$weights   <- estResult$weights
    result$normPrice <- estResult$normPrice
    result$convexity <- TRUE
+   result$pNames    <- estResult$pNames
+   result$qNames    <- estResult$qNames
+   result$fNames    <- estResult$fNames
    result$form      <- estResult$form
+   result$base      <- estResult$base
+   result$method    <- estResult$method
+   result$scalingFactors <- estResult$scalingFactors
 
    class( result ) <- "snqProfitImposeConvexity"
    return( result )

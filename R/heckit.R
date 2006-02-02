@@ -1,5 +1,5 @@
 heckit <- function( selection, formula, data, inst = NULL,
-   print.level = 0 ) {
+   na.action = options( "na.action" ), print.level = 0 ) {
 
    if( class( formula ) != "formula" ) {
       stop( "argument 'formula' must be a formula" )
@@ -23,7 +23,8 @@ heckit <- function( selection, formula, data, inst = NULL,
 
    result <- list()
 
-   probitEndogenous <- model.frame( selection, data = data )[ , 1 ]
+   probitEndogenous <- model.frame( selection, data = data,
+      na.action = NULL )[ , 1 ]
    probitLevels <- levels( as.factor( probitEndogenous ) )
    if( length( probitLevels ) != 2 ) {
       stop( "the left hand side of 'selection' has to contain",
@@ -31,13 +32,37 @@ heckit <- function( selection, formula, data, inst = NULL,
    }
    probitDummy <- probitEndogenous == probitLevels[ 2 ]
 
+   # NA action
+   firstStepData <- model.frame( selection, data = data, na.action = NULL )
+   secondStepData <- model.frame( formula, data = data, na.action = NULL )
+   if( !is.null( inst ) ) {
+      secondStepData <- cbind( secondStepData,
+         model.frame( inst, data = data, na.action = NULL ) )
+   }
+   firstStepOk <- rowSums( is.na( firstStepData ) ) == 0
+   secondStepOk <- rowSums( is.na( secondStepData ) ) == 0
+   result$dataOk <- firstStepOk & ( secondStepOk | !probitDummy )
+
+   if( na.action == "na.omit" ) {
+      data <- data[ result$dataOk, ]
+      probitDummy <- probitDummy[ result$dataOk ]
+   } else if( na.action == "na.fail" ) {
+      if( sum( !firstStepOk ) > 0 ) {
+         stop( "missing values at the first step" )
+      }
+      if( sum( !( secondStepOk | !probitDummy ) ) > 0 ) {
+         stop( "missing values at the second step" )
+      }
+   }
+
    if( print.level > 0 ) {
       cat ( "\nEstimating 1st step Probit model . . ." )
    }
 #   result$probit <- glm( selection, binomial( link = "probit" ), data )
    result$probit <- probit(selection, data=data, x=TRUE, print.level=print.level - 1)
-   if( print.level > 0 )
+   if( print.level > 0 ) {
        cat( " OK\n" )
+   }
 #    data$probitLambda <- dnorm(linearPredictors(result$probit)) /
 #        pnorm(linearPredictors(result$probit))
 #    data$probitDelta <- data$probitLambda * ( data$probitLambda +

@@ -34,7 +34,7 @@ print.snqProfitEst <- function( x, ... ) {
    print( x$r2, ... )
 
    cat( "\nPrice elasticities of the netputs:\n" )
-   print( x$ela, ... )
+   print( x$ela$ela, ... )
 
    if( x$convexity ) {
       #cat( "\nThis profit function is convex in netputs." )

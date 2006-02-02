@@ -1,4 +1,6 @@
-snqProfitCalc <- function( pNames, fNames, data, weights, coef, form = 0 ) {
+snqProfitCalc <- function( pNames, fNames, data, weights,
+      scalingFactors = rep( 1, length( weights ) ), coef,
+      qNames = NULL, form = 0 ) {
 
    checkNames( c( pNames, fNames ), names( data ) )
 
@@ -8,9 +10,13 @@ snqProfitCalc <- function( pNames, fNames, data, weights, coef, form = 0 ) {
 
    snqProfitTestCoef( nNetput, nFix, coef, form = form )
 
+   if( is.null( qNames ) ) {
+      qNames <- paste( "X", 1:nNetput, sep = "" )
+   }
    normPrice <- numeric( nObs )
    for( i in 1:nNetput ) {
-      normPrice <- normPrice + data[[ pNames[ i ] ]] * weights[ i ]
+      normPrice <- normPrice + data[[ pNames[ i ] ]] * scalingFactors[ i ] *
+         weights[ i ]
    }
 
    qNetput <- array( 0, c( nObs, nNetput ) )
@@ -18,11 +24,13 @@ snqProfitCalc <- function( pNames, fNames, data, weights, coef, form = 0 ) {
       qNetput[ , i ] <- coef$alpha[ i ]
       for( j in 1:nNetput ) {
          qNetput[ , i ] <- qNetput[ , i ] +
-            coef$beta[ i, j ] * data[[ pNames[ j ] ]] / normPrice
+            coef$beta[ i, j ] * data[[ pNames[ j ] ]] * scalingFactors[ j ] /
+            normPrice
          for( k in 1:nNetput ) {
             qNetput[ , i ] <- qNetput[ , i ] -
-               0.5 * weights[ i ] * coef$beta[ j, k ] * data[[ pNames[ j ] ]] *
-               data[[ pNames[ k ] ]] / normPrice^2
+               0.5 * weights[ i ] * coef$beta[ j, k ] *
+               data[[ pNames[ j ] ]] * scalingFactors[ j ] *
+               data[[ pNames[ k ] ]] * scalingFactors[ k ] / normPrice^2
          }
       }
       if( nFix > 0 ) {
@@ -51,17 +59,19 @@ snqProfitCalc <- function( pNames, fNames, data, weights, coef, form = 0 ) {
 
    profit <- numeric( nObs )
    for( i in 1:nNetput ) {
-      profit <- profit + coef$alpha[ i ] * data[[ pNames[ i ] ]]
+      profit <- profit + coef$alpha[ i ] * data[[ pNames[ i ] ]] *
+         scalingFactors[ i ]
       for( j in 1:nNetput ) {
-         profit <- profit + 0.5 * coef$beta[ i, j ] * data[[ pNames[ i ] ]] *
-            data[[ pNames[ j ] ]] / normPrice
+         profit <- profit + 0.5 * coef$beta[ i, j ] *
+            data[[ pNames[ i ] ]] * scalingFactors[ i ] *
+            data[[ pNames[ j ] ]] * scalingFactors[ j ] / normPrice
       }
    }
    if( nFix > 0 ) {
       for( i in 1:nNetput ) {
          for( j in 1:nFix ) {
             profit <- profit + coef$delta[ i, j ] * data[[ pNames[ i ] ]] *
-               data[[ fNames[ j ] ]]
+               scalingFactors[ i ] * data[[ fNames[ j ] ]]
          }
       }
       if( form == 0 ) {
@@ -76,15 +86,15 @@ snqProfitCalc <- function( pNames, fNames, data, weights, coef, form = 0 ) {
             for( j in 1:nFix ) {
                for( k in 1:nFix ) {
                   profit <- profit + 0.5 * coef$gamma[ i, j, k ] *
-                     data[[ pNames[ i ] ]] * data[[ fNames[ j ] ]] *
-                     data[[ fNames[ k ] ]]
+                     data[[ pNames[ i ] ]] * scalingFactors[ i ] *
+                     data[[ fNames[ j ] ]] * data[[ fNames[ k ] ]]
                }
             }
          }
       }
    }
    result <- as.data.frame( cbind( qNetput, profit ) )
-   names( result ) <- c( paste( "X", 1:nNetput, sep = "" ), "profit" )
+   names( result ) <- c( qNames, "profit" )
 
    return( result )
 }

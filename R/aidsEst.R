@@ -161,7 +161,8 @@ aidsEst <- function( pNames, wNames, xtName,
          wNames = wNames, df = est$df )  # coefficients
       result$coef$alpha0 <- alpha0
       result$ela  <- aidsEla( result$coef, wMeans, pMeans,
-         formula = "AIDS", pNames = pNames, qNames = qNames )   # elasticities
+         formula = "AIDS", pNames = pNames, qNames = qNames,
+         coefVcov = result$coef$allcov, df = est$df )   # elasticities
       result$wFitted <- aidsCalc( pNames, xtName, data = data,
          coef = result$coef, alpha0 = alpha0, px = "TL" )$shares
          # estimated budget shares
@@ -206,6 +207,8 @@ aidsEst <- function( pNames, wNames, xtName,
    result$method <- method
    result$px  <- px
    result$lnp <- lnp
+   result$wMeans <- wMeans
+   result$pMeans <- pMeans
    class( result ) <- "aidsEst"
    return( result )
 }

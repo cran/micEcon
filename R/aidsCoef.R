@@ -16,7 +16,7 @@ aidsCoef <- function( b, cov = NULL, df = 1, LA = TRUE,
                ( i - 1 ) * ( nGoods + 2 ) + 2 + j ] <- -1   # gamma[nGoods,j]
          }
       }
-      all     <- M %*% b
+      all     <- c( M %*% b )
       all[nGoods]  <- all[nGoods]+1
       names( all ) <- c(
             paste( "alpha", c( 1:nGoods ) ),
@@ -30,6 +30,8 @@ aidsCoef <- function( b, cov = NULL, df = 1, LA = TRUE,
       stat    <- NULL
       if(!is.null(cov)) {
          allcov   <- M %*% cov %*% t(M)
+         rownames( allcov ) <- names( all )
+         colnames( allcov ) <- names( all )
          stat     <- coefTable( all, sqrt( diag( allcov ) ), df )
       }
    }

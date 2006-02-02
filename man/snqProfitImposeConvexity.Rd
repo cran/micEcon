@@ -6,7 +6,8 @@
 }
 
 \usage{snqProfitImposeConvexity( estResult, rankReduction = 0,
-   start = 10, optimMethod = "BFGS", control = list( maxit=5000 ) )
+   start = 10, optimMethod = "BFGS", control = list( maxit=5000 ),
+   stErMethod = "none", nRep = 1000, verbose = 0 )
 }
 
 \arguments{
@@ -16,45 +17,32 @@
    \item{start}{starting values of the triangular Cholesky matrix.}
    \item{optimMethod}{method to be used by \code{\link{optim}}.}
    \item{control}{list of control parameters passed to \code{\link{optim}}.}
+   \item{stErMethod}{method to compute standard errors, either
+      'none', 'resample', 'jackknife' or 'coefSim' (see details).}
+   \item{nRep}{number of replications to compute the standard errors
+      if \code{stErMethod} is either 'resample' or 'coefSim'.}
+   \item{verbose}{an integer idicating the verbose level.}
 }
 
 \details{
    The procedure proposed by Koebel, Falk and Laisney (2000, 2003) is
    applied to impose convexity in prices on an estimated symmetric
-   normalized quadratic (SNQ) profit function.
+   normalized quadratic (SNQ) profit function.\cr
+   The standard errors of the restricted coefficients can be either
+   calculated by
+   bootstrap resampling ('resampling'),
+   jackknife ('jacknife') or
+   by simulating the distribution of the unrestricted coefficients
+   using its variance covariance matrix ('coefSim').
 }
 
 \value{
-   a list of class \code{snqProfitImposeConvexity} containing following objects:
+   a list of class \code{snqProfitImposeConvexity} containing the same
+   objects as an object of class \code{\link{snqProfitEst}}
+   and additionally the objects:
    \item{mindist}{object returned by \code{\optim}.}
-   \item{coef}{a list containing the vectors/matrix of the estimated
-      coefficients:\cr
-      * alpha = \eqn{\alpha_i}.\cr
-      * beta = \eqn{\beta_{ij}}.\cr
-      * delta =  \eqn{\delta_{ij}} (only if quasi-fix inputs are present).\cr
-      * gamma = \eqn{\gamma_{ij}} (only if quasi-fix inputs are present).\cr
-      * allCoef = vector of all coefficients.\cr
-   }
-   \item{ela}{matrix of the price elasticities at mean prices and mean quantities.}
-   \item{ela}{matrix of the fixed factor elasticities at mean prices and mean
-      quantities.}
-   \item{hessian}{hessian matrix of the profit function with respect to prices
-      evaluated at mean prices.}
-   \item{convexity}{logical. Convexity of the profit function.}
-   \item{r2}{\eqn{R^2}-values of all netput equations.}
-   \item{weights}{the weights of prices used for normalization.}
-   \item{normPrice}{vector used for normalization of prices.}
-   \item{estData}{data frame used for estimation (contains the
-      (scaled) netput prices, (scaled) netput quantities,
-      (not scaled) fix inputs and the price index used for normalization.}
-   \item{fitted}{data frame that contains the fitted netput quantities and
-      the fitted profit.}
-   \item{residuals}{data frame that contains the residuals of the netput
-      quantities.}
-   \item{form}{the functional form (see \code{\link{snqProfitEst}}).}
-   \item{pMeans}{means of the (scaled) netput prices.}
-   \item{qMeans}{means of the (scaled) netput quantities.}
-   \item{fMeans}{means of the (quasi-)fix input quantities.}
+   \item{sim}{results of the simulation to obtain the standard errors
+      of the estimated coefficients.}
 }
 
 \references{
@@ -77,11 +65,9 @@
    germanFarms$qOutput   <- germanFarms$vOutput / germanFarms$pOutput
    germanFarms$qVarInput <- -germanFarms$vVarInput / germanFarms$pVarInput
    germanFarms$qLabor    <- -germanFarms$qLabor
-   germanFarms$time <- c( 0:19 )
    pNames <- c( "pOutput", "pVarInput", "pLabor" )
    qNames <- c( "qOutput", "qVarInput", "qLabor" )
-   fNames <- c( "land", "time" )
-   estResult <- snqProfitEst( pNames, qNames, fNames, data = germanFarms )
+   estResult <- snqProfitEst( pNames, qNames, "land", data = germanFarms )
    estResult  # Note: it is NOT convex in netput prices
    estResultConvex <- snqProfitImposeConvexity( estResult )
    estResultConvex  # now it is convex

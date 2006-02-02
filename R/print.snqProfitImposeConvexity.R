@@ -21,7 +21,7 @@ print.snqProfitImposeConvexity <- function( x, digits=6,... ) {
          "iterations\n" ) )
    } else {
       cat( paste( "warning: convergence not achieved after (code ",
-         x$mindistest$convergence, "\n" ) )
+         x$mindistest$convergence, ")\n" ) )
    }
    cat( "\nEstimated coefficients:\n" )
    coef <- matrix( x$coef$allCoef, ncol = 1 )
@@ -32,7 +32,7 @@ print.snqProfitImposeConvexity <- function( x, digits=6,... ) {
    print( x$r2 )
 
    cat( "\nPrice elasticities of the netputs:\n" )
-   print( x$ela )
+   print( x$ela$ela )
 
    if( x$convexity ) {
       #cat( "\nThis profit function is convex in netputs." )

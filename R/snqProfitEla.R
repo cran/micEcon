@@ -1,5 +1,7 @@
 ## ===== calculation of elasticities from beta matrix ===
-snqProfitEla <- function( beta, prices, quant, weights ) {
+snqProfitEla <- function( beta, prices, quant, weights,
+   scalingFactors = rep( 1, length( weights ) ),
+   coefVcov = NULL, df = NULL ) {
    if( !is.matrix( beta ) ) {
       stop( "argument 'beta' must be a matrix" )
    }
@@ -17,20 +19,34 @@ snqProfitEla <- function( beta, prices, quant, weights ) {
          " argument 'beta' has rows" )
    }
    nNetput  <- ncol( beta )
-   prices   <- unlist( prices )
-   quant    <- unlist( quant )
+   prices   <- unlist( prices ) * scalingFactors
+   quant    <- unlist( quant ) / scalingFactors
    hessian  <- snqProfitHessian( beta, prices, weights )
-   ela      <- hessian * array( 1, c( nNetput ) ) %*% t( prices ) /
+   result   <- list()
+   result$ela <- hessian * array( 1, c( nNetput ) ) %*% t( prices ) /
                   quant %*% t( array( 1, c( nNetput ) ) )
-   if( !is.null( names( quant ) ) ) {
-      rownames( ela ) <- names( quant )
-   } else {
-      rownames( ela ) <- paste( "q", 1:nNetput, sep = "" )
+
+   qNames <- .snqProfitQuantNames( quant, nNetput )
+   pNames <- .snqProfitPriceNames( prices, nNetput )
+
+   dimnames( result$ela ) <- list( qNames, pNames )
+
+   if( !is.null( coefVcov ) ) {
+      jacobian <- snqProfitElaJacobian( beta, prices, quant, weights )
+      betaIndex <- grep( "beta", rownames( coefVcov ) )
+      betaVcov <- coefVcov[ betaIndex, betaIndex ]
+      result$vcov <- jacobian %*% betaVcov %*% t( jacobian )
+      result$stEr <- matrix( diag( result$vcov )^0.5, nrow = nNetput,
+         byrow = TRUE )
+      result$tval <- result$ela / result$stEr
+      dimnames( result$stEr ) <- list( qNames, pNames )
+      dimnames( result$tval ) <- list( qNames, pNames )
+      if( !is.null( df ) ) {
+         result$pval <- 2 * pt( abs( result$tval ), df,
+            lower.tail = FALSE )
+         dimnames( result$pval ) <- list( qNames, pNames )
+      }
    }
-   if( !is.null( names( prices ) ) ) {
-      colnames( ela ) <- names( prices )
-   } else {
-      colnames( ela ) <- paste( "p", 1:nNetput, sep = "" )
-   }
-   return( ela )
+   class( result ) <- "snqProfitEla"
+   return( result )
 }

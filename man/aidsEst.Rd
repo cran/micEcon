@@ -70,10 +70,10 @@
       coefficients (alpha, beta, and gamma).}
    \item{ela}{a list containing the elasticities
       (see \code{\link{aidsEla}}).}
-   \item{r2}{\eqn{R^2}-values of all budget share equations.}
+   \item{r2}{\eqn{R^2}-values of all share equations.}
    \item{r2q}{\eqn{R^2}-values of the estimated quantities.}
-   \item{wFitted}{fitted budget shares.}
-   \item{wResid}{residuals of the budget shares.}
+   \item{wFitted}{fitted expenditure shares.}
+   \item{wResid}{residuals of the expenditure shares.}
    \item{qObs}{observed quantities / quantitiy indices.}
    \item{qFitted}{fitted quantities / quantitiy indices.}
    \item{qResid}{residuals of the estimated quantities.}
@@ -90,6 +90,8 @@
    \item{estMethod}{estimation method (see \code{\link[systemfit]{systemfit}}).}
    \item{rcovformula}{formula used to calculate the estimated residual
       covariance matrix (see \code{\link[systemfit]{systemfit}}).}
+   \item{pMeans}{means of the prices.}
+   \item{wMeans}{means of the expenditure shares.}
 }
 
 \references{
@@ -108,6 +110,7 @@
 \author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
 
 \examples{
+   # Using data published in Blanciforti, Green & King (1986)
    data( Blanciforti86 )
    # Data on food consumption are available only for the first 32 years
    Blanciforti86 <- Blanciforti86[ 1:32, ]
@@ -121,7 +124,6 @@
 
    ## Repeating the evaluation of different elasticity formulas of
    ## Green & Alston (1990)
-   data( Blanciforti86 )
    pNames <- c( "pFood1", "pFood2", "pFood3", "pFood4" )
    wNames <- c( "wFood1", "wFood2", "wFood3", "wFood4" )
 

@@ -1,6 +1,8 @@
 ## ------- calculation of Hessian -------------
-snqProfitHessian <- function( beta, prices, weights ) {
-   prices <- unlist( prices )
+snqProfitHessian <- function( beta, prices, weights,
+      scalingFactors = rep( 1, length( weights ) ) ) {
+
+   prices <- unlist( prices ) * scalingFactors
    normPrice <- sum( t( prices ) %*% weights )
    Hessian <- beta / normPrice -
       beta %*% prices %*% t( weights ) / normPrice^2 -

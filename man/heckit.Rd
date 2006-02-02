@@ -10,7 +10,8 @@
 }
 
 \usage{
-   heckit( selection, formula, data, inst = NULL, print.level = 0 )
+   heckit( selection, formula, data, inst = NULL,
+      na.action = options( "na.action" ), print.level = 0 )
 }
 
 \arguments{
@@ -19,6 +20,16 @@
   \item{data}{a data frame containing the data.}
   \item{inst}{an optional one-sided formula specifying instrumental variables
     for a 2SLS/IV estimation on the 2nd step.}
+  \item{na.action}{a character string which indicates what should happen when
+    the data contain 'NA's.
+    The default is set by the 'na.action' setting of 'options'
+    ("factory-fresh" default is 'na.omit').
+    Other possible values are 'na.fail' (quit) and 'NULL' (no action).
+    If na.action is 'na.omit', all observations
+    that have 'NA's in the first step or second step estimation
+    are omitted from both steps
+    ('NA's in the second step are only considered if the observation is used
+    for the estimation in the second step).}
   \item{print.level}{this argument determines the level of printing which is
     done during the estimation process.  The default value of
     '0' means that no printing occurs, a value of '1' means that

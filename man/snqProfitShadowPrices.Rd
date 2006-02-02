@@ -9,7 +9,8 @@
 
 \usage{
    snqProfitShadowPrices( pNames, fNames, estResult = NULL,
-   data = estResult$estData, weights = estResult$weights,
+   data = estResult$data, weights = estResult$weights,
+   scalingFactors = estResult$scalingFactors,
    coef = estResult$coef, form = estResult$form )
 }
 
@@ -20,6 +21,7 @@
    \item{estResult}{object returned by \code{\link{snqProfitEst}}.}
    \item{data}{a data frame containing the data.}
    \item{weights}{vector of weights of prices used for normalization.}
+   \item{scalingFactors}{factors to scale prices (see details).}
    \item{coef}{a list containing the coefficients (at least delta and gamma).}
    \item{form}{the functional form to be estimated (see details).}
 }

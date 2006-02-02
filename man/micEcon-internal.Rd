@@ -1,5 +1,6 @@
 \name{micEcon-internal}
 \alias{aidsCoef}
+\alias{aidsElaJacobian}
 \alias{aidsJacobian}
 \alias{aidsRestr}
 \alias{aidsSystem}
@@ -18,6 +19,7 @@
 \alias{checkNames}
 \alias{snqProfitCoef}
 \alias{snqProfitCoefNames}
+\alias{snqProfitElaJacobian}
 \alias{snqProfitRestrict}
 \alias{snqProfitSystem}
 \alias{snqProfitTestCoef}

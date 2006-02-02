@@ -1,5 +1,6 @@
 ## ===== calculation of fixed factor elasticities ===
-snqProfitFixEla <- function( delta, gamma, quant, fix, weights ) {
+snqProfitFixEla <- function( delta, gamma, quant, fix, weights,
+      scalingFactors = rep( 1, length( weights ) ) ) {
 
    if( ncol( delta ) > 1 ) {
       if( nrow( gamma ) != ncol( gamma ) ) {
@@ -24,7 +25,7 @@ snqProfitFixEla <- function( delta, gamma, quant, fix, weights ) {
    }
    nNetput  <- length( quant )
    nFix     <- length( fix )
-   quant    <- unlist( quant )
+   quant    <- unlist( quant ) / scalingFactors
    fix      <- unlist( fix )
 
    ela <- ( delta + weights %*% t( fix ) %*% gamma ) *

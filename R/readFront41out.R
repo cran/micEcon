@@ -6,7 +6,7 @@ readFront41out <- function( file = "front41.out", translog = FALSE ) {
    line <- 0
 
    lineSearch <- function( start, regexp, stop = length( output ) ) {
-      line2 <- start
+      line2 <- start - 1
       repeat {
          line2 <- line2 + 1
          if( length( grep( regexp, output[ line2 ] ) ) > 0 ) {
@@ -31,8 +31,12 @@ readFront41out <- function( file = "front41.out", translog = FALSE ) {
    }
 
    getValues <- function( start, name, startNo, stop = length( output ) ) {
+      if( is.null( name ) && !is.null( startNo ) ) {
+         stop( "if 'name' is NULL, 'startNo' has also to be NULL" )
+      }
       if( !is.null( name ) ) {
-         line2 <- lineSearch( start, paste( name, startNo ), stop )
+         line2 <- lineSearch( start,
+            paste( "^ *", name, " ", startNo, sep = "" ), stop )
       } else {
          line2 <- start
       }
@@ -48,16 +52,22 @@ readFront41out <- function( file = "front41.out", translog = FALSE ) {
                strings <- c( name, substr( strings[ 1 ], nchar( name ) + 1,
                   nchar( strings[ 1 ] ) ), strings[ 2:length( strings ) ] )
             }
-            if( is.null( name ) ) {
-               if( is.null( startNo ) ) {
-                  if( length( strings > 0 ) ) {
-                     values <- rbind( values, as.numeric( strings[
-                        1:length( strings ) ] ) )
+            if( is.null( name ) && is.null( startNo ) ) {
+               savedOptions <- options()
+               options( warn = -1 )
+               newValues <- as.numeric( strings )
+               options( savedOptions )
+               if( length( newValues ) > 0 ) {
+                  if( is.null( values ) ) {
+                     values <- matrix( newValues, nrow = 1 )
+                  } else if( length( newValues ) >= ncol( values ) ) {
+                     values <- rbind( values, newValues[ 1:ncol( values ) ] )
                   } else {
-                     break
+                     values <- rbind( values, c( newValues,
+                        rep( NA, ncol( values ) - length( newValues ) ) ) )
                   }
                } else {
-                  stop( "if 'name' is NULL, 'startNo' has also to be NULL")
+                  break
                }
             } else {
                if( is.null( startNo ) ) {
@@ -110,7 +120,7 @@ readFront41out <- function( file = "front41.out", translog = FALSE ) {
 
    line <- lineSearch( line, "The model is a" )
    result$functionType <- 0
-   result$functionTypeName <- rmParts( c( "The model is a", "^ " ),
+   result$functionTypeName <- rmParts( c( "The model is a ", "^ " ),
       output[ line ] )
    if( length( grep( "production function", result$functionTypeName ) ) > 0 ) {
       result$functionType <- 1
@@ -149,11 +159,19 @@ readFront41out <- function( file = "front41.out", translog = FALSE ) {
       getValues( line, "sigma-squared", NULL ) )
    result$gridResults <- rbind( result$gridResults,
       getValues( line, "gamma", NULL ) )
+   if( !is.null( lineSearch( line, "^ *mu *[0-9]", line + result$nXvars + 10 ) ) ) {
+      result$gridResults <- rbind( result$gridResults,
+         getValues( line, "mu", NULL ) )
+   }
+   if( !is.null( lineSearch( line, "^ *eta *[0-9]", line + result$nXvars + 10 ) ) ) {
+      result$gridResults <- rbind( result$gridResults,
+         getValues( line, "eta", NULL ) )
+   }
    colnames( result$gridResults ) <- c( "coef" )
 
    line <- lineSearch( line, "the final mle estimates are" )
    result$mleResults <- getValues( line, "beta", 0 )
-   if( is.null( lineSearch( line, "delta 0", line + 10 ) ) ) {
+   if( is.null( lineSearch( line, "delta 0", line + result$nXvars + 10 ) ) ) {
       result$mleResults <- rbind( result$mleResults,
          getValues( line, "delta", 1, line + result$nXvars + 10 ) )
    } else {
@@ -164,6 +182,14 @@ readFront41out <- function( file = "front41.out", translog = FALSE ) {
       getValues( line, "sigma-squared", NULL ) )
    result$mleResults <- rbind( result$mleResults,
       getValues( line, "gamma", NULL ) )
+   if( !is.null( lineSearch( line, "^ *mu *[0-9]", line + result$nXvars + 10 ) ) ) {
+      result$mleResults <- rbind( result$mleResults,
+         getValues( line, "mu", NULL ) )
+   }
+   if( !is.null( lineSearch( line, "^ *eta *[0-9]", line + result$nXvars + 10 ) ) ) {
+      result$mleResults <- rbind( result$mleResults,
+         getValues( line, "eta", NULL ) )
+   }
    colnames( result$mleResults ) <- c( "coef", "std.err", "t-ratio" )
 
    line <- lineSearch( line, "log likelihood function" )
@@ -189,8 +215,9 @@ readFront41out <- function( file = "front41.out", translog = FALSE ) {
       }
       line <- line + 1
    }
-
-   line <- lineSearch( line, "technical efficiency estimates" )
+   rownames( result$mleCov ) <- rownames( result$mleResults )
+   colnames( result$mleCov ) <- rownames( result$mleResults )
+   line <- lineSearch( line, "efficiency estimates" )
    line <- lineSearch( line, "firm *[year]* *eff\.-est\." )
    result$efficiency <- as.data.frame( getValues( line + 2, NULL, NULL ) )
    if( ncol( result$efficiency ) == 3 ) {

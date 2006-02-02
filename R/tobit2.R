@@ -156,17 +156,6 @@ tobit2 <- function(selection, formula,
       if(method == "2step") {
          return(twoStep)
       }
-      if(print.level > 0) {
-         cat("Initial values by 2-step method:results\n")
-         print(twoStep)
-      }
-      b0 <- coef(twoStep)
-      b0 <- b0[-which(names(b0) == "invMillsRatio")]
-                                        # inverse Mills ratio is not needed for ML
-      if(print.level > 0) {
-         cat("Initial values:\n")
-         print(b0)
-      }
    }
    ## Now extract model frames etc
    ## Y1 (selection equation)
@@ -224,6 +213,24 @@ tobit2 <- function(selection, formula,
    Z2 <- Z[Y1==1,,drop=FALSE]
    if(print.level > 0) {
       cat( "Not observed:", N1, "; observed:", N2,"\n", sep="")
+   }
+   ## initial values for parameters.  Note that 'twoStep' is calculated before
+   if(is.null(b0)) {
+      if(print.level > 0) {
+         cat("Initial values by 2-step method:results\n")
+         print(twoStep)
+      }
+      b0 <- coef(twoStep)
+      b0 <- b0[-which(names(b0) == "invMillsRatio")]
+                                        # inverse Mills ratio is not needed for ML
+      if(b0[irho] > 0.99)
+          b0[irho] <- 0.99
+      else if(b0[irho] < -0.99)
+          b0[irho] <- -0.99
+      if(print.level > 0) {
+         cat("Initial values:\n")
+         print(b0)
+      }
    }
    estimation <- maxLik(loglik, gradlik, hesslik,
                         theta=b0,

@@ -6,7 +6,7 @@
 }
 
 \usage{snqProfitEst( pNames, qNames, fNames = NULL, ivNames = NULL,
-   data, form = 0, base = 1,
+   data, form = 0, base = 1, scalingFactors = NULL,
    weights = snqProfitWeights( pNames, qNames, data, "DW92", base = base ),
    method = ifelse( is.null( ivNames ), "SUR", "3SLS" ), ...  )
 }
@@ -16,12 +16,13 @@
    \item{qNames}{a vector of strings containing the names of netput quantities
       (inputs must be negative).}
    \item{fNames}{an optional vector of strings containing the names of the
-      quantities of (quasi-)fix inputs.}
+      quantities of (quasi-)fixed inputs.}
    \item{ivNames}{an optional vector of strings containing the names of
       instrumental variables (for 3SLS estimation).}
    \item{data}{a data frame containing the data.}
    \item{form}{the functional form to be estimated (see details).}
    \item{base}{the base period(s) for scaling prices (see details).}
+   \item{scalingFactors}{factors to scale prices (see details).}
    \item{weights}{vector of weights of the prices for normalization.}
    \item{method}{the estimation method (passed to
       \code{\link[systemfit]{systemfit}}).}
@@ -82,7 +83,9 @@
    observations are used as base prices, \cr
    (c) a logical vector with the same length as the \code{data}: The
    means of the observations indicated as 'TRUE' are used as base prices, or\cr
-   (d) \code{NULL}: prices are not scaled.
+   (d) \code{NULL}: prices are not scaled.\cr
+   If the scaling factors are explicitly specified (argument 'scalingFactors'),
+   the argument 'base' is ignored.
 }
 
 \value{
@@ -98,7 +101,9 @@
       * stats = all coefficients with standard errors, t-values and p-values.\cr
       * liCoef = vector of linear independent coefficients.\cr
       * liCoefCov = covariance matrix of linear independent coefficients.}
-   \item{ela}{matrix of the price elasticities at mean prices and mean quantities.}
+   \item{ela}{a list of class \code{snqProfitEla} that contains
+      (amongst others) the price elasticities at mean prices and mean
+      quantities (see \code{\link{snqProfitEla}}).}
    \item{fixEla}{matrix of the fixed factor elasticities at mean prices and
       mean quantities.}
    \item{hessian}{hessian matrix of the profit function with respect to prices
@@ -108,15 +113,24 @@
    \item{est}{estimation results returned by \code{\link[systemfit]{systemfit}}.}
    \item{weights}{the weights of prices used for normalization.}
    \item{normPrice}{vector used for normalization of prices.}
-   \item{estData}{data frame used for estimation (contains the
-      (scaled) netput prices, (scaled) netput quantities,
-      (not scaled) fix inputs and the price index used for normalization.}
+   \item{data}{data frame of originally supplied data.}
    \item{fitted}{data frame that contains the fitted netput quantities and
       the fitted profit.}
+   \item{pMeans}{means of the scaled netput prices.}
+   \item{qMeans}{means of the scaled netput quantities.}
+   \item{fMeans}{means of the (quasi-)fixed input quantities.}
+   \item{pNames}{a vector of strings containing the names of netput prices.}
+   \item{qNames}{a vector of strings containing the names of netput quantities
+      (inputs must be negative).}
+   \item{fNames}{an optional vector of strings containing the names of the
+      quantities of (quasi-)fixed inputs.}
+   \item{ivNames}{an optional vector of strings containing the names of
+      instrumental variables (for 3SLS estimation).}
    \item{form}{the functional form (see details).}
-   \item{pMeans}{means of the (scaled) netput prices.}
-   \item{qMeans}{means of the (scaled) netput quantities.}
-   \item{fMeans}{means of the (quasi-)fix input quantities.}
+   \item{base}{the base period(s) for scaling prices (see details).}
+   \item{weights}{vector of weights of the prices for normalization.}
+   \item{scalingFactors}{factors to scale prices (and quantities).}
+   \item{method}{the estimation method.}
 }
 
 \references{

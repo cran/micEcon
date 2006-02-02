@@ -1,5 +1,5 @@
 snqProfitCoef <- function( coef, nNetput, nFix, form = 0, coefCov = NULL,
-   df = 1, pNames = NULL, qNames = NULL, fNames = NULL ) {
+   df = NULL, pNames = NULL, qNames = NULL, fNames = NULL ) {
 
    nCoef    <- nNetput + nNetput * ( nNetput - 1 )/2 + nNetput * nFix
       # number of coefficients
@@ -73,6 +73,7 @@ snqProfitCoef <- function( coef, nNetput, nFix, form = 0, coefCov = NULL,
    }
    names( result$allCoef ) <- snqProfitCoefNames( nNetput, nFix,
          form = form, all = TRUE )
+
    ## completing the coefficient covariance matrix
    if( !is.null( coefCov ) ) {
       result$allCoefCov <- coefCov  # covariance matrix of all coefficients
@@ -147,15 +148,31 @@ snqProfitCoef <- function( coef, nNetput, nFix, form = 0, coefCov = NULL,
          form = form, all = TRUE )
       colnames( result$allCoefCov ) <- snqProfitCoefNames( nNetput, nFix,
          form = form, all = TRUE )
-      result$stats <- array( NA, c( length( result$allCoef ), 4 ) )
-      result$stats[ , 1 ] <- result$allCoef
+   }
+   result$stats <- array( NA, c( length( result$allCoef ), 4 ) )
+   result$stats[ , 1 ] <- result$allCoef
+   if( !is.null( coefCov ) ) {
       result$stats[ , 2 ] <- sqrt( diag( result$allCoefCov ) )
       result$stats[ , 3 ] <- result$stats[ , 1 ] / result$stats[ , 2 ]
-      result$stats[ , 4 ] <- 2 * ( 1 - pt( abs( result$stats[ , 3 ] ), df ) )
-      rownames( result$stats ) <- snqProfitCoefNames( nNetput, nFix,
-         form = form, all = TRUE )
-      colnames( result$stats ) <- c( "value", "std.err", "t-value", "prob" )
+      if( !is.null( df ) ) {
+         result$stats[ , 4 ] <- 2 * ( 1 - pt( abs( result$stats[ , 3 ] ), df ) )
+      }
    }
+   rownames( result$stats ) <- snqProfitCoefNames( nNetput, nFix,
+      form = form, all = TRUE )
+   colnames( result$stats ) <- c( "value", "std.err", "t-value", "prob" )
+
+   ## linear independent coefficients
+   result$liCoef <- c( coef )
+   liCoefNames <- snqProfitCoefNames( nNetput = nNetput, nFix = nFix,
+      form = form, all = FALSE )
+   names( result$liCoef ) <- liCoefNames
+   if( !is.null( coefCov ) ) {
+      result$liCoefCov <- coefCov
+      rownames( result$liCoefCov ) <- liCoefNames
+      colnames( result$liCoefCov ) <- liCoefNames
+   }
+
    if( !is.null( qNames ) ) {
       if( length( qNames ) != nNetput ) {
          stop( "argument 'qNames' must have as many elements as ",

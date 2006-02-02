@@ -22,16 +22,16 @@ print( estResult )
 class( estResult ) <- NULL
 print( estResult )
 
-estResultCalc <- snqProfitCalc( pNamesT, NULL, estResult$estData,
-   estResult$weights, estResult$coef )
+estResultCalc <- snqProfitCalc( pNamesT, NULL, estResult$data,
+   estResult$weights, estResult$scalingFactors, estResult$coef )
 print( estResultCalc )
 if( max( abs( estResultCalc - estResult$fitted ) ) > 1e-5 ) {
    stop( "values from snqProfitCalc are not equal to fitted values" )
 }
 
 estResultEla <- snqProfitEla( estResult$coef$beta,
-   estResult$estData[ 20, pNamesT ], estResult$estData[ 20, qNamesT ],
-   estResult$weights )
+   estResult$data[ 20, pNamesT ], estResult$data[ 20, qNamesT ],
+   estResult$weights, estResult$scalingFactors )
 print( estResultEla )
 
 estResultHessianDeriv <- snqProfitHessianDeriv( estResult$pMean,
@@ -39,7 +39,8 @@ estResultHessianDeriv <- snqProfitHessianDeriv( estResult$pMean,
 print( estResultHessianDeriv )
 
 estResultHessian <- snqProfitHessian( estResult$coef$beta,
-   estResult$estData[ 20, pNamesT ], estResult$weights )
+   estResult$data[ 20, pNamesT ], estResult$weights,
+   estResult$scalingFactors )
 print( estResultHessian )
 
 ########### with fix inputs, form = 0 ########################
@@ -48,16 +49,16 @@ print( estResult )
 class( estResult ) <- NULL
 print( estResult )
 
-estResultCalc <- snqProfitCalc( pNamesT, fNamesT, estResult$estData,
-   estResult$weights, estResult$coef )
+estResultCalc <- snqProfitCalc( pNamesT, fNamesT, estResult$data,
+   estResult$weights, estResult$scalingFactors, estResult$coef )
 print( estResultCalc )
 if( max( abs( estResultCalc - estResult$fitted ) ) > 1e-5 ) {
    stop( "values from snqProfitCalc are not equal to fitted values" )
 }
 
 estResultEla <- snqProfitEla( estResult$coef$beta,
-   estResult$estData[ 20, pNamesT ], estResult$estData[ 20, qNamesT ],
-   estResult$weights )
+   estResult$data[ 20, pNamesT ], estResult$data[ 20, qNamesT ],
+   estResult$weights, estResult$scalingFactors )
 print( estResultEla )
 
 estResultHessianDeriv <- snqProfitHessianDeriv( estResult$pMean,
@@ -65,7 +66,8 @@ estResultHessianDeriv <- snqProfitHessianDeriv( estResult$pMean,
 print( estResultHessianDeriv )
 
 estResultHessian <- snqProfitHessian( estResult$coef$beta,
-   estResult$estData[ 20, pNamesT ], estResult$weights )
+   estResult$data[ 20, pNamesT ], estResult$weights,
+   estResult$scalingFactors )
 print( estResultHessian )
 
 estResultShadowprices <- snqProfitShadowPrices( pNamesT, fNamesT, estResult )
@@ -77,16 +79,16 @@ print( estResult )
 class( estResult ) <- NULL
 print( estResult )
 
-estResultCalc <- snqProfitCalc( pNamesT, fNamesT, estResult$estData,
-   estResult$weights, estResult$coef, form = 1 )
+estResultCalc <- snqProfitCalc( pNamesT, fNamesT, estResult$data,
+   estResult$weights, estResult$scalingFactors, estResult$coef, form = 1 )
 print( estResultCalc )
 if( max( abs( estResultCalc - estResult$fitted ) ) > 1e-5 ) {
    stop( "values from snqProfitCalc are not equal to fitted values" )
 }
 
 estResultEla <- snqProfitEla( estResult$coef$beta,
-   estResult$estData[ 20, pNamesT ], estResult$estData[ 20, qNamesT ],
-   estResult$weights )
+   estResult$data[ 20, pNamesT ], estResult$data[ 20, qNamesT ],
+   estResult$weights, estResult$scalingFactors )
 print( estResultEla )
 
 estResultHessianDeriv <- snqProfitHessianDeriv( estResult$pMean,
@@ -94,7 +96,8 @@ estResultHessianDeriv <- snqProfitHessianDeriv( estResult$pMean,
 print( estResultHessianDeriv )
 
 estResultHessian <- snqProfitHessian( estResult$coef$beta,
-   estResult$estData[ 20, pNamesT ], estResult$weights )
+   estResult$data[ 20, pNamesT ], estResult$weights,
+   estResult$scalingFactors )
 print( estResultHessian )
 
 estResultShadowprices <- snqProfitShadowPrices( pNamesT, fNamesT, estResult )

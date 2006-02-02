@@ -7,7 +7,8 @@
    Quadratic (SNQ) profit function.
 }
 
-\usage{ snqProfitFixEla( delta, gamma, quant, fix, weights )}
+\usage{ snqProfitFixEla( delta, gamma, quant, fix, weights,
+   scalingFactors = rep( 1, length( weights ) ) )}
 
 \arguments{
    \item{delta}{matrix of estimated \eqn{\delta} coefficients.}
@@ -17,6 +18,7 @@
    \item{fix}{vector of quantities of fixed factors at which the elasticities
       should be calculated.}
    \item{weights}{vector of weights of prices used for normalization.}
+   \item{scalingFactors}{factors to scale prices (and quantities).}
 }
 
 \note{
@@ -55,8 +57,8 @@
 
    # fixed factor elasticities at the last observation (1994/95)
    snqProfitFixEla( estResult$coef$delta, estResult$coef$gamma,
-      estResult$estData[ 20, qNames ], estResult$estData[ 20, fNames ],
-      estResult$weights )
+      estResult$data[ 20, qNames ], estResult$data[ 20, fNames ],
+      estResult$weights, estResult$scalingFactors )
 }
 
 \keyword{models}
