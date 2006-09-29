@@ -87,7 +87,11 @@ tobit2 <- function(selection, formula,
       lambdaB <- dnorm(B)/pnorm(B)
       fZ1.g <- dnorm(-Z1.g)
       FZ1.g <- pnorm(-Z1.g)
-      C <- -(pnorm(B)*dnorm(B)*B + dnorm(B)^2)/pnorm(B)^2
+      C <- ifelse(B > -25,
+                  -(pnorm(B)*dnorm(B)*B + dnorm(B)^2)/pnorm(B)^2,
+                  -1)
+                                        # This is a hack in order to avoid numerical problems.  How to do
+                                        # it better?  How to prove the limit value?
       hess <- matrix(0, NParam, NParam)
       a <- (-fZ1.g*FZ1.g*Z1.g + fZ1.g^2)/FZ1.g^2
       hess[igamma,igamma] <- -t(Z1) %*% (Z1*a) + t(Z2) %*% (Z2*C)/r^2

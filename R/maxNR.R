@@ -1,3 +1,6 @@
+maximisationType.maximisation <- function(x)
+    x$type
+
 maxNR <- function(fn, grad=NULL, hess=NULL, theta,
                   print.level=0,
                   tol=1e-6, gradtol=1e-6, steptol=1e-6,
@@ -101,6 +104,7 @@ maxNR <- function(fn, grad=NULL, hess=NULL, theta,
       return(numericHessian(fn, gradient, theta, ...))
    }
    ## -------------------------------------------------
+   cat(" ")
    maximisation.type <- "Newton-Raphson maximisation"
    nimed <- names(theta)
    NParam <- length(theta)
@@ -109,14 +113,21 @@ maxNR <- function(fn, grad=NULL, hess=NULL, theta,
    theta1 <- theta
    iter <- 0
    f1 <- func(theta1, ...)
-   if(is.na( f1)) {
+   if(print.level > 2) {
+      cat("Initial function value:", f1, "\n")
+   }
+   if(is.na( f1) | is.infinite(f1)) {
       result <- list(code=100, message=maximisation.message("100"),
                      iterations=0,
                      type=maximisation.type)
       class(result) <- "maximisation"
       return(result)
    }
-   G1 <- gradient(theta)
+   G1 <- gradient(theta, ...)
+   if(print.level > 2) {
+      cat("Initial gradient value:\n")
+      print(G1)
+   }
    if(any(is.na(G1))) {
       stop("Na in the initial gradient")
    }
@@ -260,7 +271,7 @@ maxNR <- function(fn, grad=NULL, hess=NULL, theta,
                   maximum=as.vector( f1),
                   estimate=theta1,
                   gradient=G1,
-                  hessian=H1,
+                 Hessian=H1,
                   code=code,
                   message=maximisation.message( code),
                   last.step=samm,
@@ -272,3 +283,9 @@ maxNR <- function(fn, grad=NULL, hess=NULL, theta,
    class(result) <- c("maximisation", class(result))
    invisible(result)
 }
+
+returnCode.maximisation <- function(x)
+    x$code
+
+returnMessage.maximisation <- function(x)
+    x$message

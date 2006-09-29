@@ -11,7 +11,7 @@ printIndices <- function( what, ... ) {
       }
       print( index )
       if( all.equal( rowSums( attributes( index )$weights[ !is.na( index ), ] ),
-         rep( 1, sum( !is.na( index ) ) ) ) != TRUE ) {
+         rep( 1, sum( !is.na( index ) ) ), check.attributes = FALSE ) != TRUE ) {
          cat( "\nrowSums are not equal to one!!!\n\n" )
       }
    }

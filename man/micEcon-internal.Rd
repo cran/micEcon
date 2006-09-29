@@ -6,6 +6,7 @@
 \alias{aidsSystem}
 \alias{coef.summary.probit}
 \alias{micEconIndex}
+\alias{maximisationType.maximisation}
 \alias{model.frame.probit}
 \alias{model.matrix.probit}
 \alias{print.aidsEst}
@@ -27,6 +28,14 @@
 \alias{summary.tobit2}
 \alias{translogMonoRestr}
 \alias{vcov.maxLik}
+% Document the following:
+\alias{returnCode}
+\alias{returnCode.default}
+\alias{returnCode.maximisation}
+\alias{returnCode.MLEstimate}
+\alias{returnMessage.maximisation}
+%%%%
+
 
 \title{ Internal micEcon Functions }
 
