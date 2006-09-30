@@ -12,8 +12,8 @@
    yName, xNames = NULL, zNames = NULL,
    translog = FALSE, quadHalf = TRUE,
    functionType = 1, modelType = 1, logDepVar = TRUE, mu = FALSE, eta = FALSE,
-   insFile = "front41.ins", dtaFile = sub( "\.ins$", ".dta", insFile ),
-   outFile = sub( "\.ins$", ".out", insFile ) )
+   insFile = "front41.ins", dtaFile = sub( "\\.ins$", ".dta", insFile ),
+   outFile = sub( "\\.ins$", ".out", insFile ) )
 }
 
 \arguments{

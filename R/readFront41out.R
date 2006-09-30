@@ -98,7 +98,7 @@ readFront41out <- function( file = "front41.out", translog = FALSE ) {
 
    line <- lineSearch( line, "Output from the program FRONTIER" )
    result$version <- rmParts( c( "Output from the program FRONTIER",
-      "Version", "[ \(\)]" ), output[ line ] )
+      "Version", "[ \\(\\)]" ), output[ line ] )
 
    line <- lineSearch( line, "instruction file" )
    result$insFile <- rmParts( c( "instruction file", "[ =]" ),
@@ -218,7 +218,7 @@ readFront41out <- function( file = "front41.out", translog = FALSE ) {
    rownames( result$mleCov ) <- rownames( result$mleResults )
    colnames( result$mleCov ) <- rownames( result$mleResults )
    line <- lineSearch( line, "efficiency estimates" )
-   line <- lineSearch( line, "firm *[year]* *eff\.-est\." )
+   line <- lineSearch( line, "firm *[year]* *eff\\.-est\\." )
    result$efficiency <- as.data.frame( getValues( line + 2, NULL, NULL ) )
    if( ncol( result$efficiency ) == 3 ) {
       names( result$efficiency ) <- c( "firm", "year", "eff.-est." )
