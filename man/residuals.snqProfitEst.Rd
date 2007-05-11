@@ -41,9 +41,9 @@
    germanFarms$qVarInput <- -germanFarms$vVarInput / germanFarms$pVarInput
    germanFarms$qLabor    <- -germanFarms$qLabor
    germanFarms$time      <- c( 0:19 )
-   pNames <- c( "pOutput", "pVarInput", "pLabor" )
-   qNames <- c( "qOutput", "qVarInput", "qLabor" )
-   estResult <- snqProfitEst( pNames, qNames, c("land","time"), data=germanFarms )
+   priceNames <- c( "pOutput", "pVarInput", "pLabor" )
+   quantNames <- c( "qOutput", "qVarInput", "qLabor" )
+   estResult <- snqProfitEst( priceNames, quantNames, c("land","time"), data=germanFarms )
    residuals( estResult )
    residuals( estResult, scaled = FALSE )
 }

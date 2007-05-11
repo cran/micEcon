@@ -7,7 +7,7 @@
 }
 
 \usage{
-   coefTable( coef, stdErr, df )
+   coefTable( coef, stdErr, df = NULL )
 }
 
 \arguments{
@@ -19,6 +19,8 @@
 \value{
    a matrix with 4 columns: coefficients, standard errors, t-values
       and P-values.
+   If argument \code{df} is not provided, the last column (P-values)
+   is filled with \code{NA}s.
 }
 
 \author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}

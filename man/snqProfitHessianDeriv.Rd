@@ -33,10 +33,10 @@
    germanFarms$qVarInput <- -germanFarms$vVarInput / germanFarms$pVarInput
    germanFarms$qLabor    <- -germanFarms$qLabor
    germanFarms$time <- c( 0:19 )
-   pNames <- c( "pOutput", "pVarInput", "pLabor" )
-   qNames <- c( "qOutput", "qVarInput", "qLabor" )
+   priceNames <- c( "pOutput", "pVarInput", "pLabor" )
+   quantNames <- c( "qOutput", "qVarInput", "qLabor" )
 
-   estResult <- snqProfitEst( pNames, qNames, c("land","time"), data=germanFarms )
+   estResult <- snqProfitEst( priceNames, quantNames, c("land","time"), data=germanFarms )
 
    snqProfitHessianDeriv( estResult$pMean, estResult$weights, 2 )
 }

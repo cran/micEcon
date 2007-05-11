@@ -64,6 +64,13 @@
 \author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
 
 \examples{
+   # read the output file that is provided with Frontier 4.1
+   outFile <- system.file( "front41/EG1.OUT", package = "micEcon" )
+   sfa <- readFront41out( outFile )
+   sfa$mleResults
+   sfa$efficiency
+
+   # perform an SFA and read the output
    data( Coelli )
    Coelli$logOutput  <- log( Coelli$output )
    Coelli$logCapital <- log( Coelli$capital )

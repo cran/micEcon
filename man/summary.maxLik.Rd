@@ -6,13 +6,12 @@
   and t-values.
 }
 \usage{
-summary.maxLik(object, hessian = FALSE, ... )
+summary.maxLik(object, ... )
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{object}{object of class 'maxLik', most probably a result from
     Maximum-Likelihood estimation.}
-  \item{hessian}{logical, whether to print the Hessian matrix.}
   \item{\ldots}{currently not used.}
 }
 \value{
@@ -22,10 +21,9 @@ summary.maxLik(object, hessian = FALSE, ... )
   \item{code}{code of success.}
   \item{message}{a short message describing the code.}
   \item{loglik}{the loglik value in the maximum.}
-  \item{estimate}{numeric matrix, the first column contains the parameters
+  \item{estimate}{numeric matrix, the first column contains the parameter
     estimates, the second the standard errors, third t-values and fourth
     corresponding probabilities.}
-  \item{Hessian}{Hessian at the maximum (if requested).}
   \item{activePar}{logical vector, which parameters are treated as free.}
   \item{NActivePar}{number of free parameters.}
 }
@@ -38,10 +36,10 @@ loglik <- function(theta) log(theta) - theta*t
 gradlik <- function(theta) 1/theta - t
 hesslik <- function(theta) -100/theta^2
 ## Estimate with numeric gradient and hessian
-a <- maxLik(loglik, theta=1, print.level=2)
+a <- maxLik(loglik, start=1, print.level=2)
 summary(a)
 ## Estimate with analytic gradient and hessian
-a <- maxLik(loglik, gradlik, hesslik, theta=1)
+a <- maxLik(loglik, gradlik, hesslik, start=1)
 summary(a)
 }
 \keyword{models}

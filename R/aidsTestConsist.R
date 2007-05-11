@@ -1,36 +1,36 @@
-aidsTestConsist <- function( pNames, wNames, xtName, data = NULL,
+aidsTestConsist <- function( priceNames, shareNames, totExpName, data = NULL,
    coef = NULL, alpha0 = ifelse( is.null( coef$alpha0 ), 0, coef$alpha0 ) ) {
 
-   if( length( pNames ) != length( wNames ) ) {
-      stop( "arguments 'pNames' and 'wNames' must have the same length" )
+   if( length( priceNames ) != length( shareNames ) ) {
+      stop( "arguments 'priceNames' and 'shareNames' must have the same length" )
    }
 
    result <- list()
-   nGoods <- length( pNames )
+   nGoods <- length( priceNames )
    nObs <- nrow( data )
 
-   xt <- data[[ xtName ]]
-   prices <- array( NA, c( nObs, nGoods ) )
-   shares <- array( NA, c( nObs, nGoods ) )
+   xt <- data[[ totExpName ]]
+   priceMat <- array( NA, c( nObs, nGoods ) )
+   shareMat <- array( NA, c( nObs, nGoods ) )
    for( i in 1: nGoods ) {
-      prices[ , i ] <- data[[ pNames[ i ] ]]
-      shares[ , i ] <- data[[ wNames[ i ] ]]
+      priceMat[ , i ] <- data[[ priceNames[ i ] ]]
+      shareMat[ , i ] <- data[[ shareNames[ i ] ]]
    }
-   fitted <- aidsCalc( pNames, xtName, data, alpha0 = alpha0, coef = coef )
+   fitted <- aidsCalc( priceNames, totExpName, data, alpha0 = alpha0, coef = coef )
 
    # testing for monotonicity
    mono <- array( TRUE, c( nObs ) )
    cMatrices <- list()    # testing for concavity
    conc <- array( TRUE, c( nObs ) )
 
-   lnp <- aidsPx( "TL", pNames, data = data,
+   lnp <- aidsPx( "TL", priceNames, data = data,
       alpha0 = alpha0, coef = coef )
 
    for( t in 1:nObs ) {
       mono[ t ] <- ( min( fitted$shares[ t, ] ) >= 0 )
       cMatrices[[ t ]] <- coef$gamma + ( coef$beta %*% t( coef$beta ) ) *
          ( log( xt[ t ] ) - lnp[ t ] ) -
-         diag( shares[ t, ] ) + shares[ t, ] %*% t( shares[ t, ] )
+         diag( shareMat[ t, ] ) + shareMat[ t, ] %*% t( shareMat[ t, ] )
 
   #    for( i in 1:nGoods ) {
   #       conc[ t ] <- ( conc[ t ] & cMatrices[[ t ]][ i, i ] <= 0 )

@@ -9,14 +9,14 @@
 }
 
 \usage{
-   aidsCalc( pNames, xtName, data = NULL, px = "TL", lnp = NULL,
+   aidsCalc( priceNames, totExpName, data = NULL, px = "TL", lnp = NULL,
       coef = NULL, alpha0 = ifelse( is.null( coef$alpha0 ), 0,
       coef$alpha0 ) )
 }
 
 \arguments{
-   \item{pNames}{a vector of strings containing the names of the prices.}
-   \item{xtName}{a string containing the variable name of total expenditure.}
+   \item{priceNames}{a vector of strings containing the names of the prices.}
+   \item{totExpName}{a string containing the variable name of total expenditure.}
    \item{data}{a data frame containing the data.}
    \item{px}{prices index (see \code{\link{aidsPx}}).}
    \item{lnp}{log of the price index (only required if '\code{px}' is not 'TL').}
@@ -45,26 +45,26 @@
    # Data on food consumption are available only for the first 32 years
    Blanciforti86 <- Blanciforti86[ 1:32, ]
 
-   pNames <- c( "pFood1", "pFood2", "pFood3", "pFood4" )
-   wNames <- c( "wFood1", "wFood2", "wFood3", "wFood4" )
+   priceNames <- c( "pFood1", "pFood2", "pFood3", "pFood4" )
+   shareNames <- c( "wFood1", "wFood2", "wFood3", "wFood4" )
 
    ## LA-AIDS
-   estResult <- aidsEst( pNames, wNames, "xFood",
+   estResult <- aidsEst( priceNames, shareNames, "xFood",
       data = Blanciforti86, method = "LA:L" )
 
-   lnp <- aidsPx( "L", pNames, wNames, Blanciforti86 )
+   lnp <- aidsPx( "L", priceNames, shareNames, Blanciforti86 )
 
-   fitted <- aidsCalc( pNames, "xFood", Blanciforti86,
+   fitted <- aidsCalc( priceNames, "xFood", Blanciforti86,
       coef = estResult$coef, lnp = lnp )
 
    fitted$shares  # equal to estResult$wFitted
    fitted$quant   # equal to estResult$qFitted
 
    ## AIDS
-   estResult <- aidsEst( pNames, wNames, "xFood",
+   estResult <- aidsEst( priceNames, shareNames, "xFood",
       data = Blanciforti86, method = "IL:L" )
 
-   fitted <- aidsCalc( pNames, "xFood", Blanciforti86,
+   fitted <- aidsCalc( priceNames, "xFood", Blanciforti86,
       coef = estResult$coef )
 
    fitted$shares  # equal to estResult$wFitted

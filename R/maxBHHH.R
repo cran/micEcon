@@ -1,9 +1,9 @@
 maxBHHH <- function(fn, grad=NULL, hess=NULL,
-                    theta,
+                    start,
                     print.level=0,
                     iterlim=100,
                     ...) {
-   ## HessLik   Hessian, not used, for compatibility reasons
+   ## hess:   Hessian, not used, for compatibility with the other methods
    gradVal <- NULL
    # Save the value of gradient and use it later for hessian
    # Hessian must be called with the same parameter as gradient
@@ -11,7 +11,7 @@ maxBHHH <- function(fn, grad=NULL, hess=NULL,
       if(!is.null(grad)) {
          g <- grad(theta, ...)
       } else {
-         g <- t(numericGradient(fn, theta, ...))
+         g <- numericGradient(fn, theta, ...)
       }
       assign("gradVal", g, inherits=TRUE)
       return( g )
@@ -20,7 +20,7 @@ maxBHHH <- function(fn, grad=NULL, hess=NULL,
       g <- gradVal
       return( -t(g) %*% g )
    }
-   a <- maxNR(fn, grad=gradient, hess=hess, theta=theta, iterlim=iterlim,
+   a <- maxNR(fn, grad=gradient, hess=hess, start=start, iterlim=iterlim,
               print.level=print.level, ...)
    a$type = "BHHH maximisation"
    invisible(a)

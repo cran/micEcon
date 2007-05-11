@@ -42,9 +42,9 @@
 }
 
 \value{
-   \code{predict.snqProfitEst} and \code{predict.snqProfitEst} return
+   \code{predict.snqProfitEst} and \code{predict.snqProfitImposeConvexity} return
    a dataframe that
-   contains for each netput and the profit the predicted quantities
+   contains the predicted profit and for each netput the predicted quantities
    (e.g. "quant1" ) and if requested
    the standard errors of the fitted values (e.g. "quant1.se.fit"),
    the standard errors of the prediction (e.g. "quant1.se.pred"),
@@ -91,9 +91,9 @@
    germanFarms$qVarInput <- -germanFarms$vVarInput / germanFarms$pVarInput
    germanFarms$qLabor    <- -germanFarms$qLabor
    germanFarms$time      <- c( 0:19 )
-   pNames <- c( "pOutput", "pVarInput", "pLabor" )
-   qNames <- c( "qOutput", "qVarInput", "qLabor" )
-   estResult <- snqProfitEst( pNames, qNames, c("land","time"), data=germanFarms )
+   priceNames <- c( "pOutput", "pVarInput", "pLabor" )
+   quantNames <- c( "qOutput", "qVarInput", "qLabor" )
+   estResult <- snqProfitEst( priceNames, quantNames, c("land","time"), data=germanFarms )
    predict( estResult )
    predict( estResult, se.fit = TRUE, se.pred = TRUE, interval = "confidence" )
 }

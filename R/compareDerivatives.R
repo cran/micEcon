@@ -1,5 +1,5 @@
 
-compare.derivatives <- function(f, grad, hess=NULL, t0, eps=1e-6, ...) {
+compareDerivatives <- function(f, grad, hess=NULL, t0, eps=1e-6, ...) {
 ### t0 - initial parameter vector
   cat("-------- compare derivatives -------- \n")
   a <- f(t0, ...)
@@ -8,9 +8,13 @@ compare.derivatives <- function(f, grad, hess=NULL, t0, eps=1e-6, ...) {
       stop("NA in analytic gradient!\n")
   if(is.null(dim(analytic))) {
     cat("Note: analytic gradient is vector.  Transforming into a matrix form\n")
-    analytic <- matrix(analytic, length(analytic), 1)
+    if(length(a) > 1)
+        analytic <- matrix(analytic, length(analytic), 1)
                                         # Note: we assume t0 is a simple vector -> hence gradient
                                         # will be a column vector
+    else
+        analytic <- matrix(analytic, 1, length(analytic))
+                                        # f returns a scalar -> we have row vector along t0
   }
   cat("Function value:", a, "\n")
   cat("Dim of analytic gradient:", dim(analytic), "\n")

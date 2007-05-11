@@ -1,0 +1,411 @@
+
+R version 2.4.1 (2006-12-18)
+Copyright (C) 2006 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(micEcon)
+Loading required package: systemfit
+> library(mvtnorm)
+> options(digits=6)
+> N <- 1500
+> NNA <- 5
+> vc <- diag(3)
+> vc[lower.tri(vc)] <- c(0.9, 0.5, 0.6)
+> vc[upper.tri(vc)] <- vc[lower.tri(vc)]
+> set.seed(1)
+> ## ------- Tobit-5 example ---------
+> eps <- rmvnorm(N, rep(0, 3), vc)
+> xs <- runif(N)
+> ys <- xs + eps[,1] > 0
+> xo1 <- runif(N)
+> yo1 <- xo1 + eps[,2]
+> xo2 <- runif(N)
+> yo2 <- xo2 + eps[,3]
+> ## Put some NA-s into the data
+> ys[sample(N, NNA)] <- NA
+> xs[sample(N, NNA)] <- NA
+> xo1[sample(N, NNA)] <- NA
+> xo2[sample(N, NNA)] <- NA
+> yo1[sample(N, NNA)] <- NA
+> yo2[sample(N, NNA)] <- NA
+> testTobit5TwoStep <- selection(ys~xs, list(yo1 ~ xo1, yo2 ~ xo2), method="2step")
+> print( testTobit5TwoStep )
+
+Call:
+ selection(selection = ys ~ xs, outcome = list(yo1 ~ xo1, yo2 ~      xo2), method = "2step") 
+
+Coefficients:
+ S:(Intercept)            S:xs  O1:(Intercept)          O1:xo1  invMillsRatio1  
+       0.07977         0.78112         0.61886         0.99753        -1.51527  
+        sigma1            rho1  O2:(Intercept)          O2:xo2  invMillsRatio2  
+       1.29259         0.99000        -0.00343         0.92760         0.61858  
+        sigma2            rho2  
+       0.99291         0.62300  
+
+> print( summary( testTobit5TwoStep ) )
+--------------------------------------------
+Tobit 5 model (switching regression model)
+2-step Heckman / heckit estimation
+1479 observations (479 selection 1 and 1000 selection 2) and 12 free parameters (df = 1469)
+Probit selection equation:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  0.07977    0.06558   1.216    0.224    
+xs           0.78112    0.11766   6.639 4.43e-11 ***
+Outcome equation 1:
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)   0.6189         NA      NA       NA
+xo1           0.9975         NA      NA       NA
+Multiple R-Squared:0.218,	Adjusted R-Squared:0.214
+Outcome equation 2:
+             Estimate Std. Error t value Pr(>|t|)
+(Intercept) -0.003428         NA      NA       NA
+xo2          0.927595         NA      NA       NA
+Multiple R-Squared:0.083,	Adjusted R-Squared:0.081
+Error terms:
+               Estimate Std. Error t value Pr(>|t|)
+invMillsRatio1  -1.5153         NA      NA       NA
+invMillsRatio2   0.6186         NA      NA       NA
+sigma1           1.2926         NA      NA       NA
+sigma2           0.9929         NA      NA       NA
+rho1             0.9900         NA      NA       NA
+rho2             0.6230         NA      NA       NA
+--------------------------------------------
+> print( coef( testTobit5TwoStep ), digits = 5 )
+ S:(Intercept)           S:xs O1:(Intercept)         O1:xo1 invMillsRatio1 
+     0.0797673      0.7811246      0.6188619      0.9975323     -1.5152673 
+        sigma1           rho1 O2:(Intercept)         O2:xo2 invMillsRatio2 
+     1.2925920      0.9900000     -0.0034284      0.9275952      0.6185830 
+        sigma2           rho2 
+     0.9929104      0.6229998 
+> print( coef( testTobit5TwoStep, part = "outcome" ), digits = 5 )
+O1:(Intercept)         O1:xo1 invMillsRatio1 O2:(Intercept)         O2:xo2 
+     0.6188619      0.9975323     -1.5152673     -0.0034284      0.9275952 
+invMillsRatio2 
+     0.6185830 
+> print( coef( summary( testTobit5TwoStep ) ), digits = 5 )
+                 Estimate Std. Error t value   Pr(>|t|)
+(Intercept)     0.0797673   0.065577  1.2164 2.2403e-01
+xs              0.7811246   0.117656  6.6391 4.4300e-11
+(Intercept)     0.6188619         NA      NA         NA
+xo1             0.9975323         NA      NA         NA
+invMillsRatio1 -1.5152673         NA      NA         NA
+sigma1          1.2925920         NA      NA         NA
+rho1            0.9900000         NA      NA         NA
+(Intercept)    -0.0034284         NA      NA         NA
+xo2             0.9275952         NA      NA         NA
+invMillsRatio2  0.6185830         NA      NA         NA
+sigma2          0.9929104         NA      NA         NA
+rho2            0.6229998         NA      NA         NA
+> print( coef( summary( testTobit5TwoStep ), part = "outcome" ), digits = 5 )
+                 Estimate Std. Error t value Pr(>|t|)
+(Intercept)     0.6188619         NA      NA       NA
+xo1             0.9975323         NA      NA       NA
+invMillsRatio1 -1.5152673         NA      NA       NA
+(Intercept)    -0.0034284         NA      NA       NA
+xo2             0.9275952         NA      NA       NA
+invMillsRatio2  0.6185830         NA      NA       NA
+> print( vcov( testTobit5TwoStep ), digits = 5 )
+               (Intercept)         xs (Intercept) xo1 invMillsRatio1 sigma1
+(Intercept)      0.0043004 -0.0065827          NA  NA             NA     NA
+xs              -0.0065827  0.0138429          NA  NA             NA     NA
+(Intercept)             NA         NA          NA  NA             NA     NA
+xo1                     NA         NA          NA  NA             NA     NA
+invMillsRatio1          NA         NA          NA  NA             NA     NA
+sigma1                  NA         NA          NA  NA             NA     NA
+rho1                    NA         NA          NA  NA             NA     NA
+(Intercept)             NA         NA          NA  NA             NA     NA
+xo2                     NA         NA          NA  NA             NA     NA
+invMillsRatio2          NA         NA          NA  NA             NA     NA
+sigma2                  NA         NA          NA  NA             NA     NA
+rho2                    NA         NA          NA  NA             NA     NA
+               rho1 (Intercept) xo2 invMillsRatio2 sigma2 rho2
+(Intercept)      NA          NA  NA             NA     NA   NA
+xs               NA          NA  NA             NA     NA   NA
+(Intercept)      NA          NA  NA             NA     NA   NA
+xo1              NA          NA  NA             NA     NA   NA
+invMillsRatio1   NA          NA  NA             NA     NA   NA
+sigma1           NA          NA  NA             NA     NA   NA
+rho1             NA          NA  NA             NA     NA   NA
+(Intercept)      NA          NA  NA             NA     NA   NA
+xo2              NA          NA  NA             NA     NA   NA
+invMillsRatio2   NA          NA  NA             NA     NA   NA
+sigma2           NA          NA  NA             NA     NA   NA
+rho2             NA          NA  NA             NA     NA   NA
+> print( vcov( testTobit5TwoStep, part = "outcome" ), digits = 5 )
+               (Intercept) xo1 invMillsRatio1 (Intercept) xo2 invMillsRatio2
+(Intercept)             NA  NA             NA          NA  NA             NA
+xo1                     NA  NA             NA          NA  NA             NA
+invMillsRatio1          NA  NA             NA          NA  NA             NA
+(Intercept)             NA  NA             NA          NA  NA             NA
+xo2                     NA  NA             NA          NA  NA             NA
+invMillsRatio2          NA  NA             NA          NA  NA             NA
+> 
+> testTobit5Ml <- selection(ys~xs, list(yo1 ~ xo1, yo2 ~ xo2), method="ml")
+> print( testTobit5Ml )
+
+Call:
+ selection(selection = ys ~ xs, outcome = list(yo1 ~ xo1, yo2 ~      xo2), method = "ml") 
+
+Coefficients:
+ S:(Intercept)            S:xs  O1:(Intercept)          O1:xo1          sigma1  
+        0.0021          0.9559          0.0712          0.9870          1.1214  
+          rho1  O2:(Intercept)          O2:xo2          sigma2            rho2  
+        0.9035          0.0709          0.9362          0.9980          0.4722  
+
+> print( summary( testTobit5Ml ) )
+--------------------------------------------
+Tobit 5 model (switching regression model)
+Maximum Likelihood estimation
+Newton-Raphson maximisation, 9 iterations
+Return code 2: successive function values within tolerance limit.
+ May be a solution
+Log-Likelihood: -2774.84 
+1479 observations (479 selection 1 and 1000 selection 2) and 10 free parameters (df = 1469)
+Probit selection equation:
+            Estimate Std. error t value Pr(> t)    
+(Intercept) 0.002098   0.057064   0.037    0.97    
+xs          0.955862   0.093904  10.179  <2e-16 ***
+Outcome equation 1:
+            Estimate Std. error t value Pr(> t)    
+(Intercept)   0.0712     0.1166   0.611   0.541    
+xo1           0.9870     0.1159   8.516  <2e-16 ***
+Outcome equation 2:
+            Estimate Std. error t value Pr(> t)    
+(Intercept)  0.07087    0.11164   0.635   0.526    
+xo2          0.93618    0.10162   9.212  <2e-16 ***
+Error terms:
+       Estimate Std. error t value Pr(> t)    
+sigma1  1.12140    0.06722  16.683 < 2e-16 ***
+sigma2  0.99800    0.04797  20.806 < 2e-16 ***
+rho1    0.90346    0.02630  34.350 < 2e-16 ***
+rho2    0.47218    0.15987   2.953 0.00314 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+--------------------------------------------
+> print( coef( testTobit5Ml ), digits = 5 )
+ S:(Intercept)           S:xs O1:(Intercept)         O1:xo1         sigma1 
+     0.0020985      0.9558618      0.0712029      0.9869915      1.1213988 
+          rho1 O2:(Intercept)         O2:xo2         sigma2           rho2 
+     0.9034608      0.0708691      0.9361839      0.9979964      0.4721812 
+> print( coef( testTobit5Ml, part = "outcome" ), digits = 5 )
+O1:(Intercept)         O1:xo1 O2:(Intercept)         O2:xo2 
+      0.071203       0.986992       0.070869       0.936184 
+> print( coef( summary( testTobit5Ml ) ), digits = 5 )
+             Estimate Std. error   t value     Pr(> t)
+(Intercept) 0.0020985   0.057064  0.036774  9.7067e-01
+xs          0.9558618   0.093904 10.179120  2.4577e-24
+(Intercept) 0.0712029   0.116614  0.610584  5.4147e-01
+xo1         0.9869915   0.115894  8.516319  1.6470e-17
+sigma1      1.1213988   0.067218 16.683103  1.7394e-62
+rho1        0.9034608   0.026301 34.350318 1.3931e-258
+(Intercept) 0.0708691   0.111640  0.634802  5.2556e-01
+xo2         0.9361839   0.101623  9.212287  3.1925e-20
+sigma2      0.9979964   0.047967 20.805895  3.8275e-96
+rho2        0.4721812   0.159873  2.953469  3.1422e-03
+> print( coef( summary( testTobit5Ml ), part = "outcome" ), digits = 5 )
+            Estimate Std. error t value    Pr(> t)
+(Intercept) 0.071203    0.11661 0.61058 5.4147e-01
+xo1         0.986992    0.11589 8.51632 1.6470e-17
+(Intercept) 0.070869    0.11164 0.63480 5.2556e-01
+xo2         0.936184    0.10162 9.21229 3.1925e-20
+> print( vcov( testTobit5Ml ), digits = 5 )
+             [,1]        [,2]        [,3]        [,4]        [,5]        [,6]
+ [1,]  3.2563e-03 -0.00429072  2.0712e-03  1.6289e-04  1.0380e-03  2.2306e-04
+ [2,] -4.2907e-03  0.00881799 -2.1244e-03 -3.6654e-04 -1.7678e-03 -4.6186e-04
+ [3,]  2.0712e-03 -0.00212438  1.3599e-02 -6.9569e-03  6.0568e-03  2.2994e-03
+ [4,]  1.6289e-04 -0.00036654 -6.9569e-03  1.3431e-02 -2.0860e-04 -8.9331e-05
+ [5,]  1.0380e-03 -0.00176780  6.0568e-03 -2.0860e-04  4.5182e-03  1.4669e-03
+ [6,]  2.2306e-04 -0.00046186  2.2994e-03 -8.9331e-05  1.4669e-03  6.9176e-04
+ [7,] -7.8425e-04  0.00198534 -3.1689e-04 -8.4932e-05 -3.7035e-04 -1.0425e-04
+ [8,]  6.4764e-05 -0.00010835  3.6795e-05  4.3445e-06  2.3555e-05  5.6580e-06
+ [9,]  4.5672e-04 -0.00092009  2.2967e-04  3.8127e-05  1.8583e-04  4.8179e-05
+[10,]  1.7903e-03 -0.00331901  9.5525e-04  1.3564e-04  6.9206e-04  1.7359e-04
+             [,7]        [,8]        [,9]       [,10]
+ [1,] -7.8425e-04  6.4764e-05  4.5672e-04  0.00179030
+ [2,]  1.9853e-03 -1.0835e-04 -9.2009e-04 -0.00331901
+ [3,] -3.1689e-04  3.6795e-05  2.2967e-04  0.00095525
+ [4,] -8.4932e-05  4.3445e-06  3.8127e-05  0.00013564
+ [5,] -3.7035e-04  2.3555e-05  1.8583e-04  0.00069206
+ [6,] -1.0425e-04  5.6580e-06  4.8179e-05  0.00017359
+ [7,]  1.2463e-02 -5.5413e-03 -4.1352e-03 -0.01515100
+ [8,] -5.5413e-03  1.0327e-02  2.0137e-04  0.00077608
+ [9,] -4.1352e-03  2.0137e-04  2.3008e-03  0.00678622
+[10,] -1.5151e-02  7.7608e-04  6.7862e-03  0.02555951
+> print( vcov( testTobit5Ml, part = "outcome" ), digits = 5 )
+            [,1]        [,2]        [,3]        [,4]
+[1,]  1.3599e-02 -6.9569e-03 -3.1689e-04  3.6795e-05
+[2,] -6.9569e-03  1.3431e-02 -8.4932e-05  4.3445e-06
+[3,] -3.1689e-04 -8.4932e-05  1.2463e-02 -5.5413e-03
+[4,]  3.6795e-05  4.3445e-06 -5.5413e-03  1.0327e-02
+> 
+> ## ------- Tobit-2 exmple -----------
+> vc <- diag(2)
+> vc[2,1] <- vc[1,2] <- -0.7
+> eps <- rmvnorm(N, rep(0, 2), vc)
+> xs <- runif(N)
+> ys <- xs + eps[,1] > 0
+> xo <- runif(N)
+> yo <- (xo + eps[,2])*(ys > 0)
+> xs[sample(N, NNA)] <- NA
+> ys[sample(N, NNA)] <- NA
+> xo[sample(N, NNA)] <- NA
+> yo[sample(N, NNA)] <- NA
+> testTobit2TwoStep <- selection(ys~xs, yo ~xo, method="2step")
+> print( testTobit2TwoStep )
+
+Call:
+ selection(selection = ys ~ xs, outcome = yo ~ xo, method = "2step") 
+
+Coefficients:
+S:(Intercept)           S:xs  O:(Intercept)           O:xo  invMillsRatio  
+       0.0647         0.8910         0.1284         0.9176        -0.8714  
+        sigma            rho  
+       1.0458        -0.8333  
+
+> print( summary( testTobit2TwoStep ) )
+--------------------------------------------
+Tobit 2 model (sample selection model)
+2-step Heckman / heckit estimation
+1481 observations (461 censored and 1020 observed) and 7 free parameters (df = 1475)
+Probit selection equation:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  0.06466    0.06690   0.967    0.334    
+xs           0.89105    0.12165   7.325 3.92e-13 ***
+Outcome equation:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   0.1283     0.1310    0.98    0.327    
+xo            0.9176     0.0910   10.08   <2e-16 ***
+Multiple R-Squared:0.104,	Adjusted R-Squared:0.102
+Error terms:
+              Estimate Std. Error t value Pr(>|t|)    
+invMillsRatio  -0.8714     0.2381   -3.66 0.000261 ***
+sigma           1.0458         NA      NA       NA    
+rho            -0.8333         NA      NA       NA    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+--------------------------------------------
+> print( coef( testTobit2TwoStep ), digits = 5 )
+S:(Intercept)          S:xs O:(Intercept)          O:xo invMillsRatio 
+     0.064662      0.891045      0.128353      0.917630     -0.871432 
+        sigma           rho 
+     1.045774     -0.833289 
+> print( coef( testTobit2TwoStep, part = "outcome" ), digits = 5 )
+O:(Intercept)          O:xo invMillsRatio 
+      0.12835       0.91763      -0.87143 
+> print( coef( summary( testTobit2TwoStep ) ), digits = 5 )
+               Estimate Std. Error  t value   Pr(>|t|)
+(Intercept)    0.064662   0.066898  0.96659 3.3391e-01
+xs             0.891045   0.121647  7.32486 3.9198e-13
+(Intercept)    0.128353   0.131026  0.97960 3.2744e-01
+xo             0.917630   0.090998 10.08412 3.5881e-23
+invMillsRatio -0.871432   0.238072 -3.66038 2.6073e-04
+sigma          1.045774         NA       NA         NA
+rho           -0.833289         NA       NA         NA
+> print( coef( summary( testTobit2TwoStep ), part = "outcome" ), digits = 5 )
+              Estimate Std. Error t value   Pr(>|t|)
+(Intercept)    0.12835   0.131026  0.9796 3.2744e-01
+xo             0.91763   0.090998 10.0841 3.5881e-23
+invMillsRatio -0.87143   0.238072 -3.6604 2.6073e-04
+> print( vcov( testTobit2TwoStep ), digits = 5 )
+              (Intercept)         xs (Intercept)          xo invMillsRatio
+(Intercept)     0.0044753 -0.0069733          NA          NA            NA
+xs             -0.0069733  0.0147979          NA          NA            NA
+(Intercept)            NA         NA   0.0171677 -0.00400620   -0.02835681
+xo                     NA         NA  -0.0040062  0.00828056   -0.00023644
+invMillsRatio          NA         NA  -0.0283568 -0.00023644    0.05667814
+sigma                  NA         NA          NA          NA            NA
+rho                    NA         NA          NA          NA            NA
+              sigma rho
+(Intercept)      NA  NA
+xs               NA  NA
+(Intercept)      NA  NA
+xo               NA  NA
+invMillsRatio    NA  NA
+sigma            NA  NA
+rho              NA  NA
+> print( vcov( testTobit2TwoStep, part = "outcome" ), digits = 5 )
+              (Intercept)          xo invMillsRatio
+(Intercept)     0.0171677 -0.00400620   -0.02835681
+xo             -0.0040062  0.00828056   -0.00023644
+invMillsRatio  -0.0283568 -0.00023644    0.05667814
+> 
+> testTobit2Ml <- selection(ys~xs, yo ~xo, method="ml")
+> print( testTobit2Ml )
+
+Call:
+ selection(selection = ys ~ xs, outcome = yo ~ xo, method = "ml") 
+
+Coefficients:
+S:(Intercept)           S:xs  O:(Intercept)           O:xo          sigma  
+       0.0420         0.9313         0.0697         0.9503         1.0125  
+          rho  
+      -0.7791  
+
+> print( summary( testTobit2Ml ) )
+--------------------------------------------
+Tobit 2 model (sample selection model)
+Maximum Likelihood estimation
+Newton-Raphson maximisation, 5 iterations
+Return code 1: gradient close to zero. May be a solution
+Log-Likelihood: -2159.85 
+1481 observations (461 censored and 1020 observed) and 6 free parameters (df = 1475)
+Probit selection equation:
+            Estimate Std. error t value Pr(> t)    
+(Intercept)  0.04199    0.06039   0.695   0.487    
+xs           0.93125    0.10845   8.587  <2e-16 ***
+Outcome equation:
+            Estimate Std. error t value Pr(> t)    
+(Intercept)  0.06973    0.06166   1.131   0.258    
+xo           0.95026    0.08967  10.597  <2e-16 ***
+Error terms:
+      Estimate Std. error t value Pr(> t)    
+sigma  1.01254    0.03672   27.57  <2e-16 ***
+rho   -0.77910    0.04533  -17.19  <2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+--------------------------------------------
+> print( coef( testTobit2Ml ), digits = 5 )
+S:(Intercept)          S:xs O:(Intercept)          O:xo         sigma 
+     0.041986      0.931255      0.069729      0.950258      1.012537 
+          rho 
+    -0.779097 
+> print( coef( testTobit2Ml, part = "outcome" ), digits = 5 )
+O:(Intercept)          O:xo 
+     0.069729      0.950258 
+> print( coef( summary( testTobit2Ml ) ), digits = 5 )
+             Estimate Std. error   t value     Pr(> t)
+(Intercept)  0.041986   0.060392   0.69521  4.8692e-01
+xs           0.931255   0.108446   8.58724  8.9086e-18
+(Intercept)  0.069729   0.061658   1.13089  2.5810e-01
+xo           0.950258   0.089673  10.59694  3.0790e-26
+sigma        1.012537   0.036724  27.57155 2.4417e-167
+rho         -0.779097   0.045326 -17.18872  3.2257e-66
+> print( coef( summary( testTobit2Ml ), part = "outcome" ), digits = 5 )
+            Estimate Std. error t value   Pr(> t)
+(Intercept) 0.069729   0.061658  1.1309 2.581e-01
+xo          0.950258   0.089673 10.5969 3.079e-26
+> print( vcov( testTobit2Ml ), digits = 5 )
+            [,1]        [,2]        [,3]        [,4]        [,5]        [,6]
+[1,]  3.6472e-03 -5.3900e-03 -0.00019564  1.6822e-05  0.00019934 -0.00034739
+[2,] -5.3900e-03  1.1761e-02 -0.00072328 -4.5531e-05 -0.00072946  0.00077627
+[3,] -1.9564e-04 -7.2328e-04  0.00380170 -3.7233e-03  0.00102780 -0.00134785
+[4,]  1.6822e-05 -4.5531e-05 -0.00372330  8.0412e-03  0.00023688 -0.00038006
+[5,]  1.9934e-04 -7.2946e-04  0.00102780  2.3688e-04  0.00134865 -0.00130683
+[6,] -3.4739e-04  7.7627e-04 -0.00134785 -3.8006e-04 -0.00130683  0.00205445
+> print( vcov( testTobit2Ml, part = "outcome" ), digits = 5 )
+           [,1]       [,2]
+[1,]  0.0038017 -0.0037233
+[2,] -0.0037233  0.0080412
+> 

@@ -1,12 +1,13 @@
-aidsBestA0 <- function( pNames, wNames, xtName,
-      data = NULL, ivNames = NULL, method = "IL:L",
+aidsBestA0 <- function( priceNames, shareNames, totExpName,
+      data = NULL, instNames = NULL, shifterNames = NULL, method = "IL:L",
       a0min = -50, a0max = 50, stoprange = 3, stopiter = 10,
       verbose = FALSE, ... ) {
 
-   if( length( pNames ) != length( wNames ) ) {
-      stop( "arguments 'pNames' and 'wNames' must have the same length" )
+   if( length( priceNames ) != length( shareNames ) ) {
+      stop( "arguments 'priceNames' and 'shareNames' must have the same length" )
    }
-   nGoods <- length( pNames )
+   nGoods <- length( priceNames )
+   nShifter <- length( shifterNames )
 
    if( !( substr( method, 1, 2 ) %in% c( "MK", "IL" ) ) ) {
       stop( "at the moment this function works only with",
@@ -15,8 +16,8 @@ aidsBestA0 <- function( pNames, wNames, xtName,
    if( a0min >= a0max ) stop( "a0min must be smaller than a0max" )
 
    deta0 <- function( a0, ... ) {
-      estResult <- aidsEst( pNames, wNames, xtName, data = data,
-         method = method, ivNames = ivNames,
+      estResult <- aidsEst( priceNames, shareNames, totExpName, data = data,
+         method = method, instNames = instNames, shifterNames = shifterNames,
          alpha0 = a0, ... )
       det <- estResult$est$drcov
       assign( "allValues", rbind( allValues, c( a0, det ) ),

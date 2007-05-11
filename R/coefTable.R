@@ -1,10 +1,12 @@
-coefTable <- function( coef, stdErr, df ) {
+coefTable <- function( coef, stdErr, df = NULL ) {
    result <- cbind(
       coef,
       stdErr,
       coef / stdErr,
-      2 * pt( abs( coef / stdErr ), df, lower.tail = FALSE )
-      )
+      rep( NA, length( coef ) ) )
+   if( !is.null( df ) ) {
+      result[ , 4 ] <- 2 * pt( abs( coef / stdErr ), df, lower.tail = FALSE )
+   }
    colnames( result ) <- c( "Estimate", "Std. Error", "t value", "Pr(>|t|)" )
    if( !is.null( names( coef ) ) ) {
       rownames( result ) <- names( coef )

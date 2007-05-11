@@ -7,9 +7,9 @@ predict.snqProfitEst <- function( object, newdata = object$data,
    nObsNew <- nrow( newdata )
 
    modelData <- .snqProfitModelData( data = newdata,
-      weights = object$weights, pNames = object$pNames,
-      qNames = object$qNames, fNames = object$fNames,
-      ivNames = object$ivNames, form = object$form,
+      weights = object$weights, priceNames = object$priceNames,
+      quantNames = object$quantNames, fixNames = object$fixNames,
+      instNames = object$instNames, form = object$form,
       netputScale = object$scalingFactors )
    system <- snqProfitSystem( nNetput, nFixed, form = object$form,
       profit = TRUE )
@@ -21,15 +21,15 @@ predict.snqProfitEst <- function( object, newdata = object$data,
    for( i in 1:nNetput ) {
       x[[ i ]] <- model.matrix( system[[ i ]], modelData ) %*%
          restrict[ ( ( i - 1 ) * nCoefPerEq + 1 ):( i * nCoefPerEq ), ]
-      result[[ object$qNames[ i ] ]] <- c( x[[ i ]] %*%
+      result[[ object$quantNames[ i ] ]] <- c( x[[ i ]] %*%
           object$coef$liCoef )
       if( se.fit || interval == "confidence" ) {
-         result[[ paste( object$qNames[ i ], ".se.fit", sep = "" ) ]] <-
+         result[[ paste( object$quantNames[ i ], ".se.fit", sep = "" ) ]] <-
             diag( x[[ i ]] %*% object$coef$liCoefCov %*%
                t( x[[ i ]] ) )^0.5
       }
       if( se.pred || interval == "prediction" ) {
-         result[[ paste( object$qNames[ i ], ".se.pred", sep = "" ) ]] <-
+         result[[ paste( object$quantNames[ i ], ".se.pred", sep = "" ) ]] <-
             diag( x[[ i ]] %*% object$coef$liCoefCov %*%
                t( x[[ i ]] ) + object$est$rcov[ i, i ] )^0.5
       }
@@ -40,22 +40,22 @@ predict.snqProfitEst <- function( object, newdata = object$data,
             tval   <- qt( 1 - ( 1- level )/2, object$est$eq[[i]]$df )
          }
          if( interval == "confidence" ) {
-            seName <- paste( object$qNames[ i ], ".se.fit", sep = "" )
+            seName <- paste( object$quantNames[ i ], ".se.fit", sep = "" )
          } else if( interval == "prediction" ) {
-            seName <- paste( object$qNames[ i ], ".se.pred", sep = "" )
+            seName <- paste( object$quantNames[ i ], ".se.pred", sep = "" )
          } else {
             stop( "argument 'interval' must be either 'none', 'confidence'",
                " or 'prediction'" )
          }
-         result[[ paste( object$qNames[ i ], ".lwr", sep="" ) ]] <-
-            result[[ object$qNames[ i ] ]] - ( tval * result[[ seName ]] )
-         result[[ paste( object$qNames[ i ], ".upr", sep="" ) ]] <-
-            result[[ object$qNames[ i ] ]] + ( tval * result[[ seName ]] )
+         result[[ paste( object$quantNames[ i ], ".lwr", sep="" ) ]] <-
+            result[[ object$quantNames[ i ] ]] - ( tval * result[[ seName ]] )
+         result[[ paste( object$quantNames[ i ], ".upr", sep="" ) ]] <-
+            result[[ object$quantNames[ i ] ]] + ( tval * result[[ seName ]] )
          if( !se.fit && interval == "confidence" ) result[[ seName ]] <- NULL
          if( !se.pred && interval == "prediction" ) result[[ seName ]] <- NULL
       }
    }
-   if( !( "obsNo" %in% object$qNames ) ) result$obsNo <- NULL
+   if( !( "obsNo" %in% object$quantNames ) ) result$obsNo <- NULL
 
    i <- nNetput + 1
    x[[ i ]] <- model.matrix( system[[ i ]], modelData )

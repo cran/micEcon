@@ -65,9 +65,9 @@
    germanFarms$qOutput   <- germanFarms$vOutput / germanFarms$pOutput
    germanFarms$qVarInput <- -germanFarms$vVarInput / germanFarms$pVarInput
    germanFarms$qLabor    <- -germanFarms$qLabor
-   pNames <- c( "pOutput", "pVarInput", "pLabor" )
-   qNames <- c( "qOutput", "qVarInput", "qLabor" )
-   estResult <- snqProfitEst( pNames, qNames, "land", data = germanFarms )
+   priceNames <- c( "pOutput", "pVarInput", "pLabor" )
+   quantNames <- c( "qOutput", "qVarInput", "qLabor" )
+   estResult <- snqProfitEst( priceNames, quantNames, "land", data = germanFarms )
    estResult  # Note: it is NOT convex in netput prices
    estResultConvex <- snqProfitImposeConvexity( estResult )
    estResultConvex  # now it is convex

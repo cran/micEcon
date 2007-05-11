@@ -1,48 +1,52 @@
 \name{aidsEst}
 \alias{aidsEst}
-\title{Estimation of the Almost Ideal Demand System (AIDS) }
+\alias{print.aidsEst}
+\title{Estimating the Almost Ideal Demand System (AIDS) }
 
 \description{
-   \code{aidsEst} does a full demand analysis with the Almost Ideal
-   Demand System (AIDS): econometric estimation, calculation
-   of elasticities, ...
+   \code{aidsEst} does an econometric estimation
+   of the Almost Ideal Demand System (AIDS)
 }
 
-\usage{ aidsEst( pNames, wNames, xtName, data = NULL,
-      ivNames = NULL, qNames = wNames,
-      method = "LA:L", hom = TRUE, sym = TRUE,
-      elaFormula = "Ch", pxBase,
-      estMethod = ifelse( is.null( ivNames ), "SUR", "3SLS" ),
-      maxiterIL = 50, tolIL = 1e-5, alpha0 = 0, TX = FALSE, ... )
+\usage{
+aidsEst( priceNames, shareNames, totExpName, data = NULL,
+      instNames = NULL, shifterNames = NULL,
+      method = "LA:L", hom = TRUE, sym = TRUE, pxBase,
+      estMethod = ifelse( is.null( instNames ), "SUR", "3SLS" ),
+      ILmaxiter = 50, ILtol = 1e-5, alpha0 = 0, TX = FALSE, ... )
+
+\method{print}{aidsEst}( x, ... )
 }
 
 \arguments{
-   \item{pNames}{a vector of strings containing the names of the prices.}
-   \item{wNames}{a vector of strings containing the names of the expenditure
+   \item{priceNames}{a vector of strings containing the names of the prices.}
+   \item{shareNames}{a vector of strings containing the names of the expenditure
       shares.}
-   \item{xtName}{a string containing the variable name of total expenditure.}
+   \item{totExpName}{a string containing the variable name of total expenditure.}
    \item{data}{a data frame containing the data.}
-   \item{ivNames}{a vector of strings containing the names of instrumental
+   \item{instNames}{a vector of strings containing the names of instrumental
       variables.}
-   \item{qNames}{an optional vector of strings containing the names of
-      the quantities (just to label elasticities).}
-   \item{method}{the method to estimate the aids (see details).}
+   \item{shifterNames}{an optional vector of strings containing the names of
+      the demand shifters.}
+   \item{method}{the method to estimate the AIDS (see details).}
    \item{hom}{logical. Should the homogeneity condition be imposed?}
    \item{sym}{logical. Should the symmetry condition be imposed?}
-   \item{elaFormula}{the elasticity formula (see \code{\link{aidsEla}}).}
    \item{pxBase}{The base to calculate the LA-AIDS price indices
       (see \code{\link{aidsPx}}).}
    \item{estMethod}{estimation method (e.g. 'SUR' or '3SLS',
       see \code{\link[systemfit]{systemfit}}).}
-   \item{maxiterIL}{maximum number of iterations of the
+   \item{ILmaxiter}{maximum number of iterations of the
       'Iterated Linear Least Squares Estimation'.}
-   \item{tolIL}{tolerance level of the 'Iterated Linear Least Squares
+   \item{ILtol}{tolerance level of the 'Iterated Linear Least Squares
       Estimation'.}
    \item{alpha0}{the intercept of the translog price index (\eqn{\alpha_0}).}
    \item{TX}{logical. Method to impose homogeneity and symmetry restrictions:
       either via R.restr (default) or via TX
       (see \code{\link[systemfit]{systemfit}}).}
-   \item{...}{arguments passed to \code{\link[systemfit]{systemfit}}.}
+   \item{x}{An object of class \code{aidsEst}.}
+   \item{...}{additional arguments of \code{aidsEst} are passed to
+      \code{\link[systemfit]{systemfit}};
+      additional arguments of \code{print.aidsEst} are currently ignored.}
 }
 
 \details{
@@ -68,8 +72,6 @@
    a list of class \code{aidsEst} containing following objects:
    \item{coef}{a list containing the vectors/matrix of the estimated
       coefficients (alpha, beta, and gamma).}
-   \item{ela}{a list containing the elasticities
-      (see \code{\link{aidsEla}}).}
    \item{r2}{\eqn{R^2}-values of all share equations.}
    \item{r2q}{\eqn{R^2}-values of the estimated quantities.}
    \item{wFitted}{fitted expenditure shares.}
@@ -81,7 +83,7 @@
       If the AIDS is estimated by the 'Iterated Linear Least Squares
       Estimator' (ILLE):
       a vector containing the SUR/3SLS iterations at each iteration.}
-   \item{iterIL}{number of iterations of the 'Iterated Linear Least Squares
+   \item{ILiter}{number of iterations of the 'Iterated Linear Least Squares
       Estimation'.}
    \item{method}{the method used to estimate the aids (see details).}
    \item{lnp}{log of the price index used for estimation.}
@@ -92,6 +94,10 @@
       covariance matrix (see \code{\link[systemfit]{systemfit}}).}
    \item{pMeans}{means of the prices.}
    \item{wMeans}{means of the expenditure shares.}
+   \item{call}{the call of \code{aidsEst}.}
+   \item{priceNames}{names of the prices.}
+   \item{shareNames}{names of the expenditure shares.}
+   \item{totExpName}{name of the variable for total expenditure.}
 }
 
 \references{
@@ -105,7 +111,8 @@
    \emph{Journal of Applied Econometrics}, 14, p. 209-232.
 }
 
-\seealso{\code{\link{aidsEla}}, \code{\link{aidsCalc}}.}
+\seealso{\code{\link{summary.aidsEst}}, \code{\link{aidsElas}},
+   \code{\link{aidsCalc}}.}
 
 \author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
 
@@ -116,41 +123,27 @@
    Blanciforti86 <- Blanciforti86[ 1:32, ]
 
    ## Repeating the demand analysis of Blanciforti, Green & King (1986)
+   ## Note: Blanciforti, Green & King (1986) use scaled data,
+   ##       which leads to slightly different results
    estResult <- aidsEst( c( "pFood1", "pFood2", "pFood3", "pFood4" ),
       c( "wFood1", "wFood2", "wFood3", "wFood4" ), "xFood",
-      data = Blanciforti86, method = "LA:SL", elaFormula = "Ch",
-      maxiter = 1, rcovformula = 1, tol = 1e-7 )
+      data = Blanciforti86, method = "LA:SL", maxiter = 100 )
+   print( estResult )
+   elas( estResult )
+
+   ## Estimations with a demand shifter: linear trend
+   priceNames <- c( "pFood1", "pFood2", "pFood3", "pFood4" )
+   shareNames <- c( "wFood1", "wFood2", "wFood3", "wFood4" )
+   Blanciforti86$trend <- c( 0:( nrow( Blanciforti86 ) - 1 ) )
+   estResult <- aidsEst( priceNames, shareNames, "xFood",
+      data = Blanciforti86, shifterNames = "trend" )
    print( estResult )
 
-   ## Repeating the evaluation of different elasticity formulas of
-   ## Green & Alston (1990)
-   pNames <- c( "pFood1", "pFood2", "pFood3", "pFood4" )
-   wNames <- c( "wFood1", "wFood2", "wFood3", "wFood4" )
-
-   # AIDS
-   estResultA <- aidsEst( pNames, wNames, "xFood",
-      data = Blanciforti86[ -1, ], maxiter = 1,
-      elaFormula = "AIDS", rcovformula=1, tol=1e-7,
-      method = "IL:L" )
-   print( diag( estResultA$ela$marshall ) )
-
-   # LA-AIDS + formula of AIDS
-   estResultL1 <- aidsEst( pNames, wNames, "xFood",
-      data = Blanciforti86, maxiter = 1, elaFormula = "AIDS",
-      rcovformula=1, tol=1e-7, method = "LA:SL" )
-   print( diag( estResultL1$ela$marshall ) )
-
-   # LA-AIDS + formula of Eales + Unnevehr
-   estResultL2 <- aidsEst( pNames, wNames, "xFood",
-      data = Blanciforti86, maxiter = 1, elaFormula = "EU",
-      rcovformula=1, tol=1e-7, method = "LA:SL" )
-   print( diag( estResultL2$ela$marshall ) )
-
-   # LA-AIDS + formula of Chalfant:
-   estResultL3 <- aidsEst( pNames, wNames, "xFood",
-      data = Blanciforti86, maxiter = 1, elaFormula = "Ch",
-      rcovformula=1, tol=1e-7, method = "LA:SL" )
-   print( diag( estResultL3$ela$marshall ) )
+   # Estimations with two demand shifters: linear + quadratic trend
+   Blanciforti86$trend2 <- c( 0:( nrow( Blanciforti86 ) - 1 ) )^2
+   estResult <- aidsEst( priceNames, shareNames, "xFood",
+      data = Blanciforti86, shifterNames = c( "trend", "trend2" ) )
+   print( estResult )
 }
 
 \keyword{models}

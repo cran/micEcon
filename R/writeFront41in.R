@@ -27,8 +27,8 @@ writeFront41in <- function( data, crossSectionName, timePeriodName,
    }
 
 
-   nCrossSection <- max( data[[ crossSectionName ]] )
-   nTimePeriods  <- max( data[[ timePeriodName ]] )
+   nCrossSection <- length( unique( data[[ crossSectionName ]] ) )
+   nTimePeriods  <- length( unique( data[[ timePeriodName ]] ) )
    nTotalObs     <- nrow( data )
    nXvars        <- length( xNames )
    nXtotal       <- ifelse( translog, nXvars + nXvars * ( nXvars + 1 ) / 2,

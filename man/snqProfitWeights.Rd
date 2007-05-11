@@ -7,11 +7,11 @@
    Symmetric Normalized  Quadratic (SNQ) Profit function.
 }
 
-\usage{snqProfitWeights( pNames, qNames, data, method = "DW92", base = 1 )}
+\usage{snqProfitWeights( priceNames, quantNames, data, method = "DW92", base = 1 )}
 
 \arguments{
-   \item{pNames}{a vector of strings containing the names of netput prices.}
-   \item{qNames}{a vector of strings containing the names of netput quantities.}
+   \item{priceNames}{a vector of strings containing the names of netput prices.}
+   \item{quantNames}{a vector of strings containing the names of netput quantities.}
    \item{data}{a data frame containing the data.}
    \item{method}{the method to determine the weights (see details).}
    \item{base}{the base period(s) for scaling prices (see details).}
@@ -54,9 +54,9 @@
    germanFarms$qOutput   <- germanFarms$vOutput   / germanFarms$pOutput
    germanFarms$qVarInput <- -germanFarms$vVarInput / germanFarms$pVarInput
    germanFarms$qLabor    <- -germanFarms$qLabor
-   pNames <- c( "pOutput", "pVarInput", "pLabor" )
-   qNames <- c( "qOutput", "qVarInput", "qLabor" )
-   snqProfitWeights( pNames, qNames, germanFarms )
+   priceNames <- c( "pOutput", "pVarInput", "pLabor" )
+   quantNames <- c( "qOutput", "qVarInput", "qLabor" )
+   snqProfitWeights( priceNames, quantNames, germanFarms )
 }
 
 \keyword{models}

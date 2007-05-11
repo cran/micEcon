@@ -46,18 +46,18 @@
    germanFarms$qVarInput <- -germanFarms$vVarInput / germanFarms$pVarInput
    germanFarms$qLabor    <- -germanFarms$qLabor
    germanFarms$time      <- c( 0:19 )
-   pNames <- c( "pOutput", "pVarInput", "pLabor" )
-   qNames <- c( "qOutput", "qVarInput", "qLabor" )
-   fNames <- c( "land", "time" )
+   priceNames <- c( "pOutput", "pVarInput", "pLabor" )
+   quantNames <- c( "qOutput", "qVarInput", "qLabor" )
+   fixNames <- c( "land", "time" )
 
-   estResult <- snqProfitEst( pNames, qNames, fNames, data=germanFarms )
+   estResult <- snqProfitEst( priceNames, quantNames, fixNames, data=germanFarms )
 
    estResult$fixEla  # price elasticities at mean quantities of netputs
                      # and fixed factors
 
    # fixed factor elasticities at the last observation (1994/95)
    snqProfitFixEla( estResult$coef$delta, estResult$coef$gamma,
-      estResult$data[ 20, qNames ], estResult$data[ 20, fNames ],
+      estResult$data[ 20, quantNames ], estResult$data[ 20, fixNames ],
       estResult$weights, estResult$scalingFactors )
 }
 

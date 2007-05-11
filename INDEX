@@ -1,31 +1,40 @@
+activePar               free parameters under maximisation
 aidsBestA0              Find 'best' Value for alpha 0 in the AIDS
 aidsCalc                Shares and Quantities of the Almost Ideal
                         Demand System
-aidsEla                 Elasticities of the AIDS model
-aidsEst                 Estimation of the Almost Ideal Demand System
+aidsElas                Elasticities of the AIDS model
+aidsEst                 Estimating the Almost Ideal Demand System
                         (AIDS)
 aidsPx                  Price Index for the AIDS
 aidsTestConsist         Consistency Test of the AIDS
 Blanciforti86           U.S. consumption data
 Bleymueller79E25.1      Artificial Prices and Quantities
+coef.selection          Extract Coefficients from Selection Models
 coefTable               Coefficient Table
 Coelli                  Data provided with Coelli's Frontier 4.1
-compare.derivatives     function to compare analytic and numeric
+compareDerivatives      function to compare analytic and numeric
                         derivatives
+elas                    Calculating and returning elasticities
 germanFarms             Output and Inputs of Farms in West-Germany
-heckit                  2-step Heckman (heckit) estimation
 heckitVcov              Heckit Variance Covariance Matrix
+hessian                 Hessian matrix
 insertCol               Insert Column into a Matrix
 insertRow               Insert Row into a Matrix
 invMillsRatio           Inverse Mill's Ratio of probit models
 linearPredictors        Calculates linear predictors for different
                         models
+loglikValue             Return the log likelihood value
 maxBFGS                 BFGS maximisation
 maxBHHH                 BHHH maximisation
+maximisationType        Type of minimisation/maximisation
 maxLik                  Maximum likelihood estimation
 maxNR                   Newton-Raphson maximisation
+micEcon-deprecated      Deprecated Functions in micEcon package
 Missong03E7.7           Meat Prices and Quantities in Germany
 Mroz87                  U.S. Women's Labor Force Participation
+nObs                    Return number of observations for statistical
+                        models
+nParam                  Number of model parameters
 numericGradient         Functions to Calculate Numeric Derivatives
 predict.snqProfitEst    Predictions from an SNQ profit function
 priceIndex              Calculate Price Indices
@@ -37,10 +46,14 @@ quadFuncDeriv           Derivatives of a quadratic function
 quadFuncEst             Estimate a quadratic function
 quantityIndex           Calculate Quantity Indices
 quasiconcavity          Test for quasiconcavity / quasiconvexity
+RandHIE                 RAND Health Insurance Experiment
 readFront41out          Read output of Frontier 4.1
 residuals.snqProfitEst
                         Residuals of an SNQ profit function
+returnCode              Return code for optimisation and other objects
+returnMessage           Information about the optimisation process
 rSquared                Calculate R squared value
+selection               Heckman-style selection models
 semidefiniteness        Test for negative and positive semidefiniteness
 snqProfitCalc           Calculations with the SNQ Profit function
 snqProfitEla            Price Elasticities of SNQ Profit function
@@ -54,18 +67,23 @@ snqProfitImposeConvexity
 snqProfitShadowPrices   Shadow Prices of a SNQ Profit function
 snqProfitWeights        SNQ Profit function: Weights of prices for
                         normalization
-summary.heckit          Print output of heckit estimation
+summary.aidsElas        Summarizing the Elasticities of an Almost Ideal
+                        Demand System
+summary.aidsEst         Summarizing the Estimation of an Almost Ideal
+                        Demand System
 summary.maximisation    Summary method for maximisation/minimisation
 summary.maxLik          summary the Maximum-Likelihood estimation
+summary.selection       Summarizing Selection Estimations
 symMatrix               Symmetric Matrix
-tobit2                  function to calculate Heckman-type selection
-                        models
+testConsist             Testing Theoretical Consistency
 translogCalc            Calculate dependent variable of a translog
                         function
 translogDeriv           Derivatives of a translog function
 translogEst             Estimate a translog function
 translogHessian         Hessian matrix of a translog function
 triang                  Upper triangular matrix from a vector
+vcov.probit             'vcov' methods in Package 'micEcon'
+vcov.selection          Extract Variance Covariance Matrix
 vecli                   Vector of linear independent values
 vecli2m                 Convert vector of linear independent values
                         into a Matrix

@@ -1,0 +1,129 @@
+summary.selection <- function(object, ...) {
+   ## object      object of class "selection"
+
+   if( object$method == "ml" ) {
+      s <- summary.maxLik(object, ...)
+   } else if( object$method == "2step" )  {
+      s <- list()  # list for results that will be returned
+
+      RSq <- function(model, intercept) {
+         ## Calculate r-squared.  Note that the way lm() finds R2 is a bit naive -- it checks for intercept
+         ## in the formula, but not whether the intercept is present in any of the data vectors (or matrices)
+         if(class(model) == "lm") {
+            y <- model.response(model.frame(model))
+            if(intercept) {
+               R2 <- 1 - sum(residuals(model)^2)/sum((y - mean(y))^2)
+               R2adj <- 1 - (1 - R2)*(nObs(model) - 1)/(nObs(model) - nParam(model))
+            }
+            else {
+               R2 <- 1 - sum(residuals(model)^2)/sum(y^2)
+               R2adj <- 1 - (1 - R2)*(nObs(model))/(nObs(model) - nParam(model))
+            }
+         }
+         else {
+            R2 <- model$eq[[ 1 ]]$r2
+            R2adj <- model$eq[[ 1 ]]$adjr2
+         }
+         c(R2, R2adj)
+      }
+      if( object$tobitType == 2 ) {
+         r <- RSq( object$lm, object$param$oIntercept )
+         R2 <- r[1]
+         R2adj <- r[2]
+         s$rSquared <- list(R2=R2, R2adj=R2adj)
+      } else {
+         r <- RSq(object$lm1, object$param$oIntercept1)
+         R21 <- r[1]
+         R2adj1 <- r[2]
+         r <- RSq(object$lm2, object$param$oIntercept2)
+         R22 <- r[1]
+         R2adj2 <- r[2]
+         iBetaS <- object$param$index$betaS
+         s$rSquared <- list(R21=R21, R2adj1=R2adj1, R22=R22, R2adj2=R2adj2)
+      }
+
+      stdd <- sqrt(diag(vcov(object, part="full")))
+      estcoef <- coef( object, part="full" )
+      names( estcoef ) <- sub( "^[SO][12]?:", "", names( estcoef ) )
+      s$estimate <- coefTable( estcoef, stdd, object$param$df)
+   }
+   s$param    <- object$param
+   s$tobitType <- object$tobitType
+   s$method <- object$method
+   class( s ) <- c( "summary.selection", class( s ) )
+   return( s )
+}
+
+print.summary.selection <- function(x,
+                                 digits=max(3, getOption("digits") - 3),
+                                 part="full",
+                                 ... ) {
+
+   cat("--------------------------------------------\n")
+   cat("Tobit", x$tobitType, "model" )
+   if( x$tobitType == 2 ) {
+      cat( " (sample selection model)\n" )
+   } else {
+      cat( " (switching regression model)\n" )
+   }
+   if( x$method == "ml" ) {
+      cat( "Maximum Likelihood estimation\n" )
+      cat(x$type, ", ", x$iterations, " iterations\n", sep="")
+      cat("Return code ", x$code, ": ", x$message, "\n", sep="")
+      if(!is.null(x$estimate)) {
+         cat("Log-Likelihood:", loglikValue(x), "\n")
+      }
+   } else if( x$method == "2step" ) {
+      cat( "2-step Heckman / heckit estimation\n" )
+   }
+   if(!is.null(x$estimate)) {
+      cat( x$param$nObs, "observations" )
+      if( x$tobitType == 2 ) {
+         cat( " (", x$param$N0, " censored and ", x$param$N1, " observed)",
+            sep = "" )
+      } else {
+         cat( " (", x$param$N1, " selection 1 and ",
+            x$param$N2, " selection 2)", sep = "" )
+      }
+      cat( " and", x$param$nParam, "free parameters" )
+      cat( " (df = ", x$param$df, ")\n", sep="")
+      if(part == "full") {
+         cat("Probit selection equation:\n")
+         printCoefmat( x$estimate[ x$param$index$betaS, ],
+            signif.legend = FALSE )
+      }
+      if( x$tobitType == 2 ) {
+         cat("Outcome equation:\n")
+         printCoefmat( x$estimate[ x$param$index$betaO, ],
+            signif.legend = ( part != "full" ) )
+         if( x$method == "2step" ) {
+            cat("Multiple R-Squared:", round(x$rSquared$R2, digits),
+               ",\tAdjusted R-Squared:", round(x$rSquared$R2adj, digits),
+               "\n", sep="")
+         }
+      } else if( x$tobitType == 5 ) {
+         cat("Outcome equation 1:\n")
+         printCoefmat( x$estimate[ x$param$index$betaO1, ],
+            signif.legend = FALSE )
+         if( x$method == "2step" ) {
+            cat("Multiple R-Squared:", round(x$rSquared$R21, digits),
+               ",\tAdjusted R-Squared:", round(x$rSquared$R2adj1, digits),
+               "\n", sep="")
+         }
+         cat("Outcome equation 2:\n")
+         printCoefmat( x$estimate[ x$param$index$betaO2, ],
+            signif.legend = ( part != "full" ) )
+         if( x$method == "2step" ) {
+            cat("Multiple R-Squared:", round(x$rSquared$R22, digits),
+               ",\tAdjusted R-Squared:", round(x$rSquared$R2adj2, digits),
+            "\n", sep="")
+         }
+      }
+      if(part=="full") {
+         cat("Error terms:\n")
+         printCoefmat( x$estimate[ x$param$index$errTerms, ] )
+      }
+   }
+   cat("--------------------------------------------\n")
+   invisible( x )
+}

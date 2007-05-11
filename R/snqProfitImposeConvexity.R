@@ -13,11 +13,11 @@ snqProfitImposeConvexity <- function( estResult, rankReduction = 0,
       warning( "This profit function is already convex in prices" )
       return( estResult )
    }
-   pNames  <- estResult$pNames
-   qNames  <- estResult$qNames
-   fNames  <- estResult$fNames
-   nNetput <- length( pNames )
-   nFix    <- length( fNames )
+   priceNames  <- estResult$priceNames
+   quantNames  <- estResult$quantNames
+   fixNames  <- estResult$fixNames
+   nNetput <- length( priceNames )
+   nFix    <- length( fixNames )
    nObs    <- nrow( estResult$data )
    result  <- list()
 
@@ -90,25 +90,25 @@ snqProfitImposeConvexity <- function( estResult, rankReduction = 0,
    result$fMeans <- estResult$fMeans
    result$mindist <- mindist
    result$coef <- snqProfitCoef( coef, nNetput, nFix, form = estResult$form,
-      qNames = names( estResult$qMeans ), pNames = names( estResult$pMeans ),
-      fNames = names( estResult$fMeans ), coefCov = coefVcov,
+      quantNames = names( estResult$qMeans ), priceNames = names( estResult$pMeans ),
+      fixNames = names( estResult$fMeans ), coefCov = coefVcov,
       df = estResult$est$df )
       # constrained coefficients
-   result$fitted <- snqProfitCalc( pNames, fNames, data = estResult$data,
+   result$fitted <- snqProfitCalc( priceNames, fixNames, data = estResult$data,
       weights = estResult$weights, scalingFactors = estResult$scalingFactors,
-      coef = result$coef, form = estResult$form, qNames = qNames )
+      coef = result$coef, form = estResult$form, quantNames = quantNames )
    result$residuals <- data.frame( nr = c( 1:nObs ) )
    for( i in 1:nNetput ) {
-      result$residuals[[ qNames[ i ] ]] <- estResult$data[[ qNames[ i ] ]] /
+      result$residuals[[ quantNames[ i ] ]] <- estResult$data[[ quantNames[ i ] ]] /
          estResult$scalingFactors[ i ] - result$fitted[ , i ]
    }
-   if( !( "nr" %in% qNames ) ) {
+   if( !( "nr" %in% quantNames ) ) {
       result$residuals[[ "nr" ]] <- NULL
    }
    result$r2 <- array( NA, c( nNetput ) )
    for( i in 1:nNetput ) {
-      result$r2[ i ] <- rSquared( estResult$data[[ qNames[ i ] ]] /
-         estResult$scalingFactors[ i ], result$residuals[[ qNames[ i ] ]] )
+      result$r2[ i ] <- rSquared( estResult$data[[ quantNames[ i ] ]] /
+         estResult$scalingFactors[ i ], result$residuals[[ quantNames[ i ] ]] )
    }
    names( result$r2 ) <- names( estResult$qMeans )
 
@@ -126,9 +126,9 @@ snqProfitImposeConvexity <- function( estResult, rankReduction = 0,
    result$weights   <- estResult$weights
    result$normPrice <- estResult$normPrice
    result$convexity <- TRUE
-   result$pNames    <- estResult$pNames
-   result$qNames    <- estResult$qNames
-   result$fNames    <- estResult$fNames
+   result$priceNames    <- estResult$priceNames
+   result$quantNames    <- estResult$quantNames
+   result$fixNames    <- estResult$fixNames
    result$form      <- estResult$form
    result$base      <- estResult$base
    result$method    <- estResult$method

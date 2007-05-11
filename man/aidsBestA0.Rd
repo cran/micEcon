@@ -9,20 +9,22 @@
 }
 
 \usage{
-   aidsBestA0( pNames, wNames, xtName,
-      data = NULL, ivNames = NULL, method = "IL:L",
+   aidsBestA0( priceNames, shareNames, totExpName,
+      data = NULL, instNames = NULL, shifterNames = NULL, method = "IL:L",
       a0min = -50, a0max = 50, stoprange = 3, stopiter = 10,
       verbose = FALSE, ... )
 }
 
 \arguments{
-   \item{pNames}{a vector of strings containing the names of the prices.}
-   \item{wNames}{a vector of strings containing the names of the expenditure
+   \item{priceNames}{a vector of strings containing the names of the prices.}
+   \item{shareNames}{a vector of strings containing the names of the expenditure
       shares.}
-   \item{xtName}{a string containing the variable name of total expenditure.}
+   \item{totExpName}{a string containing the variable name of total expenditure.}
    \item{data}{a data frame containing the data.}
-   \item{ivNames}{an optional vector of strings containing the names of the
+   \item{instNames}{an optional vector of strings containing the names of the
       instrumental variables.}
+   \item{shifterNames}{an optional vector of strings containing the names of
+      the demand shifters.}
    \item{method}{the method to estimate the aids (see \code{\link{aidsEst}}).}
    \item{a0min}{lower limit of the range for searching for \eqn{\alpha_0}.}
    \item{a0max}{upper limit of the range for searching for \eqn{\alpha_0}.}

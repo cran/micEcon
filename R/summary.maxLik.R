@@ -11,43 +11,37 @@ print.summary.maxLik <- function( x, ... ) {
       cat("Log-Likelihood:", x$loglik, "\n")
       cat(x$NActivePar, " free parameters\n")
       cat("Estimates:\n")
-      print(x$estimate)
-      if(!is.null(x$Hessian)) {
-         cat("Hessian:\n")
-         print(x$Hessian)
-      }
+      printCoefmat(x$estimate)
    }
    cat("--------------------------------------------\n")
 }
 
-summary.maxLik <- function( object, hessian=FALSE, ... ) {
+summary.maxLik <- function( object, ... ) {
    ## object      object of class "maxLik"
-   ## hessian     logical, whether to include hessian in summary
    ## 
    ## RESULTS:
    ## list of class "summary.maxLik" with following components:
    ## maximum    : function value at optimum
    ## estimate   : estimated parameter values at optimum
    ## gradient   :           gradient at optimum
-   ## hessian    :           hessian
    ## code       : code of convergence
    ## message    : message, description of the code
    ## iterations : number of iterations
    ## type       : type of optimisation
    ##
    result <- object$maximisation
-   NParam <- length(coef <- coefficients(object))
+   nParam <- length(coef <- coef.maxLik(object))
    if(!is.null(object$activePar)) {
       activePar <- object$activePar
    } else {
-      activePar <- rep(TRUE, NParam)
+      activePar <- rep(TRUE, nParam)
    }
    if(object$code < 100) {
-      if(min(abs(eigen(object$Hessian[activePar,activePar],
+      if(min(abs(eigen(hessian(object)[activePar,activePar],
                        symmetric=TRUE, only.values=TRUE)$values)) > 1e-6) {
-         varcovar <- matrix(0, NParam, NParam)
+         varcovar <- matrix(0, nParam, nParam)
          varcovar[activePar,activePar] <-
-             solve(-object$Hessian[activePar,activePar])
+             solve(-hessian(object)[activePar,activePar])
          hdiag <- diag(varcovar)
          if(any(hdiag < 0)) {
             warning("Diagonal of variance-covariance matrix not positive!\n")
@@ -60,11 +54,8 @@ summary.maxLik <- function( object, hessian=FALSE, ... ) {
          t <- 0
          p <- 0
       }
-      results <- cbind(coef, stdd, t, "P(|b| > t)"=p)
+      results <- cbind("Estimate"=coef, "Std. error"=stdd, "t value"=t, "Pr(> t)"=p)
       Hess <- NULL
-      if(hessian) {
-         Hess <- object$Hessian
-      }
    } else {
       results <- NULL
       Hess <- NULL
@@ -75,7 +66,7 @@ summary.maxLik <- function( object, hessian=FALSE, ... ) {
                    message=object$message,
                    loglik=object$maximum,
                    estimate=results,
-                   Hessian=Hess,
+                   hessian=Hess,
                    activePar=object$activePar,
                    NActivePar=sum(object$activePar))
    class(summary) <- "summary.maxLik"

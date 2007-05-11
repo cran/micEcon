@@ -1,6 +1,6 @@
 library( micEcon )
 data( germanFarms )
-options( digits = 6 )
+options( digits = 3 )
 
 germanFarms$qOutput   <- germanFarms$vOutput / germanFarms$pOutput
 germanFarms$qVarInput <- -germanFarms$vVarInput / germanFarms$pVarInput

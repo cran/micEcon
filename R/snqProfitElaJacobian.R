@@ -20,18 +20,18 @@ snqProfitElaJacobian <- function( beta, prices, quant, weights ) {
    prices   <- unlist( prices )
    quant    <- unlist( quant )
    normPrice <- sum( t( prices ) %*% weights )
-   qNames   <- .snqProfitQuantNames( quant, nNetput )
-   pNames   <- .snqProfitPriceNames( prices, nNetput )
+   quantNames   <- .snqProfitQuantNames( quant, nNetput )
+   priceNames   <- .snqProfitPriceNames( prices, nNetput )
 
    jacobian <- matrix( 0, nrow = nNetput^2, ncol = nNetput^2 )
-   rownames( jacobian ) <- paste( "E", rep( qNames, each = nNetput ),
-      rep( pNames, nNetput ) )
+   rownames( jacobian ) <- paste( "E", rep( quantNames, each = nNetput ),
+      rep( priceNames, nNetput ) )
    colnames( jacobian ) <- paste( "beta", rep( 1:nNetput, each = nNetput ),
       rep( 1:nNetput, nNetput ) )
    bName <- array( paste( "beta", rep( 1:nNetput, nNetput ),
       rep( 1:nNetput, each = nNetput ) ), dim = c( nNetput, nNetput ) )
-   eName <- array( paste( "E", rep( qNames, nNetput ),
-      rep( pNames, each = nNetput ) ), dim = c( nNetput, nNetput ) )
+   eName <- array( paste( "E", rep( quantNames, nNetput ),
+      rep( priceNames, each = nNetput ) ), dim = c( nNetput, nNetput ) )
 
 
    for( i in 1:nNetput ) {

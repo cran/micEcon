@@ -7,24 +7,28 @@
   compatible with \code{\link{maxNR}}
 }
 \usage{
-maxBFGS(fn, grad = NULL, theta, print.level = 0, iterlim = 200,
+maxBFGS(fn, grad = NULL, hess=NULL, start, print.level = 0, iterlim = 200,
    tol = 1e-06, ... )
 }
 
 \arguments{
-  \item{fn}{function to be maximised.  In order to use numeric gradient
+  \item{fn}{function to be maximised.  Must have the parameter vector as
+    the first argument.  In order to use numeric gradient
     and BHHH method, \code{fn} must return vector of
     observation-specific likelihood values.  Those are summed by maxNR
     if necessary.  If the parameters are out of range, \code{fn} should
     return \code{NA}.  See details for constant parameters.}
-  \item{grad}{gradient of the function.  If \code{NULL}, numeric
+  \item{grad}{gradient of the function.  Must have the parameter vector as
+    the first argument.  If \code{NULL}, numeric
     gradient is used.  For BHHH method it must return a matrix, where
     rows corresponds to the gradients of the observations.  Note that
     this corresponds to
     \code{t(numericGradient(fn))}, not \code{numericGradient(fn)}.
     It is summed over
     observations in order to get a single gradient vector.}
-  \item{theta}{initial values for the parameters to be optimized over.}
+  \item{hess}{Hessian of the function.  Not used by \code{maxBFGS}, for
+    compatibility with \code{\link{maxNR}}.}
+  \item{start}{initial values for the parameters.}
   \item{print.level}{a larger number prints more working information.}
   \item{iterlim}{maximum number of iterations.}
   \item{tol}{the absolute convergence tolerance (see \code{\link{optim}}).}
@@ -52,11 +56,11 @@ maxBFGS(fn, grad = NULL, theta, print.level = 0, iterlim = 200,
 \seealso{\code{\link{optim}}, \code{\link{nlm}}, \code{\link{maxNR}}, \code{\link{maxBHHH}}.}
 
 \examples{
-# Maximum Likelihood estimation of Poissonian distribution
+# Maximum Likelihood estimation of the parameter of Poissonian distribution
 n <- rpois(100, 3)
 loglik <- function(l) n*log(l) - l - lfactorial(n)
 # we use numeric gradient
-summary(maxBFGS(loglik, theta=1))
+summary(maxBFGS(loglik, start=1))
 # you would probably prefer mean(n) instead of that ;-)
 # Note also that maxLik is better suited for Maximum Likelihood
 }

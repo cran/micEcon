@@ -46,7 +46,7 @@
    # a time trend to account for technical progress:
    germanFarms$time <- c(1:20)
 
-   # estimate a quadratic production function
+   # estimate a translog production function
    estResult <- translogEst( "qOutput", c( "qLabor", "land", "qVarInput", "time" ),
       germanFarms )
 

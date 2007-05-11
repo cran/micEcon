@@ -8,15 +8,15 @@
 }
 
 \usage{
-   snqProfitShadowPrices( pNames, fNames, estResult = NULL,
+   snqProfitShadowPrices( priceNames, fixNames, estResult = NULL,
    data = estResult$data, weights = estResult$weights,
    scalingFactors = estResult$scalingFactors,
    coef = estResult$coef, form = estResult$form )
 }
 
 \arguments{
-   \item{pNames}{a vector of strings containing the names of netput prices.}
-   \item{fNames}{an optional vector of strings containing the names of the
+   \item{priceNames}{a vector of strings containing the names of netput prices.}
+   \item{fixNames}{an optional vector of strings containing the names of the
       quantities of (quasi-)fix inputs.}
    \item{estResult}{object returned by \code{\link{snqProfitEst}}.}
    \item{data}{a data frame containing the data.}
@@ -39,13 +39,13 @@
    germanFarms$qVarInput <- -germanFarms$vVarInput / germanFarms$pVarInput
    germanFarms$qLabor    <- -germanFarms$qLabor
    germanFarms$time      <- c( 0:19 )
-   pNames <- c( "pOutput", "pVarInput", "pLabor" )
-   qNames <- c( "qOutput", "qVarInput", "qLabor" )
-   fNames <- c( "land", "time" )
+   priceNames <- c( "pOutput", "pVarInput", "pLabor" )
+   quantNames <- c( "qOutput", "qVarInput", "qLabor" )
+   fixNames <- c( "land", "time" )
 
-   estResult <- snqProfitEst( pNames, qNames, fNames, data = germanFarms )
+   estResult <- snqProfitEst( priceNames, quantNames, fixNames, data = germanFarms )
 
-   snqProfitShadowPrices( pNames, fNames, estResult )
+   snqProfitShadowPrices( priceNames, fixNames, estResult )
 }
 
 \keyword{models}

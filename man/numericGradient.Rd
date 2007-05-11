@@ -5,7 +5,7 @@
 
 \title{Functions to Calculate Numeric Derivatives}
 \description{
-  Calculate (central) numeric gradient and hessian of a function.
+  Calculate (central) numeric gradient and Hessian.
   \code{numericGradient} accepts vector-valued functions.
 }
 \usage{
@@ -25,9 +25,10 @@ numericNHessian(f, t0, eps=1e-6, \dots)
 }
 \details{
   \code{numericGradient} numerically differentiates a (vector valued)
-  function with respect to it's (vector valued) argument.  \code{Nval *
-    1} vector function differentiated w.r.t. parameter vector of length
-  \code{Npar} results in \code{Npar * Nval} gradient.
+  function with respect to it's (vector valued) argument.  If the
+  functions value is a \code{NVal * 1} vector and the argument is
+  \code{Npar * 1} vector, the resulting gradient is a \code{NVal * NPar}
+  matrix. 
 
   \code{numericHessian} checks whether a gradient function is present
   and calculates a gradient of the gradient (if present), or full
@@ -42,12 +43,12 @@ numericNHessian(f, t0, eps=1e-6, \dots)
   equal to the length of the parameter vector.
 }
 \section{Warning}{
-  You should not use numerical differentiation in optimisation
-  routines.  Although quite precise in simple cases, they may work really
-  poorly in difficult situations.
+  Be careful when using numerical differentiation in optimisation
+  routines.  Although quite precise in simple cases, they may work very
+  poorly in more complicated cases.
   }
 \author{Ott Toomet \email{siim@obs.ee}}
-\seealso{\code{\link{compare.derivatives}}, \code{\link{deriv}}}
+\seealso{\code{\link{compareDerivatives}}, \code{\link{deriv}}}
 
 \examples{
 # A simple example with Gaussian bell
@@ -61,7 +62,7 @@ numericHessian(f0, gradf0, t0=c(1,2))
 # The results should be similar as in the previous case
 
 # The central numeric derivatives have usually quite a high precision
-compare.derivatives(f0, gradf0, t0=1:2)
+compareDerivatives(f0, gradf0, t0=1:2)
 # The differenc is around 1e-10
 }
 \keyword{math}

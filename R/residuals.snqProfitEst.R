@@ -6,14 +6,14 @@ residuals.snqProfitEst <- function( object, scaled = TRUE, ... ) {
 
    result <- data.frame( profit0 = rep( 0, nObs ) )
    for( i in 1:nNetput ) {
-      result[[ object$qNames[ i ] ]] <-
-         object$data[[ object$qNames[ i ] ]] /
+      result[[ object$quantNames[ i ] ]] <-
+         object$data[[ object$quantNames[ i ] ]] /
             object$scalingFactors[ i ]^( scaled ) -
-         object$fitted[[ object$qNames[ i ] ]] *
+         object$fitted[[ object$quantNames[ i ] ]] *
             object$scalingFactors[ i ]^( !scaled )
       result$profit0 <- result$profit0 +
-         object$data[[ object$qNames[ i ] ]] *
-         object$data[[ object$pNames[ i ] ]]
+         object$data[[ object$quantNames[ i ] ]] *
+         object$data[[ object$priceNames[ i ] ]]
    }
    result$profit <- result$profit0 - object$fitted$profit
    result$profit0 <- NULL

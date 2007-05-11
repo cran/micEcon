@@ -26,10 +26,10 @@ snqProfitEla <- function( beta, prices, quant, weights,
    result$ela <- hessian * array( 1, c( nNetput ) ) %*% t( prices ) /
                   quant %*% t( array( 1, c( nNetput ) ) )
 
-   qNames <- .snqProfitQuantNames( quant, nNetput )
-   pNames <- .snqProfitPriceNames( prices, nNetput )
+   quantNames <- .snqProfitQuantNames( quant, nNetput )
+   priceNames <- .snqProfitPriceNames( prices, nNetput )
 
-   dimnames( result$ela ) <- list( qNames, pNames )
+   dimnames( result$ela ) <- list( quantNames, priceNames )
 
    if( !is.null( coefVcov ) ) {
       jacobian <- snqProfitElaJacobian( beta, prices, quant, weights )
@@ -39,12 +39,12 @@ snqProfitEla <- function( beta, prices, quant, weights,
       result$stEr <- matrix( diag( result$vcov )^0.5, nrow = nNetput,
          byrow = TRUE )
       result$tval <- result$ela / result$stEr
-      dimnames( result$stEr ) <- list( qNames, pNames )
-      dimnames( result$tval ) <- list( qNames, pNames )
+      dimnames( result$stEr ) <- list( quantNames, priceNames )
+      dimnames( result$tval ) <- list( quantNames, priceNames )
       if( !is.null( df ) ) {
          result$pval <- 2 * pt( abs( result$tval ), df,
             lower.tail = FALSE )
-         dimnames( result$pval ) <- list( qNames, pNames )
+         dimnames( result$pval ) <- list( quantNames, priceNames )
       }
    }
    class( result ) <- "snqProfitEla"

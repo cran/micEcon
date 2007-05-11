@@ -8,18 +8,18 @@
 }
 
 \usage{
-   snqProfitCalc( pNames, fNames, data, weights,
+   snqProfitCalc( priceNames, fixNames, data, weights,
       scalingFactors = rep( 1, length( weights ) ), coef,
-      qNames = NULL, form = 0 )
+      quantNames = NULL, form = 0 )
 }
 
 \arguments{
-   \item{pNames}{a vector of strings containing the names of netput prices.}
-   \item{fNames}{an optional vector of strings containing the names of the
+   \item{priceNames}{a vector of strings containing the names of netput prices.}
+   \item{fixNames}{an optional vector of strings containing the names of the
       quantities of (quasi-)fix inputs.}
    \item{data}{a data frame containing the data.}
    \item{weights}{vector of weights of the prices for normalization.}
-   \item{qNames}{optional vector of strings containing the names of netput
+   \item{quantNames}{optional vector of strings containing the names of netput
       quantities.}
    \item{scalingFactors}{factors to scale prices (and quantities).}
    \item{coef}{a list containing the coefficients alpha, beta, delta and gamma.}
@@ -58,12 +58,12 @@
    germanFarms$qVarInput <- -germanFarms$vVarInput / germanFarms$pVarInput
    germanFarms$qLabor    <- -germanFarms$qLabor
    germanFarms$time      <- c( 0:19 )
-   pNames <- c( "pOutput", "pVarInput", "pLabor" )
-   qNames <- c( "qOutput", "qVarInput", "qLabor" )
-   fNames <- c( "land", "time" )
+   priceNames <- c( "pOutput", "pVarInput", "pLabor" )
+   quantNames <- c( "qOutput", "qVarInput", "qLabor" )
+   fixNames <- c( "land", "time" )
 
-   estResult <- snqProfitEst( pNames, qNames, fNames, data = germanFarms )
-   snqProfitCalc( pNames, fNames, estResult$data, estResult$weights,
+   estResult <- snqProfitEst( priceNames, quantNames, fixNames, data = germanFarms )
+   snqProfitCalc( priceNames, fixNames, estResult$data, estResult$weights,
       estResult$scalingFactors, estResult$coef )
 }
 

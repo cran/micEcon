@@ -15,7 +15,7 @@ invMillsRatio <- function( x, all = FALSE ) {
       result$delta0 <- result$IMR0 * ( result$IMR0 + x$linear.predictors )
    } else if("probit" %in% class(x)) {
       # Note: 'probit' need not to be the first component in the class
-      result <- data.frame( no = seq(length=x$NObs))
+      result <- data.frame( no = seq(length=nObs(x)))
                                         # no is row number.  There is no row names
       result$IMR1 <- dnorm(linearPredictors(x))/pnorm(linearPredictors(x))
       result$delta1 <- result$IMR1 * ( result$IMR1 + linearPredictors(x))
@@ -30,9 +30,14 @@ invMillsRatio <- function( x, all = FALSE ) {
       library( mvtnorm )
       result <- data.frame( no = 1:nrow( x@predictors ),
          row.names = rownames( x@predictors ) )
-      if( x@misc$link == "identity" ) {
+      if( length( x@misc$link ) == 1 ) {
+         vglmLink <- x@misc$link
+      } else {
+         vglmLink <- x@misc$link[ "rho" ]
+      }
+      if( vglmLink == "identity" ) {
          rho <- x@predictors[ , 3 ]
-      } else if( x@misc$link == "rhobit" ){
+      } else if( vglmLink == "rhobit" ){
          rho <- rhobit( x@predictors[ , 3 ], inv = TRUE )
       } else {
          stop( "the bivariate probit (binom2.rho) must be either estimated",

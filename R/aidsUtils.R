@@ -11,11 +11,11 @@
 
 .aidsPriceNames <- function( prices, coef, nGoods ) {
    if( !is.null( names( prices ) ) ) {
-      pNames <- names( prices )
+      priceNames <- names( prices )
    } else if( !is.null( colnames( coef$gamma ) ) ) {
-      pNames <- colnames( coef$gamma )
+      priceNames <- colnames( coef$gamma )
    } else {
-      pNames <- paste( "p", c( 1:nGoods ), sep = "" )
+      priceNames <- paste( "p", c( 1:nGoods ), sep = "" )
    }
-   return( pNames )
+   return( priceNames )
 }

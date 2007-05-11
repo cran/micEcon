@@ -1,11 +1,12 @@
-probit <- function( formula, b0=NULL, data=sys.frame(sys.parent()),
+probit <- function( formula, subset, start=NULL,
+                   data=sys.frame(sys.parent()),
                    x=FALSE, y=FALSE, model=FALSE,
-                   method="ML",
+                   method="ML", 
                    ...) {
    ## Probit binary choice model
    ## formula: model formula, response must be either a logical or numeric vector containing only 0-s and
    ##          1-s
-   ## b0:      initial value of the parameters
+   ## start:      initial value of the parameters
    ## data     dataframe where the variables are defined
    ## x        whether to return model matrix
    ## y                                response vector
@@ -29,6 +30,7 @@ probit <- function( formula, b0=NULL, data=sys.frame(sys.parent()),
       loglik <- sum(pnorm( xb0, log=TRUE, lower.tail=FALSE)) + sum(pnorm( xb1, log.p=TRUE))
    }
    gradlik <- function(beta) {
+      ## gradient is 1 x nParam matrix
       xb0 <- x0 %*% beta
       xb1 <- x1 %*% beta
       gradlik <- - t(dnorm(xb0)/pnorm(xb0, lower.tail=FALSE)) %*% x0 +
@@ -53,47 +55,48 @@ probit <- function( formula, b0=NULL, data=sys.frame(sys.parent()),
    mf <- mf[c(1, m)]
    mf$drop.unused.levels <- TRUE
    mf[[1]] <- as.name("model.frame")
-   mf <- eval(mf, parent.frame())
+   eval(data)
+                                        # we need to eval() data here, otherwise the evaluation of the
+                                        # model frame will be wrong if called from inside a function
+                                        # inside a function (sorry, I can't understand it either :-(
+   mf <- eval(mf, envir=parent.frame())
    if (method == "model.frame")
        return(mf)
    else if (method != "ML")
        warning("method = ", method, " is not supported. Using \"ML\"")
    mt <- attr(mf, "terms")
-   Y <- model.response(mf, "numeric")
+   Y <- model.response( mf )
    X <- model.matrix(mt, mf, contrasts)
-   NParam <- ncol( X)
-   NObs <- length( Y)
+   nParam <- ncol( X)
+   nObs <- length( Y)
    N1 <- length( y[Y != 0])
-   N0 <- NObs - N1
+   N0 <- nObs - N1
    if(N0 == 0 | N1 == 0) {
-      stop("only zero or one observations")
+      stop("No variance in the response variable")
    }
    x0 <- X[Y==0,]
    x1 <- X[Y==1,]
-   if(is.null(b0)) {
-      b0 <- rep( 0, NParam)
+   if(is.null(start)) {
+      start <- rep( 0, nParam)
    }
-   if(is.null(names(b0))) {
-      names(b0) <- dimnames(X)[[2]]
+   if(is.null(names(start))) {
+      names(start) <- dimnames(X)[[2]]
    }
    ## Main estimation
-   estimation <- maxLik(loglik, gradlik, hesslik, b0,
+   estimation <- maxLik(loglik, gradlik, hesslik, start,
                         method="Newton-Raphson", ...)
-   ## compare.derivatives(gradlik, hesslik, t0=b0)
+   ## compare.derivatives(gradlik, hesslik, t0=start)
                                         #
    ## Likelihood ratio test: H0 -- all the coefficients, except intercept
-   ## are zeros.  ML estimate for this model is qnorm(N1/NObs)
-   ll.bar <- loglik(c(qnorm(N1/NObs), rep(0, NParam-1)))
+   ## are zeros.  ML estimate for this model is qnorm(N1/nObs)
+   ll.bar <- loglik(c(qnorm(N1/nObs), rep(0, nParam-1)))
    LRT <- 2*(estimation$maximum - ll.bar)
                                         #
    result <- c(estimation,
-               LRT=list(list(LRT=LRT, df=NParam-1)),
+               LRT=list(list(LRT=LRT, df=nParam-1)),
                                         # there are df-1 constraints
-               NParam=NParam,
-               NObs=NObs,
-               N1=N1,
-               N0=N0,
-               df=NObs - NParam,
+               param=list(list(nParam=nParam,nObs=nObs, N1=N1, N0=N0)),
+               df=nObs - nParam,
                call=cl,
                terms=mt,
                x=switch(x, "1"=list(X), "0"=NULL),

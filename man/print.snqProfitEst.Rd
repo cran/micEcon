@@ -26,10 +26,10 @@
    germanFarms$qOutput   <- germanFarms$vOutput / germanFarms$pOutput
    germanFarms$qVarInput <- -germanFarms$vVarInput / germanFarms$pVarInput
    germanFarms$qLabor    <- -germanFarms$qLabor
-   pNames <- c( "pOutput", "pVarInput", "pLabor" )
-   qNames <- c( "qOutput", "qVarInput", "qLabor" )
+   priceNames <- c( "pOutput", "pVarInput", "pLabor" )
+   quantNames <- c( "qOutput", "qVarInput", "qLabor" )
 
-   estResult <- snqProfitEst( pNames, qNames, "land", data = germanFarms )
+   estResult <- snqProfitEst( priceNames, quantNames, "land", data = germanFarms )
    print( estResult )
 }
 

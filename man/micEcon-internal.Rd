@@ -1,23 +1,21 @@
 \name{micEcon-internal}
 \alias{aidsCoef}
-\alias{aidsElaJacobian}
+\alias{aidsElasJacobian}
 \alias{aidsJacobian}
 \alias{aidsRestr}
 \alias{aidsSystem}
+\alias{checkNames}
 \alias{coef.summary.probit}
 \alias{micEconIndex}
-\alias{maximisationType.maximisation}
 \alias{model.frame.probit}
 \alias{model.matrix.probit}
-\alias{print.aidsEst}
 \alias{print.aidsTestConsist}
-\alias{print.heckit}
 \alias{print.snqProfitImposeConvexity}
 \alias{print.summary.maximisation}
 \alias{print.summary.maxLik}
 \alias{print.summary.probit}
-\alias{print.summary.tobit2}
-\alias{checkNames}
+\alias{returnCode.maximisation}
+\alias{returnCode.maxLik}
 \alias{snqProfitCoef}
 \alias{snqProfitCoefNames}
 \alias{snqProfitElaJacobian}
@@ -25,15 +23,9 @@
 \alias{snqProfitSystem}
 \alias{snqProfitTestCoef}
 \alias{summary.probit}
-\alias{summary.tobit2}
 \alias{translogMonoRestr}
-\alias{vcov.maxLik}
 % Document the following:
-\alias{returnCode}
-\alias{returnCode.default}
-\alias{returnCode.maximisation}
-\alias{returnCode.MLEstimate}
-\alias{returnMessage.maximisation}
+
 %%%%
 
 

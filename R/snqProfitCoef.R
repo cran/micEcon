@@ -1,5 +1,5 @@
 snqProfitCoef <- function( coef, nNetput, nFix, form = 0, coefCov = NULL,
-   df = NULL, pNames = NULL, qNames = NULL, fNames = NULL ) {
+   df = NULL, priceNames = NULL, quantNames = NULL, fixNames = NULL ) {
 
    nCoef    <- nNetput + nNetput * ( nNetput - 1 )/2 + nNetput * nFix
       # number of coefficients
@@ -173,33 +173,33 @@ snqProfitCoef <- function( coef, nNetput, nFix, form = 0, coefCov = NULL,
       colnames( result$liCoefCov ) <- liCoefNames
    }
 
-   if( !is.null( qNames ) ) {
-      if( length( qNames ) != nNetput ) {
-         stop( "argument 'qNames' must have as many elements as ",
+   if( !is.null( quantNames ) ) {
+      if( length( quantNames ) != nNetput ) {
+         stop( "argument 'quantNames' must have as many elements as ",
             "there are netputs" )
       }
-      names( result$alpha ) <- qNames
-      rownames( result$beta ) <- qNames
+      names( result$alpha ) <- quantNames
+      rownames( result$beta ) <- quantNames
       if( nFix > 0 ) {
-         rownames( result$delta ) <- qNames
+         rownames( result$delta ) <- quantNames
       }
    }
-   if( !is.null( pNames ) ) {
-      if( length( pNames ) != nNetput ) {
-         stop( "argument 'pNames' must have as many elements as",
+   if( !is.null( priceNames ) ) {
+      if( length( priceNames ) != nNetput ) {
+         stop( "argument 'priceNames' must have as many elements as",
             " there are netputs" )
       }
-      colnames( result$beta ) <- pNames
+      colnames( result$beta ) <- priceNames
    }
-   if( !is.null( fNames ) ) {
-      if( length( fNames ) != nFix ) {
-         stop( "argument 'fNames' must have as many elements as",
+   if( !is.null( fixNames ) ) {
+      if( length( fixNames ) != nFix ) {
+         stop( "argument 'fixNames' must have as many elements as",
             " there are fixed inputs" )
       }
-      colnames( result$delta ) <- fNames
+      colnames( result$delta ) <- fixNames
       if( form == 0 ) {
-         rownames( result$gamma ) <- fNames
-         colnames( result$gamma ) <- fNames
+         rownames( result$gamma ) <- fixNames
+         colnames( result$gamma ) <- fixNames
       }
    }
    return( result )

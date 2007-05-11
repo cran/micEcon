@@ -1,18 +1,18 @@
-snqProfitEst <- function( pNames, qNames, fNames = NULL,
-   ivNames = NULL, data,  form = 0, base = 1, scalingFactors = NULL,
-   weights = snqProfitWeights( pNames, qNames, data, "DW92", base = base ),
-   method = ifelse( is.null( ivNames ), "SUR", "3SLS" ), ... ) {
+snqProfitEst <- function( priceNames, quantNames, fixNames = NULL,
+   instNames = NULL, data,  form = 0, base = 1, scalingFactors = NULL,
+   weights = snqProfitWeights( priceNames, quantNames, data, "DW92", base = base ),
+   method = ifelse( is.null( instNames ), "SUR", "3SLS" ), ... ) {
 
-   checkNames( c( pNames, qNames, fNames, ivNames ), names( data ) )
+   checkNames( c( priceNames, quantNames, fixNames, instNames ), names( data ) )
 
-   if( length( qNames ) != length( pNames ) ) {
-      stop( "arguments 'qNames' and 'pNames' must have the same length" )
+   if( length( quantNames ) != length( priceNames ) ) {
+      stop( "arguments 'quantNames' and 'priceNames' must have the same length" )
    }
-   if( length( pNames ) < 2 ) {
+   if( length( priceNames ) < 2 ) {
       stop( "you must specify at least 2 netputs" )
    }
-   if( length( pNames ) != length( weights ) ) {
-      stop( "arguments 'pNames' and 'weights' must have the same length" )
+   if( length( priceNames ) != length( weights ) ) {
+      stop( "arguments 'priceNames' and 'weights' must have the same length" )
    }
    if( min( weights ) < 0 ) {
       warning( "At least one weight of the prices for normalization",
@@ -21,8 +21,8 @@ snqProfitEst <- function( pNames, qNames, fNames = NULL,
          " a convex profit function." )
    }
    if( !is.null( scalingFactors ) ) {
-      if( length( scalingFactors ) != length( pNames ) ) {
-         stop( "arguments 'pNames' and 'scalingFactors' must have the",
+      if( length( scalingFactors ) != length( priceNames ) ) {
+         stop( "arguments 'priceNames' and 'scalingFactors' must have the",
             " same length" )
       }
       if( base != 1 ) {
@@ -31,9 +31,9 @@ snqProfitEst <- function( pNames, qNames, fNames = NULL,
       }
    }
 
-   nNetput <- length( qNames )  # number of netputs
-   nFix    <- length( fNames )  # number of fixed inputs
-   nIV     <- length( ivNames )  # number of fixed inputs
+   nNetput <- length( quantNames )  # number of netputs
+   nFix    <- length( fixNames )  # number of fixed inputs
+   nIV     <- length( instNames )  # number of fixed inputs
    nObs    <- nrow( data )      # number of observations
 
    if( form == 0 ) {
@@ -53,7 +53,7 @@ snqProfitEst <- function( pNames, qNames, fNames = NULL,
       scalingFactors <- rep( 1, nNetput )
       if( !is.null( base ) ) {
          for( i in 1:nNetput ) {
-            scalingFactors[ i ] <- 1 / mean( data[[ pNames[ i ] ]][ base ] )
+            scalingFactors[ i ] <- 1 / mean( data[[ priceNames[ i ] ]][ base ] )
          }
       }
    }
@@ -62,17 +62,17 @@ snqProfitEst <- function( pNames, qNames, fNames = NULL,
    result$pMeans <- array( NA, nNetput )
    result$qMeans <- array( NA, nNetput )
    for( i in 1:nNetput ) {
-      result$pMeans[ i ] <- mean( data[[ pNames[ i ] ]] ) * scalingFactors[ i ]
-      result$qMeans[ i ] <- mean( data[[ qNames[ i ] ]] ) / scalingFactors[ i ]
+      result$pMeans[ i ] <- mean( data[[ priceNames[ i ] ]] ) * scalingFactors[ i ]
+      result$qMeans[ i ] <- mean( data[[ quantNames[ i ] ]] ) / scalingFactors[ i ]
    }
-   names( result$pMeans ) <- pNames
-   names( result$qMeans ) <- qNames
+   names( result$pMeans ) <- priceNames
+   names( result$qMeans ) <- quantNames
    if( nFix > 0 ) {
       result$fMeans <- array( NA, nFix )
       for( i in 1:nFix ) {
-         result$fMeans[ i ] <- mean( data[[ fNames[ i ] ]] )
+         result$fMeans[ i ] <- mean( data[[ fixNames[ i ] ]] )
       }
-      names( result$fMeans ) <- fNames
+      names( result$fMeans ) <- fixNames
    }
 
    ## instrumental variables
@@ -85,7 +85,7 @@ snqProfitEst <- function( pNames, qNames, fNames = NULL,
 
    ## prepare and estimate the model
    modelData <- .snqProfitModelData( data = data, weights = weights,
-      pNames = pNames, qNames = qNames, fNames = fNames, ivNames = ivNames,
+      priceNames = priceNames, quantNames = quantNames, fixNames = fixNames, instNames = instNames,
       form = form, netputScale = scalingFactors, fixedScale = result$fMeans )
    system <- snqProfitSystem( nNetput, nFix )    # equation system
    restrict <- snqProfitRestrict( nNetput, nFix, form )    # restrictions
@@ -94,7 +94,7 @@ snqProfitEst <- function( pNames, qNames, fNames = NULL,
    result$coef <- snqProfitCoef( coef = result$est$bt, nNetput = nNetput,
       nFix = nFix, form = form, coefCov = result$est$btcov,
       df = nNetput * nObs - nCoef,
-      qNames = qNames, pNames = pNames, fNames = fNames )
+      quantNames = quantNames, priceNames = priceNames, fixNames = fixNames )
       # estimated coefficients
    result$coef <- .snqProfitRescaleCoef( result$coef, nNetput, result$fMeans,
       form )
@@ -102,12 +102,12 @@ snqProfitEst <- function( pNames, qNames, fNames = NULL,
    result$fitted <- data.frame( profit0 = rep( 0, nObs ) )
    result$residuals <- data.frame( profit0 = rep( 0, nObs ) )
    for( i in 1:nNetput ) {
-      result$fitted[[ qNames[ i ] ]] <- result$est$eq[[ i ]]$fitted
+      result$fitted[[ quantNames[ i ] ]] <- result$est$eq[[ i ]]$fitted
       result$fitted[[ "profit0" ]] <- result$fitted[[ "profit0" ]] +
-         result$fitted[[ qNames[ i ] ]] * data[[ pNames[ i ] ]] *
+         result$fitted[[ quantNames[ i ] ]] * data[[ priceNames[ i ] ]] *
          scalingFactors[ i ]
-      result$residuals[[ qNames[ i ] ]] <- data[[ qNames[ i ] ]] /
-         scalingFactors[ i ] - result$fitted[[ qNames[ i ] ]]
+      result$residuals[[ quantNames[ i ] ]] <- data[[ quantNames[ i ] ]] /
+         scalingFactors[ i ] - result$fitted[[ quantNames[ i ] ]]
    }
    result$fitted[[ "profit" ]] <- result$fitted[[ "profit0" ]]
    result$fitted[[ "profit0" ]] <- NULL
@@ -118,12 +118,12 @@ snqProfitEst <- function( pNames, qNames, fNames = NULL,
    result$r2 <- array( NA, c( nNetput + 1 ) )
    for( i in 1:nNetput ) {
       # result$r2[ i ] <- result$est$eq[[ i ]]$r2
-      result$r2[ i ] <- rSquared( data[[ qNames[ i ] ]] / scalingFactors[ i ],
-         result$residuals[[ qNames[ i ] ]] )
+      result$r2[ i ] <- rSquared( data[[ quantNames[ i ] ]] / scalingFactors[ i ],
+         result$residuals[[ quantNames[ i ] ]] )
    }
    result$r2[ nNetput + 1 ] <- rSquared( modelData[[ "profit" ]],
       result$residuals[[ "profit" ]] )
-   names( result$r2 ) <- c( qNames, "profit" )
+   names( result$r2 ) <- c( quantNames, "profit" )
 
    result$hessian <- snqProfitHessian( result$coef$beta, result$pMeans, weights )
       # Hessian matrix
@@ -137,19 +137,19 @@ snqProfitEst <- function( pNames, qNames, fNames = NULL,
 
    result$data     <- data
    result$weights  <- weights
-   names( result$weights ) <- pNames
+   names( result$weights ) <- priceNames
    result$normPrice <- modelData$normPrice
    result$convexity  <- semidefiniteness( result$hessian[
       1:( nNetput - 1 ), 1:( nNetput - 1 ) ] )$positive
-   result$pNames  <- pNames
-   result$qNames  <- qNames
-   result$fNames  <- fNames
-   result$ivNames <- ivNames
+   result$priceNames  <- priceNames
+   result$quantNames  <- quantNames
+   result$fixNames  <- fixNames
+   result$instNames <- instNames
    result$form    <- form
    result$base    <- base
    result$method  <- method
    result$scalingFactors <- scalingFactors
-   names( result$scalingFactors ) <- pNames
+   names( result$scalingFactors ) <- priceNames
 
    class( result )  <- "snqProfitEst"
    return( result )

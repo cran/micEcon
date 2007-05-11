@@ -1,25 +1,25 @@
-.snqProfitModelData <- function( data, weights, pNames, qNames, fNames,
-   ivNames, form, netputScale = rep( 1, length( weights ) ),
-   fixedScale = rep( 1, length( fNames ) ) ){
+.snqProfitModelData <- function( data, weights, priceNames, quantNames, fixNames,
+   instNames, form, netputScale = rep( 1, length( weights ) ),
+   fixedScale = rep( 1, length( fixNames ) ) ){
 
-   nNetput <- length( qNames )  # number of netputs
-   nFix    <- length( fNames )  # number of fixed inputs
-   nIV     <- length( ivNames )  # number of fixed inputs
+   nNetput <- length( quantNames )  # number of netputs
+   nFix    <- length( fixNames )  # number of fixed inputs
+   nIV     <- length( instNames )  # number of fixed inputs
    nObs    <- nrow( data )      # number of observations
 
    ## price index for normalization
    result <- data.frame( nr = 1:nObs, normPrice = 0 )
    for( i in 1:nNetput ) {
       result$normPrice <- result$normPrice +
-         data[[ pNames[ i ] ]] * netputScale[ i ] * weights[ i ]
+         data[[ priceNames[ i ] ]] * netputScale[ i ] * weights[ i ]
    }
 
    ## real/normalized netput prices and netput quantities
    for( i in 1:nNetput ) {
       result[[ paste( "pr", as.character( i ), sep = "" ) ]] <-
-         data[[ pNames[ i ] ]] * netputScale[ i ] / result$normPrice
+         data[[ priceNames[ i ] ]] * netputScale[ i ] / result$normPrice
       result[[ paste( "q", as.character( i ), sep = "" ) ]] <-
-         data[[ qNames[ i ] ]] / netputScale[ i ]
+         data[[ quantNames[ i ] ]] / netputScale[ i ]
    }
 
    ## quadratic netput prices
@@ -28,8 +28,8 @@
          for( k in 1:nNetput ) {
             result[[ paste( "pq", as.character( i ), ".", as.character( j ), ".",
                as.character( k ), sep = "" ) ]] <-
-               -0.5 * weights[ i ] * data[[ pNames[ j ] ]] * netputScale[ j ] *
-               data[[ pNames[ k ] ]] * netputScale[ k ] / result$normPrice^2
+               -0.5 * weights[ i ] * data[[ priceNames[ j ] ]] * netputScale[ j ] *
+               data[[ priceNames[ k ] ]] * netputScale[ k ] / result$normPrice^2
          }
       }
    }
@@ -38,7 +38,7 @@
    if( nFix > 0 ) {
       for( i in 1:nFix ) {
          result[[ paste( "f", as.character( i ), sep = "" ) ]] <-
-            data[[ fNames[ i ] ]] / fixedScale[ i ]
+            data[[ fixNames[ i ] ]] / fixedScale[ i ]
       }
       ## quadratic quasi-fix inputs
       for( i in 1:nNetput ) {
@@ -47,8 +47,8 @@
                result[[ paste( "fq", as.character( i ), ".", as.character( j ), ".",
                as.character( k ), sep = "" ) ]] <-
                   0.5 * ifelse( form == 0, weights[ i ], 1 ) *
-                  ( data[[ fNames[ j ] ]] / fixedScale[ j ] ) *
-                  ( data[[ fNames[ k ] ]] / fixedScale[ k ] )
+                  ( data[[ fixNames[ j ] ]] / fixedScale[ j ] ) *
+                  ( data[[ fixNames[ k ] ]] / fixedScale[ k ] )
             }
          }
       }
@@ -58,7 +58,7 @@
    if( nIV > 0 ) {
       for( i in 1:nIV ) {
          result[[ paste( "iv", as.character( i ), sep = "" ) ]] <-
-            data[[ ivNames[ i ] ]] / mean( data[[ ivNames[ i ] ]] )
+            data[[ instNames[ i ] ]] / mean( data[[ instNames[ i ] ]] )
       }
    }
 
@@ -66,14 +66,14 @@
    ## current netput prices
    for( i in 1:nNetput ) {
       result[[ paste( "tp", as.character( i ), sep = "" ) ]] <-
-         data[[ pNames[ i ] ]] * netputScale[ i ]
+         data[[ priceNames[ i ] ]] * netputScale[ i ]
    }
    ## quadratic netput prices
    for( i in 1:nNetput ) {
       for( j in 1:nNetput ) {
          result[[ paste( "tpq", as.character( i ), ".", as.character( j ),
-            sep = "" ) ]] <- 0.5 * data[[ pNames[ i ] ]] * netputScale[ i ] *
-            data[[ pNames[ j ] ]] * netputScale[ j ] / result$normPrice
+            sep = "" ) ]] <- 0.5 * data[[ priceNames[ i ] ]] * netputScale[ i ] *
+            data[[ priceNames[ j ] ]] * netputScale[ j ] / result$normPrice
       }
    }
    if( nFix > 0 ) {
@@ -81,8 +81,8 @@
       for( i in 1:nNetput ) {
          for( j in 1:nFix ) {
             result[[ paste( "tpf", as.character( i ), ".", as.character( j ),
-               sep = "" ) ]] <- data[[ pNames[ i ] ]] * netputScale[ i ] *
-               data[[ fNames[ j ] ]] / fixedScale[ j ]
+               sep = "" ) ]] <- data[[ priceNames[ i ] ]] * netputScale[ i ] *
+               data[[ fixNames[ j ] ]] / fixedScale[ j ]
          }
       }
       ## quadratic quasi-fix inputs
@@ -91,8 +91,8 @@
             for( j in 1:nFix ) {
                result[[ paste( "tfq", as.character( i ), ".", as.character( j ),
                   sep = "" ) ]] <- 0.5 * result$normPrice *
-                  ( data[[ fNames[ i ] ]] / fixedScale[ i ] ) *
-                  ( data[[ fNames[ j ] ]] / fixedScale[ j ] )
+                  ( data[[ fixNames[ i ] ]] / fixedScale[ i ] ) *
+                  ( data[[ fixNames[ j ] ]] / fixedScale[ j ] )
             }
          }
       } else {
@@ -101,9 +101,9 @@
                for( k in 1:nFix ) {
                   result[[ paste( "tfq", as.character( i ), ".",
                      as.character( j ), ".", as.character( k ), sep = "" ) ]] <-
-                     0.5 * data[[ pNames[ i ] ]] * netputScale[ i ] *
-                     ( data[[ fNames[ j ] ]] / fixedScale[ j ] ) *
-                     ( data[[ fNames[ k ] ]] / fixedScale[ k ] )
+                     0.5 * data[[ priceNames[ i ] ]] * netputScale[ i ] *
+                     ( data[[ fixNames[ j ] ]] / fixedScale[ j ] ) *
+                     ( data[[ fixNames[ k ] ]] / fixedScale[ k ] )
                }
             }
          }
@@ -112,7 +112,7 @@
    result$profit <- 0
    for( i in 1:nNetput ) {
       result$profit <- result$profit +
-         data[[ pNames[ i ] ]] * data[[ qNames[ i ] ]]
+         data[[ priceNames[ i ] ]] * data[[ quantNames[ i ] ]]
    }
 
    return( result )

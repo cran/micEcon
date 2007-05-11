@@ -1,5 +1,6 @@
 \name{aidsTestConsist}
 \alias{aidsTestConsist}
+\alias{testConsist.aidsEst}
 \title{Consistency Test of the AIDS}
 \description{
    Test whether the specification of the AIDS is consistent
@@ -7,18 +8,28 @@
 }
 
 \usage{
-   aidsTestConsist( pNames, wNames, xtName, data, coef = NULL,
+   aidsTestConsist( priceNames, shareNames, totExpName, data, coef = NULL,
       alpha0 = ifelse( is.null( coef$alpha0 ), 0, coef$alpha0 ) )
+
+   \method{testConsist}{aidsEst}( object, ... )
 }
 
 \arguments{
-   \item{pNames}{a vector of strings containing the names of the prices.}
-   \item{wNames}{a vector of strings containing the names of the expenditure
+   \item{priceNames}{a vector of strings containing the names of the prices.}
+   \item{shareNames}{a vector of strings containing the names of the expenditure
       shares.}
-   \item{xtName}{a string containing the variable name of total expenditure.}
+   \item{totExpName}{a string containing the variable name of total expenditure.}
    \item{data}{a data frame containing the data.}
    \item{coef}{a list containing the coefficients alpha, beta and gamma.}
    \item{alpha0}{coefficient \eqn{\alpha_0} of the translog price index.}
+   \item{object}{an object of class \code{aidsEst}.}
+   \item{...}{currently not used.}
+}
+
+\details{
+   \code{testConsist.aidsEst} is a wrapper function to \code{aidsTestConsist}
+   that extracts all relevant arguments for \code{aidsTestConsist}
+   from \code{object}.
 }
 
 \value{
@@ -46,22 +57,25 @@
 
 \author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
 
-\seealso{\code{\link{aidsEst}}, \code{\link{aidsEla}}}
+\seealso{\code{\link{aidsEst}}, \code{\link{aidsElas}}}
 
 \examples{
    data( Blanciforti86 )
    # Data on food consumption are available only for the first 32 years
    Blanciforti86 <- Blanciforti86[ 1:32, ]
 
-   pNames <- c( "pFood1", "pFood2", "pFood3", "pFood4" )
-   wNames <- c( "wFood1", "wFood2", "wFood3", "wFood4" )
+   priceNames <- c( "pFood1", "pFood2", "pFood3", "pFood4" )
+   shareNames <- c( "wFood1", "wFood2", "wFood3", "wFood4" )
 
-   estResult <- aidsEst( pNames, wNames, "xFood",
+   estResult <- aidsEst( priceNames, shareNames, "xFood",
       data = Blanciforti86, method = "IL:L" )
-   tc <- aidsTestConsist( pNames, wNames, "xFood", Blanciforti86,
+   tc <- aidsTestConsist( priceNames, shareNames, "xFood", Blanciforti86,
       coef = estResult$coef )
    tc$mPercent   # great!
    tc$cPercent   # Oh, that is bad!
+
+   # the same can be obtained in an easier way
+   testConsist.aidsEst( estResult )
 }
 
 \keyword{models}

@@ -5,19 +5,19 @@
    Estimation of a Symmetric Normalized Quadratic (SNQ) Profit function.
 }
 
-\usage{snqProfitEst( pNames, qNames, fNames = NULL, ivNames = NULL,
+\usage{snqProfitEst( priceNames, quantNames, fixNames = NULL, instNames = NULL,
    data, form = 0, base = 1, scalingFactors = NULL,
-   weights = snqProfitWeights( pNames, qNames, data, "DW92", base = base ),
-   method = ifelse( is.null( ivNames ), "SUR", "3SLS" ), ...  )
+   weights = snqProfitWeights( priceNames, quantNames, data, "DW92", base = base ),
+   method = ifelse( is.null( instNames ), "SUR", "3SLS" ), ...  )
 }
 
 \arguments{
-   \item{pNames}{a vector of strings containing the names of netput prices.}
-   \item{qNames}{a vector of strings containing the names of netput quantities
+   \item{priceNames}{a vector of strings containing the names of netput prices.}
+   \item{quantNames}{a vector of strings containing the names of netput quantities
       (inputs must be negative).}
-   \item{fNames}{an optional vector of strings containing the names of the
+   \item{fixNames}{an optional vector of strings containing the names of the
       quantities of (quasi-)fixed inputs.}
-   \item{ivNames}{an optional vector of strings containing the names of
+   \item{instNames}{an optional vector of strings containing the names of
       instrumental variables (for 3SLS estimation).}
    \item{data}{a data frame containing the data.}
    \item{form}{the functional form to be estimated (see details).}
@@ -119,12 +119,12 @@
    \item{pMeans}{means of the scaled netput prices.}
    \item{qMeans}{means of the scaled netput quantities.}
    \item{fMeans}{means of the (quasi-)fixed input quantities.}
-   \item{pNames}{a vector of strings containing the names of netput prices.}
-   \item{qNames}{a vector of strings containing the names of netput quantities
+   \item{priceNames}{a vector of strings containing the names of netput prices.}
+   \item{quantNames}{a vector of strings containing the names of netput quantities
       (inputs must be negative).}
-   \item{fNames}{an optional vector of strings containing the names of the
+   \item{fixNames}{an optional vector of strings containing the names of the
       quantities of (quasi-)fixed inputs.}
-   \item{ivNames}{an optional vector of strings containing the names of
+   \item{instNames}{an optional vector of strings containing the names of
       instrumental variables (for 3SLS estimation).}
    \item{form}{the functional form (see details).}
    \item{base}{the base period(s) for scaling prices (see details).}
@@ -158,15 +158,15 @@
    germanFarms$qOutput   <- germanFarms$vOutput / germanFarms$pOutput
    germanFarms$qVarInput <- -germanFarms$vVarInput / germanFarms$pVarInput
    germanFarms$qLabor    <- -germanFarms$qLabor
-   pNames <- c( "pOutput", "pVarInput", "pLabor" )
-   qNames <- c( "qOutput", "qVarInput", "qLabor" )
+   priceNames <- c( "pOutput", "pVarInput", "pLabor" )
+   quantNames <- c( "qOutput", "qVarInput", "qLabor" )
 
-   estResult <- snqProfitEst( pNames, qNames, "land", data = germanFarms )
+   estResult <- snqProfitEst( priceNames, quantNames, "land", data = germanFarms )
    estResult$ela   # Oh, that looks bad!
 
    # it it reasonable to account for technological progress
    germanFarms$time <- c( 0:19 )
-   estResult2 <- snqProfitEst( pNames, qNames, c("land","time"), data=germanFarms )
+   estResult2 <- snqProfitEst( priceNames, quantNames, c("land","time"), data=germanFarms )
    estResult2$ela   # Ah, that looks good!
 }
 

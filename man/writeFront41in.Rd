@@ -35,7 +35,7 @@
    \item{logDepVar}{logical. Is the dependent variable logged.}
    \item{mu}{logical. Should a 'mu' (if modelType = 1) or a delta0
       (if modelType = 2) be included in the estimation.}
-   \item{eta}{logical. Should a 'mu' be included in the estimation
+   \item{eta}{logical. Should an 'eta' be included in the estimation
       (only if modelType = 1).}
    \item{insFile}{name of the instruction file.}
    \item{dtaFile}{name of the data file.}

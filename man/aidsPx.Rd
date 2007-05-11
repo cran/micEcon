@@ -7,14 +7,14 @@
 }
 
 \usage{
-   aidsPx( px, pNames, wNames = NULL, data = NULL, base = 1, coef = NULL,
+   aidsPx( px, priceNames, shareNames = NULL, data = NULL, base = 1, coef = NULL,
       alpha0 = ifelse( is.null( coef$alpha0 ), 0, coef$alpha0 ) )
 }
 
 \arguments{
-   \item{px}{the prices index to be used (see details).}
-   \item{pNames}{a vector of strings containing the names of the prices.}
-   \item{wNames}{a vector of strings containing the names of the expenditure
+   \item{px}{the price index to be used (see details).}
+   \item{priceNames}{a vector of strings containing the names of the prices.}
+   \item{shareNames}{a vector of strings containing the names of the expenditure
       shares.}
    \item{data}{a data frame containing the data.}
    \item{base}{the base to calculate the indices (see details).}

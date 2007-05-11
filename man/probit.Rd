@@ -5,16 +5,17 @@
   The functions calculates probit binary choice model
 }
 \usage{
-probit(formula, b0 = NULL, data = sys.frame(sys.parent()),
+probit(formula, subset, start = NULL, data = sys.frame(sys.parent()),
        x=FALSE, y = FALSE, model = FALSE, method="ML", ... )
 }
 \arguments{
-  \item{formula}{a symbolic description of the model to be fit in the
+  \item{formula}{a symbolic description of the model to be fit, in the
     form \code{response ~ explanatory variables}.  The
     response variable should be either logical or numeric with values
-    only 0-1.  See
-    e.g. \code{\link{lm}} for details.}
-  \item{b0}{inital value of parameters.}
+    only 0-1 or a factor with two levels.}
+  \item{subset}{an optional vector specifying a subset of observations to be
+    used in the fitting process.}
+  \item{start}{inital value of parameters.}
   \item{data}{an optional data frame containing the variables in the
     model. If not found in data, the
     variables are taken from environment(formula), typically the
@@ -38,18 +39,18 @@ probit(formula, b0 = NULL, data = sys.frame(sys.parent()),
     with components
     \item{LRT}{The LRT value}
     \item{df}{Degrees of freedom for LRT (= df of the model - 1)}
-    LRT is distributed by chi2(df).}
-  \item{NParam}{Number of parameters of the model including constant}
-  \item{NObs}{Number of the observations}
+    LRT is distributed by chi2(df) under H0.}
+  \item{nParam}{Number of parameters of the model including constant}
+  \item{nObs}{Number of the observations}
   \item{N1}{Number of observations with non-zero (true) response}
   \item{N0}{Number of observations with zero (false) response}
   \item{df}{Number of free parameters}
   \item{x}{if requested, the model matrix used.}
   \item{y}{if requested, the response used.}
-  \item{model}{if requested, the model frame used.}
+  \item{model}{the model frame, only if \code{model = TRUE} or
+    \code{method = "model.frame"}.}
   Other components are inherited from \code{\link{maxLik}}.
 }
-\references{W. Greene: Advanced Econometrics, 2000, p ....}
 \author{Ott Toomet \email{otoomet@ut.ee}}
 \seealso{\code{\link{maxLik}} for ready-packaged likelihood maximisation
   routines and methods, \code{\link{glm}} for generalised linear models,

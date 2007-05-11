@@ -25,9 +25,9 @@
          } else if( stErMethod == "resample" ) {
             simData <- estResult$data[ ceiling( runif( nObs, 0, nObs ) ), ]
          }
-         simResult <- try( snqProfitEst( pNames = estResult$pNames,
-            qNames = estResult$qNames, fNames = estResult$fNames,
-            ivNames = estResult$ivNames, data = simData, form = estResult$form,
+         simResult <- try( snqProfitEst( priceNames = estResult$priceNames,
+            quantNames = estResult$quantNames, fixNames = estResult$fixNames,
+            instNames = estResult$instNames, data = simData, form = estResult$form,
             scalingFactors = estResult$scalingFactors,
             weights = estResult$weights, method = estResult$method ),
             silent = TRUE )

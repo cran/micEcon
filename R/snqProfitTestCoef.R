@@ -6,7 +6,7 @@ snqProfitTestCoef <- function( nNetput, nFix, coef, form = 0,
    }
    if( "alpha" %in% coefNames ) {
       if( length( coef$alpha ) != nNetput ) {
-         stop( "coef$alpha must have as many elements as argument 'pNames'" )
+         stop( "coef$alpha must have as many elements as argument 'priceNames'" )
       }
    }
    if( "beta" %in% coefNames ) {
@@ -17,7 +17,7 @@ snqProfitTestCoef <- function( nNetput, nFix, coef, form = 0,
          stop( "coef$beta must be a _symmetric_ matrix" )
       }
       if( nrow( coef$beta ) != nNetput ) {
-         stop( "coef$beta must have as many rows as argument 'pNames' has elements" )
+         stop( "coef$beta must have as many rows as argument 'priceNames' has elements" )
       }
    }
    if( "delta" %in% coefNames && nFix > 0 ) {
@@ -25,11 +25,11 @@ snqProfitTestCoef <- function( nNetput, nFix, coef, form = 0,
          stop( "coef$delta must be a matrix" )
       }
       if( nrow( coef$delta ) != nNetput ) {
-         stop( "coef$delta must have as many rows as argument 'pNames'",
+         stop( "coef$delta must have as many rows as argument 'priceNames'",
             " has elements" )
       }
       if( ncol( coef$delta ) != nFix ) {
-         stop( "coef$delta must have as many columns as argument 'fNames'",
+         stop( "coef$delta must have as many columns as argument 'fixNames'",
             " has elements" )
       }
    }
@@ -42,7 +42,7 @@ snqProfitTestCoef <- function( nNetput, nFix, coef, form = 0,
             stop( "coef$gamma must be a _symmetric_ matrix" )
          }
          if( nrow( coef$gamma ) != nFix ) {
-            stop( "coef$gamma must have as many rows as argument 'fNames'",
+            stop( "coef$gamma must have as many rows as argument 'fixNames'",
                " has elements" )
          }
       } else if( form == 1 ) {
@@ -51,15 +51,15 @@ snqProfitTestCoef <- function( nNetput, nFix, coef, form = 0,
          }
          if( dim( coef$gamma )[ 1 ] != nNetput ) {
             stop( "the first dimension of coef$gamma must be equal to",
-               " the number of elements of argument 'pNames'" )
+               " the number of elements of argument 'priceNames'" )
          }
          if( dim( coef$gamma )[ 2 ] != nFix ) {
             stop( "the second dimension of coef$gamma must be equal to",
-               " the number of elements of argument 'fNames'" )
+               " the number of elements of argument 'fixNames'" )
          }
          if( dim( coef$gamma )[ 3 ] != nFix ) {
             stop( "the third dimension of coef$gamma must be equal to",
-               " the number of elements of argument 'fNames'" )
+               " the number of elements of argument 'fixNames'" )
          }
       } else {
          stop( "argument 'form' must be either 0 or 1" )

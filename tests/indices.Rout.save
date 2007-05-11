@@ -1,6 +1,6 @@
 
 R : Copyright 2006, The R Foundation for Statistical Computing
-Version 2.3.1 (2006-06-01)
+Version 2.3.0 (2006-04-24)
 ISBN 3-900051-07-0
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -17,8 +17,6 @@ Type 'q()' to quit R.
 
 > library( micEcon )
 Loading required package: systemfit
-This package is still an alpha version. This means that this package has not been thoroughly tested yet. Thus, there might be several bugs in it and I do not guarantee that all results are correct. 
-Please send bug reports to ahenningsen@agric-econ.uni-kiel.de
 > 
 > ## function for printIndexing indices
 > printIndices <- function( what, ... ) {
@@ -30,8 +28,10 @@ Please send bug reports to ahenningsen@agric-econ.uni-kiel.de
 +          index <- quantityIndex( ..., method = i, weights = TRUE )
 +       }
 +       print( index )
-+       if( all.equal( rowSums( attributes( index )$weights[ !is.na( index ), ] ),
-+          rep( 1, sum( !is.na( index ) ) ), check.attributes = FALSE ) != TRUE ) {
++       testRowSums <- rowSums( attributes( index )$weights[ !is.na( index ), ] )
++       names( testRowSums ) <- NULL
++       if( all.equal( testRowSums,
++          rep( 1, sum( !is.na( index ) ) ) ) != TRUE ) {
 +          cat( "\nrowSums are not equal to one!!!\n\n" )
 +       }
 +    }
