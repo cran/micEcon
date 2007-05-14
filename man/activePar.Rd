@@ -8,7 +8,7 @@
 }
 \usage{
 activePar(x, \dots)
-activePar.default(x, \dots)
+\method{activePar}{default}(x, \dots)
 }
 \arguments{
   \item{x}{object, created by a maximisation routine, or derived from a

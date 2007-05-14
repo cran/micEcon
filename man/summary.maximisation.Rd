@@ -5,7 +5,7 @@
   Summarises the maximisation results
 }
 \usage{
-summary.maximisation( object, hessian=FALSE, unsucc.step=FALSE, ... )
+\method{summary}{maximisation}( object, hessian=FALSE, unsucc.step=FALSE, ... )
 }
 \arguments{
   \item{object}{optimisation result, object of class

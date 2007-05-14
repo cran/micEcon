@@ -10,8 +10,8 @@
 }
 \usage{
 nParam(x, ...)
-nParam.default(x, \dots)
-nParam.lm(x, \dots)
+\method{nParam}{default}(x, \dots)
+\method{nParam}{lm}(x, \dots)
 }
 %- maybe also 'usage' for other objects documented here.
 \details{

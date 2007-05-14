@@ -9,8 +9,8 @@
 }
 \usage{
 nObs(x, \dots)
-nObs.default(x, \dots)
-nObs.lm(x, \dots)
+\method{nObs}{default}(x, \dots)
+\method{nObs}{lm}(x, \dots)
 }
 \arguments{
   \item{x}{a statistical model, such as created by \code{\link{lm}}}

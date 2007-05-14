@@ -10,7 +10,7 @@
 }
 \usage{
 hessian(x, \dots)
-hessian.default(x, \dots)
+\method{hessian}{default}(x, \dots)
 }
 
 \arguments{

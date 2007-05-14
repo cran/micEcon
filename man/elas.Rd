@@ -14,7 +14,7 @@
 \usage{
    elas( object, ... )
    elasticities( object, ... )
-   elas.default( object, ... )
+   \method{elas}{default}( object, ... )
 }
 
 \arguments{

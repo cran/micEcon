@@ -6,7 +6,7 @@
   and t-values.
 }
 \usage{
-summary.maxLik(object, ... )
+\method{summary}{maxLik}(object, ... )
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

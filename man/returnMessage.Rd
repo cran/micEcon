@@ -13,8 +13,8 @@
 }
 \usage{
 returnMessage(x, ...)
-returnMessage.maximisation(x, ...)
-returnMessage.maxLik(x, ...)
+\method{returnMessage}{maximisation}(x, ...)
+\method{returnMessage}{maxLik}(x, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

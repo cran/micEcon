@@ -10,7 +10,7 @@
 }
 \usage{
 returnCode(x, ...)
-returnCode.default(x, ...)
+\method{returnCode}{default}(x, ...)
 }
 \arguments{
   \item{x}{object, usually an estimator, achieved by optimisation}
