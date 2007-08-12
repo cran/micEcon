@@ -11,7 +11,7 @@
 }
 
 \arguments{
-   \item{yName}{a vector of strings containing the name of the dependent
+   \item{yName}{a string containing the name of the dependent
       variable.}
    \item{xNames}{a vector of strings containing the names of the
       independent variables.}

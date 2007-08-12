@@ -107,7 +107,7 @@ heckit2fit <- function( selection, outcome,
        cat( " OK\n" )
    }
    imrData <- invMillsRatio( result$probit )
-   result$imrDelta <- imrData$delta1
+   result$imrDelta <- drop(imrData$delta1)
    ## ---- Outcome estimation -----
    if( is.null( inst ) ) {
       if( print.level > 0 ) {
@@ -143,14 +143,13 @@ heckit2fit <- function( selection, outcome,
       step2coef <- coefficients( outcomeMod$eq[[ 1 ]] )
       if( print.level > 0 ) cat( " OK\n" )
    }
-   result$sigma <- as.numeric( sqrt( crossprod( resid ) /
-                                    sum( probitDummy ) +
-                                    mean(result$imrDelta[ probitDummy ] ) *
-                                    step2coef[ "invMillsRatio" ]^2 ) )
+   result$sigma <- drop( sqrt( crossprod( resid ) /
+                              sum( probitDummy ) +
+                              mean(result$imrDelta[ probitDummy ] ) *
+                              step2coef[ "invMillsRatio" ]^2 ) )
    result$rho <-  step2coef[ "invMillsRatio" ] / result$sigma
    names(result$rho) <- NULL
-                                        # otherwise the name of step2coef is left...
-   result$invMillsRatio <- invMillsRatio
+   result$invMillsRatio <- drop( imrData$IMR1 )
    ## Stack all final coefficients to 'coefficients'
    coefficients <- c(coef(result$probit),
                      step2coef[names(step2coef) != "invMillsRatio"],

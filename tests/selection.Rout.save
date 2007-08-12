@@ -1,6 +1,6 @@
 
-R version 2.4.1 (2006-12-18)
-Copyright (C) 2006 The R Foundation for Statistical Computing
+R version 2.5.1 (2007-06-27)
+Copyright (C) 2007 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -192,7 +192,7 @@ sigma2  0.99800    0.04797  20.806 < 2e-16 ***
 rho1    0.90346    0.02630  34.350 < 2e-16 ***
 rho2    0.47218    0.15987   2.953 0.00314 ** 
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 --------------------------------------------
 > print( coef( testTobit5Ml ), digits = 5 )
  S:(Intercept)           S:xs O1:(Intercept)         O1:xo1         sigma1 
@@ -294,7 +294,7 @@ invMillsRatio  -0.8714     0.2381   -3.66 0.000261 ***
 sigma           1.0458         NA      NA       NA    
 rho            -0.8333         NA      NA       NA    
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 --------------------------------------------
 > print( coef( testTobit2TwoStep ), digits = 5 )
 S:(Intercept)          S:xs O:(Intercept)          O:xo invMillsRatio 
@@ -340,6 +340,11 @@ rho              NA  NA
 (Intercept)     0.0171677 -0.00400620   -0.02835681
 xo             -0.0040062  0.00828056   -0.00023644
 invMillsRatio  -0.0283568 -0.00023644    0.05667814
+> print(testTobit2TwoStep$invMillsRatio[10:20])
+      10       11       12       13       14       15       16       17 
+0.652992 0.725720 0.720768 0.338952 0.471034 0.385594 0.527795 0.644218 
+      18       19       21 
+0.518806 0.345413 0.603452 
 > 
 > testTobit2Ml <- selection(ys~xs, yo ~xo, method="ml")
 > print( testTobit2Ml )
@@ -374,7 +379,7 @@ Error terms:
 sigma  1.01254    0.03672   27.57  <2e-16 ***
 rho   -0.77910    0.04533  -17.19  <2e-16 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 --------------------------------------------
 > print( coef( testTobit2Ml ), digits = 5 )
 S:(Intercept)          S:xs O:(Intercept)          O:xo         sigma 

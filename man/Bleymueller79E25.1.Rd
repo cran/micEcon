@@ -28,7 +28,7 @@
 
 \source{
    Bleymueller, J; G. Gehlert and H. Guelicher (1979)
-   Statistik für Wirtschaftswissenschaftler. Verlag Vahlen, Muenchen.
+   Statistik fuer Wirtschaftswissenschaftler. Verlag Vahlen, Muenchen.
 }
 
 \keyword{datasets}

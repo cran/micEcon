@@ -12,7 +12,7 @@
 }
 
 \arguments{
-   \item{x}{probit model estimated by \code{\link{glm}} or
+   \item{x}{probit model estimated by \code{\link{probit}}, \code{\link{glm}} or
       \code{\link[VGAM]{vglm}}.}
    \item{all}{a logical value indicating whether the inverse Mill's Ratios
       should be calculated for all observations.}

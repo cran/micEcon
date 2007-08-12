@@ -7,8 +7,8 @@
 }
 
 \usage{
-   translogDeriv( xNames, data, allCoef, allCoefCov = NULL,
-   quadHalf = TRUE, logValues = FALSE )
+translogDeriv( xNames, data, allCoef, allCoefCov = NULL,
+   yName = NULL, quadHalf = TRUE, logValues = FALSE )
 }
 
 \arguments{
@@ -17,6 +17,10 @@
    \item{data}{dataframe containing the data.}
    \item{allCoef}{vector containing all coefficients.}
    \item{allCoefCov}{optional covariance matrix of the coefficients.}
+   \item{yName}{an optional string containing the name of the dependent
+      variable.
+      If it is \code{NULL}, the dependent variable is calculated
+      from the independent variables and the coefficients.}
    \item{quadHalf}{logical. Multiply the quadratic terms by one half?}
    \item{logValues}{logical. Are the values in \code{data} already logged?}
 }
@@ -50,10 +54,15 @@
    estResult <- translogEst( "qOutput", c( "qLabor", "land", "qVarInput", "time" ),
       germanFarms )
 
-   # compute the marginal products of the inputs
+   # compute the marginal products of the inputs (with "fitted" Output)
    margProducts <- translogDeriv( c( "qLabor", "land", "qVarInput", "time" ),
       germanFarms, estResult$allCoef, estResult$allCoefCov )
    margProducts$deriv
+
+   # compute the marginal products of the inputs (with observed Output)
+   margProductsObs <- translogDeriv( c( "qLabor", "land", "qVarInput", "time" ),
+      germanFarms, estResult$allCoef, estResult$allCoefCov, "qOutput" )
+   margProductsObs$deriv
 }
 
 \keyword{models}

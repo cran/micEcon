@@ -139,8 +139,12 @@ snqProfitEst <- function( priceNames, quantNames, fixNames = NULL,
    result$weights  <- weights
    names( result$weights ) <- priceNames
    result$normPrice <- modelData$normPrice
-   result$convexity  <- semidefiniteness( result$hessian[
-      1:( nNetput - 1 ), 1:( nNetput - 1 ) ] )$positive
+   if( nNetput > 2 ){
+      result$convexity  <- semidefiniteness( result$hessian[
+         1:( nNetput - 1 ), 1:( nNetput - 1 ) ] )$positive
+   } else if( nNetput == 2 ){
+      result$convexity  <- result$hessian[ 1, 1 ] >= 0
+   }
    result$priceNames  <- priceNames
    result$quantNames  <- quantNames
    result$fixNames  <- fixNames

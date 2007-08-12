@@ -1,5 +1,5 @@
-translogHessian <- function( xNames, data, allCoef, quadHalf = TRUE,
-   logValues = FALSE, bordered = FALSE ) {
+translogHessian <- function( xNames, data, allCoef, yName = NULL,
+   quadHalf = TRUE, logValues = FALSE, bordered = FALSE ) {
 
    checkNames( c( xNames ), names( data ) )
 
@@ -30,11 +30,19 @@ translogHessian <- function( xNames, data, allCoef, quadHalf = TRUE,
       }
    }
 
-   logData$yHat <- translogCalc( newXNames, logData, allCoef,
-      quadHalf = quadHalf, logValues = TRUE )
+   if( is.null( yName ) ){
+      logData$yHat <- translogCalc( newXNames, logData, allCoef,
+         quadHalf = quadHalf, logValues = TRUE )
+   } else {
+      if( logValues ) {
+         logData$yHat <- data[[ yName ]]
+      } else {
+         logData$yHat <- log( data[[ yName ]] )
+      }
+   }
 
-   deriv <- translogDeriv( newXNames, logData, allCoef, quadHalf = quadHalf,
-      logValues = TRUE )$deriv
+   deriv <- translogDeriv( newXNames, logData, allCoef, yName = "yHat",
+      quadHalf = quadHalf, logValues = TRUE )$deriv
    names( deriv ) <- dNames
    logData <- cbind( logData, deriv )
 
@@ -49,7 +57,7 @@ translogHessian <- function( xNames, data, allCoef, quadHalf = TRUE,
             result[ i + bordered, j + bordered ] <-
                values[[ dNames[ i ] ]] * values[[ dNames[ j ] ]] /
                exp( values[[ "yHat" ]] ) -
-               ifelse( i == j, 1, 0 ) * values[[ dNames[ i ] ]] *
+               ifelse( i == j, 1, 0 ) * values[[ dNames[ i ] ]] /
                exp( values[[ newXNames[ i ] ]] ) +
                ifelse( quadHalf, 1, 2 ) * beta[ i, j ] *
                exp( values[[ "yHat" ]] ) /
@@ -57,7 +65,7 @@ translogHessian <- function( xNames, data, allCoef, quadHalf = TRUE,
                exp( values[[ newXNames[ j ] ]] ) )
          }
       }
-      result[ lower.tri( result ) ] <- result[ upper.tri( result ) ]
+      result[ lower.tri( result ) ] <- t( result )[ lower.tri( result ) ]
       result <- list( result )
       return( result )
    }

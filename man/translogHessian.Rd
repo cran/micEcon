@@ -7,8 +7,8 @@
 }
 
 \usage{
-   translogHessian( xNames, data, allCoef, quadHalf = TRUE,
-   logValues = FALSE, bordered = FALSE )
+   translogHessian( xNames, data, allCoef, yName = NULL,
+   quadHalf = TRUE, logValues = FALSE, bordered = FALSE )
 }
 
 \arguments{
@@ -16,6 +16,10 @@
       independent variables.}
    \item{data}{dataframe containing the data.}
    \item{allCoef}{vector containing all coefficients.}
+   \item{yName}{an optional string containing the name of the dependent
+      variable.
+      If it is \code{NULL}, the dependent variable is calculated
+      from the independent variables and the coefficients.}
    \item{quadHalf}{logical. Multiply the quadratic terms by one half?}
    \item{logValues}{logical. Are the values in \code{data} already logged?}
    \item{bordered}{logical. Should the \emph{bordered} Hessians be returned?}
@@ -46,10 +50,15 @@
    estResult <- translogEst( "qOutput", c( "qLabor", "land", "qVarInput", "time" ),
       germanFarms )
 
-   # compute the Hessian matrices
+   # compute the Hessian matrices (with "fitted" output)
    hessians <- translogHessian( c( "qLabor", "land", "qVarInput", "time" ),
       germanFarms, estResult$allCoef )
    hessians[[ 1 ]]
+
+   # compute the Hessian matrices (with observed output)
+   hessiansObs <- translogHessian( c( "qLabor", "land", "qVarInput", "time" ),
+      germanFarms, estResult$allCoef, "qOutput" )
+   hessiansObs[[ 1 ]]
 
    # compute the bordered Hessian matrices
    borderedHessians <- translogHessian( c( "qLabor", "land", "qVarInput", "time" ),

@@ -63,6 +63,7 @@ print( coef( summary( testTobit2TwoStep ) ), digits = 5 )
 print( coef( summary( testTobit2TwoStep ), part = "outcome" ), digits = 5 )
 print( vcov( testTobit2TwoStep ), digits = 5 )
 print( vcov( testTobit2TwoStep, part = "outcome" ), digits = 5 )
+print(testTobit2TwoStep$invMillsRatio[10:20])
 
 testTobit2Ml <- selection(ys~xs, yo ~xo, method="ml")
 print( testTobit2Ml )
