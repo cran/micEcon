@@ -1,5 +1,7 @@
 tobit5fit <- function(YS, XS, YO1, XO1, YO2, XO2, start,
-                      print.level=0, ...) {
+                      print.level=0,
+                      maxMethod="Newton-Raphson",
+                      ...) {
 ### The model is as follows (Amemiya 1985):
 ### The latent variables are:
 ### YS* = XS'g + u1
@@ -264,7 +266,9 @@ tobit5fit <- function(YS, XS, YO1, XO1, YO2, XO2, start,
         print(start[iRho2])
     }
     result <- maxLik(loglik, grad=gradlik, hess=hesslik, start=start,
-                     print.level=print.level, ...)
+                     print.level=print.level,
+                     method=maxMethod,
+                     ...)
 #    compare.derivatives(loglik, gradlik, t0=start)
    result$tobitType <- 5
    result$method <- "ml"

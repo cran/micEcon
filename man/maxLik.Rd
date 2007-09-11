@@ -26,7 +26,7 @@ maxLik(logLik, grad = NULL, hess = NULL, start, method = "Newton-Raphson", ...)
     vector as the first argument.  Must return a square matrix.  If
     \code{NULL}, numeric gradient will be used.}
   \item{start}{numeric vector, initial value of parameters.}
-  \item{method}{maximisation method, currently either "Newton-Rapshon"
+  \item{method}{maximisation method, currently either "Newton-Rapshon", "BFGS",
     or "BHHH".}
   \item{\dots}{further arguments for the maximisation routine.}
 }

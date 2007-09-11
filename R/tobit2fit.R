@@ -1,5 +1,7 @@
 tobit2fit <- function(YS, XS, YO, XO, start,
-                      print.level=0, ...) {
+                      print.level=0,
+                      maxMethod="Newton-Raphson",
+                      ...) {
 ### The model is as follows (Amemiya 1985):
 ### The latent variables are:
 ### YS* = XS'g + u1
@@ -167,7 +169,8 @@ tobit2fit <- function(YS, XS, YO, XO, start,
    N1 <- sum(YS==1)
    ## estimate
    result <- maxLik(loglik, grad=gradlik, hess=hesslik, start=start,
-                     print.level=print.level, ...)
+                     print.level=print.level,
+                    method=maxMethod, ...)
    result$tobitType <- 2
    result$method <- "ml"
    class( result ) <- c( "selection", class( result ) )

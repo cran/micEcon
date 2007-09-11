@@ -15,8 +15,9 @@
 }
 
 \usage{
-tobit2fit(YS, XS, YO, XO, start, print.level = 0, ...)
-tobit5fit(YS, XS, YO1, XO1, YO2, XO2, start, print.level=0, ...) 
+tobit2fit(YS, XS, YO, XO, start, print.level = 0,
+maxMethod="Newton-Raphson", ...)
+tobit5fit(YS, XS, YO1, XO1, YO2, XO2, start, print.level=0, maxMethod="Newton-Raphson", ...) 
 }
 
 \arguments{
@@ -30,6 +31,7 @@ outcomes are ignored (they may or may not be NA).}
 betaO(1), sigma(1), rho(1), betaO2, sigma2, rho2.}
   \item{print.level}{numeric, values greater than 0 will produce
 increasingly more debugging information.}
+  \item{maxMethod}{character, a maximisation method supported by \code{\link{maxLik}}}
   \item{\dots}{Additional parameters to \code{\link{maxLik}}.}
 }
 

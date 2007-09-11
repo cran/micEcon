@@ -23,8 +23,8 @@ heckitVcov <- function( xMat, wMat, vcovProbit, rho, delta, sigma,
          ( txd2Mat %*% xMat + qMat ) %*% solve( crossprod( xMat ) )
    } else {
       result <- sigma^2 * solve( crossprod( xMat ) ) %*%
-         ( t( xMat ) %*% diag( 1 - rho^2 * delta ) %*%
-         xMat + qMat ) %*% solve( crossprod( xMat ) )
+          ( t( xMat ) %*% diag( 1 - rho^2 * delta ) %*%
+           xMat + qMat ) %*% solve( crossprod( xMat ) )
    }
    return( result )
 }

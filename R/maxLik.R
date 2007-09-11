@@ -44,6 +44,8 @@ maxLik <- function(logLik, grad=NULL, hess=NULL, start,
                         "newton-raphson" =,
                         "NR" =,
                         "nr" = maxNR,
+                        "BFGS" =,
+                        "bfgs" = maxBFGS,
                         "BHHH" =,
                         "bhhh" = maxBHHH,
                         stop( "Maxlik: unknown maximisation method ", method )
