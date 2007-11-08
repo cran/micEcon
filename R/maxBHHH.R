@@ -13,6 +13,14 @@ maxBHHH <- function(fn, grad=NULL, hess=NULL,
       } else {
          g <- numericGradient(fn, theta, ...)
       }
+      ## Ensure g is suitable for information equality approximation
+      if(is.null(dim(g)))
+          g <- matrix(g)
+      if(!(dim(g)[1] > length(theta) & dim(g)[2] == length(theta))) {
+         stop(paste("Gradient matrix must have at least as many rows and exactly as many columns as the number of parameters.\n",
+                    "Currently", length(theta), "parameters but the gradient is", dim(g)[1], "x", dim(g)[2]))
+      }
+      ##
       assign("gradVal", g, inherits=TRUE)
       return( g )
    }

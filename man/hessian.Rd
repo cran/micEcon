@@ -6,7 +6,7 @@
 \description{
   This function extracts the Hessian of the M-estimator of 
   statistical model.  It should be supplied by the underlying
-  optimisation algorithm, possibly using approximations.}
+  optimisation algorithm, possibly using approximations.
 }
 \usage{
 hessian(x, \dots)

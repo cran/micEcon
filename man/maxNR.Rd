@@ -1,19 +1,19 @@
 \name{maxNR}
 \alias{maxNR}
 %- Also NEED an `\alias' for EACH other topic documented here.
-\title{Newton-Raphson maximisation}
+\title{Newton-Raphson Maximization}
 \description{
-  Unconstrained maximisation based on Newton-Raphson method.
+  Unconstrained maximization based on Newton-Raphson method.
 }
 \usage{
 maxNR(fn, grad = NULL, hess = NULL, start, print.level = 0,
-      tol = 1e-06, gradtol = 1e-06, steptol = 1e-10, lambdatol = 1e-06,
-      qrtol = 1e-10,
+      tol = 1e-08, reltol=sqrt(.Machine$double.eps), gradtol = 1e-06,
+      steptol = 1e-10, lambdatol = 1e-06, qrtol = 1e-10,
       iterlim = 15,
       constPar = NULL, activePar=rep(TRUE, nParam), ...)
 }
 \arguments{
-  \item{fn}{function to be maximised.  It must return either a single
+  \item{fn}{function to be maximized.  It must return either a single
     number or a numeric vector, which is summed (this is useful for BHHH
     method).  If the parameters are out of range, \code{fn} should
     return \code{NA}.  See details for constant parameters.}
@@ -35,6 +35,10 @@ maxNR(fn, grad = NULL, hess = NULL, start, print.level = 0,
   \item{tol}{stopping condition.  Stop if the absolute difference
     between successive iterations less than \code{tol}, return
     \code{code=2}.}
+  \item{reltol}{Relative convergence tolerance.  The algorithm stops if
+          it is unable to increase the value by a factor of 'reltol *
+          (abs(val) + reltol)' at a step.  Defaults to
+          'sqrt(.Machine\$double.eps)', typically about '1e-8'.}
   \item{gradtol}{stopping condition.  Stop if the norm of the gradient
     less than \code{gradtol}, return \code{code=1}.}
   \item{steptol}{stopping/error condition.  If the quadratic
@@ -102,18 +106,18 @@ the previous one.
     \code{code=3} with following components:
     \item{theta0}{previous parameter value}
     \item{f0}{\code{fn} value at \code{theta0}}
-    \item{theta1}{new parameter value.  In most cases close to \code{theta0}.}
+    \item{climb}{the movement vector to the maximum of the quadratic approximation}
   }
   \item{activePar}{logical vector, which parameters are not constants.}
   \item{iterations}{number of iterations.}
-  \item{type}{character string, type of maximisation.}
+  \item{type}{character string, type of maximization.}
 }
-\references{W. Greene: "Advanced Econometrics"; S.M. Goldfeld,
-  R.E. Quandt: "Nonlinear Methods in Econometrics".  Amsterdam,
-  North-Holland 1972.}
+\references{Greene,  W., 2002, \emph{Advanced Econometrics}
+
+  Goldfeld, S. M. and Quandt, R. E., 1972, \emph{Nonlinear Methods in Econometrics}.  Amsterdam: North-Holland}
 \author{Ott Toomet \email{otoomet@ut.ee}}
-\seealso{\code{\link{nlm}} for Newton-Raphson optimisation,
-  \code{\link{optim}} for different gradient-based optimisation
+\seealso{\code{\link{nlm}} for Newton-Raphson optimization,
+  \code{\link{optim}} for different gradient-based optimization
   methods.}
 \examples{
 ## ML estimation of exponential duration model:

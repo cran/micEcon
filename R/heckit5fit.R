@@ -148,12 +148,12 @@ heckit5fit <- function(selection, outcome1, outcome2,
    N1 <- length(YO1)
    N2 <- length(YO2)
    ## and run the model: selection
-   probit <- probit(YS ~ XS - 1)
+   probitResult <- probit(YS ~ XS - 1)
    if( print.level > 0) {
       cat("The probit part of the model:\n")
-      print(summary(probit))
+      print(summary(probitResult))
    }
-   gamma <- coef(probit)
+   gamma <- coef(probitResult)
    ## outcome
    invMillsRatio1 <- dnorm( -XS1%*%gamma)/pnorm( -XS1%*%gamma)
    invMillsRatio2 <- dnorm( XS2%*%gamma)/pnorm( XS2%*%gamma)
@@ -202,8 +202,8 @@ heckit5fit <- function(selection, outcome1, outcome2,
    #
       ## Varcovar matrix.  Fill only a few parts, rest will remain NA
    coefficients <- numeric(nParam)
-   coefficients[iBetaS] <- coef(probit)
-   names(coefficients)[iBetaS] <- gsub("^XS", "", names(coef(probit)))
+   coefficients[iBetaS] <- coef(probitResult)
+   names(coefficients)[iBetaS] <- gsub("^XS", "", names(coef(probitResult)))
    coefficients[iBetaO1] <- coef(lm1)[names(coef(lm1)) != "XO1invMillsRatio"]
    names(coefficients)[iBetaO1] <- gsub("^XO1", "",
                                         names(coef(lm1))[names(coef(lm1)) != "XO1invMillsRatio"])
@@ -218,8 +218,8 @@ heckit5fit <- function(selection, outcome1, outcome2,
    vc <- matrix(0, nParam, nParam)
    colnames(vc) <- row.names(vc) <- names(coefficients)
    vc[] <- NA
-   if(!is.null(vcov(probit)))
-       vc[iBetaS,iBetaS] <- vcov(probit)
+   if(!is.null(vcov(probitResult)))
+       vc[iBetaS,iBetaS] <- vcov(probitResult)
    ## the 'param' component is intended to all kind of technical info
    param <- list(index=list(betaS=iBetaS,
                  betaO1=iBetaO1, betaO2=iBetaO2,
@@ -232,7 +232,7 @@ heckit5fit <- function(selection, outcome1, outcome2,
                  nObs=nObs, nParam=nParam, df=nObs-nParam + 2,
                  NXS=NXS, NXO1=NXO1, NXO2=NXO2, N1=N1, N2=N2)
    #
-   result <- list(probit=probit,
+   result <- list(probit=probitResult,
                   lm1=lm1,
                   rho1=rho1,
                   sigma1=sigma1,

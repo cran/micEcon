@@ -2,7 +2,7 @@ maxBFGS <- function(fn, grad=NULL, hess=NULL,
                     start,
                     print.level=0,
                     iterlim=200,
-                    tol=1e-6,
+                    tol=1e-8, reltol=tol,
                     ...) {
    ## ... : further arguments to fn() and grad()
    message <- function(c) {
@@ -36,7 +36,7 @@ maxBFGS <- function(fn, grad=NULL, hess=NULL,
    control <- list(trace=print.level,
                     REPORT=1,
                     fnscale=-1,
-                    abstol=tol,
+                   reltol=reltol,
                     maxit=iterlim)
    a <- optim(start, func, gr=gradient, control=control, method="BFGS",
       hessian=TRUE, ...)

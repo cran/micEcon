@@ -48,6 +48,11 @@ maxLik <- function(logLik, grad=NULL, hess=NULL, start,
                         "bfgs" = maxBFGS,
                         "BHHH" =,
                         "bhhh" = maxBHHH,
+                        "Nelder-Mead" =,
+                        "NM" =,
+                        "nm" = maxNM,
+                        "SANN" =,
+                        "sann" = maxSANN,
                         stop( "Maxlik: unknown maximisation method ", method )
                         )
    result <- maxRoutine(fn=logLik, grad=grad, hess=hess, start=start, ...)

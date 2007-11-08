@@ -1,5 +1,5 @@
 
-R version 2.5.0 (2007-04-23)
+R version 2.6.0 (2007-10-03)
 Copyright (C) 2007 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
@@ -1044,7 +1044,8 @@ wFood4  0.361 -0.0346  0.1234 -0.571
 +    data = Blanciforti86,
 +    method = "LA:S" )
 Warning message:
-there are some NAs in the data, all observations (rows) with NAs are excluded from the analysis in: aidsEst(pNames, wNames, "xFood", data = Blanciforti86, method = "LA:S") 
+In aidsEst(pNames, wNames, "xFood", data = Blanciforti86, method = "LA:S") :
+  there are some NAs in the data, all observations (rows) with NAs are excluded from the analysis
 > print( estResultLaSNa )
 
 Demand analysis with the Almost Ideal Demand System (AIDS)
@@ -1123,7 +1124,8 @@ wFood4 -0.0268  0.0631  0.2358 -0.2721
 +    data = Blanciforti86,
 +    method = "LA:SL" )
 Warning message:
-there are some NAs in the data, all observations (rows) with NAs are excluded from the analysis in: aidsEst(pNames, wNames, "xFood", data = Blanciforti86, method = "LA:SL") 
+In aidsEst(pNames, wNames, "xFood", data = Blanciforti86, method = "LA:SL") :
+  there are some NAs in the data, all observations (rows) with NAs are excluded from the analysis
 > print( estResultLaSlNa )
 
 Demand analysis with the Almost Ideal Demand System (AIDS)
@@ -1202,7 +1204,8 @@ wFood4 -0.0698  0.0731  0.2483 -0.2515
 +    data = Blanciforti86,
 +    method = "LA:L" )
 Warning message:
-there are some NAs in the data, all observations (rows) with NAs are excluded from the analysis in: aidsEst(pNames, wNames, "xFood", data = Blanciforti86, method = "LA:L") 
+In aidsEst(pNames, wNames, "xFood", data = Blanciforti86, method = "LA:L") :
+  there are some NAs in the data, all observations (rows) with NAs are excluded from the analysis
 > print( estResultLaLNa )
 
 Demand analysis with the Almost Ideal Demand System (AIDS)
@@ -1280,7 +1283,8 @@ wFood4  0.0360  0.0817  0.2224 -0.3400
 > estResultAIDSNa <- aidsEst( pNames, wNames, "xFood",
 +    data = Blanciforti86, method = "IL:L" )
 Warning message:
-there are some NAs in the data, all observations (rows) with NAs are excluded from the analysis in: aidsEst(pNames, wNames, "xFood", data = Blanciforti86, method = "IL:L") 
+In aidsEst(pNames, wNames, "xFood", data = Blanciforti86, method = "IL:L") :
+  there are some NAs in the data, all observations (rows) with NAs are excluded from the analysis
 > print( estResultAIDSNa )
 
 Demand analysis with the Almost Ideal Demand System (AIDS)

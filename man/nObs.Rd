@@ -19,7 +19,7 @@ nObs(x, \dots)
 \details{
   This is a generic function.  The default method returns the component
   \code{x$param$nObs}.  The \code{lm}-method is based on
-  qr-decomposition, in the same way as the does \code{\link{summary.lm}}.}  
+  qr-decomposition, in the same way as the does \code{\link{summary.lm}}.
 }
 \value{
   numeric, number of observations

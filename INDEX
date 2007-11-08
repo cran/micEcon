@@ -24,11 +24,11 @@ invMillsRatio           Inverse Mill's Ratio of probit models
 linearPredictors        Calculates linear predictors for different
                         models
 loglikValue             Return the log likelihood value
-maxBFGS                 BFGS maximisation
-maxBHHH                 BHHH maximisation
-maximisationType        Type of minimisation/maximisation
+maxBFGS                 BFGS, SANN and Nelder-Mead Maximization
+maxBHHH                 BHHH Maximization
+maximisationType        Type of Minimization/Maximization
 maxLik                  Maximum likelihood estimation
-maxNR                   Newton-Raphson maximisation
+maxNR                   Newton-Raphson Maximization
 micEcon-deprecated      Deprecated Functions in micEcon package
 Missong03E7.7           Meat Prices and Quantities in Germany
 Mroz87                  U.S. Women's Labor Force Participation

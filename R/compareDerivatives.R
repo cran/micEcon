@@ -36,7 +36,7 @@ compareDerivatives <- function(f, grad, hess=NULL, t0, eps=1e-6, ...) {
       cat("(anal - num)/anal\n")
       print(rDiff)
   }
-  cat("Max relative difference:", max(abs(rDiff)), "\n")
+  cat("Max relative difference:", max(abs(rDiff), na.rm=TRUE), "\n")
   if(!is.null(hess)) {
       cat("Comparing hessians: relative dfference\n")
     analytic <- hess(t0, ...)

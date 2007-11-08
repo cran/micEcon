@@ -1,7 +1,7 @@
 
 maxNR <- function(fn, grad=NULL, hess=NULL, start,
                   print.level=0,
-                  tol=1e-6, gradtol=1e-6, steptol=1e-10,
+                  tol=1e-8, reltol=sqrt(.Machine$double.eps), gradtol=1e-6, steptol=1e-10,
                   lambdatol=1e-6,
                   qrtol=1e-10,
                   iterlim=15,
@@ -25,7 +25,8 @@ maxNR <- function(fn, grad=NULL, hess=NULL, start,
    ## qrtol       - tolerance for qr decomposition
    ## ...         - extra arguments for fn()
    ## The stopping criteria
-   ## tol         - maximum allowed difference between sequential values
+   ## tol         - maximum allowed absolute difference between sequential values
+   ## reltol      - maximum allowed reltive difference (stops if < reltol*(abs(fn) + reltol)
    ## gradtol     - maximum allowed norm of gradient vector
    ## iterlim     - maximum # of iterations
    ## constPar    - NULL or an index vector -- which parameters are taken as
@@ -57,9 +58,9 @@ maxNR <- function(fn, grad=NULL, hess=NULL, start,
       message <- switch(code,
          "1" = "gradient close to zero. May be a solution",
          "2" = paste("successive function values within tolerance",
-                     "limit.\n May be a solution"),
+                     "limit.\nMay be a solution"),
          "3" = paste("Last step could not find a value above the",
-                     "current.\nMay be near a solution"),
+                     "current.\nConsider switching to a more robust optimisation method temporarily."),
          "4" = "Iteration limit exceeded.",
          "100" = "Initial value out of range.",
          paste("Code", code))
@@ -96,6 +97,8 @@ maxNR <- function(fn, grad=NULL, hess=NULL, start,
       return(gr)
    }
    hessian <- function(theta, ...) {
+      ## Note: a call to hessian must follow a call to gradient using /exactly the same/ parameter values.
+      ## This ensures compatibility with maxBHHH
       if(!is.null(hess)) {
          return(as.matrix(hess(theta, ...)))
       }
@@ -105,6 +108,8 @@ maxNR <- function(fn, grad=NULL, hess=NULL, start,
    maximisation.type <- "Newton-Raphson maximisation"
    nimed <- names(start)
    nParam <- length(start)
+   samm <- NULL
+                                        # information about unsuccesful step (if any)
    I <- diag(rep(1, nParam))     # I is unit matrix
    activePar[constPar] <- FALSE
    start1 <- start
@@ -192,10 +197,13 @@ maxNR <- function(fn, grad=NULL, hess=NULL, start,
          }
       }
       if(is.null(newVal <- attr(f1, "newVal"))) {
-         while( is.na( f1) || ( ( f1 < f0) && ( step > steptol))) {
+         while( is.na( f1) || ( ( f1 < f0) && ( step >= steptol))) {
                                         # We end up in a NA or a higher value.
                                         # try smaller step
             step <- step/2
+            if(print.level > 2) {
+               cat("function value difference", f1 - f0, "-> step", step, "\n")
+            }
             start1 <- start0 - step*amount
             f1 <- func(start1, ...)
             ## Find out the constant parameters -- these may be other than
@@ -210,6 +218,12 @@ maxNR <- function(fn, grad=NULL, hess=NULL, start,
                   start1[constPar] <- attr(f1, "constVal")
                }
             }
+         }
+         if(step < steptol) {
+            # we did not find a better place to go...
+            start1 <- start0
+            f1 <- f0
+            samm <- list(theta0=start0, f0=f0, climb=amount)
          }
       } else {
          start1[newVal$index] <- newVal$val
@@ -250,6 +264,9 @@ maxNR <- function(fn, grad=NULL, hess=NULL, start,
       if(is.null(newVal) & f1 - f0 < tol) {
          code <- 2; break
       }
+      if(is.null(newVal) & f1 - f0 < reltol*(f1 + reltol)) {
+         code <- 2; break
+      }
    }
    if( print.level > 0) {
       cat( "--------------\n")
@@ -257,11 +274,6 @@ maxNR <- function(fn, grad=NULL, hess=NULL, start,
       cat( iter, " iterations\n")
       cat( "estimate:", start1, "\n")
       cat( "Function value:", f1, "\n")
-   }
-   if( code == 3) {
-      samm <- list(theta0=start0, f0=f0, start1=start1)
-   } else {
-      samm <- NULL
    }
    names(start1) <- nimed
    result <-list(

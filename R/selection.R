@@ -1,5 +1,6 @@
 selection <- function(selection, outcome,
                       data=sys.frame(sys.parent()),
+                      subset,
                       method="ml",
                       start=NULL,
                       ys=FALSE, xs=FALSE,
@@ -134,9 +135,9 @@ selection <- function(selection, outcome,
       if(print.level > 0) {
          cat(sum(badRow), "invalid observations\n")
       }
-      XS <- XS[!badRow,]
+      XS <- XS[!badRow,, drop=FALSE]
       YS <- YS[!badRow]
-      XO <- XO[!badRow,]
+      XO <- XO[!badRow,, drop=FALSE]
       YO <- YO[!badRow]
       NXS <- ncol(XS)
       NXO <- ncol(XO)
@@ -157,8 +158,10 @@ selection <- function(selection, outcome,
              start[iRho] <- 0.99
          else if(start[iRho] < -0.99)
              start[iRho] <- -0.99
-         names(start) <- c(colnames(XS), colnames(XO), "sigma", "rho")
       }
+      if(is.null(names(start)))
+          names(start) <- c(colnames(XS), colnames(XO), "sigma", "rho")
+                                        # add names to start values if not present
       estimation <- tobit2fit(YS, XS, YO, XO, start,
                               print.level=print.level, ...)
       param <- list(index=list(betaS=iGamma,
@@ -212,11 +215,11 @@ selection <- function(selection, outcome,
       NXS <- ncol(XS)
       NXO1 <- ncol(XO1)
       NXO2 <- ncol(XO2)
-      XS <- XS[!badRow,]
+      XS <- XS[!badRow,, drop=FALSE]
       YS <- YS[!badRow]
-      XO1 <- XO1[!badRow,]
+      XO1 <- XO1[!badRow,, drop=FALSE]
       YO1 <- YO1[!badRow]
-      XO2 <- XO2[!badRow,]
+      XO2 <- XO2[!badRow,, drop=FALSE]
       YO2 <- YO2[!badRow]
       iBetaS <- 1:NXS
       iBetaO1 <- seq(tail(iBetaS, 1)+1, length=NXO1)
@@ -240,6 +243,9 @@ selection <- function(selection, outcome,
                                   ind$betaO2, ind$sigma2, ind$rho2)]
          names( start ) <- sub( "^[SO][12]?:", "", names( start ) )
       }
+      if(is.null(names(start)))
+          names(start) <- c(colnames(XS), colnames(XO1), "sigma1", "rho1", colnames(XO2), "sigma2", "rho2")
+                                        # add names to start values if not present
       estimation <- tobit5fit(YS, XS, YO1, XO1, YO2, XO2, start=start,
                               print.level=print.level, ...)
       param <- list(index=list(betaS=iBetaS,

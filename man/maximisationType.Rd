@@ -3,7 +3,7 @@
 \alias{maximisationType.default}
 \alias{maximisationType.maximisation}
 \alias{maximisationType.MLEstimate}
-\title{Type of minimisation/maximisation}
+\title{Type of Minimization/Maximization}
 \description{
   Returns the type of optimisation.  It should be returned
   by the optimisation routine.
@@ -27,8 +27,8 @@ f <- function(a) exp(-(a[1] - 2)^2 - (a[2] - 1)^2)
 m <- maxNR(f, start=c(0,0))
 summary(m)
 maximisationType(m)
-## Now try BHHH maximisation.  It shouldn't work but does.
-m <- maxBHHH(f, start=c(0,0))
+## Now use BFGS maximisation.
+m <- maxBFGS(f, start=c(0,0))
 summary(m)
 maximisationType(m)
 }

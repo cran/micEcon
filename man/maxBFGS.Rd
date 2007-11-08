@@ -1,14 +1,20 @@
 \name{maxBFGS}
 \alias{maxBFGS}
+\alias{maxSANN}
+\alias{maxNM}
 
-\title{BFGS maximisation}
+\title{BFGS, SANN and Nelder-Mead Maximization}
 \description{
-  This function is a wrapper for \code{\link{optim}} where the arguments are
+  These functions are wrappers for \code{\link{optim}} where the arguments are
   compatible with \code{\link{maxNR}}
 }
 \usage{
 maxBFGS(fn, grad = NULL, hess=NULL, start, print.level = 0, iterlim = 200,
-   tol = 1e-06, ... )
+   tol = 1e-08, reltol=tol, ... )
+maxSANN(fn, grad = NULL, hess = NULL, start, print.level = 0, iterlim =
+   10000, tol = 1e-08, reltol=tol, temp = 10, tmax = 10, parscale = rep(1, length = length(start)), ...)
+maxNM(fn, grad = NULL, hess = NULL, start, print.level = 0, iterlim =
+   500, tol = 1e-08, reltol=tol, parscale = rep(1, length = length(start)), alpha = 1, beta = 0.5, gamma = 2, ...)
 }
 
 \arguments{
@@ -20,18 +26,31 @@ maxBFGS(fn, grad = NULL, hess=NULL, start, print.level = 0, iterlim = 200,
     return \code{NA}.  See details for constant parameters.}
   \item{grad}{gradient of the function.  Must have the parameter vector as
     the first argument.  If \code{NULL}, numeric
-    gradient is used.  For BHHH method it must return a matrix, where
-    rows corresponds to the gradients of the observations.  Note that
-    this corresponds to
-    \code{t(numericGradient(fn))}, not \code{numericGradient(fn)}.
-    It is summed over
-    observations in order to get a single gradient vector.}
-  \item{hess}{Hessian of the function.  Not used by \code{maxBFGS}, for
+    gradient is used (only maxBFGS uses gradient).  Gradient may return
+    a matrix, where columns correspond to the parameters and rows to the
+    observations (useful for maxBHHH).  The columns are summed internally.}
+  \item{hess}{Hessian of the function.  Not used by any of these methods, for
     compatibility with \code{\link{maxNR}}.}
   \item{start}{initial values for the parameters.}
   \item{print.level}{a larger number prints more working information.}
   \item{iterlim}{maximum number of iterations.}
-  \item{tol}{the absolute convergence tolerance (see \code{\link{optim}}).}
+  \item{tol, reltol}{the relative convergence tolerance (see
+    \code{\link{optim}}).  \code{tol} is for compatibility with \code{\link{maxNR}}.}
+  \item{temp}{controls the '"SANN"' method. It is the starting
+          temperature for the cooling schedule. Defaults to '10'.}
+  \item{tmax}{is the number of function evaluations at each temperature
+          for the '"SANN"' method. Defaults to '10'. (see
+    \code{\link{optim}})}
+  \item{parscale}{A vector of scaling values for the parameters.
+          Optimization is performed on 'par/parscale' and these should
+          be comparable in the sense that a unit change in any element
+          produces about a unit change in the scaled value. (see
+    \code{\link{optim}})}
+  \item{alpha, beta, gamma}{Scaling parameters for the
+          '"Nelder-Mead"' method. 'alpha' is the reflection factor
+          (default 1.0), 'beta' the contraction factor (0.5) and
+          'gamma' the expansion factor (2.0). (see
+    \code{\link{optim}})}
   \item{\dots}{further arguments for \code{fn} and \code{grad}.}
 }
 \value{

@@ -1,10 +1,10 @@
 \name{maxBHHH}
 \alias{maxBHHH}
-\title{BHHH maximisation}
+\title{BHHH Maximization}
 \description{
 This function is essentially \code{\link{maxNR}} where the hessian is
-approximated by the outer product of the gradient vectro.  Only suitable
-for likelihood maximisation.}
+approximated by the outer product of the gradient vector.  It is suitable
+for likelihood maximisation only.
 }
 \usage{
 maxBHHH(fn, grad = NULL, hess=NULL, start, print.level = 0, iterlim = 100,
@@ -16,19 +16,19 @@ maxBHHH(fn, grad = NULL, hess=NULL, start, print.level = 0, iterlim = 100,
     parameter vector as
     the first argument and must return vector
     of
-    observation-specific likelihood values.  Those are summed for a
-    single likelihood value.  If the parameters are out of range, \code{fn} should
+    observation-specific likelihood values if numeric gradient is requested (those are summed for the
+    single likelihood value).  If the parameters are out of range, \code{fn} should
     return \code{NA}.}
   \item{grad}{gradient of the log-likelihood function.  Must have the parameter vector as
     the first argument.  If \code{NULL}, numeric
     gradient is used.  It must return a matrix, where
     rows corresponds to the gradient vectors of individual
-    observations.  This matrix is summed over
+    observations and the columns to the individual parameters.  This matrix is summed over
     observations in order to get a single gradient vector.  It's matrix
-    product is used for approximation of the Hessian.}
+    product is used for approximating the Hessian.}
   \item{hess}{Hessian of the function.  Not used by \code{maxBHHH}, for
-    compatibility with \code{\link{maxNR}}.}
-  \item{start}{initial values for the parameters to be optimized over.}
+    compatibility with the other maximisation routines.}
+  \item{start}{initial values for the parameters.}
   \item{print.level}{a larger number prints more working information.}
   \item{iterlim}{maximum number of iterations.}
   \item{\dots}{further arguments for \code{\link{maxNR}}, \code{fn} and \code{grad}.}

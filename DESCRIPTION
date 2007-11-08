@@ -1,6 +1,6 @@
 Package: micEcon
-Version: 0.3-8
-Date: 2007/09/11
+Version: 0.3-9
+Date: 2007/11/08
 Title: Microeconomics
 Author: Arne Henningsen <ahenningsen@agric-econ.uni-kiel.de>,
    Ott Toomet <otoomet@ut.ee>
@@ -10,4 +10,4 @@ Suggests: MASS, VGAM, mvtnorm
 Description: Tools for microeconomic analysis and microeconomic modelling
 License: GPL version 2 or newer
 URL: http://www.r-project.org, http://www.micEcon.org
-Packaged: Tue Sep 11 08:22:56 2007; suapm095
+Packaged: Thu Nov  8 10:14:20 2007; suapm095

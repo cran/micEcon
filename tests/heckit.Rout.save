@@ -1,5 +1,5 @@
 
-R version 2.5.0 (2007-04-23)
+R version 2.5.1 (2007-06-27)
 Copyright (C) 2007 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
@@ -111,17 +111,17 @@ chi2(5) = 48.0507 (p=3.46824e-09)
 > print( greene$rho )
 [1] -0.342999
 > print( coef( greene ), digits = 5 )
-S:(Intercept)         S:age    S:I(age^2)      S:faminc    S:kidsTRUE 
-  -4.1568e+00    1.8540e-01   -2.4259e-03    4.5804e-06   -4.4899e-01 
-       S:educ O:(Intercept)       O:exper  O:I(exper^2)        O:educ 
-   9.8182e-02   -9.7120e-01    2.1061e-02    1.3708e-04    4.1702e-01 
-       O:city invMillsRatio         sigma           rho 
-   4.4384e-01   -1.0976e+00    3.2001e+00   -3.4300e-01 
+S:(Intercept)          S:age     S:I(age^2)       S:faminc     S:kidsTRUE  
+  -4.1568e+00     1.8540e-01    -2.4259e-03     4.5804e-06    -4.4899e-01  
+       S:educ  O:(Intercept)        O:exper   O:I(exper^2)         O:educ  
+   9.8182e-02    -9.7120e-01     2.1061e-02     1.3708e-04     4.1702e-01  
+       O:city  invMillsRatio          sigma            rho  
+   4.4384e-01    -1.0976e+00     3.2001e+00    -3.4300e-01  
 > print( coef( greene, part = "outcome" ), digits = 5 )
-O:(Intercept)       O:exper  O:I(exper^2)        O:educ        O:city 
-  -0.97120030    0.02106096    0.00013708    0.41701738    0.44383788 
-invMillsRatio 
-  -1.09761942 
+  (Intercept)          exper     I(exper^2)           educ           city  
+  -0.97120030     0.02106096     0.00013708     0.41701738     0.44383788  
+invMillsRatio  
+  -1.09761942  
 > print( coef( summary( greene ) ), digits = 5 )
                  Estimate Std. Error   t value   Pr(>|t|)
 (Intercept)   -4.1568e+00 1.4021e+00 -2.964730 3.1268e-03
@@ -301,15 +301,15 @@ chi2(7) = 227.142 (p=2.00867e-45)
 > print( wooldridge$rho )
 [1] 0.0486143
 > print( coef( wooldridge ), digits = 5 )
-S:(Intercept)    S:nwifeinc        S:educ       S:exper  S:I(exper^2) 
-   0.27007677   -0.01202374    0.13090473    0.12334759   -0.00188708 
-        S:age       S:kids5     S:kids618 O:(Intercept)        O:educ 
-  -0.05285267   -0.86832851    0.03600496   -0.57810319    0.10906552 
-      O:exper  O:I(exper^2) invMillsRatio         sigma           rho 
-   0.04388734   -0.00085911    0.03226186    0.66362875    0.04861433 
+S:(Intercept)     S:nwifeinc         S:educ        S:exper   S:I(exper^2)  
+   0.27007677    -0.01202374     0.13090473     0.12334759    -0.00188708  
+        S:age        S:kids5      S:kids618  O:(Intercept)         O:educ  
+  -0.05285267    -0.86832851     0.03600496    -0.57810319     0.10906552  
+      O:exper   O:I(exper^2)  invMillsRatio          sigma            rho  
+   0.04388734    -0.00085911     0.03226186     0.66362875     0.04861433  
 > print( coef( wooldridge, part = "outcome" ), digits = 5 )
-O:(Intercept)        O:educ       O:exper  O:I(exper^2) invMillsRatio 
-  -0.57810319    0.10906552    0.04388734   -0.00085911    0.03226186 
+  (Intercept)           educ          exper     I(exper^2)  invMillsRatio  
+  -0.57810319     0.10906552     0.04388734    -0.00085911     0.03226186  
 > print( coef( summary( wooldridge ) ), digits = 5 )
                  Estimate Std. Error  t value   Pr(>|t|)
 (Intercept)    0.27007677 0.50859304  0.53103 5.9556e-01
@@ -447,15 +447,15 @@ rho1             0.9900         NA      NA       NA
 rho2             0.2284         NA      NA       NA
 --------------------------------------------
 > print( coef( wooldridge ), digits = 5 )
-S:(Intercept)    S:nwifeinc        S:educ       S:exper  S:I(exper^2) 
-   0.27007677   -0.01202374    0.13090473    0.12334759   -0.00188708 
-        S:age       S:kids5     S:kids618 O:(Intercept)        O:educ 
-  -0.05285267   -0.86832851    0.03600496   -0.57810319    0.10906552 
-      O:exper  O:I(exper^2) invMillsRatio         sigma           rho 
-   0.04388734   -0.00085911    0.03226186    0.66362875    0.04861433 
+S:(Intercept)     S:nwifeinc         S:educ        S:exper   S:I(exper^2)  
+   0.27007677    -0.01202374     0.13090473     0.12334759    -0.00188708  
+        S:age        S:kids5      S:kids618  O:(Intercept)         O:educ  
+  -0.05285267    -0.86832851     0.03600496    -0.57810319     0.10906552  
+      O:exper   O:I(exper^2)  invMillsRatio          sigma            rho  
+   0.04388734    -0.00085911     0.03226186     0.66362875     0.04861433  
 > print( coef( wooldridge, part = "outcome" ), digits = 5 )
-O:(Intercept)        O:educ       O:exper  O:I(exper^2) invMillsRatio 
-  -0.57810319    0.10906552    0.04388734   -0.00085911    0.03226186 
+  (Intercept)           educ          exper     I(exper^2)  invMillsRatio  
+  -0.57810319     0.10906552     0.04388734    -0.00085911     0.03226186  
 > print( coef( summary( wooldridge ) ), digits = 5 )
                  Estimate Std. Error  t value   Pr(>|t|)
 (Intercept)    0.27007677 0.50859304  0.53103 5.9556e-01

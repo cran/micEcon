@@ -2,7 +2,7 @@
 \alias{tobit2fit}
 \alias{tobit5fit}
 
-\title{Fitting parametric sample selection models}
+\title{Fitting Parametric Sample Selection Models}
 
 \description{
    These functions do the actual fitting of tobit-2
@@ -36,8 +36,14 @@ increasingly more debugging information.}
 }
 
 \value{
-The returned object is identical to \code{\link{maxLik}} returned object.
+  Object of class \code{"selection"}.  It inherits from class \code{"maxLik"} and
+  includes two additional components: \code{$tobitType}, numeric
+  tobit model classifier (see Amemiya, 1985), and \code{$method}, either \code{"ml"}
+  or \code{"2step"}, specifying the estimation method.
 }
+\references{Amemiya, T. (1985) \emph{Advanced Ecnometrics}, Harvard
+  University Press
+  }
 \author{Ott Toomet \email{otoomet@ut.ee}}
 
 \seealso{\code{\link{selection}}, \code{\link{maxLik}}}

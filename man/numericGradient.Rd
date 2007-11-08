@@ -32,7 +32,7 @@ numericNHessian(f, t0, eps=1e-6, \dots)
 
   \code{numericHessian} checks whether a gradient function is present
   and calculates a gradient of the gradient (if present), or full
-  numeric Hessian (\code{numericNHessian}) if not present.
+  numeric Hessian (\code{numericNHessian}) if \code{grad} is \code{NULL}.
 }
 \value{
   Matrix.  For \code{numericGradient}, the number of rows is equal to the
