@@ -19,7 +19,7 @@ aidsBestA0 <- function( priceNames, shareNames, totExpName,
       estResult <- aidsEst( priceNames, shareNames, totExpName, data = data,
          method = method, instNames = instNames, shifterNames = shifterNames,
          alpha0 = a0, ... )
-      det <- estResult$est$drcov
+      det <- det( estResult$est$residCov )
       assign( "allValues", rbind( allValues, c( a0, det ) ),
          sys.frame( sys.parent( ) )  )
       if( verbose ) {

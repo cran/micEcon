@@ -1,5 +1,5 @@
 
-R version 2.6.0 (2007-10-03)
+R version 2.6.1 (2007-11-26)
 Copyright (C) 2007 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
@@ -17,6 +17,11 @@ Type 'q()' to quit R.
 
 > library( micEcon )
 Loading required package: systemfit
+Loading required package: Matrix
+Loading required package: lattice
+Loading required package: car
+Loading required package: lmtest
+Loading required package: zoo
 > data( germanFarms )
 > options( digits = 3 )
 > 
@@ -87,116 +92,116 @@ $est
 systemfit results 
 method: SUR 
 
-            N DF      SSR      MSE RMSE    R2 Adj R2
-equation 1 20 14 4.15e+08 29676362 5448 0.975  0.966
-equation 2 20 14 3.09e+08 22070887 4698 0.449  0.252
-equation 3 20 14 7.10e+06   507372  712 0.351  0.119
+        N DF      SSR  detRCov OLS-R2 McElroy-R2
+system 60 50 7.32e+08 4.89e+19  0.957      0.951
+
+     N DF      SSR      MSE RMSE    R2 Adj R2
+eq1 20  5 4.15e+08 29676362 5448 0.975  0.966
+eq2 20  5 3.09e+08 22070887 4698 0.449  0.252
+eq3 20  5 7.10e+06   507372  712 0.351  0.119
 
 The covariance matrix of the residuals used for estimation
-           equation 1 equation 2 equation 3
-equation 1   24471005  -12758218   -1329314
-equation 2  -12758218   24998337    3199349
-equation 3   -1329314    3199349     646741
+          eq1       eq2      eq3
+eq1  24471005 -12758218 -1329314
+eq2 -12758218  24998337  3199349
+eq3  -1329314   3199349   646741
 
 The covariance matrix of the residuals
-           equation 1 equation 2 equation 3
-equation 1   29676362  -16381149   -1684682
-equation 2  -16381149   22070887    2857681
-equation 3   -1684682    2857681     507372
+          eq1       eq2      eq3
+eq1  29676362 -16381149 -1684682
+eq2 -16381149  22070887  2857681
+eq3  -1684682   2857681   507372
 
 The correlations of the residuals
-           equation 1 equation 2 equation 3
-equation 1      1.000     -0.640     -0.434
-equation 2     -0.640      1.000      0.854
-equation 3     -0.434      0.854      1.000
+       eq1    eq2    eq3
+eq1  1.000 -0.640 -0.434
+eq2 -0.640  1.000  0.854
+eq3 -0.434  0.854  1.000
 
-The determinant of the residual covariance matrix: 4.89e+19
-OLS R-squared value of the system: 0.957
-McElroy's R-squared value for the system: 0.951
 
-SUR estimates for equation 1
+SUR estimates for 'eq1' (equation 1)
 Model Formula: q1 ~ pr1 + pr2 + pr3 + pq1.1.1 + pq1.1.2 + pq1.1.3 + pq1.2.1 + 
     pq1.2.2 + pq1.2.3 + pq1.3.1 + pq1.3.2 + pq1.3.3 + f1 + fq1.1.1
 
-               Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  -97327.403  37623.949  -2.587    0.013   *
-pr1          -38029.073   17199.22  -2.211    0.032   *
-pr2            32859.36  15743.503   2.087    0.042   *
-pr3            5169.713   2414.634   2.141    0.037   *
-pq1.1.1      -38029.073   17199.22  -2.211    0.032   *
-pq1.1.2        32859.36  15743.503   2.087    0.042   *
-pq1.1.3        5169.713   2414.634   2.141    0.037   *
-pq1.2.1        32859.36  15743.503   2.087    0.042   *
-pq1.2.2      -27854.149  14709.693  -1.894    0.064   .
-pq1.2.3       -5005.211   2293.559  -2.182    0.034   *
-pq1.3.1        5169.713   2414.634   2.141    0.037   *
-pq1.3.2       -5005.211   2293.559  -2.182    0.034   *
-pq1.3.3        -164.502    607.317  -0.271    0.788    
-f1            302863.48  70360.794   4.304        0 ***
-fq1.1.1     -246611.823  96601.927  -2.553    0.014   *
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   -97327      37624   -2.59    0.013 *  
+pr1           -38029      17199   -2.21    0.032 *  
+pr2            32859      15744    2.09    0.042 *  
+pr3             5170       2415    2.14    0.037 *  
+pq1.1.1       -38029      17199   -2.21    0.032 *  
+pq1.1.2        32859      15744    2.09    0.042 *  
+pq1.1.3         5170       2415    2.14    0.037 *  
+pq1.2.1        32859      15744    2.09    0.042 *  
+pq1.2.2       -27854      14710   -1.89    0.064 .  
+pq1.2.3        -5005       2294   -2.18    0.034 *  
+pq1.3.1         5170       2415    2.14    0.037 *  
+pq1.3.2        -5005       2294   -2.18    0.034 *  
+pq1.3.3         -164        607   -0.27    0.788    
+f1            302864      70361    4.30  7.8e-05 ***
+fq1.1.1      -246612      96602   -2.55    0.014 *  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
-Residual standard error: 5447.602 on 14 degrees of freedom
-Number of observations: 20 Degrees of Freedom: 14 
+Residual standard error: 5447.602 on 5 degrees of freedom
+Number of observations: 20 Degrees of Freedom: 5 
 SSR: 415469073.132 MSE: 29676362.367 Root MSE: 5447.602 
 Multiple R-Squared: 0.975 Adjusted R-Squared: 0.966 
 
 
-SUR estimates for equation 2
+SUR estimates for 'eq2' (equation 2)
 Model Formula: q2 ~ pr1 + pr2 + pr3 + pq2.1.1 + pq2.1.2 + pq2.1.3 + pq2.2.1 + 
     pq2.2.2 + pq2.2.3 + pq2.3.1 + pq2.3.2 + pq2.3.3 + f1 + fq2.1.1
 
-               Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  -86797.958  17777.564  -4.882        0 ***
-pr1            32859.36  15743.503   2.087    0.042   *
-pr2          -27854.149  14709.693  -1.894    0.064   .
-pr3           -5005.211   2293.559  -2.182    0.034   *
-pq2.1.1      -38029.073   17199.22  -2.211    0.032   *
-pq2.1.2        32859.36  15743.503   2.087    0.042   *
-pq2.1.3        5169.713   2414.634   2.141    0.037   *
-pq2.2.1        32859.36  15743.503   2.087    0.042   *
-pq2.2.2      -27854.149  14709.693  -1.894    0.064   .
-pq2.2.3       -5005.211   2293.559  -2.182    0.034   *
-pq2.3.1        5169.713   2414.634   2.141    0.037   *
-pq2.3.2       -5005.211   2293.559  -2.182    0.034   *
-pq2.3.3        -164.502    607.317  -0.271    0.788    
-f1            75897.403   31322.36   2.423    0.019   *
-fq2.1.1     -246611.823  96601.927  -2.553    0.014   *
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   -86798      17778   -4.88  1.1e-05 ***
+pr1            32859      15744    2.09    0.042 *  
+pr2           -27854      14710   -1.89    0.064 .  
+pr3            -5005       2294   -2.18    0.034 *  
+pq2.1.1       -38029      17199   -2.21    0.032 *  
+pq2.1.2        32859      15744    2.09    0.042 *  
+pq2.1.3         5170       2415    2.14    0.037 *  
+pq2.2.1        32859      15744    2.09    0.042 *  
+pq2.2.2       -27854      14710   -1.89    0.064 .  
+pq2.2.3        -5005       2294   -2.18    0.034 *  
+pq2.3.1         5170       2415    2.14    0.037 *  
+pq2.3.2        -5005       2294   -2.18    0.034 *  
+pq2.3.3         -164        607   -0.27    0.788    
+f1             75897      31322    2.42    0.019 *  
+fq2.1.1      -246612      96602   -2.55    0.014 *  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
-Residual standard error: 4697.966 on 14 degrees of freedom
-Number of observations: 20 Degrees of Freedom: 14 
+Residual standard error: 4697.966 on 5 degrees of freedom
+Number of observations: 20 Degrees of Freedom: 5 
 SSR: 308992413.743 MSE: 22070886.696 Root MSE: 4697.966 
 Multiple R-Squared: 0.449 Adjusted R-Squared: 0.252 
 
 
-SUR estimates for equation 3
+SUR estimates for 'eq3' (equation 3)
 Model Formula: q3 ~ pr1 + pr2 + pr3 + pq3.1.1 + pq3.1.2 + pq3.1.3 + pq3.2.1 + 
     pq3.2.2 + pq3.2.3 + pq3.3.1 + pq3.3.2 + pq3.3.3 + f1 + fq3.1.1
 
-               Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  -19345.179   3775.342  -5.124        0 ***
-pr1            5169.713   2414.634   2.141    0.037   *
-pr2           -5005.211   2293.559  -2.182    0.034   *
-pr3            -164.502    607.317  -0.271    0.788    
-pq3.1.1      -38029.073   17199.22  -2.211    0.032   *
-pq3.1.2        32859.36  15743.503   2.087    0.042   *
-pq3.1.3        5169.713   2414.634   2.141    0.037   *
-pq3.2.1        32859.36  15743.503   2.087    0.042   *
-pq3.2.2      -27854.149  14709.693  -1.894    0.064   .
-pq3.2.3       -5005.211   2293.559  -2.182    0.034   *
-pq3.3.1        5169.713   2414.634   2.141    0.037   *
-pq3.3.2       -5005.211   2293.559  -2.182    0.034   *
-pq3.3.3        -164.502    607.317  -0.271    0.788    
-f1            15420.029   6929.628   2.225    0.031   *
-fq3.1.1     -246611.823  96601.927  -2.553    0.014   *
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   -19345       3775   -5.12  4.8e-06 ***
+pr1             5170       2415    2.14    0.037 *  
+pr2            -5005       2294   -2.18    0.034 *  
+pr3             -164        607   -0.27    0.788    
+pq3.1.1       -38029      17199   -2.21    0.032 *  
+pq3.1.2        32859      15744    2.09    0.042 *  
+pq3.1.3         5170       2415    2.14    0.037 *  
+pq3.2.1        32859      15744    2.09    0.042 *  
+pq3.2.2       -27854      14710   -1.89    0.064 .  
+pq3.2.3        -5005       2294   -2.18    0.034 *  
+pq3.3.1         5170       2415    2.14    0.037 *  
+pq3.3.2        -5005       2294   -2.18    0.034 *  
+pq3.3.3         -164        607   -0.27    0.788    
+f1             15420       6930    2.23    0.031 *  
+fq3.1.1      -246612      96602   -2.55    0.014 *  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
-Residual standard error: 712.301 on 14 degrees of freedom
-Number of observations: 20 Degrees of Freedom: 14 
+Residual standard error: 712.301 on 5 degrees of freedom
+Number of observations: 20 Degrees of Freedom: 5 
 SSR: 7103210.332 MSE: 507372.167 Root MSE: 712.301 
 Multiple R-Squared: 0.351 Adjusted R-Squared: 0.119 
 
@@ -592,110 +597,110 @@ $est
 systemfit results 
 method: SUR 
 
-            N DF      SSR      MSE  RMSE      R2  Adj R2
-equation 1 20 16 1.79e+09 1.12e+08 10567   0.891   0.871
-equation 2 20 16 3.89e+08 2.43e+07  4928   0.307   0.177
-equation 3 20 16 6.06e+08 3.79e+07  6153 -54.360 -64.740
+        N DF      SSR  detRCov OLS-R2 McElroy-R2
+system 60 54 2.78e+09 1.42e+22  0.836      0.835
+
+     N DF      SSR      MSE  RMSE      R2  Adj R2
+eq1 20  7 1.79e+09 1.12e+08 10567   0.891   0.871
+eq2 20  7 3.89e+08 2.43e+07  4928   0.307   0.177
+eq3 20  7 6.06e+08 3.79e+07  6153 -54.360 -64.740
 
 The covariance matrix of the residuals used for estimation
-           equation 1 equation 2 equation 3
-equation 1   96533529  -15276635   14320841
-equation 2  -15276635   27180211   25017899
-equation 3   14320841   25017899   43387613
+          eq1       eq2      eq3
+eq1  96533529 -15276635 14320841
+eq2 -15276635  27180211 25017899
+eq3  14320841  25017899 43387613
 
 The covariance matrix of the residuals
-           equation 1 equation 2 equation 3
-equation 1  111664076  -14872311   22321593
-equation 2  -14872311   24289573   21882234
-equation 3   22321593   21882234   37861042
+          eq1       eq2      eq3
+eq1 111664076 -14872311 22321593
+eq2 -14872311  24289573 21882234
+eq3  22321593  21882234 37861042
 
 The correlations of the residuals
-           equation 1 equation 2 equation 3
-equation 1      1.000     -0.286      0.343
-equation 2     -0.286      1.000      0.722
-equation 3      0.343      0.722      1.000
+       eq1    eq2   eq3
+eq1  1.000 -0.286 0.343
+eq2 -0.286  1.000 0.722
+eq3  0.343  0.722 1.000
 
-The determinant of the residual covariance matrix: 1.42e+22
-OLS R-squared value of the system: 0.836
-McElroy's R-squared value for the system: 0.835
 
-SUR estimates for equation 1
+SUR estimates for 'eq1' (equation 1)
 Model Formula: q1 ~ pr1 + pr2 + pr3 + pq1.1.1 + pq1.1.2 + pq1.1.3 + pq1.2.1 + 
     pq1.2.2 + pq1.2.3 + pq1.3.1 + pq1.3.2 + pq1.3.3
 
-              Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  90397.986   4317.656  20.937        0 ***
-pr1         -53397.619  10694.372  -4.993        0 ***
-pr2          28019.803  11602.052   2.415    0.019   *
-pr3          25377.816   2710.446   9.363        0 ***
-pq1.1.1     -53397.619  10694.372  -4.993        0 ***
-pq1.1.2      28019.803  11602.052   2.415    0.019   *
-pq1.1.3      25377.816   2710.446   9.363        0 ***
-pq1.2.1      28019.803  11602.052   2.415    0.019   *
-pq1.2.2     -12003.694  13484.709   -0.89    0.377    
-pq1.2.3     -16016.109   2776.439  -5.769        0 ***
-pq1.3.1      25377.816   2710.446   9.363        0 ***
-pq1.3.2     -16016.109   2776.439  -5.769        0 ***
-pq1.3.3      -9361.707    857.097 -10.923        0 ***
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)    90398       4318   20.94  < 2e-16 ***
+pr1           -53398      10694   -4.99  6.6e-06 ***
+pr2            28020      11602    2.42    0.019 *  
+pr3            25378       2710    9.36  6.7e-13 ***
+pq1.1.1       -53398      10694   -4.99  6.6e-06 ***
+pq1.1.2        28020      11602    2.42    0.019 *  
+pq1.1.3        25378       2710    9.36  6.7e-13 ***
+pq1.2.1        28020      11602    2.42    0.019 *  
+pq1.2.2       -12004      13485   -0.89    0.377    
+pq1.2.3       -16016       2776   -5.77  4.0e-07 ***
+pq1.3.1        25378       2710    9.36  6.7e-13 ***
+pq1.3.2       -16016       2776   -5.77  4.0e-07 ***
+pq1.3.3        -9362        857  -10.92  2.7e-15 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
-Residual standard error: 10567.122 on 16 degrees of freedom
-Number of observations: 20 Degrees of Freedom: 16 
+Residual standard error: 10567.122 on 7 degrees of freedom
+Number of observations: 20 Degrees of Freedom: 7 
 SSR: 1786625218.893 MSE: 111664076.181 Root MSE: 10567.122 
 Multiple R-Squared: 0.891 Adjusted R-Squared: 0.871 
 
 
-SUR estimates for equation 2
+SUR estimates for 'eq2' (equation 2)
 Model Formula: q2 ~ pr1 + pr2 + pr3 + pq2.1.1 + pq2.1.2 + pq2.1.3 + pq2.2.1 + 
     pq2.2.2 + pq2.2.3 + pq2.3.1 + pq2.3.2 + pq2.3.3
 
-              Estimate Std. Error t value Pr(>|t|)    
-(Intercept) -38324.236   2426.227 -15.796        0 ***
-pr1          28019.803  11602.052   2.415    0.019   *
-pr2         -12003.694  13484.709   -0.89    0.377    
-pr3         -16016.109   2776.439  -5.769        0 ***
-pq2.1.1     -53397.619  10694.372  -4.993        0 ***
-pq2.1.2      28019.803  11602.052   2.415    0.019   *
-pq2.1.3      25377.816   2710.446   9.363        0 ***
-pq2.2.1      28019.803  11602.052   2.415    0.019   *
-pq2.2.2     -12003.694  13484.709   -0.89    0.377    
-pq2.2.3     -16016.109   2776.439  -5.769        0 ***
-pq2.3.1      25377.816   2710.446   9.363        0 ***
-pq2.3.2     -16016.109   2776.439  -5.769        0 ***
-pq2.3.3      -9361.707    857.097 -10.923        0 ***
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   -38324       2426  -15.80  < 2e-16 ***
+pr1            28020      11602    2.42    0.019 *  
+pr2           -12004      13485   -0.89    0.377    
+pr3           -16016       2776   -5.77  4.0e-07 ***
+pq2.1.1       -53398      10694   -4.99  6.6e-06 ***
+pq2.1.2        28020      11602    2.42    0.019 *  
+pq2.1.3        25378       2710    9.36  6.7e-13 ***
+pq2.2.1        28020      11602    2.42    0.019 *  
+pq2.2.2       -12004      13485   -0.89    0.377    
+pq2.2.3       -16016       2776   -5.77  4.0e-07 ***
+pq2.3.1        25378       2710    9.36  6.7e-13 ***
+pq2.3.2       -16016       2776   -5.77  4.0e-07 ***
+pq2.3.3        -9362        857  -10.92  2.7e-15 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
-Residual standard error: 4928.445 on 16 degrees of freedom
-Number of observations: 20 Degrees of Freedom: 16 
-SSR: 388633168.719 MSE: 24289573.045 Root MSE: 4928.445 
+Residual standard error: 4928.445 on 7 degrees of freedom
+Number of observations: 20 Degrees of Freedom: 7 
+SSR: 388633168.718 MSE: 24289573.045 Root MSE: 4928.445 
 Multiple R-Squared: 0.307 Adjusted R-Squared: 0.177 
 
 
-SUR estimates for equation 3
+SUR estimates for 'eq3' (equation 3)
 Model Formula: q3 ~ pr1 + pr2 + pr3 + pq3.1.1 + pq3.1.2 + pq3.1.3 + pq3.2.1 + 
     pq3.2.2 + pq3.2.3 + pq3.3.1 + pq3.3.2 + pq3.3.3
 
-              Estimate Std. Error t value Pr(>|t|)    
-(Intercept)    952.129    1786.29   0.533    0.596    
-pr1          25377.816   2710.446   9.363        0 ***
-pr2         -16016.109   2776.439  -5.769        0 ***
-pr3          -9361.707    857.097 -10.923        0 ***
-pq3.1.1     -53397.619  10694.372  -4.993        0 ***
-pq3.1.2      28019.803  11602.052   2.415    0.019   *
-pq3.1.3      25377.816   2710.446   9.363        0 ***
-pq3.2.1      28019.803  11602.052   2.415    0.019   *
-pq3.2.2     -12003.694  13484.709   -0.89    0.377    
-pq3.2.3     -16016.109   2776.439  -5.769        0 ***
-pq3.3.1      25377.816   2710.446   9.363        0 ***
-pq3.3.2     -16016.109   2776.439  -5.769        0 ***
-pq3.3.3      -9361.707    857.097 -10.923        0 ***
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      952       1786    0.53    0.596    
+pr1            25378       2710    9.36  6.7e-13 ***
+pr2           -16016       2776   -5.77  4.0e-07 ***
+pr3            -9362        857  -10.92  2.7e-15 ***
+pq3.1.1       -53398      10694   -4.99  6.6e-06 ***
+pq3.1.2        28020      11602    2.42    0.019 *  
+pq3.1.3        25378       2710    9.36  6.7e-13 ***
+pq3.2.1        28020      11602    2.42    0.019 *  
+pq3.2.2       -12004      13485   -0.89    0.377    
+pq3.2.3       -16016       2776   -5.77  4.0e-07 ***
+pq3.3.1        25378       2710    9.36  6.7e-13 ***
+pq3.3.2       -16016       2776   -5.77  4.0e-07 ***
+pq3.3.3        -9362        857  -10.92  2.7e-15 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
-Residual standard error: 6153.133 on 16 degrees of freedom
-Number of observations: 20 Degrees of Freedom: 16 
+Residual standard error: 6153.133 on 7 degrees of freedom
+Number of observations: 20 Degrees of Freedom: 7 
 SSR: 605776666.588 MSE: 37861041.662 Root MSE: 6153.133 
 Multiple R-Squared: -54.36 Adjusted R-Squared: -64.74 
 
@@ -1100,131 +1105,129 @@ $est
 systemfit results 
 method: SUR 
 
-            N DF      SSR      MSE RMSE    R2 Adj R2
-equation 1 20 11 1.96e+08 17825568 4222 0.988  0.979
-equation 2 20 11 2.79e+08 25388193 5039 0.502  0.140
-equation 3 20 11 4.28e+06   388874  624 0.609  0.325
+        N DF     SSR  detRCov OLS-R2 McElroy-R2
+system 60 45 4.8e+08 2.06e+19  0.972      0.977
+
+     N DF      SSR      MSE RMSE    R2 Adj R2
+eq1 20  1 1.96e+08 17825568 4222 0.988  0.979
+eq2 20  1 2.79e+08 25388193 5039 0.502  0.140
+eq3 20  1 4.28e+06   388874  624 0.609  0.325
 
 The covariance matrix of the residuals used for estimation
-           equation 1 equation 2 equation 3
-equation 1   14826944  -11655500   -1295312
-equation 2  -11655500   26346579    3046435
-equation 3   -1295312    3046435     574329
+          eq1       eq2      eq3
+eq1  14826944 -11655500 -1295312
+eq2 -11655500  26346579  3046435
+eq3  -1295312   3046435   574329
 
 The covariance matrix of the residuals
-           equation 1 equation 2 equation 3
-equation 1   17825568  -14421190   -1622889
-equation 2  -14421190   25388193    2779384
-equation 3   -1622889    2779384     388874
+          eq1       eq2      eq3
+eq1  17825568 -14421190 -1622889
+eq2 -14421190  25388193  2779384
+eq3  -1622889   2779384   388874
 
 The correlations of the residuals
-           equation 1 equation 2 equation 3
-equation 1      1.000     -0.678     -0.616
-equation 2     -0.678      1.000      0.885
-equation 3     -0.616      0.885      1.000
+       eq1    eq2    eq3
+eq1  1.000 -0.678 -0.616
+eq2 -0.678  1.000  0.885
+eq3 -0.616  0.885  1.000
 
-The determinant of the residual covariance matrix: 2.06e+19
-OLS R-squared value of the system: 0.972
-McElroy's R-squared value for the system: 0.977
 
-SUR estimates for equation 1
+SUR estimates for 'eq1' (equation 1)
 Model Formula: q1 ~ pr1 + pr2 + pr3 + pq1.1.1 + pq1.1.2 + pq1.1.3 + pq1.2.1 + 
     pq1.2.2 + pq1.2.3 + pq1.3.1 + pq1.3.2 + pq1.3.3 + f1 + f2 + 
     fq1.1.1 + fq1.1.2 + fq1.2.1 + fq1.2.2
 
-               Estimate Std. Error t value Pr(>|t|)  
-(Intercept)   -79970.16 115640.382  -0.692    0.493  
-pr1           16779.682   24973.79   0.672    0.505  
-pr2          -13637.946  23692.257  -0.576    0.568  
-pr3           -3141.736   3092.598  -1.016    0.315  
-pq1.1.1       16779.682   24973.79   0.672    0.505  
-pq1.1.2      -13637.946  23692.257  -0.576    0.568  
-pq1.1.3       -3141.736   3092.598  -1.016    0.315  
-pq1.2.1      -13637.946  23692.257  -0.576    0.568  
-pq1.2.2       11197.866  22868.522    0.49    0.627  
-pq1.2.3        2440.079   2881.515   0.847    0.402  
-pq1.3.1       -3141.736   3092.598  -1.016    0.315  
-pq1.3.2        2440.079   2881.515   0.847    0.402  
-pq1.3.3         701.657    637.154   1.101    0.277  
-f1           399351.923 349711.368   1.142     0.26  
-f2            -82116.88 111511.848  -0.736    0.465  
-fq1.1.1     -688746.202 785756.147  -0.877    0.385  
-fq1.1.2      254125.254 236788.027   1.073    0.289  
-fq1.2.1      254125.254 236788.027   1.073    0.289  
-fq1.2.2      -96005.675  61790.098  -1.554    0.127  
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)   -79970     115640   -0.69     0.49
+pr1            16780      24974    0.67     0.51
+pr2           -13638      23692   -0.58     0.57
+pr3            -3142       3093   -1.02     0.32
+pq1.1.1        16780      24974    0.67     0.51
+pq1.1.2       -13638      23692   -0.58     0.57
+pq1.1.3        -3142       3093   -1.02     0.32
+pq1.2.1       -13638      23692   -0.58     0.57
+pq1.2.2        11198      22868    0.49     0.63
+pq1.2.3         2440       2882    0.85     0.40
+pq1.3.1        -3142       3093   -1.02     0.32
+pq1.3.2         2440       2882    0.85     0.40
+pq1.3.3          702        637    1.10     0.28
+f1            399352     349711    1.14     0.26
+f2            -82117     111512   -0.74     0.47
+fq1.1.1      -688746     785756   -0.88     0.39
+fq1.1.2       254125     236788    1.07     0.29
+fq1.2.1       254125     236788    1.07     0.29
+fq1.2.2       -96006      61790   -1.55     0.13
 
-Residual standard error: 4222.034 on 11 degrees of freedom
-Number of observations: 20 Degrees of Freedom: 11 
-SSR: 196081253.393 MSE: 17825568.49 Root MSE: 4222.034 
+Residual standard error: 4222.034 on 1 degrees of freedom
+Number of observations: 20 Degrees of Freedom: 1 
+SSR: 196081253.398 MSE: 17825568.491 Root MSE: 4222.034 
 Multiple R-Squared: 0.988 Adjusted R-Squared: 0.979 
 
 
-SUR estimates for equation 2
+SUR estimates for 'eq2' (equation 2)
 Model Formula: q2 ~ pr1 + pr2 + pr3 + pq2.1.1 + pq2.1.2 + pq2.1.3 + pq2.2.1 + 
     pq2.2.2 + pq2.2.3 + pq2.3.1 + pq2.3.2 + pq2.3.3 + f1 + f2 + 
     fq2.1.1 + fq2.1.2 + fq2.2.1 + fq2.2.2
 
-               Estimate Std. Error t value Pr(>|t|)  
-(Intercept)  -85851.756  50774.663  -1.691    0.098 .
-pr1          -13637.946  23692.257  -0.576    0.568  
-pr2           11197.866  22868.522    0.49    0.627  
-pr3            2440.079   2881.515   0.847    0.402  
-pq2.1.1       16779.682   24973.79   0.672    0.505  
-pq2.1.2      -13637.946  23692.257  -0.576    0.568  
-pq2.1.3       -3141.736   3092.598  -1.016    0.315  
-pq2.2.1      -13637.946  23692.257  -0.576    0.568  
-pq2.2.2       11197.866  22868.522    0.49    0.627  
-pq2.2.3        2440.079   2881.515   0.847    0.402  
-pq2.3.1       -3141.736   3092.598  -1.016    0.315  
-pq2.3.2        2440.079   2881.515   0.847    0.402  
-pq2.3.3         701.657    637.154   1.101    0.277  
-f1           117532.171  147181.23   0.799    0.429  
-f2           -54119.858  48577.524  -1.114    0.271  
-fq2.1.1     -688746.202 785756.147  -0.877    0.385  
-fq2.1.2      254125.254 236788.027   1.073    0.289  
-fq2.2.1      254125.254 236788.027   1.073    0.289  
-fq2.2.2      -96005.675  61790.098  -1.554    0.127  
+            Estimate Std. Error t value Pr(>|t|)  
+(Intercept)   -85852      50775   -1.69    0.098 .
+pr1           -13638      23692   -0.58    0.568  
+pr2            11198      22868    0.49    0.627  
+pr3             2440       2882    0.85    0.402  
+pq2.1.1        16780      24974    0.67    0.505  
+pq2.1.2       -13638      23692   -0.58    0.568  
+pq2.1.3        -3142       3093   -1.02    0.315  
+pq2.2.1       -13638      23692   -0.58    0.568  
+pq2.2.2        11198      22868    0.49    0.627  
+pq2.2.3         2440       2882    0.85    0.402  
+pq2.3.1        -3142       3093   -1.02    0.315  
+pq2.3.2         2440       2882    0.85    0.402  
+pq2.3.3          702        637    1.10    0.277  
+f1            117532     147181    0.80    0.429  
+f2            -54120      48578   -1.11    0.271  
+fq2.1.1      -688746     785756   -0.88    0.385  
+fq2.1.2       254125     236788    1.07    0.289  
+fq2.2.1       254125     236788    1.07    0.289  
+fq2.2.2       -96006      61790   -1.55    0.127  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
-Residual standard error: 5038.67 on 11 degrees of freedom
-Number of observations: 20 Degrees of Freedom: 11 
-SSR: 279270123.12 MSE: 25388193.011 Root MSE: 5038.67 
+Residual standard error: 5038.67 on 1 degrees of freedom
+Number of observations: 20 Degrees of Freedom: 1 
+SSR: 279270123.114 MSE: 25388193.01 Root MSE: 5038.67 
 Multiple R-Squared: 0.502 Adjusted R-Squared: 0.14 
 
 
-SUR estimates for equation 3
+SUR estimates for 'eq3' (equation 3)
 Model Formula: q3 ~ pr1 + pr2 + pr3 + pq3.1.1 + pq3.1.2 + pq3.1.3 + pq3.2.1 + 
     pq3.2.2 + pq3.2.3 + pq3.3.1 + pq3.3.2 + pq3.3.3 + f1 + f2 + 
     fq3.1.1 + fq3.1.2 + fq3.2.1 + fq3.2.2
 
-               Estimate Std. Error t value Pr(>|t|)  
-(Intercept)  -20576.017  11157.915  -1.844    0.072 .
-pr1           -3141.736   3092.598  -1.016    0.315  
-pr2            2440.079   2881.515   0.847    0.402  
-pr3             701.657    637.154   1.101    0.277  
-pq3.1.1       16779.682   24973.79   0.672    0.505  
-pq3.1.2      -13637.946  23692.257  -0.576    0.568  
-pq3.1.3       -3141.736   3092.598  -1.016    0.315  
-pq3.2.1      -13637.946  23692.257  -0.576    0.568  
-pq3.2.2       11197.866  22868.522    0.49    0.627  
-pq3.2.3        2440.079   2881.515   0.847    0.402  
-pq3.3.1       -3141.736   3092.598  -1.016    0.315  
-pq3.3.2        2440.079   2881.515   0.847    0.402  
-pq3.3.3         701.657    637.154   1.101    0.277  
-f1            27311.346  33169.767   0.823    0.415  
-f2           -11988.778  10767.961  -1.113    0.271  
-fq3.1.1     -688746.202 785756.147  -0.877    0.385  
-fq3.1.2      254125.254 236788.027   1.073    0.289  
-fq3.2.1      254125.254 236788.027   1.073    0.289  
-fq3.2.2      -96005.675  61790.098  -1.554    0.127  
+            Estimate Std. Error t value Pr(>|t|)  
+(Intercept)   -20576      11158   -1.84    0.072 .
+pr1            -3142       3093   -1.02    0.315  
+pr2             2440       2882    0.85    0.402  
+pr3              702        637    1.10    0.277  
+pq3.1.1        16780      24974    0.67    0.505  
+pq3.1.2       -13638      23692   -0.58    0.568  
+pq3.1.3        -3142       3093   -1.02    0.315  
+pq3.2.1       -13638      23692   -0.58    0.568  
+pq3.2.2        11198      22868    0.49    0.627  
+pq3.2.3         2440       2882    0.85    0.402  
+pq3.3.1        -3142       3093   -1.02    0.315  
+pq3.3.2         2440       2882    0.85    0.402  
+pq3.3.3          702        637    1.10    0.277  
+f1             27311      33170    0.82    0.415  
+f2            -11989      10768   -1.11    0.271  
+fq3.1.1      -688746     785756   -0.88    0.385  
+fq3.1.2       254125     236788    1.07    0.289  
+fq3.2.1       254125     236788    1.07    0.289  
+fq3.2.2       -96006      61790   -1.55    0.127  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
-Residual standard error: 623.597 on 11 degrees of freedom
-Number of observations: 20 Degrees of Freedom: 11 
+Residual standard error: 623.597 on 1 degrees of freedom
+Number of observations: 20 Degrees of Freedom: 1 
 SSR: 4277612.151 MSE: 388873.832 Root MSE: 623.597 
 Multiple R-Squared: 0.609 Adjusted R-Squared: 0.325 
 
@@ -1802,131 +1805,129 @@ $est
 systemfit results 
 method: SUR 
 
-            N DF      SSR      MSE RMSE    R2 Adj R2
-equation 1 20 11 1.11e+08 10082383 3175 0.993  0.988
-equation 2 20 11 1.58e+07  1431944 1197 0.972  0.951
-equation 3 20 11 6.66e+05    60547  246 0.939  0.895
+        N DF      SSR  detRCov OLS-R2 McElroy-R2
+system 60 39 1.27e+08 7.89e+17  0.993      0.983
+
+     N DF      SSR      MSE RMSE    R2 Adj R2
+eq1 20  1 1.11e+08 10082383 3175 0.993  0.988
+eq2 20  1 1.58e+07  1431944 1197 0.972  0.951
+eq3 20  1 6.66e+05    60547  246 0.939  0.895
 
 The covariance matrix of the residuals used for estimation
-           equation 1 equation 2 equation 3
-equation 1   10036029    -789525     -47550
-equation 2    -789525    1406388      65549
-equation 3     -47550      65549      64150
+         eq1     eq2    eq3
+eq1 10036029 -789525 -47550
+eq2  -789525 1406388  65549
+eq3   -47550   65549  64150
 
 The covariance matrix of the residuals
-           equation 1 equation 2 equation 3
-equation 1   10082383    -809230     -48352
-equation 2    -809230    1431944      68569
-equation 3     -48352      68569      60547
+         eq1     eq2    eq3
+eq1 10082383 -809230 -48352
+eq2  -809230 1431944  68569
+eq3   -48352   68569  60547
 
 The correlations of the residuals
-           equation 1 equation 2 equation 3
-equation 1     1.0000     -0.213    -0.0619
-equation 2    -0.2130      1.000     0.2329
-equation 3    -0.0619      0.233     1.0000
+        eq1    eq2     eq3
+eq1  1.0000 -0.213 -0.0619
+eq2 -0.2130  1.000  0.2329
+eq3 -0.0619  0.233  1.0000
 
-The determinant of the residual covariance matrix: 7.89e+17
-OLS R-squared value of the system: 0.993
-McElroy's R-squared value for the system: 0.983
 
-SUR estimates for equation 1
+SUR estimates for 'eq1' (equation 1)
 Model Formula: q1 ~ pr1 + pr2 + pr3 + pq1.1.1 + pq1.1.2 + pq1.1.3 + pq1.2.1 + 
     pq1.2.2 + pq1.2.3 + pq1.3.1 + pq1.3.2 + pq1.3.3 + f1 + f2 + 
     fq1.1.1 + fq1.1.2 + fq1.2.1 + fq1.2.2
 
-               Estimate Std. Error t value Pr(>|t|)  
-(Intercept)  -97025.222 145396.346  -0.667    0.509  
-pr1           14322.902  13808.927   1.037    0.306  
-pr2          -12003.431  13583.355  -0.884    0.382  
-pr3           -2319.471   1535.463  -1.511    0.139  
-pq1.1.1       14322.902  13808.927   1.037    0.306  
-pq1.1.2      -12003.431  13583.355  -0.884    0.382  
-pq1.1.3       -2319.471   1535.463  -1.511    0.139  
-pq1.2.1      -12003.431  13583.355  -0.884    0.382  
-pq1.2.2       10256.589  13547.413   0.757    0.454  
-pq1.2.3        1746.842    1451.97   1.203    0.236  
-pq1.3.1       -2319.471   1535.463  -1.511    0.139  
-pq1.3.2        1746.842    1451.97   1.203    0.236  
-pq1.3.3         572.629    352.709   1.624    0.113  
-f1           337275.939 440182.119   0.766    0.448  
-f2           -29171.449 140560.109  -0.208    0.837  
-fq1.1.1     -262398.977 654005.772  -0.401     0.69  
-fq1.1.2      103071.709 196193.512   0.525    0.602  
-fq1.2.1      103071.709 196193.512   0.525    0.602  
-fq1.2.2      -68595.323  51233.935  -1.339    0.188  
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)   -97025     145396   -0.67     0.51
+pr1            14323      13809    1.04     0.31
+pr2           -12003      13583   -0.88     0.38
+pr3            -2320       1536   -1.51     0.14
+pq1.1.1        14323      13809    1.04     0.31
+pq1.1.2       -12003      13583   -0.88     0.38
+pq1.1.3        -2320       1536   -1.51     0.14
+pq1.2.1       -12003      13583   -0.88     0.38
+pq1.2.2        10257      13547    0.76     0.45
+pq1.2.3         1747       1452    1.20     0.24
+pq1.3.1        -2320       1536   -1.51     0.14
+pq1.3.2         1747       1452    1.20     0.24
+pq1.3.3          573        353    1.62     0.11
+f1            337276     440182    0.77     0.45
+f2            -29171     140560   -0.21     0.84
+fq1.1.1      -262399     654006   -0.40     0.69
+fq1.1.2       103072     196194    0.53     0.60
+fq1.2.1       103072     196194    0.53     0.60
+fq1.2.2       -68595      51234   -1.34     0.19
 
-Residual standard error: 3175.277 on 11 degrees of freedom
-Number of observations: 20 Degrees of Freedom: 11 
-SSR: 110906210.232 MSE: 10082382.748 Root MSE: 3175.277 
+Residual standard error: 3175.277 on 1 degrees of freedom
+Number of observations: 20 Degrees of Freedom: 1 
+SSR: 110906210.229 MSE: 10082382.748 Root MSE: 3175.277 
 Multiple R-Squared: 0.993 Adjusted R-Squared: 0.988 
 
 
-SUR estimates for equation 2
+SUR estimates for 'eq2' (equation 2)
 Model Formula: q2 ~ pr1 + pr2 + pr3 + pq2.1.1 + pq2.1.2 + pq2.1.3 + pq2.2.1 + 
     pq2.2.2 + pq2.2.3 + pq2.3.1 + pq2.3.2 + pq2.3.3 + f1 + f2 + 
     fq2.1.1 + fq2.1.2 + fq2.2.1 + fq2.2.2
 
-               Estimate Std. Error t value Pr(>|t|)  
-(Intercept)  -71025.092  54697.915  -1.298    0.202  
-pr1          -12003.431  13583.355  -0.884    0.382  
-pr2           10256.589  13547.413   0.757    0.454  
-pr3            1746.842    1451.97   1.203    0.236  
-pq2.1.1       14322.902  13808.927   1.037    0.306  
-pq2.1.2      -12003.431  13583.355  -0.884    0.382  
-pq2.1.3       -2319.471   1535.463  -1.511    0.139  
-pq2.2.1      -12003.431  13583.355  -0.884    0.382  
-pq2.2.2       10256.589  13547.413   0.757    0.454  
-pq2.2.3        1746.842    1451.97   1.203    0.236  
-pq2.3.1       -2319.471   1535.463  -1.511    0.139  
-pq2.3.2        1746.842    1451.97   1.203    0.236  
-pq2.3.3         572.629    352.709   1.624    0.113  
-f1           246447.276 168356.673   1.464    0.151  
-f2          -140246.158  55389.505  -2.532    0.015 *
-fq2.1.1     -533155.403 254858.317  -2.092    0.043 *
-fq2.1.2       169981.54  79244.229   2.145    0.038 *
-fq2.2.1       169981.54  79244.229   2.145    0.038 *
-fq2.2.2      -11463.209  21295.901  -0.538    0.593  
+            Estimate Std. Error t value Pr(>|t|)  
+(Intercept)   -71025      54698   -1.30    0.202  
+pr1           -12003      13583   -0.88    0.382  
+pr2            10257      13547    0.76    0.454  
+pr3             1747       1452    1.20    0.236  
+pq2.1.1        14323      13809    1.04    0.306  
+pq2.1.2       -12003      13583   -0.88    0.382  
+pq2.1.3        -2320       1536   -1.51    0.139  
+pq2.2.1       -12003      13583   -0.88    0.382  
+pq2.2.2        10257      13547    0.76    0.454  
+pq2.2.3         1747       1452    1.20    0.236  
+pq2.3.1        -2320       1536   -1.51    0.139  
+pq2.3.2         1747       1452    1.20    0.236  
+pq2.3.3          573        353    1.62    0.113  
+f1            246447     168357    1.46    0.151  
+f2           -140246      55390   -2.53    0.015 *
+fq2.1.1      -533155     254858   -2.09    0.043 *
+fq2.1.2       169982      79244    2.15    0.038 *
+fq2.2.1       169982      79244    2.15    0.038 *
+fq2.2.2       -11463      21296   -0.54    0.593  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
-Residual standard error: 1196.639 on 11 degrees of freedom
-Number of observations: 20 Degrees of Freedom: 11 
-SSR: 15751381.183 MSE: 1431943.744 Root MSE: 1196.639 
+Residual standard error: 1196.639 on 1 degrees of freedom
+Number of observations: 20 Degrees of Freedom: 1 
+SSR: 15751381.184 MSE: 1431943.744 Root MSE: 1196.639 
 Multiple R-Squared: 0.972 Adjusted R-Squared: 0.951 
 
 
-SUR estimates for equation 3
+SUR estimates for 'eq3' (equation 3)
 Model Formula: q3 ~ pr1 + pr2 + pr3 + pq3.1.1 + pq3.1.2 + pq3.1.3 + pq3.2.1 + 
     pq3.2.2 + pq3.2.3 + pq3.3.1 + pq3.3.2 + pq3.3.3 + f1 + f2 + 
     fq3.1.1 + fq3.1.2 + fq3.2.1 + fq3.2.2
 
-              Estimate Std. Error t value Pr(>|t|)  
-(Intercept) -11870.846   11669.48  -1.017    0.315  
-pr1          -2319.471   1535.463  -1.511    0.139  
-pr2           1746.842    1451.97   1.203    0.236  
-pr3            572.629    352.709   1.624    0.113  
-pq3.1.1      14322.902  13808.927   1.037    0.306  
-pq3.1.2     -12003.431  13583.355  -0.884    0.382  
-pq3.1.3      -2319.471   1535.463  -1.511    0.139  
-pq3.2.1     -12003.431  13583.355  -0.884    0.382  
-pq3.2.2      10256.589  13547.413   0.757    0.454  
-pq3.2.3       1746.842    1451.97   1.203    0.236  
-pq3.3.1      -2319.471   1535.463  -1.511    0.139  
-pq3.3.2       1746.842    1451.97   1.203    0.236  
-pq3.3.3        572.629    352.709   1.624    0.113  
-f1           29027.597  35336.662   0.821    0.416  
-f2          -21873.093  11270.454  -1.941     0.06 .
-fq3.1.1     -71685.317   52489.86  -1.366     0.18  
-fq3.1.2        28812.8  15784.854   1.825    0.076 .
-fq3.2.1        28812.8  15784.854   1.825    0.076 .
-fq3.2.2      -5565.365   4162.448  -1.337    0.189  
+            Estimate Std. Error t value Pr(>|t|)  
+(Intercept)   -11871      11670   -1.02    0.315  
+pr1            -2320       1536   -1.51    0.139  
+pr2             1747       1452    1.20    0.236  
+pr3              573        353    1.62    0.113  
+pq3.1.1        14323      13809    1.04    0.306  
+pq3.1.2       -12003      13583   -0.88    0.382  
+pq3.1.3        -2320       1536   -1.51    0.139  
+pq3.2.1       -12003      13583   -0.88    0.382  
+pq3.2.2        10257      13547    0.76    0.454  
+pq3.2.3         1747       1452    1.20    0.236  
+pq3.3.1        -2320       1536   -1.51    0.139  
+pq3.3.2         1747       1452    1.20    0.236  
+pq3.3.3          573        353    1.62    0.113  
+f1             29028      35337    0.82    0.416  
+f2            -21873      11270   -1.94    0.060 .
+fq3.1.1       -71685      52490   -1.37    0.180  
+fq3.1.2        28813      15785    1.83    0.076 .
+fq3.2.1        28813      15785    1.83    0.076 .
+fq3.2.2        -5565       4162   -1.34    0.189  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 
-Residual standard error: 246.064 on 11 degrees of freedom
-Number of observations: 20 Degrees of Freedom: 11 
+Residual standard error: 246.064 on 1 degrees of freedom
+Number of observations: 20 Degrees of Freedom: 1 
 SSR: 666019.958 MSE: 60547.269 Root MSE: 246.064 
 Multiple R-Squared: 0.939 Adjusted R-Squared: 0.895 
 
@@ -2009,7 +2010,7 @@ gamma 3 1 2  5.21e+05 -6.59e+05 -6.12e+05 -2.05e+04 -2.56e+02    20746
 gamma 3 2 1  5.21e+05 -6.59e+05 -6.12e+05 -2.05e+04 -2.56e+02    20746
 gamma 3 2 2 -4.16e+05  5.13e+05  4.70e+05  2.66e+04 -6.20e+03   -20393
              beta 2 1  beta 2 2 beta 2 3 beta 3 1 beta 3 2 beta 3 3 delta 1 1
-alpha 1      7.16e+07 -6.31e+07 -8486553  9288379 -8486553  -801826 -2.18e+09
+alpha 1      7.16e+07 -6.31e+07 -8486552  9288379 -8486552  -801826 -2.18e+09
 alpha 2     -6.78e+07  6.21e+07  5741360 -5998573  5741360   257212  1.81e+08
 alpha 3     -1.52e+06  7.20e+05   804518 -1198890   804518   394372  1.09e+07
 beta 1 1    -1.86e+08  1.83e+08  3712411 -4268284  3712411   555873  2.21e+07

@@ -16,23 +16,20 @@ estResultLA <- aidsEst( pNames, wNames, "xFood",
 print( estResultLA )
 print( summary( estResultLA ) )
 print( elas( estResultLA, method = "Ch", quantNames = wNames ) )
-# imposing restrictions via TX
+# imposing restrictions via restrict.regMat
 estResultLATX <- aidsEst( pNames, wNames, "xFood",
    data = Blanciforti86[ set, ], method = "LA:SL",
-   TX = TRUE )
+   restrict.regMat = TRUE )
 print( estResultLATX )
 print( summary( estResultLATX ) )
 print( elas( estResultLATX, method = "Ch", quantNames = wNames ) )
 estResultLATX$call <- NULL
-estResultLATX$est$bt <- NULL
-estResultLATX$est$btcov <- NULL
-estResultLATX$est$x <- NULL
-estResultLATX$est$TX <- NULL
-estResultLATX$est$q.restr <- NULL
+estResultLATX$est$call <- NULL
+estResultLATX$est$restrict.regMat <- NULL
 estResultLA$call <- NULL
-estResultLA$est$x <- NULL
-estResultLA$est$R.restr <- NULL
-estResultLA$est$q.restr <- NULL
+estResultLA$est$call <- NULL
+estResultLA$est$restrict.matrix <- NULL
+estResultLA$est$restrict.rhs <- NULL
 print( all.equal( estResultLA, estResultLATX ) )
 
 ## only homogeneity (no symmetry imposed)
@@ -41,23 +38,20 @@ estResultLAhom <- aidsEst( pNames, wNames, "xFood", sym = FALSE,
 print( estResultLAhom )
 print( summary( estResultLAhom ) )
 print( elas( estResultLAhom, method = "Ch", quantNames = wNames ) )
-# imposing restrictions via TX
+# imposing restrictions via restrict.regMat
 estResultLAhomTX <- aidsEst( pNames, wNames, "xFood", sym = FALSE,
    data = Blanciforti86[ set, ], method = "LA:SL",
-   TX = TRUE )
+   restrict.regMat = TRUE )
 print( estResultLAhomTX )
 print( summary( estResultLAhomTX ) )
 print( elas( estResultLAhomTX, method = "Ch", quantNames = wNames ) )
 estResultLAhomTX$call <- NULL
-estResultLAhomTX$est$bt <- NULL
-estResultLAhomTX$est$btcov <- NULL
-estResultLAhomTX$est$x <- NULL
-estResultLAhomTX$est$TX <- NULL
-estResultLAhomTX$est$q.restr <- NULL
+estResultLAhomTX$est$call <- NULL
+estResultLAhomTX$est$restrict.regMat <- NULL
 estResultLAhom$call <- NULL
-estResultLAhom$est$x <- NULL
-estResultLAhom$est$R.restr <- NULL
-estResultLAhom$est$q.restr <- NULL
+estResultLAhom$est$call <- NULL
+estResultLAhom$est$restrict.matrix <- NULL
+estResultLAhom$est$restrict.rhs <- NULL
 print( all.equal( estResultLAhom, estResultLAhomTX ) )
 
 ## unrestricted (no homogeneity and no symmetry imposed)
@@ -66,23 +60,17 @@ estResultLAunr <- aidsEst( pNames, wNames, "xFood", hom = FALSE, sym = FALSE,
 print( estResultLAunr )
 print( summary( estResultLAunr ) )
 print( elas( estResultLAunr, method = "Ch", quantNames = wNames ) )
-# imposing restrictions via TX
+# imposing restrictions via restrict.regMat
 estResultLAunrTX <- aidsEst( pNames, wNames, "xFood", hom = FALSE, sym = FALSE,
    data = Blanciforti86[ set, ], method = "LA:SL",
-   TX = TRUE )
+   restrict.regMat = TRUE )
 print( estResultLAunrTX )
 print( summary( estResultLAunrTX ) )
 print( elas( estResultLAunrTX, method = "Ch", quantNames = wNames ) )
 estResultLAunrTX$call <- NULL
-estResultLAunrTX$est$bt <- NULL
-estResultLAunrTX$est$btcov <- NULL
-estResultLAunrTX$est$x <- NULL
-estResultLAunrTX$est$TX <- NULL
-estResultLAunrTX$est$q.restr <- NULL
+estResultLAunrTX$est$call <- NULL
 estResultLAunr$call <- NULL
-estResultLAunr$est$x <- NULL
-estResultLAunr$est$R.restr <- NULL
-estResultLAunr$est$q.restr <- NULL
+estResultLAunr$est$call <- NULL
 print( all.equal( estResultLAunr, estResultLAunrTX ) )
 
 #####################################################
@@ -93,22 +81,19 @@ estResultAIDS <- aidsEst( pNames, wNames, "xFood",
 print( estResultAIDS )
 print( summary( estResultAIDS ) )
 print( elas( estResultAIDS, method = "AIDS", quantNames = wNames ) )
-# imposing restrictions via TX
+# imposing restrictions via restrict.regMat
 estResultAIDSTX <- aidsEst( pNames, wNames, "xFood",
-   data = Blanciforti86[ setWo1, ], method = "IL:L", TX = TRUE )
+   data = Blanciforti86[ setWo1, ], method = "IL:L", restrict.regMat = TRUE )
 print( estResultAIDSTX )
 print( summary( estResultAIDSTX ) )
 print( elas( estResultAIDSTX, method = "AIDS", quantNames = wNames ) )
 estResultAIDSTX$call <- NULL
-estResultAIDSTX$est$bt <- NULL
-estResultAIDSTX$est$btcov <- NULL
-estResultAIDSTX$est$x <- NULL
-estResultAIDSTX$est$TX <- NULL
-estResultAIDSTX$est$q.restr <- NULL
+estResultAIDSTX$est$call <- NULL
+estResultAIDSTX$est$restrict.regMat <- NULL
 estResultAIDS$call <- NULL
-estResultAIDS$est$x <- NULL
-estResultAIDS$est$R.restr <- NULL
-estResultAIDS$est$q.restr <- NULL
+estResultAIDS$est$call <- NULL
+estResultAIDS$est$restrict.matrix <- NULL
+estResultAIDS$est$restrict.rhs <- NULL
 print( all.equal( estResultAIDS, estResultAIDSTX ) )
 
 ## only homogeneity (no symmetry imposed)
@@ -117,22 +102,19 @@ estResultAIDShom <- aidsEst( pNames, wNames, "xFood", sym = FALSE,
 print( estResultAIDShom )
 print( summary( estResultAIDShom ) )
 print( elas( estResultAIDShom, method = "AIDS", quantNames = wNames ) )
-# imposing restrictions via TX
+# imposing restrictions via restrict.regMat
 estResultAIDShomTX <- aidsEst( pNames, wNames, "xFood", sym = FALSE,
-   data = Blanciforti86[ setWo1, ], method = "IL:L", TX = TRUE )
+   data = Blanciforti86[ setWo1, ], method = "IL:L", restrict.regMat = TRUE )
 print( estResultAIDShomTX )
 print( summary( estResultAIDShomTX ) )
 print( elas( estResultAIDShomTX, method = "AIDS", quantNames = wNames ) )
 estResultAIDShomTX$call <- NULL
-estResultAIDShomTX$est$bt <- NULL
-estResultAIDShomTX$est$btcov <- NULL
-estResultAIDShomTX$est$x <- NULL
-estResultAIDShomTX$est$TX <- NULL
-estResultAIDShomTX$est$q.restr <- NULL
+estResultAIDShomTX$est$call <- NULL
+estResultAIDShomTX$est$restrict.regMat <- NULL
 estResultAIDShom$call <- NULL
-estResultAIDShom$est$x <- NULL
-estResultAIDShom$est$R.restr <- NULL
-estResultAIDShom$est$q.restr <- NULL
+estResultAIDShom$est$call <- NULL
+estResultAIDShom$est$restrict.matrix <- NULL
+estResultAIDShom$est$restrict.rhs <- NULL
 print( all.equal( estResultAIDShom, estResultAIDShomTX ) )
 
 ## unrestricted (no homogeneity and no symmetry imposed)
@@ -141,22 +123,16 @@ estResultAIDSunr <- aidsEst( pNames, wNames, "xFood", hom = FALSE, sym = FALSE,
 print( estResultAIDSunr )
 print( summary( estResultAIDSunr ) )
 print( elas( estResultAIDSunr, method = "AIDS", quantNames = wNames ) )
-# imposing restrictions via TX
+# imposing restrictions via restrict.regMat
 estResultAIDSunrTX <- aidsEst( pNames, wNames, "xFood", hom = FALSE, sym = FALSE,
-   data = Blanciforti86[ setWo1, ], method = "IL:L", TX = TRUE )
+   data = Blanciforti86[ setWo1, ], method = "IL:L", restrict.regMat = TRUE )
 print( estResultAIDSunrTX )
 print( summary( estResultAIDSunrTX ) )
 print( elas( estResultAIDSunrTX, method = "AIDS", quantNames = wNames ) )
 estResultAIDSunrTX$call <- NULL
-estResultAIDSunrTX$est$bt <- NULL
-estResultAIDSunrTX$est$btcov <- NULL
-estResultAIDSunrTX$est$x <- NULL
-estResultAIDSunrTX$est$TX <- NULL
-estResultAIDSunrTX$est$q.restr <- NULL
+estResultAIDSunrTX$est$call <- NULL
 estResultAIDSunr$call <- NULL
-estResultAIDSunr$est$x <- NULL
-estResultAIDSunr$est$R.restr <- NULL
-estResultAIDSunr$est$q.restr <- NULL
+estResultAIDSunr$est$call <- NULL
 print( all.equal( estResultAIDSunr, estResultAIDSunrTX ) )
 
 ## with NAs

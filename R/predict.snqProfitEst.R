@@ -1,5 +1,6 @@
 predict.snqProfitEst <- function( object, newdata = object$data,
-   se.fit = FALSE, se.pred = FALSE, interval = "none", level = 0.95, ... ) {
+   se.fit = FALSE, se.pred = FALSE, interval = "none", level = 0.95,
+   useDfSys = TRUE, ... ) {
 
    nNetput <- length( object$pMeans )
    nFixed  <- length( object$fMeans )
@@ -31,13 +32,13 @@ predict.snqProfitEst <- function( object, newdata = object$data,
       if( se.pred || interval == "prediction" ) {
          result[[ paste( object$quantNames[ i ], ".se.pred", sep = "" ) ]] <-
             diag( x[[ i ]] %*% object$coef$liCoefCov %*%
-               t( x[[ i ]] ) + object$est$rcov[ i, i ] )^0.5
+               t( x[[ i ]] ) + object$est$residCov[ i, i ] )^0.5
       }
       if( interval != "none" ) {
-         if( object$est$probdfsys ) {
-            tval   <- qt( 1 - ( 1- level )/2, object$est$df )
+         if( useDfSys ) {
+            tval   <- qt( 1 - ( 1- level )/2, df.residual( object$est ) )
          } else {
-            tval   <- qt( 1 - ( 1- level )/2, object$est$eq[[i]]$df )
+            tval   <- qt( 1 - ( 1- level )/2, df.residual( object$est$eq[[i]] ) )
          }
          if( interval == "confidence" ) {
             seName <- paste( object$quantNames[ i ], ".se.fit", sep = "" )
@@ -71,8 +72,8 @@ predict.snqProfitEst <- function( object, newdata = object$data,
          s2 )^0.5
    }
    if( interval != "none" ) {
-      if( object$est$probdfsys ) {
-         tval   <- qt( 1 - ( 1- level )/2, object$est$df )
+      if( useDfSys ) {
+         tval   <- qt( 1 - ( 1- level )/2, df.residual( object$est ) )
       } else {
          tval   <- qt( 1 - ( 1- level )/2, nObsOld )
       }
@@ -96,7 +97,8 @@ predict.snqProfitEst <- function( object, newdata = object$data,
 }
 
 predict.snqProfitImposeConvexity <- function( object, newdata = object$data,
-   se.fit = FALSE, se.pred = FALSE, interval = "none", level = 0.95, ... ) {
+   se.fit = FALSE, se.pred = FALSE, interval = "none", level = 0.95,
+   useDfSys = TRUE, ... ) {
 
    if( is.null( object$sim ) ) {
       if( se.fit ) {
@@ -118,7 +120,7 @@ predict.snqProfitImposeConvexity <- function( object, newdata = object$data,
 
    result <- predict.snqProfitEst( object, newdata = newdata,
       se.fit = se.fit, se.pred = se.pred, interval = interval,
-      level = level, ... )
+      level = level, useDfSys = useDfSys, ... )
 
    return( result )
 }

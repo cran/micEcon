@@ -1,5 +1,5 @@
 
-R version 2.6.0 (2007-10-03)
+R version 2.6.1 (2007-11-26)
 Copyright (C) 2007 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
@@ -17,6 +17,11 @@ Type 'q()' to quit R.
 
 > library( micEcon )
 Loading required package: systemfit
+Loading required package: Matrix
+Loading required package: lattice
+Loading required package: car
+Loading required package: lmtest
+Loading required package: zoo
 > data( Blanciforti86 )
 > options( digits = 3 )
 > 
@@ -106,10 +111,10 @@ wFood1 -0.333 -0.2444  0.0959  0.482
 wFood2 -0.377 -0.0127  0.1169  0.273
 wFood3  0.222  0.1753 -0.7571  0.360
 wFood4  0.423  0.1554  0.1363 -0.715
-> # imposing restrictions via TX
+> # imposing restrictions via restrict.regMat
 > estResultLATX <- aidsEst( pNames, wNames, "xFood",
 +    data = Blanciforti86[ set, ], method = "LA:SL",
-+    TX = TRUE )
++    restrict.regMat = TRUE )
 > print( estResultLATX )
 
 Demand analysis with the Almost Ideal Demand System (AIDS)
@@ -184,15 +189,12 @@ wFood2 -0.377 -0.0127  0.1169  0.273
 wFood3  0.222  0.1753 -0.7571  0.360
 wFood4  0.423  0.1554  0.1363 -0.715
 > estResultLATX$call <- NULL
-> estResultLATX$est$bt <- NULL
-> estResultLATX$est$btcov <- NULL
-> estResultLATX$est$x <- NULL
-> estResultLATX$est$TX <- NULL
-> estResultLATX$est$q.restr <- NULL
+> estResultLATX$est$call <- NULL
+> estResultLATX$est$restrict.regMat <- NULL
 > estResultLA$call <- NULL
-> estResultLA$est$x <- NULL
-> estResultLA$est$R.restr <- NULL
-> estResultLA$est$q.restr <- NULL
+> estResultLA$est$call <- NULL
+> estResultLA$est$restrict.matrix <- NULL
+> estResultLA$est$restrict.rhs <- NULL
 > print( all.equal( estResultLA, estResultLATX ) )
 [1] TRUE
 > 
@@ -272,10 +274,10 @@ wFood1 -0.336 -0.1880 -0.0131  0.537
 wFood2 -0.336 -0.1805  0.2891  0.227
 wFood3  0.272  0.0139 -0.6336  0.348
 wFood4  0.383  0.2625  0.0872 -0.733
-> # imposing restrictions via TX
+> # imposing restrictions via restrict.regMat
 > estResultLAhomTX <- aidsEst( pNames, wNames, "xFood", sym = FALSE,
 +    data = Blanciforti86[ set, ], method = "LA:SL",
-+    TX = TRUE )
++    restrict.regMat = TRUE )
 > print( estResultLAhomTX )
 
 Demand analysis with the Almost Ideal Demand System (AIDS)
@@ -350,15 +352,12 @@ wFood2 -0.336 -0.1805  0.2891  0.227
 wFood3  0.272  0.0139 -0.6336  0.348
 wFood4  0.383  0.2625  0.0872 -0.733
 > estResultLAhomTX$call <- NULL
-> estResultLAhomTX$est$bt <- NULL
-> estResultLAhomTX$est$btcov <- NULL
-> estResultLAhomTX$est$x <- NULL
-> estResultLAhomTX$est$TX <- NULL
-> estResultLAhomTX$est$q.restr <- NULL
+> estResultLAhomTX$est$call <- NULL
+> estResultLAhomTX$est$restrict.regMat <- NULL
 > estResultLAhom$call <- NULL
-> estResultLAhom$est$x <- NULL
-> estResultLAhom$est$R.restr <- NULL
-> estResultLAhom$est$q.restr <- NULL
+> estResultLAhom$est$call <- NULL
+> estResultLAhom$est$restrict.matrix <- NULL
+> estResultLAhom$est$restrict.rhs <- NULL
 > print( all.equal( estResultLAhom, estResultLAhomTX ) )
 [1] TRUE
 > 
@@ -438,10 +437,10 @@ wFood1 -0.303  0.0551 -0.0413  0.387
 wFood2 -0.317 -0.0484  0.2738  0.145
 wFood3  0.271  0.0098 -0.6331  0.351
 wFood4  0.344 -0.0246  0.1205 -0.556
-> # imposing restrictions via TX
+> # imposing restrictions via restrict.regMat
 > estResultLAunrTX <- aidsEst( pNames, wNames, "xFood", hom = FALSE, sym = FALSE,
 +    data = Blanciforti86[ set, ], method = "LA:SL",
-+    TX = TRUE )
++    restrict.regMat = TRUE )
 > print( estResultLAunrTX )
 
 Demand analysis with the Almost Ideal Demand System (AIDS)
@@ -516,15 +515,9 @@ wFood2 -0.317 -0.0484  0.2738  0.145
 wFood3  0.271  0.0098 -0.6331  0.351
 wFood4  0.344 -0.0246  0.1205 -0.556
 > estResultLAunrTX$call <- NULL
-> estResultLAunrTX$est$bt <- NULL
-> estResultLAunrTX$est$btcov <- NULL
-> estResultLAunrTX$est$x <- NULL
-> estResultLAunrTX$est$TX <- NULL
-> estResultLAunrTX$est$q.restr <- NULL
+> estResultLAunrTX$est$call <- NULL
 > estResultLAunr$call <- NULL
-> estResultLAunr$est$x <- NULL
-> estResultLAunr$est$R.restr <- NULL
-> estResultLAunr$est$q.restr <- NULL
+> estResultLAunr$est$call <- NULL
 > print( all.equal( estResultLAunr, estResultLAunrTX ) )
 [1] TRUE
 > 
@@ -610,9 +603,9 @@ wFood1 -0.357 -0.2482  0.103  0.503
 wFood2 -0.380 -0.0164  0.113  0.284
 wFood3  0.238  0.1710 -0.757  0.348
 wFood4  0.440  0.1625  0.132 -0.734
-> # imposing restrictions via TX
+> # imposing restrictions via restrict.regMat
 > estResultAIDSTX <- aidsEst( pNames, wNames, "xFood",
-+    data = Blanciforti86[ setWo1, ], method = "IL:L", TX = TRUE )
++    data = Blanciforti86[ setWo1, ], method = "IL:L", restrict.regMat = TRUE )
 > print( estResultAIDSTX )
 
 Demand analysis with the Almost Ideal Demand System (AIDS)
@@ -689,15 +682,12 @@ wFood2 -0.380 -0.0164  0.113  0.284
 wFood3  0.238  0.1710 -0.757  0.348
 wFood4  0.440  0.1625  0.132 -0.734
 > estResultAIDSTX$call <- NULL
-> estResultAIDSTX$est$bt <- NULL
-> estResultAIDSTX$est$btcov <- NULL
-> estResultAIDSTX$est$x <- NULL
-> estResultAIDSTX$est$TX <- NULL
-> estResultAIDSTX$est$q.restr <- NULL
+> estResultAIDSTX$est$call <- NULL
+> estResultAIDSTX$est$restrict.regMat <- NULL
 > estResultAIDS$call <- NULL
-> estResultAIDS$est$x <- NULL
-> estResultAIDS$est$R.restr <- NULL
-> estResultAIDS$est$q.restr <- NULL
+> estResultAIDS$est$call <- NULL
+> estResultAIDS$est$restrict.matrix <- NULL
+> estResultAIDS$est$restrict.rhs <- NULL
 > print( all.equal( estResultAIDS, estResultAIDSTX ) )
 [1] TRUE
 > 
@@ -779,9 +769,9 @@ wFood1 -0.357 -0.1993 -0.00638  0.562
 wFood2 -0.345 -0.1766  0.28944  0.233
 wFood3  0.274  0.0324 -0.63973  0.333
 wFood4  0.406  0.2633  0.08349 -0.752
-> # imposing restrictions via TX
+> # imposing restrictions via restrict.regMat
 > estResultAIDShomTX <- aidsEst( pNames, wNames, "xFood", sym = FALSE,
-+    data = Blanciforti86[ setWo1, ], method = "IL:L", TX = TRUE )
++    data = Blanciforti86[ setWo1, ], method = "IL:L", restrict.regMat = TRUE )
 > print( estResultAIDShomTX )
 
 Demand analysis with the Almost Ideal Demand System (AIDS)
@@ -858,15 +848,12 @@ wFood2 -0.345 -0.1766  0.28944  0.233
 wFood3  0.274  0.0324 -0.63973  0.333
 wFood4  0.406  0.2633  0.08349 -0.752
 > estResultAIDShomTX$call <- NULL
-> estResultAIDShomTX$est$bt <- NULL
-> estResultAIDShomTX$est$btcov <- NULL
-> estResultAIDShomTX$est$x <- NULL
-> estResultAIDShomTX$est$TX <- NULL
-> estResultAIDShomTX$est$q.restr <- NULL
+> estResultAIDShomTX$est$call <- NULL
+> estResultAIDShomTX$est$restrict.regMat <- NULL
 > estResultAIDShom$call <- NULL
-> estResultAIDShom$est$x <- NULL
-> estResultAIDShom$est$R.restr <- NULL
-> estResultAIDShom$est$q.restr <- NULL
+> estResultAIDShom$est$call <- NULL
+> estResultAIDShom$est$restrict.matrix <- NULL
+> estResultAIDShom$est$restrict.rhs <- NULL
 > print( all.equal( estResultAIDShom, estResultAIDShomTX ) )
 [1] TRUE
 > 
@@ -948,9 +935,9 @@ wFood1 -0.338  0.0483 -0.0431  0.435
 wFood2 -0.317 -0.0366  0.2720  0.138
 wFood3  0.308  0.0341 -0.6338  0.290
 wFood4  0.361 -0.0346  0.1234 -0.571
-> # imposing restrictions via TX
+> # imposing restrictions via restrict.regMat
 > estResultAIDSunrTX <- aidsEst( pNames, wNames, "xFood", hom = FALSE, sym = FALSE,
-+    data = Blanciforti86[ setWo1, ], method = "IL:L", TX = TRUE )
++    data = Blanciforti86[ setWo1, ], method = "IL:L", restrict.regMat = TRUE )
 > print( estResultAIDSunrTX )
 
 Demand analysis with the Almost Ideal Demand System (AIDS)
@@ -1027,15 +1014,9 @@ wFood2 -0.317 -0.0366  0.2720  0.138
 wFood3  0.308  0.0341 -0.6338  0.290
 wFood4  0.361 -0.0346  0.1234 -0.571
 > estResultAIDSunrTX$call <- NULL
-> estResultAIDSunrTX$est$bt <- NULL
-> estResultAIDSunrTX$est$btcov <- NULL
-> estResultAIDSunrTX$est$x <- NULL
-> estResultAIDSunrTX$est$TX <- NULL
-> estResultAIDSunrTX$est$q.restr <- NULL
+> estResultAIDSunrTX$est$call <- NULL
 > estResultAIDSunr$call <- NULL
-> estResultAIDSunr$est$x <- NULL
-> estResultAIDSunr$est$R.restr <- NULL
-> estResultAIDSunr$est$q.restr <- NULL
+> estResultAIDSunr$est$call <- NULL
 > print( all.equal( estResultAIDSunr, estResultAIDSunrTX ) )
 [1] TRUE
 > 

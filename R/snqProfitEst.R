@@ -89,10 +89,11 @@ snqProfitEst <- function( priceNames, quantNames, fixNames = NULL,
       form = form, netputScale = scalingFactors, fixedScale = result$fMeans )
    system <- snqProfitSystem( nNetput, nFix )    # equation system
    restrict <- snqProfitRestrict( nNetput, nFix, form )    # restrictions
-   result$est <- systemfit( method = method, eqns = system, data = modelData,
-      TX = restrict, inst = inst, ... )
-   result$coef <- snqProfitCoef( coef = result$est$bt, nNetput = nNetput,
-      nFix = nFix, form = form, coefCov = result$est$btcov,
+   result$est <- systemfit( formula = system, method = method, data = modelData,
+      restrict.regMat = restrict, inst = inst, ... )
+   result$coef <- snqProfitCoef( coef = coef( result$est, modified.regMat = TRUE ),
+      nNetput = nNetput, nFix = nFix, form = form,
+      coefCov = vcov( result$est, modified.regMat = TRUE ),
       df = nNetput * nObs - nCoef,
       quantNames = quantNames, priceNames = priceNames, fixNames = fixNames )
       # estimated coefficients
@@ -102,7 +103,7 @@ snqProfitEst <- function( priceNames, quantNames, fixNames = NULL,
    result$fitted <- data.frame( profit0 = rep( 0, nObs ) )
    result$residuals <- data.frame( profit0 = rep( 0, nObs ) )
    for( i in 1:nNetput ) {
-      result$fitted[[ quantNames[ i ] ]] <- result$est$eq[[ i ]]$fitted
+      result$fitted[[ quantNames[ i ] ]] <- fitted( result$est$eq[[ i ]] )
       result$fitted[[ "profit0" ]] <- result$fitted[[ "profit0" ]] +
          result$fitted[[ quantNames[ i ] ]] * data[[ priceNames[ i ] ]] *
          scalingFactors[ i ]
@@ -117,7 +118,7 @@ snqProfitEst <- function( priceNames, quantNames, fixNames = NULL,
 
    result$r2 <- array( NA, c( nNetput + 1 ) )
    for( i in 1:nNetput ) {
-      # result$r2[ i ] <- result$est$eq[[ i ]]$r2
+      # result$r2[ i ] <- summary( result$est$eq[[ i ]] )$r.squared
       result$r2[ i ] <- rSquared( data[[ quantNames[ i ] ]] / scalingFactors[ i ],
          result$residuals[[ quantNames[ i ] ]] )
    }
@@ -129,7 +130,7 @@ snqProfitEst <- function( priceNames, quantNames, fixNames = NULL,
       # Hessian matrix
    result$ela <- snqProfitEla( result$coef$beta, result$pMeans,
       result$qMeans, weights, coefVcov = result$coef$allCoefCov,
-      df = result$est$df )   # estimated elasticities
+      df = df.residual( result$est ) )   # estimated elasticities
    if( nFix > 0 && form == 0 ) {
       result$fixEla <- snqProfitFixEla( result$coef$delta, result$coef$gamma,
          result$qMeans, result$fMeans, weights )

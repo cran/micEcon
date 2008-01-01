@@ -1,12 +1,12 @@
 aidsRestr <- function( nGoods, nShifter = 0, hom = TRUE, sym = TRUE,
-      LA = TRUE, TX = FALSE ) {
+      LA = TRUE, restrict.regMat = FALSE ) {
 
    if( sym && !hom ) {
       hom <- TRUE  # symmetry implies homogeneity
       warning( "symmetry implies homogeneity: imposing additionally homogeniety" )
    }
    nExogEq <- nGoods + 2 + nShifter # number of exog. variables per equation
-   if( TX ) {
+   if( restrict.regMat ) {
       nExog <- ( nGoods - 1 ) * ( nExogEq )
       restr <- diag( nExog )
       delCols <- NULL

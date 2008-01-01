@@ -52,21 +52,22 @@ tobit2fit <- function(YS, XS, YO, XO, start,
        if(sigma < 0) return(matrix(NA, nObs, nParam))
        rho <- beta[irho]
        if( ( rho < -1) || ( rho > 1)) return(matrix(NA, nObs, nParam))
-       XS.g <- as.numeric(XS %*% g)
-       XO.b <- as.numeric(XO %*% b)
+       XS0.g <- as.numeric(XS0 %*% g)
+       XS1.g <- as.numeric(XS1 %*% g)
+       XO1.b <- as.numeric(XO1 %*% b)
                                         #      u2 <- YO1 - XO1.b
-       u2 <- YO - XO.b
+       u2 <- YO1 - XO1.b
        r <- sqrt( 1 - rho^2)
                                         #      B <- (XS1.g + rho/sigma*u2)/r
-       B <- (XS.g + rho/sigma*u2)/r
+       B <- (XS1.g + rho/sigma*u2)/r
        lambdaB <- ifelse(B > -30, dnorm(B)/pnorm(B), -B)
                                         # This is a hack in order to avoid numeric problems
        gradient <- matrix(0, nObs, nParam)
-       gradient[,ibetaS] <- (YS==0) * (XS * (-dnorm(-XS.g)/pnorm(-XS.g))) +
-           (YS == 1) * (XS * lambdaB/r)
-       gradient[,ibetaO] <- (YS==1)*(XO * (u2/sigma^2 - lambdaB*rho/sigma/r))
-       gradient[,isigma] <- (YS==1)*((u2^2/sigma^3 - lambdaB*rho*u2/sigma^2/r) - 1/sigma)
-       gradient[,irho] <- (YS==1)*((lambdaB*(u2/sigma + rho*XS.g))/r^3)
+       gradient[YS == 0, ibetaS] <- XS0 * (-dnorm(-XS0.g)/pnorm(-XS0.g))
+       gradient[YS == 1, ibetaS] <- XS1 * lambdaB/r
+       gradient[YS == 1, ibetaO] <- XO1 * (u2/sigma^2 - lambdaB*rho/sigma/r)
+       gradient[YS == 1, isigma] <- (u2^2/sigma^3 - lambdaB*rho*u2/sigma^2/r) - 1/sigma
+       gradient[YS == 1, irho] <- (lambdaB*(u2/sigma + rho*XS1.g))/r^3
        gradient
     }
     hesslik <- function(beta) {

@@ -12,10 +12,12 @@
 
 \usage{
 \method{predict}{snqProfitEst}( object, newdata = object$data,
-   se.fit = FALSE, se.pred = FALSE, interval = "none", level = 0.95, ... )
+   se.fit = FALSE, se.pred = FALSE, interval = "none", level = 0.95,
+   useDfSys = TRUE, ... )
 
 \method{predict}{snqProfitImposeConvexity}( object, newdata = object$data,
-   se.fit = FALSE, se.pred = FALSE, interval = "none", level = 0.95, ... )
+   se.fit = FALSE, se.pred = FALSE, interval = "none", level = 0.95,
+   useDfSys = TRUE, ... )
 }
 
 \arguments{
@@ -27,6 +29,9 @@
   \item{interval}{Type of interval calculation ("none", "confidence"
       or "prediction").}
   \item{level}{confidence level.}
+  \item{useDfSys}{logical. Use the degrees of freedom of the whole system
+      (and not the degrees of freedom of the single equation)
+      to calculate the confidence intervals.}
   \item{...}{currently not used.}
 }
 

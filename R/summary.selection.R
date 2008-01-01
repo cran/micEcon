@@ -21,8 +21,8 @@ summary.selection <- function(object, ...) {
             }
          }
          else {
-            R2 <- model$eq[[ 1 ]]$r2
-            R2adj <- model$eq[[ 1 ]]$adjr2
+            R2 <- summary( model$eq[[ 1 ]] )$r.squared
+            R2adj <- summary( model$eq[[ 1 ]] )$adj.r.squared
          }
          c(R2, R2adj)
       }

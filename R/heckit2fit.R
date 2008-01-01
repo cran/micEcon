@@ -135,7 +135,7 @@ heckit2fit <- function( selection, outcome,
       formulaList <- list( step2formula )
       instImr <- as.formula( paste( "~", inst[ 2 ], "+ invMillsRatio" ) )
       library( systemfit )
-      outcomeMod <- systemfit( "2SLS", formulaList, inst = instImr,
+      outcomeMod <- systemfit( formulaList, method = "2SLS", inst = instImr,
                              data = data[ probitDummy, ] )
       intercept = FALSE
                                         # we calculate R^2 differently here (hopefully)
@@ -160,11 +160,7 @@ heckit2fit <- function( selection, outcome,
       cat ( "Calculating coefficient covariance matrix . . ." )
    }
                                         # the following variables are named according to Greene (2003), p. 785
-   if( is.null( inst ) ) {
-      xMat <- model.matrix( outcomeMod )
-   } else {
-      xMat <- outcomeMod$eq[[ 1 ]]$x
-   }
+   xMat <- model.matrix( outcomeMod )
    ## Varcovar matrix.  Fill only a few parts, rest will remain NA
    vc <- matrix(0, nParam, nParam)
    colnames(vc) <- row.names(vc) <- names(coefficients)
