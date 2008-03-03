@@ -1,4 +1,4 @@
-aidsSystem <- function( nGoods, nShifter = 0, LA = TRUE ) {
+.aidsSystem <- function( nGoods, nShifter = 0, LA = TRUE ) {
   if( LA ) {
     system <- list()
     for(i in 1:( nGoods - 1 ) ) {

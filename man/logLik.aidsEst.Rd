@@ -1,32 +1,29 @@
-\name{summary.aidsEst}
-\alias{summary.aidsEst}
-\alias{print.summary.aidsEst}
-\title{Summarizing the Estimation of an Almost Ideal Demand System}
+\name{logLik.aidsEst}
+\alias{logLik.aidsEst}
+\title{Log-Likelihood value of an object of class aidsEst}
 
 \description{
-   \code{summary.aidsEst} summarizes the estimation results
-   of an Almost Ideal Demand System (AIDS).
+   This method extracts the log-likelihood value
+   of a fitted Almost Ideal Demand System (AIDS)
 }
 
 \usage{
-\method{summary}{aidsEst}( object, ... )
-
-\method{print}{summary.aidsEst}( x, ... )
+\method{logLik}{aidsEst}( object, ... )
 }
 
 \arguments{
    \item{object}{an object of class \code{aidsEst}.}
-   \item{x}{an object of class \code{summary.aidsEst}.}
    \item{...}{currently ignored.}
 }
 
 \value{
-   \code{summary.aidsEst} returns a list of class \code{summary.aidsEst}
-   that is currently identical to the provided \code{object}
-   (except for its class).
+   A numeric scalar (the log-likelihood value) with 2 attributes:
+   \code{nobs} (total number of observations in all equations) and
+   \code{df} (number of free parameters, i.e. coefficients
+   + elements of the residual covariance matrix).
 }
 
-\seealso{\code{\link{aidsEst}}, \code{\link{aidsElas}}.}
+\seealso{\code{\link{aidsEst}}.}
 
 \author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
 
@@ -40,7 +37,7 @@
    estResult <- aidsEst( c( "pFood1", "pFood2", "pFood3", "pFood4" ),
       c( "wFood1", "wFood2", "wFood3", "wFood4" ), "xFood",
       data = Blanciforti86, priceIndex = "SL" )
-   print( summary( estResult ) )
+   logLik( estResult )
 }
 
 \keyword{models}

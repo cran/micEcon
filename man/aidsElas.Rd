@@ -10,28 +10,36 @@
 }
 
 \usage{
-   aidsElas( coef, shares, prices = NULL, method = "AIDS",
-      quantNames = NULL, priceNames = NULL, coefVcov = NULL, df = NULL )
+   aidsElas( coef, prices = NULL, shares = NULL, totExp = NULL,
+      method = "AIDS", priceIndex = "TL", basePrices = NULL, baseShares = NULL,
+      quantNames = NULL, priceNames = NULL, coefCov = NULL, df = NULL )
 
-   \method{elas}{aidsEst}( object, method = NULL, ... )
+   \method{elas}{aidsEst}( object, method = NULL, observedShares = FALSE, ... )
 
    \method{print}{aidsElas}( x, ... )
 }
 
 \arguments{
    \item{coef}{a list containing the coefficients alpha, beta and gamma.}
+   \item{prices}{a vector of the prices at which the elasticities should be calculated.}
    \item{shares}{a vector of the shares at which the elasticities should be calculated.}
-   \item{prices}{a vector of the prices at which the elasticities should be calculated
-      (only needed if method 'AIDS' is used).}
+   \item{totExp}{total expenditure at which the elasticities should be calculated.}
    \item{method}{the elasticity formula to be used (see details).}
+   \item{priceIndex}{the price index (see details).}
+   \item{basePrices}{a vector specifying the base prices for the
+      Paasche, Laspeyres, and Tornqvist price index.}
+   \item{baseShares}{a vector specifying the base expenditure shares for the
+      Laspeyres, simplified Laspeyres, and Tornqvist index.}
    \item{quantNames}{an optional vector of strings containing the names of
       the quantities to label elasticities.}
    \item{priceNames}{an optional vector of strings containing the names of
       the prices to label elasticities.}
-   \item{coefVcov}{variance covariance matrix of the coefficients (optional).}
+   \item{coefCov}{variance covariance matrix of the coefficients (optional).}
    \item{df}{degrees of freedom to calculate P-values of the elasticities 
       (optional).}
    \item{object}{an object of class \code{aidsEst}.}
+   \item{observedShares}{logical. Using observed shares for calculating the
+      demand elasticities?}
    \item{x}{an object of class \code{aidsElas}.}
    \item{...}{additional arguments of \code{elas.aidsEst}
       are passed to \code{aidsEla};
@@ -40,6 +48,15 @@
 }
 
 \details{
+   Argument \code{priceIndex} has two effects:
+   first it determines the price index that is used
+   for calculating (fitted) expenditure shares,
+   if argument \code{shares} is not provided (see \code{\link{aidsCalc}});
+   second it determines which version of the formulas for calculating
+   demand elasticities of the LA-AIDS are used,
+   because formulas \code{B1}/\code{LA}, \code{B2}, and \code{Go}/\code{Ch}
+   have different versions depending on the price index.
+
    \code{elas.aidsEst} is a wrapper function to \code{aidsElas}
    that extracts the
    estimated coefficients (\code{coef}),
@@ -75,6 +92,7 @@
 \value{
   a list of class \code{aidsElas} containing following elements:
   \item{method}{the elasticity formula used to calculate these elasticities.}
+  \item{priceIndex}{the price index used (see details).}
   \item{df}{degrees of freedom to calculate P-values of the elasticities
     (only if argument \code{df} is provided).}
   \item{exp}{vector of expenditure elasticities.}
@@ -129,10 +147,11 @@
 
    estResult <- aidsEst( c( "pFood1", "pFood2", "pFood3", "pFood4" ),
       c( "wFood1", "wFood2", "wFood3", "wFood4" ), "xFood",
-      data = Blanciforti86, method = "LA:L" )
+      data = Blanciforti86 )
    wMeans <- colMeans( Blanciforti86[ , c( "wFood1", "wFood2",
       "wFood3", "wFood4" ) ] )
-   aidsElas( estResult$coef, wMeans, method = "Ch" )
+   aidsElas( estResult$coef, shares = wMeans, method = "Ch",
+      priceIndex = "S" )
 
    ## Repeating the evaluation of different elasticity formulas of
    ## Green & Alston (1990)
@@ -142,12 +161,12 @@
    # AIDS estimation and elasticities
    estResultA <- aidsEst( priceNames, shareNames, "xFood",
       data = Blanciforti86[ -1, ],
-      method = "IL:L", maxiter = 100 )
+      method = "IL", maxiter = 100 )
    diag( elas( estResultA, method = "AIDS" )$marshall )
 
    # LA-AIDS estimation
    estResultLA <- aidsEst( priceNames, shareNames, "xFood",
-      data = Blanciforti86, method = "LA:SL", maxiter = 100 )
+      data = Blanciforti86, priceIndex = "SL", maxiter = 100 )
 
    # LA-AIDS + formula of AIDS
    diag( elas( estResultLA, method = "AIDS" )$marshall )

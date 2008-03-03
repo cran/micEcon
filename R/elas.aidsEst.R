@@ -1,4 +1,4 @@
-elas.aidsEst <- function( object, method = NULL, ... ) {
+elas.aidsEst <- function( object, method = NULL, observedShares = FALSE, ... ) {
 
    # specify default value for argument method
    if( is.null ( method ) ) {
@@ -17,17 +17,31 @@ elas.aidsEst <- function( object, method = NULL, ... ) {
          sep = "" ) )
    }
 
-   # to avoid warning message in aidsElas
-   if( method %in% c( "Go", "Ch", "EU" ) ) {
-      object$pMeans <- NULL
+   if( object$method == "LA" ) {
+      priceIndex <- object$priceIndex
+   } else if( object$method %in% c( "IL", "MK" ) ) {
+      priceIndex <- "TL"
+   } else {
+      stop( "unknown element 'method' of argument 'object'" )
+   }
+
+   if( observedShares ) {
+      shares <- object$wMeans
+      totExp <- NULL
+   } else {
+      shares <- NULL
+      totExp <- object$xtMean
    }
 
    # calculate demand elasticities
-   result  <- aidsElas( coef = object$coef,
-      shares = object$wMeans, prices = object$pMeans,
+   result  <- aidsElas( coef = coef( object ),
+      shares = shares, prices = object$pMeans, totExp = totExp,
       method = method,
+      priceIndex = priceIndex,
+      basePrices = object$basePrices,
+      baseShares = object$baseShares,
       priceNames = object$priceNames,
-      coefVcov = object$coef$allcov, df = object$est$df, ... )
+      coefCov = vcov( object ), df = df.residual( object ), ... )
 
    return( result )
 }

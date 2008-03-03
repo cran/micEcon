@@ -42,7 +42,7 @@
    ## Repeating the demand analysis of Blanciforti, Green & King (1986)
    estResult <- aidsEst( c( "pFood1", "pFood2", "pFood3", "pFood4" ),
       c( "wFood1", "wFood2", "wFood3", "wFood4" ), "xFood",
-      data = Blanciforti86, method = "IL:L" )
+      data = Blanciforti86, method = "IL" )
    summary( elas( estResult ) )
 }
 

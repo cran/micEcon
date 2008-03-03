@@ -1,8 +1,8 @@
-aidsElasJacobian <- function( coef, shares, prices = NULL, method = "AIDS",
+.aidsElasJacobian <- function( coef, shares, prices = NULL, method = "AIDS",
       quantNames = NULL, priceNames = NULL ) {
 
    nGoods <- length( coef$alpha )
-   nCoef  <- length( coef$all )
+   nCoef  <- ( nGoods + 2 ) * nGoods
 
    if( length( coef$alpha ) != length( coef$beta ) ) {
       stop( "arguments 'alpha' and 'beta' must have the same length" )
@@ -45,7 +45,7 @@ aidsElasJacobian <- function( coef, shares, prices = NULL, method = "AIDS",
          rownames( result ) <- paste( symbol, rep( quantNames, each = nGoods ),
             rep( priceNames, nGoods ) )
       }
-      colnames( result ) <- names( coef$all )
+      colnames( result ) <- .aidsCoefNamesAll( nGoods, 0 )
       return( result )
    }
 

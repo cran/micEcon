@@ -9,9 +9,10 @@
 }
 
 \usage{
-aidsEst( priceNames, shareNames, totExpName, data = NULL,
-      instNames = NULL, shifterNames = NULL,
-      method = "LA:L", hom = TRUE, sym = TRUE, pxBase,
+aidsEst( priceNames, shareNames, totExpName, data,
+      method = "LA", priceIndex = "Ls", pxBase = 1,
+      hom = TRUE, sym = TRUE,
+      shifterNames = NULL, instNames = NULL,
       estMethod = ifelse( is.null( instNames ), "SUR", "3SLS" ),
       ILmaxiter = 50, ILtol = 1e-5, alpha0 = 0, restrict.regMat = FALSE, ... )
 
@@ -23,16 +24,20 @@ aidsEst( priceNames, shareNames, totExpName, data = NULL,
    \item{shareNames}{a vector of strings containing the names of the expenditure
       shares.}
    \item{totExpName}{a string containing the variable name of total expenditure.}
-   \item{data}{a data frame containing the data.}
-   \item{instNames}{a vector of strings containing the names of instrumental
-      variables.}
-   \item{shifterNames}{an optional vector of strings containing the names of
-      the demand shifters.}
-   \item{method}{the method to estimate the AIDS (see details).}
-   \item{hom}{logical. Should the homogeneity condition be imposed?}
-   \item{sym}{logical. Should the symmetry condition be imposed?}
+   \item{data}{a data frame containing all required variables.}
+   \item{method}{character string specifying the method to estimate the AIDS:
+      either 'LA' or 'IL' (see deatils).}
+   \item{priceIndex}{character string specifying the price index
+      for the 'Linear Approximation':
+      either 'S', 'SL', 'P', 'L', 'Ls', or 'T' (see details).}
    \item{pxBase}{The base to calculate the LA-AIDS price indices
       (see \code{\link{aidsPx}}).}
+   \item{hom}{logical. Should the homogeneity condition be imposed?}
+   \item{sym}{logical. Should the symmetry condition be imposed?}
+   \item{shifterNames}{an optional vector of strings containing the names of
+      the demand shifters.}
+   \item{instNames}{a vector of strings containing the names of instrumental
+      variables.}
    \item{estMethod}{estimation method (e.g. 'SUR' or '3SLS',
       see \code{\link[systemfit]{systemfit}}).}
    \item{ILmaxiter}{maximum number of iterations of the
@@ -50,22 +55,25 @@ aidsEst( priceNames, shareNames, totExpName, data = NULL,
 }
 
 \details{
-   At the moment two basic estimation methods are available:
+   Argument \code{method} can specify two different estimation methods:
    The 'Linear Approximate AIDS' (LA) and the 'Iterative Linear Least Squares
    Estimator' (IL) proposed by Blundell and Robin (1999).\cr
-   The LA-AIDS can be estimated with
+   Argument \code{priceIndex} can specify six different price indices
+   for the LA-AIDS:
    \begin{itemize}
-   \item Stone price index ('LA:S'),
-   \item Stone price index with lagged shares ('LA:SL'),
-   \item loglinear analogue to the Paasche price index ('LA:P'),
-   \item loglinear analogue of the Laspeyres price index ('LA:L'), and
-   \item Tornqvist price index ('LA:T').
+   \item Stone price index ('S'),
+   \item Stone price index with lagged shares ('SL'),
+   \item loglinear analogue to the Paasche price index ('P'),
+   \item loglinear analogue of the Laspeyres price index ('L'),
+   \item simplified loglinear analogue of the Laspeyres price index ('Ls'), and
+   \item Tornqvist price index ('T').
    \end{itemize}
 
    The 'Iterative Linear Least Squares Estimator' (IL) needs starting
-   values for the (translog) price index. The price index used to
-   calculate the initial price index can be specified in the same way
-   as for the LA-AIDS (e.g. 'IL:L')
+   values for the (translog) price index.
+   Starting values are taken from an initial estimation
+   of the 'Linear Approximate AIDS' (LA) with the price index
+   specified by argument \code{priceIndex}.
 }
 
 \value{
@@ -88,14 +96,19 @@ aidsEst( priceNames, shareNames, totExpName, data = NULL,
    \item{ILiter}{number of iterations of the 'Iterated Linear Least Squares
       Estimation'.}
    \item{method}{the method used to estimate the aids (see details).}
-   \item{px}{the name of the price index (see details).}
+   \item{priceIndex}{the name of the price index (see details).}
    \item{lnp}{log of the price index used for estimation.}
    \item{pMeans}{means of the prices.}
    \item{wMeans}{means of the expenditure shares.}
+   \item{xtMean}{mean of total expenditure.}
    \item{call}{the call of \code{aidsEst}.}
    \item{priceNames}{names of the prices.}
    \item{shareNames}{names of the expenditure shares.}
    \item{totExpName}{name of the variable for total expenditure.}
+   \item{basePrices}{the base prices of the Paasche, Laspeyres,
+      or Tornqvist price index.}
+   \item{baseShares}{the base shares of the Laspeyres, simplified Laspeyres,
+      or Tornqvist price index.}
 }
 
 \references{
@@ -125,7 +138,7 @@ aidsEst( priceNames, shareNames, totExpName, data = NULL,
    ##       which leads to slightly different results
    estResult <- aidsEst( c( "pFood1", "pFood2", "pFood3", "pFood4" ),
       c( "wFood1", "wFood2", "wFood3", "wFood4" ), "xFood",
-      data = Blanciforti86, method = "LA:SL", maxiter = 100 )
+      data = Blanciforti86, priceIndex = "SL", maxiter = 100 )
    print( estResult )
    elas( estResult )
 

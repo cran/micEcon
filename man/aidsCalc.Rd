@@ -1,5 +1,6 @@
 \name{aidsCalc}
 \alias{aidsCalc}
+\alias{predict.aidsEst}
 \title{ Shares and Quantities of the Almost Ideal Demand System }
 
 \description{
@@ -9,23 +10,49 @@
 }
 
 \usage{
-   aidsCalc( priceNames, totExpName, data = NULL, px = "TL", lnp = NULL,
-      coef = NULL, alpha0 = ifelse( is.null( coef$alpha0 ), 0,
-      coef$alpha0 ) )
+aidsCalc( priceNames, totExpName, coef, data, priceIndex = "TL",
+   basePrices = NULL, baseShares = NULL )
+
+\method{predict}{aidsEst}( object, newdata = NULL,
+   observedShares = FALSE, ... )
+
 }
 
 \arguments{
    \item{priceNames}{a vector of strings containing the names of the prices.}
    \item{totExpName}{a string containing the variable name of total expenditure.}
+   \item{coef}{a list containing the coefficients alpha, beta, gamma,
+      and (only for the translog price index) alpha0.}
    \item{data}{a data frame containing the data.}
-   \item{px}{prices index (see \code{\link{aidsPx}}).}
-   \item{lnp}{log of the price index (only required if '\code{px}' is not 'TL').}
-   \item{coef}{a list containing the coefficients alpha, beta and gamma.}
-   \item{alpha0}{coefficient \eqn{\alpha_0} of the translog price index.}
+   \item{priceIndex}{a character string specifying the price index
+      (see \code{\link{aidsPx}})
+      or a numeric vector providing the log values of the price index.}
+   \item{basePrices}{a vector specifying the base prices for the
+      Paasche, Laspeyres, and Tornqvist price index.}
+   \item{baseShares}{a vector specifying the base expenditure shares for the
+      Laspeyres, simplified Laspeyres, and Tornqvist index.}
+   \item{object}{an object of class \code{aidsEst}.}
+   \item{newdata}{an optional data frame which should contain the variables
+      for the prediction.
+      If omitted, the data frame used for the estimation is used
+      also for the prediction.}
+   \item{observedShares}{logical. Using observed shares? (see details).}
+   \item{...}{currently not used.}
+}
+
+\details{
+   The \code{predict} method for objects of class \code{aidsEst}
+   extracts all relevant elements from an object returned by \code{aidsEst}
+   and passes them as arguments to \code{aidsCalc}.
+   The optional argument \code{observedShares} determines
+   whether fitted (default) or observed expenditure shares are
+   used in the price index of the LA-AIDS.
 }
 
 \value{
-   \code{aidsCalc} returns a list with following elements:
+   \code{aidsCalc} and
+   the \code{predict} method for objects of class \code{aidsEst}
+   return a list with following elements:
    \item{shares}{a data frame containing the calculated expenditure shares.}
    \item{quantities}{a data frame containing the calculated quantites.}
 }
@@ -50,26 +77,37 @@
 
    ## LA-AIDS
    estResult <- aidsEst( priceNames, shareNames, "xFood",
-      data = Blanciforti86, method = "LA:L" )
+      data = Blanciforti86, priceIndex = "S" )
 
-   lnp <- aidsPx( "L", priceNames, shareNames, Blanciforti86 )
-
-   fitted <- aidsCalc( priceNames, "xFood", Blanciforti86,
-      coef = estResult$coef, lnp = lnp )
-
+   # using observed shares in the Stone index
+   lnp <- aidsPx( "S", priceNames, Blanciforti86, shareNames )
+   fitted <- aidsCalc( priceNames, "xFood", coef = coef( estResult ),
+      data = Blanciforti86, priceIndex = lnp )
    fitted$shares  # equal to estResult$wFitted
    fitted$quant   # equal to estResult$qFitted
+   # now the same with the predict method
+   fitted2 <- predict( estResult, observedShares = TRUE )
+   all.equal( fitted, fitted2 ) 
+
+   # using fitted shares in the Stone index
+   fitted <- aidsCalc( priceNames, "xFood", coef = estResult$coef,
+      data = Blanciforti86, priceIndex = "S" )
+   # now the same with the predict method
+   fitted2 <- predict( estResult )
+   all.equal( fitted, fitted2 ) 
 
    ## AIDS
    estResult <- aidsEst( priceNames, shareNames, "xFood",
-      data = Blanciforti86, method = "IL:L" )
+      data = Blanciforti86, method = "IL" )
 
-   fitted <- aidsCalc( priceNames, "xFood", Blanciforti86,
-      coef = estResult$coef )
+   fitted <- aidsCalc( priceNames, "xFood", coef = coef( estResult ),
+      data = Blanciforti86 )
 
    fitted$shares  # equal to estResult$wFitted
    fitted$quant   # equal to estResult$qFitted
 
+   fitted2 <- predict( estResult )
+   all.equal( fitted, fitted2 ) 
 }
 
 \keyword{ models }

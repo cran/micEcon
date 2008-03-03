@@ -1,5 +1,6 @@
-aidsCoef <- function( coef, nGoods, nShifter = 0, cov = NULL, df = 1,
-      LA = TRUE, priceNames = NULL, shareNames = NULL, shifterNames = NULL ) {
+.aidsCoef <- function( coef, nGoods, nShifter = 0, cov = NULL, df = 1,
+      LA = TRUE, priceNames = NULL, shareNames = NULL, shifterNames = NULL,
+      alpha0 = NULL ) {
    # nGoods <- -0.5 + ( 2.25 + nrow( array( coef ) ) )^0.5
    nExogEq <- nGoods + 2 + nShifter
    if( LA ) {
@@ -68,6 +69,7 @@ aidsCoef <- function( coef, nGoods, nShifter = 0, cov = NULL, df = 1,
       colnames( delta ) <- shifterNames
    }
    result <- list()
+   result$alpha0 <- alpha0
    result$alpha <- alpha
    result$beta  <- beta
    result$gamma <- gamma

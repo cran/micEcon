@@ -19,6 +19,14 @@ Type 'q()' to quit R.
 Loading required package: systemfit
 Loading required package: Matrix
 Loading required package: lattice
+
+Attaching package: 'Matrix'
+
+
+	The following object(s) are masked from package:stats :
+
+	 xtabs 
+
 Loading required package: car
 Loading required package: lmtest
 Loading required package: zoo

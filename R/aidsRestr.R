@@ -1,4 +1,4 @@
-aidsRestr <- function( nGoods, nShifter = 0, hom = TRUE, sym = TRUE,
+.aidsRestr <- function( nGoods, nShifter = 0, hom = TRUE, sym = TRUE,
       LA = TRUE, restrict.regMat = FALSE ) {
 
    if( sym && !hom ) {

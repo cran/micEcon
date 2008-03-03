@@ -1,7 +1,7 @@
 aidsEst <- function( priceNames, shareNames, totExpName,
-      data = NULL, instNames = NULL,
-      shifterNames = NULL, method = "LA:L", hom = TRUE, sym = TRUE,
-      pxBase = 1,
+      data, method = "LA", priceIndex = "Ls", pxBase = 1,
+      hom = TRUE, sym = TRUE,
+      shifterNames = NULL, instNames = NULL,
       estMethod = ifelse( is.null( instNames ), "SUR", "3SLS" ),
       ILmaxiter = 50, ILtol = 1e-5, alpha0 = 0, restrict.regMat = FALSE, ... ) {
 
@@ -12,33 +12,31 @@ aidsEst <- function( priceNames, shareNames, totExpName,
    nShifter <- length( shifterNames )
    extractPx <- function( method ) {
       px <- substr( method, 4, nchar( method ) )
-      if( !( px %in% c( "S", "SL", "P", "L", "T" ) ) ) {
-         stop( "no valid price index specified!" )
-      }
       return( px )
    }
 
-   if( substr( method, 1, 2 ) == "LA" ) {
-      if( nchar( method ) < 4 ) {
-         warning( "No price index specified: using Laspeyres price index" )
-         px <- "L"
+   if( ! method %in% c( "LA", "IL", "MK" ) ) {
+      if( nchar( method ) >= 4 && substr( method, 3, 3 ) == ":" &&
+         substr( method, 1, 2 ) %in% c( "LA", "IL", "MK" ) ) {
+            priceIndex <- extractPx( method )
+            warning( "using price index specified in argument 'method',",
+               " ignoring argument 'priceIndex'" )
+         method <- substr( method, 1, 2 )
       } else {
-         px <- extractPx( method )
+         stop( "argument 'method' must be either",
+            " 'LA' (for 'Linear Approximation') or",
+            " 'IL' (for 'Iterated Linear Least Squares')" )
       }
-   } else if ( substr( method, 1, 2 ) %in% c( "MK", "IL" ) ) {
-      if( nchar( method ) < 4 ) {
-         warning( "No initial price index specified:",
-            " using Laspeyres price index" )
-         px <- "L"
-      } else {
-         px <- extractPx( method )
-      }
-   } else {
-      stop( "at the moment only the methods",
-         " 'Linear Approximation' (LA) and",
-         " 'Iterated Linear Least Squares' (IL)",
-         " are supported" )
+   } 
+
+   if( !( priceIndex %in% c( "S", "SL", "P", "L", "Ls", "T" ) ) ) {
+      stop( "argument 'priceIndex' that specifies the price index must be either",
+         " 'S' (Stone index), 'SL' (Stone index with lagges shares),",
+         " 'P' (Paasche index), 'L' (Laspeyres index),",
+         " 'Ls' (Laspeyres index, simplified), or",
+         " 'T' (Tornqvist index)" )
    }
+
    if( sym && !hom ) {
       hom <- TRUE  # symmetry implies homogeneity
       warning( "symmetry implies homogeneity: imposing additionally homogeniety" )
@@ -50,17 +48,19 @@ aidsEst <- function( priceNames, shareNames, totExpName,
       data <- data[ !is.na( rowSums( data[ , allVarNames ] ) ), ]
    }
    nObs   <- nrow( data )      # number of observations
-   sample <- if( px == "SL") c( 2:nObs ) else c( 1:nObs )
+   sample <- if( priceIndex == "SL") c( 2:nObs ) else c( 1:nObs )
    result <- list()
    result$call <- match.call()
    wMeans <- numeric( nGoods )  # mean expenditure shares
    pMeans <- numeric( nGoods )  # mean prices
+   xtMean <- mean( data[[ totExpName ]][ sample ] )
    for( i in seq( nGoods ) ) {
       wMeans[ i ] <- mean( data[[ shareNames[ i ] ]][ sample ] )
       pMeans[ i ] <- mean( data[[ priceNames[ i ] ]][ sample ] )
    }
    # log of price index
-   lnp  <- aidsPx( px, priceNames, shareNames, data, base = pxBase )
+   lnp  <- aidsPx( priceIndex, priceNames, shareNames = shareNames, data = data,
+      base = pxBase )
    # prepare data.frame
    sysData <- data.frame( xt = data[[ totExpName ]],
       lxtr = ( log( data[[ totExpName ]] ) - lnp ) )
@@ -86,9 +86,9 @@ aidsEst <- function( priceNames, shareNames, totExpName,
          sysData[[ paste( "s", i, sep = "" ) ]] <- data[[ shifterNames[ i ] ]]
       }
    }
-   restr <- aidsRestr( nGoods = nGoods, hom = hom, sym = sym, restrict.regMat = restrict.regMat, nShifter = nShifter )
+   restr <- .aidsRestr( nGoods = nGoods, hom = hom, sym = sym, restrict.regMat = restrict.regMat, nShifter = nShifter )
       # restrictions for homogeneity and symmetry
-   system <- aidsSystem( nGoods = nGoods, nShifter = nShifter ) # LA-AIDS equation system
+   system <- .aidsSystem( nGoods = nGoods, nShifter = nShifter ) # LA-AIDS equation system
    # estimate system
    if( restrict.regMat ) {
       est <- systemfit( system, estMethod, data = sysData, restrict.regMat = restr,
@@ -97,14 +97,14 @@ aidsEst <- function( priceNames, shareNames, totExpName,
       est <- systemfit( system, estMethod, data = sysData, restrict.matrix = restr,
          inst = ivFormula, ... )
    }
-   if( substr( method, 1, 2 ) == "LA" ) {
-      result$coef <- aidsCoef( coef( est ), nGoods = nGoods, nShifter = nShifter,
+   if( method == "LA" ) {
+      result$coef <- .aidsCoef( coef( est ), nGoods = nGoods, nShifter = nShifter,
          cov = vcov( est ), priceNames = priceNames, shareNames = shareNames,
          shifterNames = shifterNames, df = df.residual( est ) )   # coefficients
       result$wFitted <- aidsCalc( priceNames, totExpName, data = data,
-         coef = result$coef, lnp = lnp )$shares   # estimated budget shares
+         coef = result$coef, priceIndex = lnp )$shares   # estimated budget shares
       iter <- est$iter
-   } else if( substr( method, 1, 2 ) %in% c( "MK", "IL" ) ) {
+   } else if( method %in% c( "MK", "IL" ) ) {
       b       <- coef( est )# coefficients
       bd      <- b          # difference of coefficients between
                             # this and previous step
@@ -115,9 +115,9 @@ aidsEst <- function( priceNames, shareNames, totExpName,
          ILiter <- ILiter + 1      # iterations of IL Loop
          bl     <- b              # coefficients of previous step
          sysData$lxtr <- log( data[[ totExpName ]] ) -
-            aidsPx( "TL", priceNames, shareNames, data = data,
-            alpha0 = alpha0,
-            coef = aidsCoef( coef( est ), nGoods = nGoods, nShifter = nShifter ) )
+            aidsPx( "TL", priceNames, shareNames = shareNames, data = data,
+            coef = .aidsCoef( coef( est ), nGoods = nGoods, nShifter = nShifter,
+               alpha0 = alpha0 ) )
             # real total expenditure using Translog price index
          if( restrict.regMat ) {
             est <- systemfit( system, estMethod, data = sysData, restrict.regMat = restr,
@@ -127,15 +127,16 @@ aidsEst <- function( priceNames, shareNames, totExpName,
                inst = ivFormula, ... )    # estimate system
          }
          iter <- c( iter, est$iter ) # iterations of each estimation
-         b    <- coef( est ) # coefficients
+         weightNewCoef <- 1
+         b    <- weightNewCoef * coef( est ) + ( 1 - weightNewCoef ) * b # coefficients
          bd   <- b - bl  # difference between coefficients from this
                          # and previous step
       }
       # calculating log of "real" (deflated) total expenditure
       sysData$lxtr <- log( data[[ totExpName ]] ) -
          aidsPx( "TL", priceNames, data = data,
-         alpha0 = alpha0,
-         coef = aidsCoef( coef( est ), nGoods = nGoods, nShifter = nShifter ) )
+         coef = .aidsCoef( coef( est ), nGoods = nGoods, nShifter = nShifter,
+            alpha0 = alpha0 ) )
       # calculating matrix G
       Gmat <- cbind( rep( 1, nObs ), sysData$lxtr )
       for( i in 1:( nGoods ) ) {
@@ -154,10 +155,10 @@ aidsEst <- function( priceNames, shareNames, totExpName,
          }
       }
       # calculating matrix J
-      jacobian <- aidsJacobian( coef( est ), priceNames, totExpName, data = data,
+      jacobian <- .aidsJacobian( coef( est ), priceNames, totExpName, data = data,
          shifterNames = shifterNames, alpha0 = alpha0 )
       if( hom ) {
-         modRegMat <- aidsRestr( nGoods = nGoods, nShifter = nShifter,
+         modRegMat <- .aidsRestr( nGoods = nGoods, nShifter = nShifter,
             hom = hom, sym = sym, restrict.regMat = TRUE )
       } else {
          modRegMat <- diag( ( nGoods - 1 ) * ( nGoods + 2 + nShifter ) )
@@ -170,12 +171,12 @@ aidsEst <- function( priceNames, shareNames, totExpName,
       JmatInv <- modRegMat %*% solve( Jmat, t( modRegMat ) )
       bcov <- JmatInv  %*% ( est$residCov %x% crossprod( Gmat ) ) %*%
          t( JmatInv )
-      result$coef <- aidsCoef( coef( est ), nGoods = nGoods, nShifter = nShifter,
+      result$coef <- .aidsCoef( coef( est ), nGoods = nGoods, nShifter = nShifter,
          cov = bcov, priceNames = priceNames, shareNames = shareNames,
          shifterNames = shifterNames, df = df.residual( est ) )  # coefficients
       result$coef$alpha0 <- alpha0
       result$wFitted <- aidsCalc( priceNames, totExpName, data = data,
-         coef = result$coef, alpha0 = alpha0, px = "TL" )$shares
+         coef = result$coef, priceIndex = "TL" )$shares
          # estimated budget shares
       result$ILiter <- ILiter
    }
@@ -218,13 +219,16 @@ aidsEst <- function( priceNames, shareNames, totExpName,
    result$iter <- iter
    result$est <- est
    result$method <- method
-   result$px  <- px
+   result$priceIndex <- priceIndex
    result$lnp <- lnp
    result$wMeans <- wMeans
    result$pMeans <- pMeans
+   result$xtMean <- xtMean
    result$shareNames <- shareNames
    result$priceNames <- priceNames
    result$totExpName <- totExpName
+   result$basePrices <- attributes( result$lnp )$basePrices
+   result$baseShares <- attributes( result$lnp )$baseShares
 
    class( result ) <- "aidsEst"
    return( result )

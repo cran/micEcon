@@ -1,5 +1,5 @@
 
-R version 2.6.0 (2007-10-03)
+R version 2.6.1 (2007-11-26)
 Copyright (C) 2007 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
@@ -17,6 +17,19 @@ Type 'q()' to quit R.
 
 > library( micEcon )
 Loading required package: systemfit
+Loading required package: Matrix
+Loading required package: lattice
+
+Attaching package: 'Matrix'
+
+
+	The following object(s) are masked from package:stats :
+
+	 xtabs 
+
+Loading required package: car
+Loading required package: lmtest
+Loading required package: zoo
 > 
 > ## *****************************
 > ## Testing writeFront41in
