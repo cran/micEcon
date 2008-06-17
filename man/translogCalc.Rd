@@ -7,20 +7,24 @@
 }
 
 \usage{
-   translogCalc( xNames, data, allCoef, quadHalf = TRUE, logValues = FALSE  )
+   translogCalc( xNames, data, coef, quadHalf = TRUE, dataLogged = FALSE  )
 }
 
 \arguments{
    \item{xNames}{a vector of strings containing the names of the
       independent variables.}
    \item{data}{dataframe containing the data.}
-   \item{allCoef}{vector containing all coefficients.}
+   \item{coef}{vector containing all coefficients.}
    \item{quadHalf}{logical. Multiply the quadratic terms by one half?}
-   \item{logValues}{logical. Are the values in \code{data} already logged?}
+   \item{dataLogged}{logical. Are the values in \code{data} already logged?}
 }
 
 \value{
-   a vector containing the endogenous variable.
+   A vector containing the endogenous variable.
+   If the inputs are provided as logarithmic values
+   (argument \code{dataLogged} is \code{TRUE}),
+   the endogenous variable is returned as logarithm;
+   non-logarithmic values are returned otherwise.
 }
 
 \seealso{\code{\link{translogEst}} and \code{\link{translogDeriv}}.}
@@ -41,7 +45,7 @@
       germanFarms )
 
    translogCalc( c( "qLabor", "land", "qVarInput", "time" ), germanFarms,
-      estResult$allCoef )
+      coef( estResult ) )
    #equal to estResult$fitted
 }
 

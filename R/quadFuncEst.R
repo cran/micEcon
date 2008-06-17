@@ -25,13 +25,15 @@ quadFuncEst <- function( yName, xNames, data, quadHalf = TRUE, exVarScale = 1 ) 
    result$lm <- lm( as.formula( estFormula ), estData )
    result$residuals <- result$lm$residuals
    result$fitted    <- result$lm$fitted.values
-   result$coef <- list()
-   result$coef$alpha0 <- result$lm$coefficients[ 1 ]
-   result$coef$alpha  <- result$lm$coefficients[ 2:( nExog + 1 ) ]
-   result$coef$beta   <- vecli2m( result$lm$coefficients[ ( nExog + 2 ):length(
-      result$lm$coefficients) ] )
-   result$allCoef <- result$lm$coefficients
-   result$allCoefCov <- vcov( result$lm )
+
+   # coefficients and their covariance matrix
+   result$coef      <- coef( result$lm )
+   result$coefCov   <- vcov( result$lm )
+   coefNames <- .quadFuncCoefNames( nExog )
+   names( result$coef )      <- coefNames
+   rownames( result$coefCov ) <- coefNames
+   colnames( result$coefCov ) <- coefNames
+
    result$r2    <- summary( result$lm )$r.squared
    result$r2bar <- summary( result$lm )$adj.r.squared
    result$nObs  <- length( result$lm$residuals )

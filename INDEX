@@ -12,12 +12,17 @@ Blanciforti86           U.S. consumption data
 Bleymueller79E25.1      Artificial Prices and Quantities
 checkConsist            Testing Theoretical Consistency
 coef.aidsEst            Coefficients of an Almost Ideal Demand System
+coef.front41Output      Coefficients from Frontier 4.1
+coef.quadFuncEst        Coefficients of a Quadratic Function
 coefTable               Coefficient Table
+coef.translogEst        Coefficients of a Translog Function
 Coelli                  Data provided with Coelli's Frontier 4.1
 df.residual.aidsEst     Covariance matrix of an Almost Ideal Demand
                         System
 elas                    Calculating and returning elasticities
 fitted.aidsEst          Fitted values of an Almost Ideal Demand System
+front41ReadOutput       Read output of Frontier 4.1
+front41WriteInput       Write input files for Frontier 4.1
 germanFarms             Output and Inputs of Farms in West-Germany
 insertCol               Insert Column into a Matrix
 insertRow               Insert Row into a Matrix
@@ -35,11 +40,11 @@ quadFuncDeriv           Derivatives of a quadratic function
 quadFuncEst             Estimate a quadratic function
 quantityIndex           Calculate Quantity Indices
 quasiconcavity          Test for quasiconcavity / quasiconvexity
-readFront41out          Read output of Frontier 4.1
 residuals.snqProfitEst
                         Residuals of an SNQ profit function
+riceProdPhil            Rice Production in the Philippines
 rSquared                Calculate R squared value
-semidefiniteness        Test for negative and positive semidefiniteness
+semidefiniteness        Positive or Negative Semidefiniteness
 snqProfitCalc           Calculations with the SNQ Profit function
 snqProfitEla            Price Elasticities of SNQ Profit function
 snqProfitEst            Estimation of a SNQ Profit function
@@ -56,12 +61,18 @@ summary.aidsElas        Summarizing the Elasticities of an Almost Ideal
                         Demand System
 summary.aidsEst         Summarizing the Estimation of an Almost Ideal
                         Demand System
+summary.front41Output   Summarizing the Estimation of Frontier 4.1
 symMatrix               Symmetric Matrix
 translogCalc            Calculate dependent variable of a translog
                         function
+translogCheckCurvature
+                        Curvature of a Translog Function
+translogCheckMono       Monotonicity of a Translog Function
 translogDeriv           Derivatives of a translog function
 translogEst             Estimate a translog function
 translogHessian         Hessian matrix of a translog function
+translogMonoRestr       Monotonicity Restrictions of a Translog
+                        Function
 triang                  Upper triangular matrix from a vector
 USMeatConsump           U.S. Meat Consumption Data
 vcov.aidsEst            Covariance matrix of an Almost Ideal Demand
@@ -71,4 +82,4 @@ vecli2m                 Convert vector of linear independent values
                         into a Matrix
 veclipos                Position in a vector of linear independent
                         values
-writeFront41in          Write instruction file for Frontier 4.1
+writeFront41in          Deprecated Functions in the micEcon package

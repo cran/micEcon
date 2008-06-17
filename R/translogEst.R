@@ -1,9 +1,9 @@
 translogEst <- function( yName, xNames, data, quadHalf = TRUE,
-   logValues = FALSE ) {
+   dataLogged = FALSE ) {
 
    checkNames( c( yName, xNames ), names( data ) )
 
-   if( logValues ) {
+   if( dataLogged ) {
       logData   <- data
    } else {
       logData <- data.frame( no = c( 1:nrow( data ) ) )
@@ -18,7 +18,7 @@ translogEst <- function( yName, xNames, data, quadHalf = TRUE,
    result$r2nonLog <- rSquared( exp( logData[[ yName ]] ),
       exp( logData[[ yName ]] ) - exp( result$fitted ) )
 
-   if( !logValues ){
+   if( !dataLogged ){
       result$fitted <- exp( result$fitted )
    }
 

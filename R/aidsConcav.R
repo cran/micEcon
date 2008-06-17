@@ -43,7 +43,7 @@ aidsConcav <- function( priceNames, totExpName, coef, data,
          diag( shareMat[ t, ] ) + shareMat[ t, ] %*% t( shareMat[ t, ] )
 
       result$concavity[ t ] <- semidefiniteness( result$cMatrices[[ t ]][ 1:( nGoods - 1),
-         1:( nGoods - 1) ] )$negative
+         1:( nGoods - 1) ], positive = FALSE )
    }
 
    result$nValidObs <- sum( !is.na( result$concavity ) )

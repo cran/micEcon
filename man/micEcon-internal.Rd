@@ -8,7 +8,6 @@
 \alias{snqProfitRestrict}
 \alias{snqProfitSystem}
 \alias{snqProfitTestCoef}
-\alias{translogMonoRestr}
 % Document the following:
 
 %%%%

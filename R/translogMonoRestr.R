@@ -1,12 +1,12 @@
 translogMonoRestr <- function( xNames, data, quadHalf = TRUE,
-   logValues = FALSE, area = FALSE ) {
+   dataLogged = FALSE, box = FALSE ) {
 
    checkNames( c( xNames ), names( data ) )
 
    nExog <- length( xNames )
    nCoef <- 1 + nExog + nExog * ( nExog + 1 ) / 2
 
-   if( logValues ) {
+   if( dataLogged ) {
       logData <- data
    } else {
       logData   <- data.frame( no = c( 1:nrow( data ) ) )
@@ -15,7 +15,7 @@ translogMonoRestr <- function( xNames, data, quadHalf = TRUE,
       }
    }
 
-   if( area ) {
+   if( box ) {
       extremeLogValues <- list()
       for( i in seq( along = xNames ) ) {
          extremeLogValues[[ i ]] <- c(
@@ -39,8 +39,8 @@ translogMonoRestr <- function( xNames, data, quadHalf = TRUE,
    return( restr )
 }
 
-# test with (only if area == FALSE):
-# matrix( translogMonoRestr( lnInputNames, estData ) %*% a$allCoef, ncol=4) *
-# exp(translogCalc( lnInputNames, estData, a$allCoef) %*% t(c(1,1,1,1))) /
+# test with (only if box == FALSE):
+# matrix( translogMonoRestr( lnInputNames, estData ) %*% coef( a ), ncol=4) *
+# exp(translogCalc( lnInputNames, estData, coef( a ) ) %*% t(c(1,1,1,1))) /
 # estData[ , inputNames ] -
-# translogDeriv( lnInputNames, estData, a$allCoef )$deriv
+# translogDeriv( lnInputNames, estData, coef( a ) )$deriv

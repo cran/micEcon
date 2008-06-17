@@ -1,5 +1,5 @@
 micEconIndex <- function( prices, quantities, base, data, method, na.rm,
-   na.0, weights, what ) {
+   weights ) {
 
    if( length( prices ) != length( quantities ) ) {
       stop( "arguments 'prices' and 'quantities' must have the same length" )
@@ -19,40 +19,30 @@ micEconIndex <- function( prices, quantities, base, data, method, na.rm,
          qt <- data[[ quantities[ i ] ]]
          q0 <- mean( data[[ quantities[ i ] ]][ base ], na.rm = na.rm )
          if( method == "Laspeyres" ) {
-            if( is.na( q0 ) || is.na( p0 ) || all( is.na( pt ) ) ) {
-               if( !na.0 ) {
-                  numerator <- NA
+            if( is.na( q0 ) ) {
+               numerator[ pt != 0 | is.na( pt ) ] <- NA
+               if( p0 != 0 | is.na( p0 ) ) {
+                  denominator <- NA
                }
-            } else {
-               selection <- !is.na( pt )
-               numerator[ selection ] <- numerator[ selection ] +
-                  pt[ selection ] * q0
-               denominator[ selection ] <- denominator[ selection ] + p0 * q0
-               if( !na.0 && q0 > 0 ) {
-                  numerator[ is.na( pt ) ] <- NA
-               }
+            } else if( q0 != 0 ) {
+               numerator <- numerator +  pt * q0
+               denominator <- denominator + p0 * q0
             }
          } else if( method == "Paasche" ) {
-            if( is.na( p0 ) || all( is.na( pt ) ) || all( is.na( qt ) ) ) {
-               if( !na.0 ) {
-                  numerator <- NA
-               }
-            } else {
-               selection <- qt > 0 & !is.na( qt ) & !is.na( pt )
-               numerator[ selection ] <- numerator[ selection ] +
-                  pt[ selection ] * qt[ selection ]
-               denominator[ selection ] <- denominator[ selection ] +
-                  p0 * qt[ selection ]
-               if( !na.0 ) {
-                  numerator[ is.na( qt ) ] <- NA
-                  numerator[ qt > 0  & is.na( pt ) ] <- NA
-                  denominator[ is.na( qt ) ] <- NA
-               }
+            if( is.na( p0 ) ) {
+               denominator[ qt != 0 | is.na( qt ) ] <- NA
+            } else if( p0 != 0 ) {
+               denominator <- denominator + p0 * qt
             }
+            numerator[ is.na( pt ) & ( qt != 0 | is.na( qt ) ) ] <- NA
+            selection <- ( pt != 0 & !is.na( pt ) ) & ( qt != 0 | is.na( qt ) )
+            numerator[ selection ] <- numerator[ selection ] +
+                  pt[ selection ] * qt[ selection ]
          }
       }
       result <- numerator / denominator
       if( weights ) {
+         numerator[ is.na( denominator ) ] <- NA
          weightData <- data.frame( obsNo = c( 1:nrow( data ) ) )
          rownames( weightData ) <- rownames( data )
          for( i in 1:n ) {
@@ -70,9 +60,9 @@ micEconIndex <- function( prices, quantities, base, data, method, na.rm,
       }
    } else if( method == "Fisher" ) {
       pL <- priceIndex( prices, quantities, base, data, method = "Laspeyres",
-         na.rm = na.rm, na.0 = na.0, weights )
+         na.rm = na.rm, weights )
       pP <- priceIndex( prices, quantities, base, data, method = "Paasche",
-         na.rm = na.rm, na.0 = na.0, weights )
+         na.rm = na.rm, weights )
       result <- sqrt( pL * pP )
       if( weights ) {
          attributes( result )$weights <-
@@ -88,23 +78,23 @@ micEconIndex <- function( prices, quantities, base, data, method, na.rm,
 }
 
 priceIndex <- function( prices, quantities, base, data,
-   method = "Laspeyres", na.rm = FALSE, na.0 = FALSE, weights = FALSE ) {
+   method = "Laspeyres", na.rm = FALSE, weights = FALSE ) {
 
    checkNames( c( prices, quantities ), names( data ) )
 
    result <- micEconIndex( prices, quantities, base, data, method, na.rm,
-      na.0, weights, "price index" )
+      weights )
 
    return( result )
 }
 
 quantityIndex <- function( prices, quantities, base, data,
-   method = "Laspeyres", na.rm = FALSE, na.0 = FALSE, weights = FALSE ) {
+   method = "Laspeyres", na.rm = FALSE, weights = FALSE ) {
 
    checkNames( c( prices, quantities ), names( data ) )
 
    result <- micEconIndex( quantities, prices, base, data, method, na.rm,
-      na.0, weights, "quantity index" )
+      weights )
 
    return( result )
 }

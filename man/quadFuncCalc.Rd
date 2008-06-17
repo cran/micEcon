@@ -7,14 +7,14 @@
 }
 
 \usage{
-   quadFuncCalc( xNames, data, allCoef, quadHalf = TRUE  )
+   quadFuncCalc( xNames, data, coef, quadHalf = TRUE  )
 }
 
 \arguments{
    \item{xNames}{a vector of strings containing the names of the
       independent variables.}
    \item{data}{dataframe containing the data.}
-   \item{allCoef}{vector containing all coefficients.}
+   \item{coef}{vector containing all coefficients.}
    \item{quadHalf}{logical. Multiply the quadratic terms by one half?}
 }
 
@@ -40,7 +40,7 @@
       germanFarms )
 
    quadFuncCalc( c( "qLabor", "land", "qVarInput", "time" ), germanFarms,
-      estResult$allCoef )
+      coef( estResult ) )
    #equal to estResult$fitted
 }
 

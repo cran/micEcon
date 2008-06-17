@@ -27,12 +27,8 @@
    \item{lm}{a list returned by \code{lm}.}
    \item{residuals}{residuals.}
    \item{fitted}{fitted values.}
-   \item{coef}{a list containing the the estimated coefficients:
-      alpha0 = \eqn{\alpha_0} (scalar),
-      alpha = \eqn{\alpha_i} (vector),
-      beta = \eqn{\beta_ij} (matrix).}
-   \item{allCoef}{vector of all coefficients.}
-   \item{allCoefCov}{Covariance matrix of all coefficients.}
+   \item{coef}{vector of all coefficients.}
+   \item{coefCov}{covariance matrix of all coefficients.}
    \item{r2}{\eqn{R^2} value.}
    \item{r2bar}{adjusted \eqn{R^2} value.}
    \item{nObs}{number of observations.}
@@ -57,7 +53,7 @@
    estResult <- quadFuncEst( "qOutput", c( "qLabor", "land", "qVarInput", "time" ),
       germanFarms )
 
-   estResult$coef
+   coef( estResult )
    estResult$r2
 }
 

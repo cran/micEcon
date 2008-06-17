@@ -18,50 +18,101 @@ print( estResult )
 
 ## testing translogCalc
 fitted <- translogCalc( c( "qLabor", "land", "qVarInput", "time" ),
-   germanFarms, estResult$allCoef )
+   germanFarms, estResult$coef )
 
 all.equal( fitted, estResult$fitted )
 
 ## testing translogDeriv
 margProducts <- translogDeriv( c( "qLabor", "land", "qVarInput", "time" ),
-   germanFarms, estResult$allCoef, estResult$allCoefCov )
+   germanFarms, estResult$coef, estResult$coefCov )
 print( margProducts )
 
 margProductsObs <- translogDeriv( c( "qLabor", "land", "qVarInput", "time" ),
-   germanFarms, estResult$allCoef, estResult$allCoefCov, yName = "qOutput" )
+   germanFarms, estResult$coef, estResult$coefCov, yName = "qOutput" )
 print( margProductsObs )
 
 germanFarms$fitted <- fitted
 margProductsFitted <- translogDeriv( c( "qLabor", "land", "qVarInput", "time" ),
-   germanFarms, estResult$allCoef, estResult$allCoefCov, yName = "fitted" )
+   germanFarms, estResult$coef, estResult$coefCov, yName = "fitted" )
 all.equal( margProducts, margProductsFitted )
 
 
 ## testing translogHessian
 # compute the Hessian matrices
 hessians <- translogHessian( c( "qLabor", "land", "qVarInput", "time" ),
-   germanFarms, estResult$allCoef )
+   germanFarms, estResult$coef )
 print( hessians )
 
 hessiansObs <- translogHessian( c( "qLabor", "land", "qVarInput", "time" ),
-   germanFarms, estResult$allCoef, yName = "qOutput" )
+   germanFarms, estResult$coef, yName = "qOutput" )
 print( hessiansObs )
 
 germanFarms$fitted <- fitted
 hessiansFitted <- translogHessian( c( "qLabor", "land", "qVarInput", "time" ),
-   germanFarms, estResult$allCoef, yName = "fitted" )
+   germanFarms, estResult$coef, yName = "fitted" )
 all.equal( hessians, hessiansFitted )
 
 # compute the bordered Hessian matrices
 borderedHessians <- translogHessian( c( "qLabor", "land", "qVarInput", "time" ),
-   germanFarms, estResult$allCoef, bordered = TRUE )
+   germanFarms, estResult$coef, bordered = TRUE )
 print( borderedHessians )
 
 borderedHessiansObs <- translogHessian( c( "qLabor", "land", "qVarInput", "time" ),
-   germanFarms, estResult$allCoef, yName = "qOutput", bordered = TRUE )
+   germanFarms, estResult$coef, yName = "qOutput", bordered = TRUE )
 print( borderedHessiansObs )
 
 germanFarms$fitted <- fitted
 borderedHessiansFitted <- translogHessian( c( "qLabor", "land", "qVarInput", "time" ),
-   germanFarms, estResult$allCoef, yName = "fitted", bordered = TRUE )
+   germanFarms, estResult$coef, yName = "fitted", bordered = TRUE )
 all.equal( borderedHessians, borderedHessiansFitted )
+
+## testing translogCheckMono
+test <- translogCheckMono( c( "qLabor", "land", "qVarInput", "time" ),
+   germanFarms, coef( estResult ) )
+summary( test )
+class( test ) <- NULL
+print( test )
+
+test <- translogCheckMono( c( "qLabor", "land", "qVarInput", "time" ),
+   germanFarms, coef( estResult ), strict = TRUE )
+summary( test )
+class( test ) <- NULL
+print( test )
+
+test <- translogCheckMono( c( "qLabor", "land", "qVarInput", "time" ),
+   germanFarms, coef( estResult ), increasing = FALSE )
+summary( test )
+class( test ) <- NULL
+print( test )
+
+test <- translogCheckMono( c( "qLabor", "land", "qVarInput", "time" ),
+   germanFarms, coef( estResult ), increasing = FALSE, strict = TRUE )
+summary( test )
+class( test ) <- NULL
+print( test )
+
+
+## testing translogCheckCurvature
+test <- translogCheckCurvature( c( "qLabor", "land", "qVarInput", "time" ),
+   germanFarms, coef( estResult ) )
+summary( test )
+class( test ) <- NULL
+print( test )
+
+test <- translogCheckCurvature( c( "qLabor", "land", "qVarInput", "time" ),
+   germanFarms, coef( estResult ), quasi = TRUE )
+summary( test )
+class( test ) <- NULL
+print( test )
+
+test <- translogCheckCurvature( c( "qLabor", "land", "qVarInput", "time" ),
+   germanFarms, coef( estResult ), convexity = FALSE )
+summary( test )
+class( test ) <- NULL
+print( test )
+
+test <- translogCheckCurvature( c( "qLabor", "land", "qVarInput", "time" ),
+   germanFarms, coef( estResult ), convexity = FALSE, quasi = TRUE )
+summary( test )
+class( test ) <- NULL
+print( test )

@@ -7,22 +7,22 @@
 }
 
 \usage{
-translogDeriv( xNames, data, allCoef, allCoefCov = NULL,
-   yName = NULL, quadHalf = TRUE, logValues = FALSE )
+translogDeriv( xNames, data, coef, coefCov = NULL,
+   yName = NULL, quadHalf = TRUE, dataLogged = FALSE )
 }
 
 \arguments{
    \item{xNames}{a vector of strings containing the names of the
       independent variables.}
    \item{data}{dataframe containing the data.}
-   \item{allCoef}{vector containing all coefficients.}
-   \item{allCoefCov}{optional covariance matrix of the coefficients.}
+   \item{coef}{vector containing all coefficients.}
+   \item{coefCov}{optional covariance matrix of the coefficients.}
    \item{yName}{an optional string containing the name of the dependent
       variable.
       If it is \code{NULL}, the dependent variable is calculated
       from the independent variables and the coefficients.}
    \item{quadHalf}{logical. Multiply the quadratic terms by one half?}
-   \item{logValues}{logical. Are the values in \code{data} already logged?}
+   \item{dataLogged}{logical. Are the values in \code{data} already logged?}
 }
 
 \value{
@@ -56,12 +56,12 @@ translogDeriv( xNames, data, allCoef, allCoefCov = NULL,
 
    # compute the marginal products of the inputs (with "fitted" Output)
    margProducts <- translogDeriv( c( "qLabor", "land", "qVarInput", "time" ),
-      germanFarms, estResult$allCoef, estResult$allCoefCov )
+      germanFarms, coef( estResult ), vcov( estResult ) )
    margProducts$deriv
 
    # compute the marginal products of the inputs (with observed Output)
    margProductsObs <- translogDeriv( c( "qLabor", "land", "qVarInput", "time" ),
-      germanFarms, estResult$allCoef, estResult$allCoefCov, "qOutput" )
+      germanFarms, coef( estResult ), vcov( estResult ), "qOutput" )
    margProductsObs$deriv
 }
 

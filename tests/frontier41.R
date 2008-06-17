@@ -1,7 +1,7 @@
 library( micEcon )
 
 ## *****************************
-## Testing writeFront41in
+## Testing front41WriteInput
 
 data( Coelli )
 Coelli$logOutput  <- log( Coelli$output )
@@ -11,7 +11,7 @@ Coelli$logLabour  <- log( Coelli$labour )
 insFile <- file()
 dtaFile  <- file()
 
-writeFront41in( Coelli, "firm", "time", "logOutput",
+front41WriteInput( Coelli, "firm", "time", "logOutput",
    c( "logCapital", "logLabour" ), insFile = insFile, dtaFile = dtaFile  )
 
 print( readLines( insFile ) )
@@ -21,7 +21,7 @@ print( readLines( dtaFile ) )
 set.seed( 20061705 )
 Coelli$firm <- sample( c( 1:( nrow( Coelli ) + 20 ) ) )[ 1:nrow( Coelli ) ]
 
-writeFront41in( Coelli, "firm", "time", "logOutput",
+front41WriteInput( Coelli, "firm", "time", "logOutput",
    c( "logCapital", "logLabour" ), insFile = insFile, dtaFile = dtaFile  )
 
 print( readLines( insFile ) )
@@ -32,9 +32,20 @@ close( dtaFile )
 
 
 ## *****************************
-## Testing readFront41out
+## Testing front41ReadOutput
 
 outFile <- system.file( "front41/EG1.OUT", package = "micEcon" )
-sfa <- readFront41out( outFile )
-print( sfa$mleResults )
-print( sfa$efficiency )
+sfa <- front41ReadOutput( outFile )
+print( coef( sfa, which = "OLS" ) )
+print( coef( sfa, which = "GRID" ) )
+print( coef( sfa ) )
+print( summary( sfa ) )
+print( summary( sfa ), efficiencies = TRUE )
+print( coef( summary( sfa ), which = "OLS" ) )
+print( coef( summary( sfa ), which = "GRID" ) )
+print( coef( summary( sfa ) ) )
+print( vcov( sfa ) )
+print( sfa )
+print( sfa, efficiencies = TRUE )
+class( sfa ) <- NULL
+print( sfa )

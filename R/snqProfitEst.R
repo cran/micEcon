@@ -142,7 +142,7 @@ snqProfitEst <- function( priceNames, quantNames, fixNames = NULL,
    result$normPrice <- modelData$normPrice
    if( nNetput > 2 ){
       result$convexity  <- semidefiniteness( result$hessian[
-         1:( nNetput - 1 ), 1:( nNetput - 1 ) ] )$positive
+         1:( nNetput - 1 ), 1:( nNetput - 1 ) ], positive = TRUE )
    } else if( nNetput == 2 ){
       result$convexity  <- result$hessian[ 1, 1 ] >= 0
    }

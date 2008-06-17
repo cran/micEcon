@@ -1,6 +1,6 @@
 
-R version 2.6.1 (2007-11-26)
-Copyright (C) 2007 The R Foundation for Statistical Computing
+R version 2.6.2 (2008-02-08)
+Copyright (C) 2008 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -79,79 +79,62 @@ $fitted
 1678.3680 1741.8183 1887.9169 1992.8400 
 
 $coef
-$coef$alpha0
-(Intercept) 
-  -133.4852 
-
-$coef$alpha
-       x1        x2        x3        x4 
- 24.58924  19.92287  34.63080 -12.46742 
-
-$coef$beta
-           [,1]       [,2]      [,3]       [,4]
-[1,] -16.864738 14.3472829 -8.591123 -3.5734031
-[2,]  14.347283  0.2644969 -3.468479 -1.1633161
-[3,]  -8.591123 -3.4684787 -3.909638  2.7933263
-[4,]  -3.573403 -1.1633161  2.793326 -0.2456535
-
-
-$allCoef
- (Intercept)           x1           x2           x3           x4         x1.1 
+     alpha_0      alpha_1      alpha_2      alpha_3      alpha_4     beta_1_1 
 -133.4851620   24.5892366   19.9228713   34.6307963  -12.4674226  -16.8647382 
-        x1.2         x1.3         x1.4         x2.2         x2.3         x2.4 
+    beta_1_2     beta_1_3     beta_1_4     beta_2_2     beta_2_3     beta_2_4 
   14.3472829   -8.5911234   -3.5734031    0.2644969   -3.4684787   -1.1633161 
-        x3.3         x3.4         x4.4 
+    beta_3_3     beta_3_4     beta_4_4 
   -3.9096383    2.7933263   -0.2456535 
 
-$allCoefCov
-             (Intercept)           x1          x2           x3          x4
-(Intercept) 27405.993653  9712.329717   17.686516 -9083.866449 143.4765145
-x1           9712.329717  4421.905500 -133.022614 -3202.913700  18.8621836
-x2             17.686516  -133.022614  272.234941  -117.760346 -53.1193817
-x3          -9083.866449 -3202.913700 -117.760346  3060.619835 -27.7980308
-x4            143.476514    18.862184  -53.119382   -27.798031  27.3344903
-x1.1         1775.849985   775.110900  -70.624365  -553.939016  -8.2084115
-x1.2         -623.172891  -174.763268  -45.788253   222.166688   9.3128518
-x1.3        -1333.832969  -656.263430   46.232606   430.516385  -7.3818002
-x1.4          138.946902    53.856033    5.311840   -49.188901   0.9167761
-x2.2          -77.184081     2.716356    2.444856    18.497552   9.1621633
-x2.3           44.604708    22.993638  -43.897397     5.926043   4.6808017
-x2.4           81.278296    17.023080    9.800982   -29.215425  -4.6948138
-x3.3         1480.837131   527.126137   36.559546  -507.776874   3.0457425
-x3.4          -68.980322   -13.755841    3.433460    20.984043  -2.1472839
-x4.4           -7.583784    -3.428124   -1.520987     3.059670   0.7278107
-                    x1.1         x1.2          x1.3         x1.4        x2.2
-(Intercept) 1775.8499855 -623.1728910 -1333.8329688 138.94690237 -77.1840815
-x1           775.1109002 -174.7632679  -656.2634298  53.85603265   2.7163561
-x2           -70.6243649  -45.7882534    46.2326057   5.31184034   2.4448564
-x3          -553.9390157  222.1666881   430.5163850 -49.18890121  18.4975523
-x4            -8.2084115    9.3128518    -7.3818002   0.91677614   9.1621633
-x1.1         364.8394520  -79.3381859  -101.4673523  -3.56261270 -50.1984608
-x1.2         -79.3381859   76.9055122    -4.7334876  -6.10594998  12.6881985
-x1.3        -101.4673523   -4.7334876   111.3162331  -6.11627686  -5.0157303
-x1.4          -3.5626127   -6.1059500    -6.1162769   3.60939784   4.7393935
-x2.2         -50.1984608   12.6881985    -5.0157303   4.73939349  23.2538853
-x2.3          35.8231187   -1.0263155    -4.4008603  -2.94300570 -11.0995603
-x2.4          16.0775411   -9.1462652     0.9429313  -0.02026812  -5.6858884
-x3.3          75.1873102  -34.4329491   -71.3652040   9.61265222   2.8782101
-x3.4          -6.2750969    3.3157692     0.9681225  -0.33268508   1.0466954
-x4.4          -0.8796783    0.6017906     0.2932077  -0.04901283   0.3003687
-                   x2.3         x2.4         x3.3         x3.4        x4.4
-(Intercept)  44.6047078  81.27829633 1480.8371309 -68.98032233 -7.58378401
-x1           22.9936382  17.02307990  527.1261368 -13.75584088 -3.42812373
-x2          -43.8973974   9.80098240   36.5595464   3.43345993 -1.52098675
-x3            5.9260429 -29.21542453 -507.7768735  20.98404276  3.05966961
-x4            4.6808017  -4.69481384    3.0457425  -2.14728387  0.72781065
-x1.1         35.8231187  16.07754105   75.1873102  -6.27509693 -0.87967829
-x1.2         -1.0263155  -9.14626524  -34.4329491   3.31576920  0.60179065
-x1.3         -4.4008603   0.94293129  -71.3652040   0.96812251  0.29320773
-x1.4         -2.9430057  -0.02026812    9.6126522  -0.33268508 -0.04901283
-x2.2        -11.0995603  -5.68588838    2.8782101   1.04669542  0.30036870
-x2.3         12.1772463   1.09457082   -6.5386143  -1.12263500  0.10812737
-x2.4          1.0945708   2.37737738    4.0047070  -0.40699062 -0.17346306
-x3.3         -6.5386143   4.00470696   86.9196602  -2.89934299 -0.53400987
-x3.4         -1.1226350  -0.40699062   -2.8993430   0.56240153 -0.03024629
-x4.4          0.1081274  -0.17346306   -0.5340099  -0.03024629  0.02551805
+$coefCov
+              alpha_0      alpha_1     alpha_2      alpha_3     alpha_4
+alpha_0  27405.993653  9712.329717   17.686516 -9083.866449 143.4765145
+alpha_1   9712.329717  4421.905500 -133.022614 -3202.913700  18.8621836
+alpha_2     17.686516  -133.022614  272.234941  -117.760346 -53.1193817
+alpha_3  -9083.866449 -3202.913700 -117.760346  3060.619835 -27.7980308
+alpha_4    143.476514    18.862184  -53.119382   -27.798031  27.3344903
+beta_1_1  1775.849985   775.110900  -70.624365  -553.939016  -8.2084115
+beta_1_2  -623.172891  -174.763268  -45.788253   222.166688   9.3128518
+beta_1_3 -1333.832969  -656.263430   46.232606   430.516385  -7.3818002
+beta_1_4   138.946902    53.856033    5.311840   -49.188901   0.9167761
+beta_2_2   -77.184081     2.716356    2.444856    18.497552   9.1621633
+beta_2_3    44.604708    22.993638  -43.897397     5.926043   4.6808017
+beta_2_4    81.278296    17.023080    9.800982   -29.215425  -4.6948138
+beta_3_3  1480.837131   527.126137   36.559546  -507.776874   3.0457425
+beta_3_4   -68.980322   -13.755841    3.433460    20.984043  -2.1472839
+beta_4_4    -7.583784    -3.428124   -1.520987     3.059670   0.7278107
+             beta_1_1     beta_1_2      beta_1_3     beta_1_4    beta_2_2
+alpha_0  1775.8499855 -623.1728910 -1333.8329688 138.94690237 -77.1840815
+alpha_1   775.1109002 -174.7632679  -656.2634298  53.85603265   2.7163561
+alpha_2   -70.6243649  -45.7882534    46.2326057   5.31184034   2.4448564
+alpha_3  -553.9390157  222.1666881   430.5163850 -49.18890121  18.4975523
+alpha_4    -8.2084115    9.3128518    -7.3818002   0.91677614   9.1621633
+beta_1_1  364.8394520  -79.3381859  -101.4673523  -3.56261270 -50.1984608
+beta_1_2  -79.3381859   76.9055122    -4.7334876  -6.10594998  12.6881985
+beta_1_3 -101.4673523   -4.7334876   111.3162331  -6.11627686  -5.0157303
+beta_1_4   -3.5626127   -6.1059500    -6.1162769   3.60939784   4.7393935
+beta_2_2  -50.1984608   12.6881985    -5.0157303   4.73939349  23.2538853
+beta_2_3   35.8231187   -1.0263155    -4.4008603  -2.94300570 -11.0995603
+beta_2_4   16.0775411   -9.1462652     0.9429313  -0.02026812  -5.6858884
+beta_3_3   75.1873102  -34.4329491   -71.3652040   9.61265222   2.8782101
+beta_3_4   -6.2750969    3.3157692     0.9681225  -0.33268508   1.0466954
+beta_4_4   -0.8796783    0.6017906     0.2932077  -0.04901283   0.3003687
+            beta_2_3     beta_2_4     beta_3_3     beta_3_4    beta_4_4
+alpha_0   44.6047078  81.27829633 1480.8371309 -68.98032233 -7.58378401
+alpha_1   22.9936382  17.02307990  527.1261368 -13.75584088 -3.42812373
+alpha_2  -43.8973974   9.80098240   36.5595464   3.43345993 -1.52098675
+alpha_3    5.9260429 -29.21542453 -507.7768735  20.98404276  3.05966961
+alpha_4    4.6808017  -4.69481384    3.0457425  -2.14728387  0.72781065
+beta_1_1  35.8231187  16.07754105   75.1873102  -6.27509693 -0.87967829
+beta_1_2  -1.0263155  -9.14626524  -34.4329491   3.31576920  0.60179065
+beta_1_3  -4.4008603   0.94293129  -71.3652040   0.96812251  0.29320773
+beta_1_4  -2.9430057  -0.02026812    9.6126522  -0.33268508 -0.04901283
+beta_2_2 -11.0995603  -5.68588838    2.8782101   1.04669542  0.30036870
+beta_2_3  12.1772463   1.09457082   -6.5386143  -1.12263500  0.10812737
+beta_2_4   1.0945708   2.37737738    4.0047070  -0.40699062 -0.17346306
+beta_3_3  -6.5386143   4.00470696   86.9196602  -2.89934299 -0.53400987
+beta_3_4  -1.1226350  -0.40699062   -2.8993430   0.56240153 -0.03024629
+beta_4_4   0.1081274  -0.17346306   -0.5340099  -0.03024629  0.02551805
 
 $r2
 [1] 0.9982506
@@ -215,14 +198,14 @@ attr(,"class")
 > 
 > ## testing translogCalc
 > fitted <- translogCalc( c( "qLabor", "land", "qVarInput", "time" ),
-+    germanFarms, estResult$allCoef )
++    germanFarms, estResult$coef )
 > 
 > all.equal( fitted, estResult$fitted )
 [1] TRUE
 > 
 > ## testing translogDeriv
 > margProducts <- translogDeriv( c( "qLabor", "land", "qVarInput", "time" ),
-+    germanFarms, estResult$allCoef, estResult$allCoefCov )
++    germanFarms, estResult$coef, estResult$coefCov )
 > print( margProducts )
 $deriv
         qLabor      land  qVarInput      time
@@ -251,7 +234,7 @@ attr(,"class")
 [1] "translogDeriv"
 > 
 > margProductsObs <- translogDeriv( c( "qLabor", "land", "qVarInput", "time" ),
-+    germanFarms, estResult$allCoef, estResult$allCoefCov, yName = "qOutput" )
++    germanFarms, estResult$coef, estResult$coefCov, yName = "qOutput" )
 > print( margProductsObs )
 $deriv
         qLabor      land  qVarInput      time
@@ -281,7 +264,7 @@ attr(,"class")
 > 
 > germanFarms$fitted <- fitted
 > margProductsFitted <- translogDeriv( c( "qLabor", "land", "qVarInput", "time" ),
-+    germanFarms, estResult$allCoef, estResult$allCoefCov, yName = "fitted" )
++    germanFarms, estResult$coef, estResult$coefCov, yName = "fitted" )
 > all.equal( margProducts, margProductsFitted )
 [1] TRUE
 > 
@@ -289,7 +272,7 @@ attr(,"class")
 > ## testing translogHessian
 > # compute the Hessian matrices
 > hessians <- translogHessian( c( "qLabor", "land", "qVarInput", "time" ),
-+    germanFarms, estResult$allCoef )
++    germanFarms, estResult$coef )
 > print( hessians )
 [[1]]
             [,1]        [,2]         [,3]        [,4]
@@ -433,7 +416,7 @@ attr(,"class")
 
 > 
 > hessiansObs <- translogHessian( c( "qLabor", "land", "qVarInput", "time" ),
-+    germanFarms, estResult$allCoef, yName = "qOutput" )
++    germanFarms, estResult$coef, yName = "qOutput" )
 > print( hessiansObs )
 [[1]]
             [,1]        [,2]         [,3]        [,4]
@@ -578,13 +561,13 @@ attr(,"class")
 > 
 > germanFarms$fitted <- fitted
 > hessiansFitted <- translogHessian( c( "qLabor", "land", "qVarInput", "time" ),
-+    germanFarms, estResult$allCoef, yName = "fitted" )
++    germanFarms, estResult$coef, yName = "fitted" )
 > all.equal( hessians, hessiansFitted )
 [1] TRUE
 > 
 > # compute the bordered Hessian matrices
 > borderedHessians <- translogHessian( c( "qLabor", "land", "qVarInput", "time" ),
-+    germanFarms, estResult$allCoef, bordered = TRUE )
++    germanFarms, estResult$coef, bordered = TRUE )
 > print( borderedHessians )
 [[1]]
             [,1]        [,2]        [,3]         [,4]        [,5]
@@ -748,7 +731,7 @@ attr(,"class")
 
 > 
 > borderedHessiansObs <- translogHessian( c( "qLabor", "land", "qVarInput", "time" ),
-+    germanFarms, estResult$allCoef, yName = "qOutput", bordered = TRUE )
++    germanFarms, estResult$coef, yName = "qOutput", bordered = TRUE )
 > print( borderedHessiansObs )
 [[1]]
            [,1]        [,2]        [,3]         [,4]        [,5]
@@ -913,7 +896,270 @@ attr(,"class")
 > 
 > germanFarms$fitted <- fitted
 > borderedHessiansFitted <- translogHessian( c( "qLabor", "land", "qVarInput", "time" ),
-+    germanFarms, estResult$allCoef, yName = "fitted", bordered = TRUE )
++    germanFarms, estResult$coef, yName = "fitted", bordered = TRUE )
 > all.equal( borderedHessians, borderedHessiansFitted )
 [1] TRUE
+> 
+> ## testing translogCheckMono
+> test <- translogCheckMono( c( "qLabor", "land", "qVarInput", "time" ),
++    germanFarms, coef( estResult ) )
+> summary( test )
+This translog function is monotonically increasing at 1 out of 20 observations (5%)
+The monotonicity condition for the exogenous variable
+- 'qLabor' is fulfilled at 14 out of 20 observations (70%)
+- 'land' is fulfilled at 20 out of 20 observations (100%)
+- 'qVarInput' is fulfilled at 11 out of 20 observations (55%)
+- 'time' is fulfilled at 7 out of 20 observations (35%)
+> class( test ) <- NULL
+> print( test )
+$exog
+      qLabor land qVarInput  time
+ [1,]   TRUE TRUE     FALSE  TRUE
+ [2,]   TRUE TRUE     FALSE  TRUE
+ [3,]   TRUE TRUE     FALSE  TRUE
+ [4,]   TRUE TRUE     FALSE  TRUE
+ [5,]   TRUE TRUE     FALSE  TRUE
+ [6,]   TRUE TRUE     FALSE  TRUE
+ [7,]   TRUE TRUE      TRUE  TRUE
+ [8,]   TRUE TRUE      TRUE FALSE
+ [9,]   TRUE TRUE      TRUE FALSE
+[10,]   TRUE TRUE      TRUE FALSE
+[11,]  FALSE TRUE      TRUE FALSE
+[12,]  FALSE TRUE     FALSE FALSE
+[13,]  FALSE TRUE     FALSE FALSE
+[14,]  FALSE TRUE     FALSE FALSE
+[15,]  FALSE TRUE      TRUE FALSE
+[16,]  FALSE TRUE      TRUE FALSE
+[17,]   TRUE TRUE      TRUE FALSE
+[18,]   TRUE TRUE      TRUE FALSE
+[19,]   TRUE TRUE      TRUE FALSE
+[20,]   TRUE TRUE      TRUE FALSE
+
+$obs
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
+[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+
+$increasing
+[1] TRUE
+
+$strict
+[1] FALSE
+
+> 
+> test <- translogCheckMono( c( "qLabor", "land", "qVarInput", "time" ),
++    germanFarms, coef( estResult ), strict = TRUE )
+> summary( test )
+This translog function is strictly monotonically increasing at 1 out of 20 observations (5%)
+The monotonicity condition for the exogenous variable
+- 'qLabor' is fulfilled at 14 out of 20 observations (70%)
+- 'land' is fulfilled at 20 out of 20 observations (100%)
+- 'qVarInput' is fulfilled at 11 out of 20 observations (55%)
+- 'time' is fulfilled at 7 out of 20 observations (35%)
+> class( test ) <- NULL
+> print( test )
+$exog
+      qLabor land qVarInput  time
+ [1,]   TRUE TRUE     FALSE  TRUE
+ [2,]   TRUE TRUE     FALSE  TRUE
+ [3,]   TRUE TRUE     FALSE  TRUE
+ [4,]   TRUE TRUE     FALSE  TRUE
+ [5,]   TRUE TRUE     FALSE  TRUE
+ [6,]   TRUE TRUE     FALSE  TRUE
+ [7,]   TRUE TRUE      TRUE  TRUE
+ [8,]   TRUE TRUE      TRUE FALSE
+ [9,]   TRUE TRUE      TRUE FALSE
+[10,]   TRUE TRUE      TRUE FALSE
+[11,]  FALSE TRUE      TRUE FALSE
+[12,]  FALSE TRUE     FALSE FALSE
+[13,]  FALSE TRUE     FALSE FALSE
+[14,]  FALSE TRUE     FALSE FALSE
+[15,]  FALSE TRUE      TRUE FALSE
+[16,]  FALSE TRUE      TRUE FALSE
+[17,]   TRUE TRUE      TRUE FALSE
+[18,]   TRUE TRUE      TRUE FALSE
+[19,]   TRUE TRUE      TRUE FALSE
+[20,]   TRUE TRUE      TRUE FALSE
+
+$obs
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
+[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+
+$increasing
+[1] TRUE
+
+$strict
+[1] TRUE
+
+> 
+> test <- translogCheckMono( c( "qLabor", "land", "qVarInput", "time" ),
++    germanFarms, coef( estResult ), increasing = FALSE )
+> summary( test )
+This translog function is monotonically decreasing at 0 out of 20 observations (0%)
+The monotonicity condition for the exogenous variable
+- 'qLabor' is fulfilled at 6 out of 20 observations (30%)
+- 'land' is fulfilled at 0 out of 20 observations (0%)
+- 'qVarInput' is fulfilled at 9 out of 20 observations (45%)
+- 'time' is fulfilled at 13 out of 20 observations (65%)
+> class( test ) <- NULL
+> print( test )
+$exog
+      qLabor  land qVarInput  time
+ [1,]  FALSE FALSE      TRUE FALSE
+ [2,]  FALSE FALSE      TRUE FALSE
+ [3,]  FALSE FALSE      TRUE FALSE
+ [4,]  FALSE FALSE      TRUE FALSE
+ [5,]  FALSE FALSE      TRUE FALSE
+ [6,]  FALSE FALSE      TRUE FALSE
+ [7,]  FALSE FALSE     FALSE FALSE
+ [8,]  FALSE FALSE     FALSE  TRUE
+ [9,]  FALSE FALSE     FALSE  TRUE
+[10,]  FALSE FALSE     FALSE  TRUE
+[11,]   TRUE FALSE     FALSE  TRUE
+[12,]   TRUE FALSE      TRUE  TRUE
+[13,]   TRUE FALSE      TRUE  TRUE
+[14,]   TRUE FALSE      TRUE  TRUE
+[15,]   TRUE FALSE     FALSE  TRUE
+[16,]   TRUE FALSE     FALSE  TRUE
+[17,]  FALSE FALSE     FALSE  TRUE
+[18,]  FALSE FALSE     FALSE  TRUE
+[19,]  FALSE FALSE     FALSE  TRUE
+[20,]  FALSE FALSE     FALSE  TRUE
+
+$obs
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+
+$increasing
+[1] FALSE
+
+$strict
+[1] FALSE
+
+> 
+> test <- translogCheckMono( c( "qLabor", "land", "qVarInput", "time" ),
++    germanFarms, coef( estResult ), increasing = FALSE, strict = TRUE )
+> summary( test )
+This translog function is strictly monotonically decreasing at 0 out of 20 observations (0%)
+The monotonicity condition for the exogenous variable
+- 'qLabor' is fulfilled at 6 out of 20 observations (30%)
+- 'land' is fulfilled at 0 out of 20 observations (0%)
+- 'qVarInput' is fulfilled at 9 out of 20 observations (45%)
+- 'time' is fulfilled at 13 out of 20 observations (65%)
+> class( test ) <- NULL
+> print( test )
+$exog
+      qLabor  land qVarInput  time
+ [1,]  FALSE FALSE      TRUE FALSE
+ [2,]  FALSE FALSE      TRUE FALSE
+ [3,]  FALSE FALSE      TRUE FALSE
+ [4,]  FALSE FALSE      TRUE FALSE
+ [5,]  FALSE FALSE      TRUE FALSE
+ [6,]  FALSE FALSE      TRUE FALSE
+ [7,]  FALSE FALSE     FALSE FALSE
+ [8,]  FALSE FALSE     FALSE  TRUE
+ [9,]  FALSE FALSE     FALSE  TRUE
+[10,]  FALSE FALSE     FALSE  TRUE
+[11,]   TRUE FALSE     FALSE  TRUE
+[12,]   TRUE FALSE      TRUE  TRUE
+[13,]   TRUE FALSE      TRUE  TRUE
+[14,]   TRUE FALSE      TRUE  TRUE
+[15,]   TRUE FALSE     FALSE  TRUE
+[16,]   TRUE FALSE     FALSE  TRUE
+[17,]  FALSE FALSE     FALSE  TRUE
+[18,]  FALSE FALSE     FALSE  TRUE
+[19,]  FALSE FALSE     FALSE  TRUE
+[20,]  FALSE FALSE     FALSE  TRUE
+
+$obs
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+
+$increasing
+[1] FALSE
+
+$strict
+[1] TRUE
+
+> 
+> 
+> ## testing translogCheckCurvature
+> test <- translogCheckCurvature( c( "qLabor", "land", "qVarInput", "time" ),
++    germanFarms, coef( estResult ) )
+> summary( test )
+          Length Class  Mode   
+obs       20     -none- logical
+convexity  1     -none- logical
+quasi      1     -none- logical
+> class( test ) <- NULL
+> print( test )
+$obs
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+
+$convexity
+[1] TRUE
+
+$quasi
+[1] FALSE
+
+> 
+> test <- translogCheckCurvature( c( "qLabor", "land", "qVarInput", "time" ),
++    germanFarms, coef( estResult ), quasi = TRUE )
+> summary( test )
+          Length Class  Mode   
+obs       20     -none- logical
+convexity  1     -none- logical
+quasi      1     -none- logical
+> class( test ) <- NULL
+> print( test )
+$obs
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+
+$convexity
+[1] TRUE
+
+$quasi
+[1] TRUE
+
+> 
+> test <- translogCheckCurvature( c( "qLabor", "land", "qVarInput", "time" ),
++    germanFarms, coef( estResult ), convexity = FALSE )
+> summary( test )
+          Length Class  Mode   
+obs       20     -none- logical
+convexity  1     -none- logical
+quasi      1     -none- logical
+> class( test ) <- NULL
+> print( test )
+$obs
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+
+$convexity
+[1] FALSE
+
+$quasi
+[1] FALSE
+
+> 
+> test <- translogCheckCurvature( c( "qLabor", "land", "qVarInput", "time" ),
++    germanFarms, coef( estResult ), convexity = FALSE, quasi = TRUE )
+> summary( test )
+          Length Class  Mode   
+obs       20     -none- logical
+convexity  1     -none- logical
+quasi      1     -none- logical
+> class( test ) <- NULL
+> print( test )
+$obs
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE
+
+$convexity
+[1] FALSE
+
+$quasi
+[1] TRUE
+
 > 

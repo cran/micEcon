@@ -1,6 +1,6 @@
 
-R version 2.6.1 (2007-11-26)
-Copyright (C) 2007 The R Foundation for Statistical Computing
+R version 2.6.2 (2008-02-08)
+Copyright (C) 2008 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -32,7 +32,7 @@ Loading required package: lmtest
 Loading required package: zoo
 > 
 > ## *****************************
-> ## Testing writeFront41in
+> ## Testing front41WriteInput
 > 
 > data( Coelli )
 > Coelli$logOutput  <- log( Coelli$output )
@@ -42,7 +42,7 @@ Loading required package: zoo
 > insFile <- file()
 > dtaFile  <- file()
 > 
-> writeFront41in( Coelli, "firm", "time", "logOutput",
+> front41WriteInput( Coelli, "firm", "time", "logOutput",
 +    c( "logCapital", "logLabour" ), insFile = insFile, dtaFile = dtaFile  )
 > 
 > print( readLines( insFile ) )
@@ -124,7 +124,7 @@ Loading required package: zoo
 > set.seed( 20061705 )
 > Coelli$firm <- sample( c( 1:( nrow( Coelli ) + 20 ) ) )[ 1:nrow( Coelli ) ]
 > 
-> writeFront41in( Coelli, "firm", "time", "logOutput",
+> front41WriteInput( Coelli, "firm", "time", "logOutput",
 +    c( "logCapital", "logLabour" ), insFile = insFile, dtaFile = dtaFile  )
 > 
 > print( readLines( insFile ) )
@@ -207,18 +207,49 @@ Loading required package: zoo
 > 
 > 
 > ## *****************************
-> ## Testing readFront41out
+> ## Testing front41ReadOutput
 > 
 > outFile <- system.file( "front41/EG1.OUT", package = "micEcon" )
-> sfa <- readFront41out( outFile )
-> print( sfa$mleResults )
-                   coef    std.err   t-ratio
-beta_0        0.5616196 0.20261668  2.771833
-beta_1        0.2811020 0.04764337  5.900130
-beta_2        0.5364798 0.04525155 11.855501
-sigma-squared 0.2170005 0.06390911  3.395455
-gamma         0.7972073 0.13642399  5.843600
-> print( sfa$efficiency )
+> sfa <- front41ReadOutput( outFile )
+> print( coef( sfa, which = "OLS" ) )
+       beta_0        beta_1        beta_2 sigma-squared 
+    0.2448983     0.2804925     0.5333064     0.1139850 
+> print( coef( sfa, which = "GRID" ) )
+       beta_0        beta_1        beta_2 sigma-squared         gamma 
+    0.5801422     0.2804925     0.5333064     0.2206741     0.8000000 
+> print( coef( sfa ) )
+       beta_0        beta_1        beta_2 sigma-squared         gamma 
+    0.5616196     0.2811020     0.5364798     0.2170005     0.7972073 
+> print( summary( sfa ) )
+
+Stochastic Frontier Analysis with FRONTIER 4.1
+Model type: Error Components Frontier (see B&C 1992) 
+Function type: production function 
+
+ML Estimates:
+                   coef    std.err   t-ratio     Pr(>|z|)
+beta_0        0.5616196 0.20261668  2.771833 5.574161e-03
+beta_1        0.2811020 0.04764337  5.900130 3.632151e-09
+beta_2        0.5364798 0.04525155 11.855501 2.015153e-32
+sigma-squared 0.2170005 0.06390911  3.395455 6.851476e-04
+gamma         0.7972073 0.13642399  5.843600 5.108449e-09
+
+Mean Efficiency: 0.7405677 
+> print( summary( sfa ), efficiencies = TRUE )
+
+Stochastic Frontier Analysis with FRONTIER 4.1
+Model type: Error Components Frontier (see B&C 1992) 
+Function type: production function 
+
+ML Estimates:
+                   coef    std.err   t-ratio     Pr(>|z|)
+beta_0        0.5616196 0.20261668  2.771833 5.574161e-03
+beta_1        0.2811020 0.04764337  5.900130 3.632151e-09
+beta_2        0.5364798 0.04525155 11.855501 2.015153e-32
+sigma-squared 0.2170005 0.06390911  3.395455 6.851476e-04
+gamma         0.7972073 0.13642399  5.843600 5.108449e-09
+
+Efficiency Estimates:
    firm eff.-est.
 1     1 0.6506888
 2     2 0.8288915
@@ -280,4 +311,286 @@ gamma         0.7972073 0.13642399  5.843600
 58   58 0.6647146
 59   59 0.8567045
 60   60 0.7084279
+
+Mean Efficiency: 0.7405677 
+> print( coef( summary( sfa ), which = "OLS" ) )
+                   coef    std.err   t-ratio     Pr(>|t|)
+beta_0        0.2448983 0.21360307  1.146511 2.563738e-01
+beta_1        0.2804925 0.04806662  5.835494 2.670799e-07
+beta_2        0.5333064 0.05149859 10.355748 1.028007e-14
+sigma-squared 0.1139850         NA        NA           NA
+> print( coef( summary( sfa ), which = "GRID" ) )
+                   coef std.err t-ratio Pr(>|z|)
+beta_0        0.5801422      NA      NA       NA
+beta_1        0.2804925      NA      NA       NA
+beta_2        0.5333064      NA      NA       NA
+sigma-squared 0.2206741      NA      NA       NA
+gamma         0.8000000      NA      NA       NA
+> print( coef( summary( sfa ) ) )
+                   coef    std.err   t-ratio     Pr(>|z|)
+beta_0        0.5616196 0.20261668  2.771833 5.574161e-03
+beta_1        0.2811020 0.04764337  5.900130 3.632151e-09
+beta_2        0.5364798 0.04525155 11.855501 2.015153e-32
+sigma-squared 0.2170005 0.06390911  3.395455 6.851476e-04
+gamma         0.7972073 0.13642399  5.843600 5.108449e-09
+> print( vcov( sfa ) )
+                    beta_0        beta_1        beta_2 sigma-squared
+beta_0         0.041053521 -3.144672e-03 -8.003028e-03  4.045649e-03
+beta_1        -0.003144672  2.269890e-03  4.010620e-05 -2.952885e-05
+beta_2        -0.008003028  4.010620e-05  2.047703e-03 -4.719031e-05
+sigma-squared  0.004045649 -2.952885e-05 -4.719031e-05  4.084374e-03
+gamma          0.009251936 -9.155047e-05 -1.640465e-04  6.745077e-03
+                      gamma
+beta_0         9.251936e-03
+beta_1        -9.155047e-05
+beta_2        -1.640465e-04
+sigma-squared  6.745077e-03
+gamma          1.861151e-02
+> print( sfa )
+
+Stochastic Frontier Analysis with FRONTIER 4.1
+Model type: Error Components Frontier (see B&C 1992) 
+Function type: production function 
+
+ML Estimates:
+       beta_0        beta_1        beta_2 sigma-squared         gamma 
+    0.5616196     0.2811020     0.5364798     0.2170005     0.7972073 
+
+Mean Efficiency: 0.7405677 
+> print( sfa, efficiencies = TRUE )
+
+Stochastic Frontier Analysis with FRONTIER 4.1
+Model type: Error Components Frontier (see B&C 1992) 
+Function type: production function 
+
+ML Estimates:
+       beta_0        beta_1        beta_2 sigma-squared         gamma 
+    0.5616196     0.2811020     0.5364798     0.2170005     0.7972073 
+
+Efficiency Estimates:
+   firm eff.-est.
+1     1 0.6506888
+2     2 0.8288915
+3     3 0.7264259
+4     4 0.7478511
+5     5 0.6913358
+6     6 0.7765464
+7     7 0.5651679
+8     8 0.7376818
+9     9 0.8438896
+10   10 0.7578417
+11   11 0.5455843
+12   12 0.9373952
+13   13 0.4480968
+14   14 0.6183103
+15   15 0.8738436
+16   16 0.5495278
+17   17 0.7126250
+18   18 0.7590723
+19   19 0.8572720
+20   20 0.8065193
+21   21 0.7245861
+22   22 0.8722361
+23   23 0.8368137
+24   24 0.7522572
+25   25 0.5297477
+26   26 0.8973168
+27   27 0.8101341
+28   28 0.7817941
+29   29 0.8561058
+30   30 0.6209788
+31   31 0.5793818
+32   32 0.7493419
+33   33 0.8819258
+34   34 0.4208217
+35   35 0.3512624
+36   36 0.8890838
+37   37 0.8411861
+38   38 0.6786890
+39   39 0.6729105
+40   40 0.8385343
+41   41 0.7596459
+42   42 0.6818961
+43   43 0.8043874
+44   44 0.8865299
+45   45 0.7429927
+46   46 0.7261019
+47   47 0.8534152
+48   48 0.7851919
+49   49 0.6720711
+50   50 0.5143025
+51   51 0.8423813
+52   52 0.8509858
+53   53 0.8596385
+54   54 0.7550829
+55   55 0.8164983
+56   56 0.7599125
+57   57 0.8735073
+58   58 0.6647146
+59   59 0.8567045
+60   60 0.7084279
+
+Mean Efficiency: 0.7405677 
+> class( sfa ) <- NULL
+> print( sfa )
+$version
+[1] "4.1"
+
+$insFile
+[1] "eg1.ins"
+
+$dtaFile
+[1] "eg1.dta"
+
+$modelType
+[1] 1
+
+$modelTypeName
+[1] "Error Components Frontier (see B&C 1992)"
+
+$functionType
+[1] 1
+
+$functionTypeName
+[1] "production function"
+
+$logDepVar
+[1] TRUE
+
+$olsResults
+                   coef    std.err   t-ratio
+beta_0        0.2448983 0.21360307  1.146511
+beta_1        0.2804925 0.04806662  5.835494
+beta_2        0.5333064 0.05149859 10.355748
+sigma-squared 0.1139850         NA        NA
+
+$nXvars
+[1] 3
+
+$olsLogl
+[1] -18.44685
+
+$gridResults
+                   coef std.err t-ratio
+beta_0        0.5801422      NA      NA
+beta_1        0.2804925      NA      NA
+beta_2        0.5333064      NA      NA
+sigma-squared 0.2206741      NA      NA
+gamma         0.8000000      NA      NA
+
+$mleResults
+                   coef    std.err   t-ratio
+beta_0        0.5616196 0.20261668  2.771833
+beta_1        0.2811020 0.04764337  5.900130
+beta_2        0.5364798 0.04525155 11.855501
+sigma-squared 0.2170005 0.06390911  3.395455
+gamma         0.7972073 0.13642399  5.843600
+
+$mleLogl
+[1] -17.02723
+
+$lrTest
+[1] 2.83924
+
+$lrTestRestrict
+[1] 1
+
+$nIter
+[1] 7
+
+$maxIter
+[1] 100
+
+$nCross
+[1] 60
+
+$nPeriods
+[1] 1
+
+$nObs
+[1] 60
+
+$nObsMissing
+[1] 0
+
+$mleCov
+                    beta_0        beta_1        beta_2 sigma-squared
+beta_0         0.041053521 -3.144672e-03 -8.003028e-03  4.045649e-03
+beta_1        -0.003144672  2.269890e-03  4.010620e-05 -2.952885e-05
+beta_2        -0.008003028  4.010620e-05  2.047703e-03 -4.719031e-05
+sigma-squared  0.004045649 -2.952885e-05 -4.719031e-05  4.084374e-03
+gamma          0.009251936 -9.155047e-05 -1.640465e-04  6.745077e-03
+                      gamma
+beta_0         9.251936e-03
+beta_1        -9.155047e-05
+beta_2        -1.640465e-04
+sigma-squared  6.745077e-03
+gamma          1.861151e-02
+
+$efficiency
+   firm eff.-est.
+1     1 0.6506888
+2     2 0.8288915
+3     3 0.7264259
+4     4 0.7478511
+5     5 0.6913358
+6     6 0.7765464
+7     7 0.5651679
+8     8 0.7376818
+9     9 0.8438896
+10   10 0.7578417
+11   11 0.5455843
+12   12 0.9373952
+13   13 0.4480968
+14   14 0.6183103
+15   15 0.8738436
+16   16 0.5495278
+17   17 0.7126250
+18   18 0.7590723
+19   19 0.8572720
+20   20 0.8065193
+21   21 0.7245861
+22   22 0.8722361
+23   23 0.8368137
+24   24 0.7522572
+25   25 0.5297477
+26   26 0.8973168
+27   27 0.8101341
+28   28 0.7817941
+29   29 0.8561058
+30   30 0.6209788
+31   31 0.5793818
+32   32 0.7493419
+33   33 0.8819258
+34   34 0.4208217
+35   35 0.3512624
+36   36 0.8890838
+37   37 0.8411861
+38   38 0.6786890
+39   39 0.6729105
+40   40 0.8385343
+41   41 0.7596459
+42   42 0.6818961
+43   43 0.8043874
+44   44 0.8865299
+45   45 0.7429927
+46   46 0.7261019
+47   47 0.8534152
+48   48 0.7851919
+49   49 0.6720711
+50   50 0.5143025
+51   51 0.8423813
+52   52 0.8509858
+53   53 0.8596385
+54   54 0.7550829
+55   55 0.8164983
+56   56 0.7599125
+57   57 0.8735073
+58   58 0.6647146
+59   59 0.8567045
+60   60 0.7084279
+
+$meanEfficiency
+[1] 0.7405677
+
 > 

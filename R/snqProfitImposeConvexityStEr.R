@@ -80,7 +80,7 @@
          fakeResult$hessian <- snqProfitHessian( fakeResult$coef$beta,
             fakeResult$pMeans, fakeResult$weights )
          fakeResult$convexity <- semidefiniteness( fakeResult$hessian[
-            1:( nNetput - 1 ), 1:( nNetput - 1 ) ] )$positive
+            1:( nNetput - 1 ), 1:( nNetput - 1 ) ], positive = TRUE )
          if( fakeResult$convexity ) {
             simResult <- fakeResult
             sim$status[ repNo ] <- -1

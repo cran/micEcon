@@ -7,7 +7,7 @@
 }
 
 \usage{
-   translogEst( yName, xNames, data, quadHalf = TRUE, logValues = FALSE )
+   translogEst( yName, xNames, data, quadHalf = TRUE, dataLogged = FALSE )
 }
 
 \arguments{
@@ -17,7 +17,7 @@
       independent variables.}
    \item{data}{dataframe containing the data.}
    \item{quadHalf}{logical. Multiply the quadratic terms by one half?}
-   \item{logValues}{logical. Are the values in \code{data} already logged?}
+   \item{dataLogged}{logical. Are the values in \code{data} already logged?}
 }
 
 \value{
@@ -25,12 +25,8 @@
    \item{lm}{a list returned by \code{lm}.}
    \item{residuals}{residuals.}
    \item{fitted}{fitted values.}
-   \item{coef}{a list containing the the estimated coefficients:
-      alpha0 = \eqn{\alpha_0} (scalar),
-      alpha = \eqn{\alpha_i} (vector),
-      beta = \eqn{\beta_ij} (matrix).}
-   \item{allCoef}{vector of all coefficients.}
-   \item{allCoefCov}{Covariance matrix of all coefficients.}
+   \item{coef}{vector of all coefficients.}
+   \item{coefCov}{covariance matrix of all coefficients.}
    \item{r2}{\eqn{R^2} value.}
    \item{r2bar}{adjusted \eqn{R^2} value.}
    \item{nObs}{number of observations.}
@@ -55,7 +51,7 @@
    estResult <- translogEst( "qOutput", c( "qLabor", "land", "qVarInput", "time" ),
       germanFarms )
 
-   estResult$coef
+   coef( estResult )
    estResult$r2
 }
 

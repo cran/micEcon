@@ -7,7 +7,7 @@
 }
 
 \usage{quantityIndex( prices, quantities, base, data, method = "Laspeyres",
-   na.rm = FALSE, na.0 = FALSE, weights = FALSE )}
+   na.rm = FALSE, weights = FALSE )}
 
 \arguments{
    \item{prices}{Vector that contains the names of the prices.}
@@ -18,7 +18,6 @@
    \item{method}{Which quantity index: "Laspeyres", "Paasche" or "Fisher".}
    \item{na.rm}{a logical value passed to '\code{mean()}' when
       calculating the \code{base}.}
-   \item{na.0}{logical. Setting all NA values to 0 (after calculating the base)?}
    \item{weights}{logical. Should an attribute 'weights' that contains the
       relatives weights of each quantity be added?}
 }
@@ -31,6 +30,11 @@
    (c) a logical vector with the same length as the \code{data}: The
    means of the observations indicated as 'TRUE' are used as base prices
    and quantities.
+
+   If any values used for calculating the quantity index
+   (e.g. current quantities, base quantities, current prices or base prices)
+   are not available (NA),
+   they are ignored (only) if they are multiplied by zero.
 }
 
 \value{

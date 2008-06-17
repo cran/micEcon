@@ -1,4 +1,4 @@
-readFront41out <- function( file = "front41.out", translog = FALSE ) {
+front41ReadOutput <- function( file = "front41.out" ) {
 
    result <- list()
 
@@ -167,7 +167,9 @@ readFront41out <- function( file = "front41.out", translog = FALSE ) {
       result$gridResults <- rbind( result$gridResults,
          getValues( line, "eta", NULL ) )
    }
-   colnames( result$gridResults ) <- c( "coef" )
+   result$gridResults <- cbind( result$gridResults,
+      matrix( NA, nrow = nrow( result$gridResults ), ncol = 2 ) )
+   colnames( result$gridResults ) <- c( "coef", "std.err", "t-ratio" )
 
    line <- lineSearch( line, "the final mle estimates are" )
    result$mleResults <- getValues( line, "beta", 0 )
@@ -195,6 +197,38 @@ readFront41out <- function( file = "front41.out", translog = FALSE ) {
    line <- lineSearch( line, "log likelihood function" )
    result$mleLogl <- as.numeric( rmParts( c( "log likelihood function",
       "[ =]" ), output[ line ] ) )
+
+   line <- lineSearch( line, "LR test of the one-sided error" )
+   result$lrTest <-  as.numeric( rmParts( c( "LR test of the one-sided error",
+      "[ =]" ), output[ line ] ) )
+
+   line <- lineSearch( line, "with number of restrictions" )
+   result$lrTestRestrict <-  as.numeric( rmParts( c( "with number of restrictions",
+      "[ =]" ), output[ line ] ) )
+
+   line <- lineSearch( line, "number of iterations" )
+   result$nIter <-  as.numeric( rmParts( c( "number of iterations",
+      "[ =]" ), output[ line ] ) )
+
+   line <- lineSearch( line, "\\(maximum number of iterations set at" )
+   result$maxIter <-  as.numeric( rmParts( c(
+      "\\(maximum number of iterations set at", "[ :\\)]" ), output[ line ] ) )
+
+   line <- lineSearch( line, "number of cross-sections" )
+   result$nCross <-  as.numeric( rmParts( c( "number of cross-sections",
+      "[ =]" ), output[ line ] ) )
+
+   line <- lineSearch( line, "number of time periods" )
+   result$nPeriods <-  as.numeric( rmParts( c( "number of time periods",
+      "[ =]" ), output[ line ] ) )
+
+   line <- lineSearch( line, "total number of observations" )
+   result$nObs <-  as.numeric( rmParts( c( "total number of observations",
+      "[ =]" ), output[ line ] ) )
+
+   line <- lineSearch( line, "thus there are.*obsns not in the panel" )
+   result$nObsMissing <-  as.numeric( rmParts( c( "thus there are",
+      "obsns not in the panel", "[ :]" ), output[ line ] ) )
 
    line <- lineSearch( line, "covariance matrix :" ) + 2
    nCoef <- nrow( result$mleResults )
@@ -226,6 +260,17 @@ readFront41out <- function( file = "front41.out", translog = FALSE ) {
       names( result$efficiency ) <- c( "firm", "eff.-est." )
    }
 
-   class( result ) <- "front41out"
+   line <- lineSearch( line, "mean efficiency" )
+   result$meanEfficiency <-  as.numeric( rmParts( c( "mean efficiency",
+      "[ =]" ), output[ line ] ) )
+
+   class( result ) <- "front41Output"
    return( result )
+}
+
+readFront41out <- function( file = "front41.out", translog = FALSE ) {
+
+   .Deprecated( "front41ReadOutput", package="micEcon" )
+
+   return( front41ReadOutput( file = file ) )
 }

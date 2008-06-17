@@ -7,15 +7,15 @@
 }
 
 \usage{
-   quadFuncDeriv( xNames, data, allCoef, allCoefCov = NULL, quadHalf = TRUE  )
+   quadFuncDeriv( xNames, data, coef, coefCov = NULL, quadHalf = TRUE  )
 }
 
 \arguments{
    \item{xNames}{a vector of strings containing the names of the
       independent variables.}
    \item{data}{dataframe containing the data.}
-   \item{allCoef}{vector containing all coefficients.}
-   \item{allCoefCov}{optional covariance matrix of the coefficients.}
+   \item{coef}{vector containing all coefficients.}
+   \item{coefCov}{optional covariance matrix of the coefficients.}
    \item{quadHalf}{logical. Multiply the quadratic terms by one half?}
 }
 
@@ -23,9 +23,9 @@
    a list of class \code{quadFuncDeriv} containing following objects:
    \item{deriv}{data frame containing the derivatives.}
    \item{variance}{data frame containing the variances of the derivatives
-      (only if argument \code{allCoefCov} is provided).}
+      (only if argument \code{coefCov} is provided).}
    \item{stdDev}{data frame containing the standard deviations of the derivatives
-      (only if argument \code{allCoefCov} is provided).}
+      (only if argument \code{coefCov} is provided).}
 }
 
 \seealso{\code{\link{quadFuncEst}} and \code{\link{quadFuncCalc}}}
@@ -47,7 +47,7 @@
 
    # compute the marginal products of the inputs
    margProducts <- quadFuncDeriv( c( "qLabor", "land", "qVarInput", "time" ),
-      germanFarms, estResult$allCoef, estResult$allCoefCov )
+      germanFarms, coef( estResult ), vcov( estResult ) )
    margProducts$deriv
 }
 
