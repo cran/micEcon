@@ -1,5 +1,5 @@
 
-R version 2.6.2 (2008-02-08)
+R version 2.7.2 (2008-08-25)
 Copyright (C) 2008 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
@@ -30,6 +30,14 @@ Attaching package: 'Matrix'
 Loading required package: car
 Loading required package: lmtest
 Loading required package: zoo
+
+Attaching package: 'zoo'
+
+
+	The following object(s) are masked from package:base :
+
+	 as.Date.numeric 
+
 > 
 > ## preparing data
 > data( germanFarms )
@@ -46,6 +54,47 @@ Loading required package: zoo
 +    germanFarms )
 > 
 > print( estResult )
+Estimated Translog function with 20 observations.
+     alpha_0      alpha_1      alpha_2      alpha_3      alpha_4     beta_1_1 
+-133.4851620   24.5892366   19.9228713   34.6307963  -12.4674226  -16.8647382 
+    beta_1_2     beta_1_3     beta_1_4     beta_2_2     beta_2_3     beta_2_4 
+  14.3472829   -8.5911234   -3.5734031    0.2644969   -3.4684787   -1.1633161 
+    beta_3_3     beta_3_4     beta_4_4 
+  -3.9096383    2.7933263   -0.2456535 
+> 
+> summary( estResult )
+Estimated Translog function with 20 observations.
+           Estimate Std. Error t value Pr(>|t|)  
+alpha_0  -133.48516  165.54756 -0.8063  0.45668  
+alpha_1    24.58924   66.49741  0.3698  0.72669  
+alpha_2    19.92287   16.49954  1.2075  0.28124  
+alpha_3    34.63080   55.32287  0.6260  0.55879  
+alpha_4   -12.46742    5.22824 -2.3846  0.06280 .
+beta_1_1  -16.86474   19.10077 -0.8829  0.41769  
+beta_1_2   14.34728    8.76958  1.6360  0.16276  
+beta_1_3   -8.59112   10.55065 -0.8143  0.45251  
+beta_1_4   -3.57340    1.89984 -1.8809  0.11874  
+beta_2_2    0.26450    4.82223  0.0548  0.95838  
+beta_2_3   -3.46848    3.48959 -0.9939  0.36588  
+beta_2_4   -1.16332    1.54187 -0.7545  0.48456  
+beta_3_3   -3.90964    9.32307 -0.4194  0.69237  
+beta_3_4    2.79333    0.74993  3.7248  0.01364 *
+beta_4_4   -0.24565    0.15974 -1.5378  0.18471  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+R-squared: 0.9982506     Adjusted R-squared: 0.9933521 
+> 
+> residuals( estResult )
+            1             2             3             4             5 
+ 0.0022922921 -0.0136739199  0.0083941872  0.0227389245 -0.0084854602 
+            6             7             8             9            10 
+-0.0171083509  0.0022659925 -0.0032253722  0.0089177159 -0.0020595828 
+           11            12            13            14            15 
+-0.0012271522 -0.0012389120 -0.0003906588 -0.0021862602  0.0073065562 
+           16            17            18            19            20 
+ 0.0045336669 -0.0139967789  0.0078810229 -0.0002631054 -0.0004748046 
+> 
+> print.default( estResult )
 $lm
 
 Call:

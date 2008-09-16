@@ -3,7 +3,7 @@ print.summary.front41Output <- function( x, efficiencies = FALSE, ... ) {
    cat( "Model type:", x$modelTypeName, "\n" )
    cat( "Function type:", x$functionTypeName, "\n" )
    cat( "\nML Estimates:\n" )
-   print( coef( x ) )
+   printCoefmat( coef( x ) )
    if( efficiencies ) {
       cat( "\nEfficiency Estimates:\n" )
       print( x$efficiency )

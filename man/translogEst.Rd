@@ -1,5 +1,6 @@
 \name{translogEst}
 \alias{translogEst}
+\alias{print.translogEst}
 \title{Estimate a translog function}
 
 \description{
@@ -8,6 +9,8 @@
 
 \usage{
    translogEst( yName, xNames, data, quadHalf = TRUE, dataLogged = FALSE )
+
+   \method{print}{translogEst}( x, ... )
 }
 
 \arguments{
@@ -18,6 +21,8 @@
    \item{data}{dataframe containing the data.}
    \item{quadHalf}{logical. Multiply the quadratic terms by one half?}
    \item{dataLogged}{logical. Are the values in \code{data} already logged?}
+   \item{x}{An object of class \code{translogEst}.}
+   \item{...}{currently ignored.}
 }
 
 \value{
@@ -51,8 +56,8 @@
    estResult <- translogEst( "qOutput", c( "qLabor", "land", "qVarInput", "time" ),
       germanFarms )
 
-   coef( estResult )
-   estResult$r2
+   estResult
+   summary( estResult )
 }
 
 \keyword{models}

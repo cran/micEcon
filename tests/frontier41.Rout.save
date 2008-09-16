@@ -227,12 +227,14 @@ Model type: Error Components Frontier (see B&C 1992)
 Function type: production function 
 
 ML Estimates:
-                   coef    std.err   t-ratio     Pr(>|z|)
-beta_0        0.5616196 0.20261668  2.771833 5.574161e-03
-beta_1        0.2811020 0.04764337  5.900130 3.632151e-09
-beta_2        0.5364798 0.04525155 11.855501 2.015153e-32
-sigma-squared 0.2170005 0.06390911  3.395455 6.851476e-04
-gamma         0.7972073 0.13642399  5.843600 5.108449e-09
+                  coef  std.err t-ratio  Pr(>|z|)    
+beta_0        0.561620 0.202617  2.7718 0.0055742 ** 
+beta_1        0.281102 0.047643  5.9001 3.632e-09 ***
+beta_2        0.536480 0.045252 11.8555 < 2.2e-16 ***
+sigma-squared 0.217000 0.063909  3.3955 0.0006851 ***
+gamma         0.797207 0.136424  5.8436 5.108e-09 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 
 Mean Efficiency: 0.7405677 
 > print( summary( sfa ), efficiencies = TRUE )
@@ -242,12 +244,14 @@ Model type: Error Components Frontier (see B&C 1992)
 Function type: production function 
 
 ML Estimates:
-                   coef    std.err   t-ratio     Pr(>|z|)
-beta_0        0.5616196 0.20261668  2.771833 5.574161e-03
-beta_1        0.2811020 0.04764337  5.900130 3.632151e-09
-beta_2        0.5364798 0.04525155 11.855501 2.015153e-32
-sigma-squared 0.2170005 0.06390911  3.395455 6.851476e-04
-gamma         0.7972073 0.13642399  5.843600 5.108449e-09
+                  coef  std.err t-ratio  Pr(>|z|)    
+beta_0        0.561620 0.202617  2.7718 0.0055742 ** 
+beta_1        0.281102 0.047643  5.9001 3.632e-09 ***
+beta_2        0.536480 0.045252 11.8555 < 2.2e-16 ***
+sigma-squared 0.217000 0.063909  3.3955 0.0006851 ***
+gamma         0.797207 0.136424  5.8436 5.108e-09 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 
 Efficiency Estimates:
    firm eff.-est.

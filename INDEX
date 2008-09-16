@@ -42,6 +42,7 @@ quantityIndex           Calculate Quantity Indices
 quasiconcavity          Test for quasiconcavity / quasiconvexity
 residuals.snqProfitEst
                         Residuals of an SNQ profit function
+residuals.translogEst   Residuals of a Translog function
 riceProdPhil            Rice Production in the Philippines
 rSquared                Calculate R squared value
 semidefiniteness        Positive or Negative Semidefiniteness
@@ -62,6 +63,8 @@ summary.aidsElas        Summarizing the Elasticities of an Almost Ideal
 summary.aidsEst         Summarizing the Estimation of an Almost Ideal
                         Demand System
 summary.front41Output   Summarizing the Estimation of Frontier 4.1
+summary.translogEst     Summarizing the Estimation of a Translog
+                        Function
 symMatrix               Symmetric Matrix
 translogCalc            Calculate dependent variable of a translog
                         function

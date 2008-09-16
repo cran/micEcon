@@ -16,6 +16,12 @@ estResult <- translogEst( "qOutput", c( "qLabor", "land", "qVarInput", "time" ),
 
 print( estResult )
 
+summary( estResult )
+
+residuals( estResult )
+
+print.default( estResult )
+
 ## testing translogCalc
 fitted <- translogCalc( c( "qLabor", "land", "qVarInput", "time" ),
    germanFarms, estResult$coef )
