@@ -205,7 +205,7 @@ front41WriteInput <- function( data, crossSectionName, timePeriodName = NULL,
    if( !is.null( startUpFile ) ) {
       cat( "KEY VALUES USED IN FRONTIER PROGRAM (VERSION 4.1)\n",
          file = startUpFile )
-      cat( "NUMBER:         DESCRIPTION:\n", 
+      cat( "NUMBER:         DESCRIPTION:\n",
          file = startUpFile, append = TRUE )
       cat( iprint,
          rep( " ", 16 - nchar( as.character( iprint ) ) ),
@@ -276,6 +276,41 @@ front41WriteInput <- function( data, crossSectionName, timePeriodName = NULL,
       cat( "indic= any other number says scale (to length of last step) \n",
          file = startUpFile, append = TRUE )
    }
+
+   returnList <- list( data = dataTable,
+      crossSectionName = crossSectionName,
+      timePeriodName = timePeriodName,
+      yName = yName,
+      xNames = xNames,
+      qxNames = qxNames,
+      zNames = zNames,
+      quadHalf = quadHalf,
+      functionType = functionType,
+      logDepVar = logDepVar,
+      mu = mu,
+      eta = eta,
+      insFile = insFile,
+      dtaFile = dtaFile,
+      outFile = outFile,
+      startUpFile = startUpFile,
+      iprint = iprint,
+      indic = indic,
+      tol = tol,
+      tol2 = tol2,
+      bignum = bignum,
+      step1 = step1,
+      igrid2 = igrid2,
+      gridno = gridno,
+      maxit = maxit,
+      ite = ite,
+      modelType = modelType,
+      nCrossSection = nCrossSection,
+      nTimePeriods = nTimePeriods,
+      nTotalObs = nTotalObs,
+      nXtotal = nXtotal,
+      nZvars = nZvars )
+   class( returnList ) <- "front41WriteInput"
+   invisible( returnList )
 }
 
 writeFront41in <- function( data, crossSectionName, timePeriodName,

@@ -11,8 +11,10 @@ Coelli$logLabour  <- log( Coelli$labour )
 insFile <- file()
 dtaFile  <- file()
 
-front41WriteInput( Coelli, "firm", "time", "logOutput",
+front41Ins <- front41WriteInput( Coelli, "firm", "time", "logOutput",
    c( "logCapital", "logLabour" ), insFile = insFile, dtaFile = dtaFile  )
+
+print( front41Ins )
 
 print( readLines( insFile ) )
 print( readLines( dtaFile ) )
@@ -21,8 +23,10 @@ print( readLines( dtaFile ) )
 set.seed( 20061705 )
 Coelli$firm <- sample( c( 1:( nrow( Coelli ) + 20 ) ) )[ 1:nrow( Coelli ) ]
 
-front41WriteInput( Coelli, "firm", "time", "logOutput",
+front41Ins <- front41WriteInput( Coelli, "firm", "time", "logOutput",
    c( "logCapital", "logLabour" ), insFile = insFile, dtaFile = dtaFile  )
+
+print( front41Ins )
 
 print( readLines( insFile ) )
 print( readLines( dtaFile ) )

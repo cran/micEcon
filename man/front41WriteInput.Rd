@@ -62,7 +62,7 @@
    \item{igrid2}{numeric. 1 = double accuracy, 0 = single accuracy.}
    \item{gridno}{numeric. Steps taken in single accuracy grid search on gamma.}
    \item{maxit}{numeric. Maximum number of iterations permitted}
-   \item{ite}{numeric. 1 = print all efficiency estimates; 
+   \item{ite}{numeric. 1 = print all efficiency estimates;
       0 = print only the mean efficiency.}
 }
 
@@ -78,7 +78,24 @@
 
 \value{
    \code{front41WriteInput} writes an instruction file, a data file,
-   and a start-up file for Frontier 4.1 to disk.
+   and a start-up file for Frontier 4.1 to disk
+   and it invisibly returns a list of class \code{front41WriteInput}.
+   This list contains mainly the arguments with which \code{front41WriteInput}
+   was called.
+   An exception is element \code{data}, which is \emph{not}
+   the argument \code{data} but the data matrix
+   that was written into the data file.
+   Furthermore, in case of an Efficiency Effects Model,
+   the element \code{eta} contains the number of Z variables.
+   Additionally, the returned list contains following elements:
+   \item{modelType}{model type: 1 = Error Components Frontier (no Z variables),
+      2 = Efficiency Effects Model (with Z variables).}
+   \item{nCrossSection}{number of cross section units.}
+   \item{nTimePeriods}{number of time periods.}
+   \item{nTotalObs}{total number of observations.}
+   \item{nXtotal}{total number of X variables
+      (including quadratic and interaction terms).}
+   \item{nZvars}{number of Z variables.}
 }
 
 \references{
@@ -97,7 +114,7 @@
       University of New England.
 }
 
-\seealso{\code{\link{front41ReadOutput}}}
+\seealso{\code{\link{front41ReadOutput}}, \code{\link{front41Est}}}
 
 \author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
 

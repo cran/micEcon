@@ -21,6 +21,8 @@ df.residual.aidsEst     Covariance matrix of an Almost Ideal Demand
                         System
 elas                    Calculating and returning elasticities
 fitted.aidsEst          Fitted values of an Almost Ideal Demand System
+front41Est              Estimate a Stochastic Frontier Model by
+                        Frontier 4.1
 front41ReadOutput       Read output of Frontier 4.1
 front41WriteInput       Write input files for Frontier 4.1
 germanFarms             Output and Inputs of Farms in West-Germany
