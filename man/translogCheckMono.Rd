@@ -14,11 +14,11 @@ translogCheckMono( xNames, data, coef, increasing = TRUE,
    strict = FALSE, quadHalf = TRUE, dataLogged = FALSE,
    tol = 2 * .Machine$double.eps )
 
-\method{print}{translogCheckMono}( x, ... )
+\method{print}{translogCheckMono}( x, \dots )
 
-\method{summary}{translogCheckMono}( object, ... )
+\method{summary}{translogCheckMono}( object, \dots )
 
-\method{print}{summary.translogCheckMono}( x, ... )
+\method{print}{summary.translogCheckMono}( x, \dots )
 }
 
 \arguments{
@@ -38,7 +38,7 @@ translogCheckMono( xNames, data, coef, increasing = TRUE,
    \item{x}{an object returned by \code{translogCheckMono} or
       by \code{summary.translogCheckMono}.}
    \item{object}{an object returned by \code{translogCheckMono}.}
-   \item{...}{currently not used.}
+   \item{\dots}{currently not used.}
 }
 
 \value{

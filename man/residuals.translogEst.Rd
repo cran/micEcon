@@ -8,12 +8,12 @@
 }
 
 \usage{
-\method{residuals}{translogEst}( object, ... )
+\method{residuals}{translogEst}( object, \dots )
 }
 
 \arguments{
    \item{object}{an object of class \code{translogEst}.}
-   \item{...}{currently not used.}
+   \item{\dots}{currently not used.}
 }
 
 \value{

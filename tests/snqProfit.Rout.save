@@ -1,6 +1,6 @@
 
-R version 2.6.1 (2007-11-26)
-Copyright (C) 2007 The R Foundation for Statistical Computing
+R version 2.8.0 (2008-10-20)
+Copyright (C) 2008 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -27,9 +27,26 @@ Attaching package: 'Matrix'
 
 	 xtabs 
 
+
+	The following object(s) are masked from package:base :
+
+	 colMeans,
+	 colSums,
+	 rcond,
+	 rowMeans,
+	 rowSums 
+
 Loading required package: car
 Loading required package: lmtest
 Loading required package: zoo
+
+Attaching package: 'zoo'
+
+
+	The following object(s) are masked from package:base :
+
+	 as.Date.numeric 
+
 > data( germanFarms )
 > options( digits = 3 )
 > 
@@ -43,6 +60,11 @@ Loading required package: zoo
 > fNamesT <- c( "land", "time" )
 > 
 > estResult <- snqProfitEst( pNamesT, qNamesT, "land", data = germanFarms )
+Warning message:
+Ambiguous method selection for "crossprod", target "dgCMatrix#dgTMatrix" (the first of the signatures shown will be used)
+    Matrix#ANY
+    ANY#Matrix
+ 
 > print( estResult )
 
 Estimation results of the SNQ profit function:
@@ -1168,7 +1190,7 @@ fq1.2.2       -96006      61790   -1.55     0.13
 
 Residual standard error: 4222.034 on 1 degrees of freedom
 Number of observations: 20 Degrees of Freedom: 1 
-SSR: 196081253.398 MSE: 17825568.491 Root MSE: 4222.034 
+SSR: 196081253.396 MSE: 17825568.491 Root MSE: 4222.034 
 Multiple R-Squared: 0.988 Adjusted R-Squared: 0.979 
 
 
@@ -1202,7 +1224,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 5038.67 on 1 degrees of freedom
 Number of observations: 20 Degrees of Freedom: 1 
-SSR: 279270123.114 MSE: 25388193.01 Root MSE: 5038.67 
+SSR: 279270123.115 MSE: 25388193.01 Root MSE: 5038.67 
 Multiple R-Squared: 0.502 Adjusted R-Squared: 0.14 
 
 

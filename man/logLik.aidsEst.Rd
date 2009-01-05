@@ -8,12 +8,12 @@
 }
 
 \usage{
-\method{logLik}{aidsEst}( object, ... )
+\method{logLik}{aidsEst}( object, \dots )
 }
 
 \arguments{
    \item{object}{an object of class \code{aidsEst}.}
-   \item{...}{currently ignored.}
+   \item{\dots}{currently ignored.}
 }
 
 \value{

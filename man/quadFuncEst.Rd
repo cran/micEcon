@@ -7,7 +7,8 @@
 }
 
 \usage{
-   quadFuncEst( yName, xNames, data, quadHalf = TRUE, exVarScale = 1 )
+   quadFuncEst( yName, xNames, data, shifterNames = NULL,
+      quadHalf = TRUE, exVarScale = 1, \dots )
 }
 
 \arguments{
@@ -15,16 +16,26 @@
       variable.}
    \item{xNames}{a vector of strings containing the names of the
       independent variables.}
-   \item{data}{dataframe containing the data.}
+   \item{data}{data frame containing the data
+      (possibly a panel data frame created with
+      \code{\link[plm]{plm.data}}).}
+   \item{shifterNames}{a vector of strings containing the names
+      of the independent variables that should be included
+      as shifters only (not in quadratic or interaction terms).}
    \item{quadHalf}{logical. Multiply the quadratic terms by one half?}
    \item{exVarScale}{a scalar or vector with length equal to nrow( data ).
       All exogenous variables (including the quadratic terms) are
       divided by this value/these values.}
+   \item{\dots}{further arguments are passed to \code{\link[stats]{lm}}
+      or \code{\link[plm]{plm}}.}
 }
 
 \value{
    a list of class \code{quadFuncEst} containing following objects:
-   \item{lm}{a list returned by \code{lm}.}
+   \item{est}{the object returned by \code{\link[stats]{lm}}
+      or \code{\link[plm]{plm}}.}
+   \item{nExog}{length of argument \code{xNames}.}
+   \item{nShifter}{length of argument \code{shifterNames}.}
    \item{residuals}{residuals.}
    \item{fitted}{fitted values.}
    \item{coef}{vector of all coefficients.}

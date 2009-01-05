@@ -6,7 +6,7 @@
 }
 
 \usage{
-checkConsist( object, ... )
+checkConsist( object, \dots )
 }
 
 \arguments{

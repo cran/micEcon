@@ -1,23 +1,113 @@
 ## ----- insert a column into a matrix --------------
-insertCol <- function( m, c, v = NA ) {
+insertCol <- function( m, c, v = NA, cName = "" ) {
+
+   # checking the argument 'm'
+   if( class( m ) != "matrix" ) {
+      stop( "argument 'm' must be a matrix" )
+   }
+   # checking the argument 'c'
+   if( c == as.integer( c ) ) {
+      c <- as.integer( c )
+   } else {
+      stop( "argument 'c' must be an integer" )
+   }
+   if( length( c ) != 1 ) {
+      stop( "argument 'c' must be a scalar" )
+   }
+   if( c < 1 ) {
+      stop( "argument 'c' must be positive" )
+   }
+   if( c > ncol( m ) + 1 ) {
+      stop( "argument 'c' must not be larger than the number of columns",
+         " of matrix 'm' plus one" )
+   }
+   # checking the argument 'cName'
+   if( !is.character( cName ) ) {
+      stop( "argument 'cName' must be a character string" )
+   }
+   if( length( cName ) != 1 ) {
+      stop( "argument 'cName' must be a be a single character string" )
+   }
+
    nr <- nrow( m )
    nc <- ncol( m )
-   if( c > nc ) {
-      m2 <- cbind( m[ , 1:nc ], matrix( v, nrow = nr ) )
+   cNames <- colnames( m )
+   if( is.null( cNames ) & cName != "" ) {
+      cNames <- rep( "", nc )
+   }
+
+   if( c == 1 ) {
+      m2 <- cbind( matrix( v, nrow = nr ), m )
+      if( !is.null( cNames ) ) {
+         colnames( m2 ) <- c( cName, cNames )
+      }
+   } else if( c == nc + 1 ) {
+      m2 <- cbind( m, matrix( v, nrow = nr ) )
+      if( !is.null( cNames ) ) {
+         colnames( m2 ) <- c( cNames, cName )
+      }
    } else {
       m2 <- cbind( m[ , 1:( c - 1 ) ], matrix( v, nrow = nr ), m[ , c:nc ] )
+      if( !is.null( cNames ) ) {
+         colnames( m2 ) <- c( cNames[ 1:( c - 1 ) ], cName, cNames[ c:nc ] )
+      }
    }
    return( m2 )
 }
 
 ## ----- insert a row into a matrix --------------
-insertRow <- function( m, r, v = NA ) {
+insertRow <- function( m, r, v = NA, rName = "" ) {
+
+   # checking the argument 'm'
+   if( class( m ) != "matrix" ) {
+      stop( "argument 'm' must be a matrix" )
+   }
+   # checking the argument 'r'
+   if( r == as.integer( r ) ) {
+      r <- as.integer( r )
+   } else {
+      stop( "argument 'r' must be an integer" )
+   }
+   if( length( r ) != 1 ) {
+      stop( "argument 'r' must be a scalar" )
+   }
+   if( r < 1 ) {
+      stop( "argument 'r' must be positive" )
+   }
+   if( r > nrow( m ) + 1 ) {
+      stop( "argument 'r' must not be larger than the number of rows",
+         " of matrix 'm' plus one" )
+   }
+   # checking the argument 'rName'
+   if( !is.character( rName ) ) {
+      stop( "argument 'rName' must be a character string" )
+   }
+   if( length( rName ) != 1 ) {
+      stop( "argument 'rName' must be a be a single character string" )
+   }
+
    nr <- nrow( m )
    nc <- ncol( m )
-   if( r > nr ) {
-      m2 <- rbind( m[ 1:nr, ], matrix( v,ncol = nc ) )
+   rNames <- rownames( m )
+   if( is.null( rNames ) & rName != "" ) {
+      rNames <- rep( "", nr )
+   }
+
+   if( r == 1 ) {
+      m2 <- rbind( matrix( v,ncol = nc ), m )
+      if( !is.null( rNames ) ) {
+         rownames( m2 ) <- c( rName, rNames )
+      }
+   } else if( r == nr + 1 ) {
+      m2 <- rbind( m, matrix( v,ncol = nc ) )
+      if( !is.null( rNames ) ) {
+         rownames( m2 ) <- c( rNames, rName )
+      }
    } else {
       m2 <- rbind( m[ 1:( r - 1 ), ], matrix( v, ncol = nc ), m[ r:nr, ] )
+      if( !is.null( rNames ) ) {
+         rownames( m2 ) <- c( rNames[ 1:( r - 1 ) ], rName, rNames[ r:nr ] )
+      }
    }
    return( m2 )
 }

@@ -8,7 +8,7 @@
 \usage{snqProfitEst( priceNames, quantNames, fixNames = NULL, instNames = NULL,
    data, form = 0, base = 1, scalingFactors = NULL,
    weights = snqProfitWeights( priceNames, quantNames, data, "DW92", base = base ),
-   method = ifelse( is.null( instNames ), "SUR", "3SLS" ), ...  )
+   method = ifelse( is.null( instNames ), "SUR", "3SLS" ), \dots )
 }
 
 \arguments{
@@ -26,7 +26,7 @@
    \item{weights}{vector of weights of the prices for normalization.}
    \item{method}{the estimation method (passed to
       \code{\link[systemfit]{systemfit}}).}
-   \item{...}{arguments passed to \code{\link[systemfit]{systemfit}}}
+   \item{\dots}{arguments passed to \code{\link[systemfit]{systemfit}}}
 }
 
 \details{

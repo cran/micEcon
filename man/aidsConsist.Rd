@@ -13,9 +13,9 @@ aidsConsist( priceNames, totExpName, coef, data,
    priceIndex = "TL", basePrices = NULL, baseShares = NULL,
    shareNames = NULL )
 
-\method{print}{aidsConsist}( x, ... )
+\method{print}{aidsConsist}( x, \dots )
 
-\method{checkConsist}{aidsEst}( object, observedShares = FALSE, ... )
+\method{checkConsist}{aidsEst}( object, observedShares = FALSE, \dots )
 }
 
 \arguments{
@@ -39,7 +39,7 @@ aidsConsist( priceNames, totExpName, coef, data,
    \item{x}{an object of class \code{aidsConsist}.}
    \item{object}{an object of class \code{aidsEst}.}
    \item{observedShares}{logical. Using observed shares? (see details).}
-   \item{...}{currently not used.}
+   \item{\dots}{currently not used.}
 }
 
 \details{

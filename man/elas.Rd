@@ -12,14 +12,14 @@
 }
 
 \usage{
-   elas( object, ... )
-   elasticities( object, ... )
-   \method{elas}{default}( object, ... )
+   elas( object, \dots )
+   elasticities( object, \dots )
+   \method{elas}{default}( object, \dots )
 }
 
 \arguments{
   \item{object}{a microeconomic model}
-  \item{...}{further arguments for methods}
+  \item{\dots}{further arguments for methods}
 }
 
 \details{

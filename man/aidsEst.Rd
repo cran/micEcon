@@ -60,14 +60,14 @@ aidsEst( priceNames, shareNames, totExpName, data,
    Estimator' (IL) proposed by Blundell and Robin (1999).\cr
    Argument \code{priceIndex} can specify six different price indices
    for the LA-AIDS:
-   \begin{itemize}
+   \itemize{
    \item Stone price index ('S'),
    \item Stone price index with lagged shares ('SL'),
    \item loglinear analogue to the Paasche price index ('P'),
    \item loglinear analogue of the Laspeyres price index ('L'),
    \item simplified loglinear analogue of the Laspeyres price index ('Ls'), and
    \item Tornqvist price index ('T').
-   \end{itemize}
+   }
 
    The 'Iterative Linear Least Squares Estimator' (IL) needs starting
    values for the (translog) price index.

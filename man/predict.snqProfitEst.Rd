@@ -13,11 +13,11 @@
 \usage{
 \method{predict}{snqProfitEst}( object, newdata = object$data,
    se.fit = FALSE, se.pred = FALSE, interval = "none", level = 0.95,
-   useDfSys = TRUE, ... )
+   useDfSys = TRUE, \dots )
 
 \method{predict}{snqProfitImposeConvexity}( object, newdata = object$data,
    se.fit = FALSE, se.pred = FALSE, interval = "none", level = 0.95,
-   useDfSys = TRUE, ... )
+   useDfSys = TRUE, \dots )
 }
 
 \arguments{
@@ -32,7 +32,7 @@
   \item{useDfSys}{logical. Use the degrees of freedom of the whole system
       (and not the degrees of freedom of the single equation)
       to calculate the confidence intervals.}
-  \item{...}{currently not used.}
+  \item{\dots}{currently not used.}
 }
 
 \details{

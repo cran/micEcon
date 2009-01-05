@@ -9,7 +9,7 @@
 }
 
 \usage{
-   \method{lrtest}{aidsEst}( object, ... )
+   \method{lrtest}{aidsEst}( object, \dots )
 }
 
 \arguments{
@@ -20,7 +20,7 @@
 \details{
    \code{lrtest.aidsEst} consecutively compares
    the fitted model object \code{object}
-   with the models passed in \code{...}.
+   with the models passed in \code{\dots}.
 }
 
 \value{

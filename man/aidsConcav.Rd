@@ -10,7 +10,7 @@
 \usage{
 aidsConcav( priceNames, totExpName, coef, data, shareNames = NULL )
 
-\method{print}{aidsConcav}( x, header = TRUE, ... )
+\method{print}{aidsConcav}( x, header = TRUE, \dots )
 }
 
 \arguments{
@@ -23,7 +23,7 @@ aidsConcav( priceNames, totExpName, coef, data, shareNames = NULL )
       shares.}
    \item{x}{an object of class \code{aidsConcav}.}
    \item{header}{logical. Print a header?}
-   \item{...}{currently unused.}
+   \item{\dots}{currently unused.}
 }
 
 \details{

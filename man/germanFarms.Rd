@@ -1,6 +1,7 @@
 \name{germanFarms}
 \docType{data}
 \alias{germanFarms}
+\encoding{latin1}
 
 \title{Output and Inputs of Farms in West-Germany}
 
@@ -29,11 +30,11 @@
 }
 
 \source{
-   Bundesministerium f\"{u}r Ern\"{a}hrung, Landwirtschaft und Forsten
+   Bundesministerium \enc{für}{fuer} \enc{Ernährung}{Ernaehrung}, Landwirtschaft und Forsten
    (Federal Department for Food, Agriculture and Forests),
    \emph{Agrarbericht der Bundesregierung
    (Agricultural Report of the Federal Government)},
-   Jahrg\"{a}nge 1977-1996
+   \enc{Jahrgänge}{Jahrgaenge} 1977-1996
    (years 1977-1996).
 }
 

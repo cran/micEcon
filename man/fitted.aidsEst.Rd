@@ -9,12 +9,12 @@
 }
 
 \usage{
-   \method{fitted}{aidsEst}( object, ... )
+   \method{fitted}{aidsEst}( object, \dots )
 }
 
 \arguments{
   \item{object}{an object of class \code{aidsEst}.}
-  \item{...}{currently unused.}
+  \item{\dots}{currently unused.}
 }
 
 \value{

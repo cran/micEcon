@@ -8,9 +8,10 @@
 }
 
 \usage{
-   translogEst( yName, xNames, data, quadHalf = TRUE, dataLogged = FALSE )
+   translogEst( yName, xNames, data, shifterNames = NULL,
+      quadHalf = TRUE, dataLogged = FALSE, \dots )
 
-   \method{print}{translogEst}( x, ... )
+   \method{print}{translogEst}( x, \dots )
 }
 
 \arguments{
@@ -18,16 +19,28 @@
       variable.}
    \item{xNames}{a vector of strings containing the names of the
       independent variables.}
-   \item{data}{dataframe containing the data.}
+   \item{data}{data frame containing the data
+      (possibly a panel data frame created with
+      \code{\link[plm]{plm.data}}).}
+   \item{shifterNames}{a vector of strings containing the names
+      of the independent variables that should be included
+      as shifters only (not in quadratic or interaction terms).}
    \item{quadHalf}{logical. Multiply the quadratic terms by one half?}
    \item{dataLogged}{logical. Are the values in \code{data} already logged?}
    \item{x}{An object of class \code{translogEst}.}
-   \item{...}{currently ignored.}
+   \item{\dots}{further arguments of \code{translogEst}
+      are passed to \code{\link[stats]{lm}}
+      or \code{\link[plm]{plm}};
+      further arguments of \code{print.translogEst}
+      are currently ignored.}
 }
 
 \value{
    a list of class \code{translogEst} containing following objects:
-   \item{lm}{a list returned by \code{lm}.}
+   \item{est}{the object returned by \code{\link[stats]{lm}}
+      or \code{\link[plm]{plm}}.}
+   \item{nExog}{length of argument \code{xNames}.}
+   \item{nShifter}{length of argument \code{shifterNames}.}
    \item{residuals}{residuals.}
    \item{fitted}{fitted values.}
    \item{coef}{vector of all coefficients.}

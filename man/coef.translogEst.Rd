@@ -10,14 +10,14 @@
 }
 
 \usage{
-   \method{coef}{translogEst}( object, ... )
+   \method{coef}{translogEst}( object, \dots )
 
-   \method{vcov}{translogEst}( object, ... )
+   \method{vcov}{translogEst}( object, \dots )
 }
 
 \arguments{
   \item{object}{an object of class \code{translogEst}.}
-  \item{...}{currently ignored.}
+  \item{\dots}{currently ignored.}
 }
 
 \value{

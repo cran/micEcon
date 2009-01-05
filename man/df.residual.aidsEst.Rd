@@ -9,12 +9,12 @@
 }
 
 \usage{
-   \method{df.residual}{aidsEst}( object, ... )
+   \method{df.residual}{aidsEst}( object, \dots )
 }
 
 \arguments{
   \item{object}{an object of class \code{aidsEst}.}
-  \item{...}{currently not used.}
+  \item{\dots}{currently not used.}
 }
 
 \value{

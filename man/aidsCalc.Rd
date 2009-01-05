@@ -14,7 +14,7 @@ aidsCalc( priceNames, totExpName, coef, data, priceIndex = "TL",
    basePrices = NULL, baseShares = NULL )
 
 \method{predict}{aidsEst}( object, newdata = NULL,
-   observedShares = FALSE, ... )
+   observedShares = FALSE, \dots )
 
 }
 
@@ -37,7 +37,7 @@ aidsCalc( priceNames, totExpName, coef, data, priceIndex = "TL",
       If omitted, the data frame used for the estimation is used
       also for the prediction.}
    \item{observedShares}{logical. Using observed shares? (see details).}
-   \item{...}{currently not used.}
+   \item{\dots}{currently not used.}
 }
 
 \details{

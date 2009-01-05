@@ -9,15 +9,15 @@
 }
 
 \usage{
-\method{summary}{aidsEst}( object, ... )
+\method{summary}{aidsEst}( object, \dots )
 
-\method{print}{summary.aidsEst}( x, ... )
+\method{print}{summary.aidsEst}( x, \dots )
 }
 
 \arguments{
    \item{object}{an object of class \code{aidsEst}.}
    \item{x}{an object of class \code{summary.aidsEst}.}
-   \item{...}{currently ignored.}
+   \item{\dots}{currently ignored.}
 }
 
 \value{

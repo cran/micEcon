@@ -10,14 +10,14 @@
 }
 
 \usage{
-   \method{coef}{quadFuncEst}( object, ... )
+   \method{coef}{quadFuncEst}( object, \dots )
 
-   \method{vcov}{quadFuncEst}( object, ... )
+   \method{vcov}{quadFuncEst}( object, \dots )
 }
 
 \arguments{
   \item{object}{an object of class \code{quadFuncEst}.}
-  \item{...}{currently ignored.}
+  \item{\dots}{currently ignored.}
 }
 
 \value{

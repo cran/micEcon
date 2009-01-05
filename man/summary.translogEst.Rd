@@ -9,15 +9,15 @@
 }
 
 \usage{
-\method{summary}{translogEst}( object, ... )
+\method{summary}{translogEst}( object, \dots )
 
-\method{print}{summary.translogEst}( x, ... )
+\method{print}{summary.translogEst}( x, \dots )
 }
 
 \arguments{
    \item{object}{an object of class \code{translogEst}.}
    \item{x}{an object of class \code{summary.translogEst}.}
-   \item{...}{currently ignored.}
+   \item{\dots}{currently ignored.}
 }
 
 \value{

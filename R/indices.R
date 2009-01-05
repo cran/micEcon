@@ -16,8 +16,20 @@ micEconIndex <- function( prices, quantities, base, data, method, na.rm,
       for( i in 1:n ) {
          pt <- data[[ prices[ i ] ]]
          p0 <- mean( data[[ prices[ i ] ]][ base ], na.rm = na.rm )
+         if( is.na( p0 ) ){
+            warning( "base of '", prices[ i ], "' is NA" )
+         }
+         if( is.infinite( p0 ) ){
+            warning( "base of '", prices[ i ], "' is infinite" )
+         }
          qt <- data[[ quantities[ i ] ]]
          q0 <- mean( data[[ quantities[ i ] ]][ base ], na.rm = na.rm )
+         if( is.na( q0 ) ){
+            warning( "base of '", quantities[ i ], "' is NA" )
+         }
+         if( is.infinite( q0 ) ){
+            warning( "base of '", quantities[ i ], "' is infinite" )
+         }
          if( method == "Laspeyres" ) {
             if( is.na( q0 ) ) {
                numerator[ pt != 0 | is.na( pt ) ] <- NA

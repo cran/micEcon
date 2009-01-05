@@ -26,7 +26,7 @@
 }
 \details{
    Currently 7 different price indices are implemented:
-   \begin{itemize}
+   \itemize{
    \item translog price index ('TL'),
    \item Stone price index ('S'),
    \item Stone price index with lagged shares ('SL'),
@@ -34,10 +34,10 @@
    \item loglinear analogue of the Laspeyres price index ('L'),
    \item simplified loglinear analogue of the Laspeyres price index ('Ls'), and
    \item Tornqvist price index ('T').
-   \end{itemize}
+   }
 
    The argument \code{base} can be either
-   \begin{itemize}
+   \itemize{
    \item a single number: the row number of the base prices and quantities,
    \item a vector indicating several observations: The means of these
       observations are used as base prices and quantities, or
@@ -47,7 +47,7 @@
    \item a list with elements \code{prices} and/or \code{shares}
       that are numeric vectors specifying the values of the base prices
       and/or base expenditure shares.
-   \end{itemize}
+   }
 }
 
 \value{

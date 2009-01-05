@@ -14,9 +14,9 @@
       method = "AIDS", priceIndex = "TL", basePrices = NULL, baseShares = NULL,
       quantNames = NULL, priceNames = NULL, coefCov = NULL, df = NULL )
 
-   \method{elas}{aidsEst}( object, method = NULL, observedShares = FALSE, ... )
+   \method{elas}{aidsEst}( object, method = NULL, observedShares = FALSE, \dots )
 
-   \method{print}{aidsElas}( x, ... )
+   \method{print}{aidsElas}( x, \dots )
 }
 
 \arguments{
@@ -41,7 +41,7 @@
    \item{observedShares}{logical. Using observed shares for calculating the
       demand elasticities?}
    \item{x}{an object of class \code{aidsElas}.}
-   \item{...}{additional arguments of \code{elas.aidsEst}
+   \item{\dots}{additional arguments of \code{elas.aidsEst}
       are passed to \code{aidsEla};
       additional arguments of \code{print.aidsElas}
       are currently ignored.}

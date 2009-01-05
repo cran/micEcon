@@ -9,9 +9,9 @@
 
 \usage{
 translogCheckCurvature( xNames, data, coef, convexity = TRUE,
-   quasi = FALSE, quadHalf = TRUE, dataLogged = FALSE, ... )
+   quasi = FALSE, quadHalf = TRUE, dataLogged = FALSE, \dots )
 
-\method{print}{translogCheckCurvature}( x, ... )
+\method{print}{translogCheckCurvature}( x, \dots )
 }
 
 \arguments{
@@ -26,7 +26,7 @@ translogCheckCurvature( xNames, data, coef, convexity = TRUE,
    \item{quadHalf}{logical. Multiply the quadratic terms by one half?}
    \item{dataLogged}{logical. Are the values in \code{data} already logged?}
    \item{x}{an object returned by \code{translogCheckCurvature}.}
-   \item{...}{arguments passed from \code{translogCheckCurvature}
+   \item{\dots}{arguments passed from \code{translogCheckCurvature}
       to \code{\link{semidefiniteness}}
       (if argument \code{quasi} is \code{FALSE}),
       \code{\link{quasiconvexity}}

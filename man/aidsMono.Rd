@@ -14,7 +14,7 @@
 aidsMono( priceNames, totExpName, coef, data,
    priceIndex = "TL", basePrices = NULL, baseShares = NULL )
 
-\method{print}{aidsMono}( x, header = TRUE, ... )
+\method{print}{aidsMono}( x, header = TRUE, \dots )
 }
 
 \arguments{
@@ -32,7 +32,7 @@ aidsMono( priceNames, totExpName, coef, data,
       Laspeyres, simplified Laspeyres, and Tornqvist index.}
    \item{x}{an object of class \code{aidsMono}.}
    \item{header}{logical. Print a header?}
-   \item{...}{currently unused.}
+   \item{\dots}{currently unused.}
 }
 
 \details{

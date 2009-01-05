@@ -8,23 +8,19 @@ aidsEst                 Estimating the Almost Ideal Demand System
                         (AIDS)
 aidsMono                Monotonicity of the AIDS
 aidsPx                  Price Index for the AIDS
+aidsUtility             Indirect Utility Function of the Almost Ideal
+                        Demand System
 Blanciforti86           U.S. consumption data
 Bleymueller79E25.1      Artificial Prices and Quantities
 checkConsist            Testing Theoretical Consistency
 coef.aidsEst            Coefficients of an Almost Ideal Demand System
-coef.front41Output      Coefficients from Frontier 4.1
 coef.quadFuncEst        Coefficients of a Quadratic Function
 coefTable               Coefficient Table
 coef.translogEst        Coefficients of a Translog Function
-Coelli                  Data provided with Coelli's Frontier 4.1
 df.residual.aidsEst     Covariance matrix of an Almost Ideal Demand
                         System
 elas                    Calculating and returning elasticities
 fitted.aidsEst          Fitted values of an Almost Ideal Demand System
-front41Est              Estimate a Stochastic Frontier Model by
-                        Frontier 4.1
-front41ReadOutput       Read output of Frontier 4.1
-front41WriteInput       Write input files for Frontier 4.1
 germanFarms             Output and Inputs of Farms in West-Germany
 insertCol               Insert Column into a Matrix
 insertRow               Insert Row into a Matrix
@@ -45,7 +41,6 @@ quasiconcavity          Test for quasiconcavity / quasiconvexity
 residuals.snqProfitEst
                         Residuals of an SNQ profit function
 residuals.translogEst   Residuals of a Translog function
-riceProdPhil            Rice Production in the Philippines
 rSquared                Calculate R squared value
 semidefiniteness        Positive or Negative Semidefiniteness
 snqProfitCalc           Calculations with the SNQ Profit function
@@ -64,7 +59,6 @@ summary.aidsElas        Summarizing the Elasticities of an Almost Ideal
                         Demand System
 summary.aidsEst         Summarizing the Estimation of an Almost Ideal
                         Demand System
-summary.front41Output   Summarizing the Estimation of Frontier 4.1
 summary.translogEst     Summarizing the Estimation of a Translog
                         Function
 symMatrix               Symmetric Matrix
@@ -87,4 +81,3 @@ vecli2m                 Convert vector of linear independent values
                         into a Matrix
 veclipos                Position in a vector of linear independent
                         values
-writeFront41in          Deprecated Functions in the micEcon package

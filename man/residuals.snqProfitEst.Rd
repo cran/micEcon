@@ -10,16 +10,16 @@
 }
 
 \usage{
-\method{residuals}{snqProfitEst}( object, scaled = TRUE, ... )
+\method{residuals}{snqProfitEst}( object, scaled = TRUE, \dots )
 
-\method{residuals}{snqProfitImposeConvexity}( object, scaled = TRUE, ... )
+\method{residuals}{snqProfitImposeConvexity}( object, scaled = TRUE, \dots )
 }
 
 \arguments{
    \item{object}{an object of type \code{snqProfitEst} or
       \code{snqProfitImposeconvexity}.}
    \item{scaled}{logical. Return scaled quantities?}
-   \item{...}{currently not used.}
+   \item{\dots}{currently not used.}
 }
 
 \value{

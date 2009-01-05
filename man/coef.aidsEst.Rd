@@ -10,15 +10,15 @@
 }
 
 \usage{
-   \method{coef}{aidsEst}( object, ... )
+   \method{coef}{aidsEst}( object, \dots )
 
-   \method{print}{coef.aidsEst}( x, ... )
+   \method{print}{coef.aidsEst}( x, \dots )
 }
 
 \arguments{
   \item{object}{an object of class \code{aidsEst}.}
   \item{x}{an object of class \code{coef.aidsEst}.}
-  \item{...}{further arguments for methods}
+  \item{\dots}{further arguments for methods}
 }
 
 \value{

@@ -11,7 +11,7 @@
 \usage{
    aidsBestA0( priceNames, shareNames, totExpName,
       a0min = -50, a0max = 50, stoprange = 3, stopiter = 10,
-      verbose = FALSE, ... )
+      verbose = FALSE, \dots )
 }
 
 \arguments{
@@ -26,7 +26,7 @@
    \item{stopiter}{maximal number of iterations.}
    \item{verbose}{print each determinant of the residual covariance matrix
       immediately after its calculation.}
-   \item{...}{arguments passed to \code{\link{aidsEst}}.}
+   \item{\dots}{arguments passed to \code{\link{aidsEst}}.}
 }
 
 \details{

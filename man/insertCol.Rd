@@ -6,12 +6,13 @@
    Insert a new column into a matrix.
 }
 
-\usage{insertCol( m, c, v = NA )}
+\usage{insertCol( m, c, v = NA, cName = "" )}
 
 \arguments{
    \item{ m }{matrix.}
    \item{ c }{column number where the new column should be inserted.}
    \item{ v }{optional values of the new column.}
+   \item{ cName }{optional character string: the name of the new column.}
 }
 
 \value{
