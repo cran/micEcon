@@ -63,7 +63,7 @@ aidsCalc( priceNames, totExpName, coef, data, priceIndex = "TL",
    \emph{American Economic Review}, 70, p. 312-326.
 }
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \seealso{ \code{\link{aidsEst}}, \code{\link{aidsPx}} }
 

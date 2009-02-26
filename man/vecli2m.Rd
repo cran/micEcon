@@ -16,7 +16,7 @@
 
 \seealso{\code{\link{vecli}}, \code{\link{veclipos}}.}
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \examples{
    v <- c( 11, 12, 13, 22, 23, 33 )

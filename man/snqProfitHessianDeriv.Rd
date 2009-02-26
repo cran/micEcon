@@ -21,7 +21,7 @@
 
 \seealso{\code{\link{snqProfitHessian}}.}
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \examples{
    # just a stupid simple example

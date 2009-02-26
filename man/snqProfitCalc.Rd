@@ -49,7 +49,7 @@
 
 \seealso{\code{\link{snqProfitEst}} and \code{\link{snqProfitWeights}}.}
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 
 \examples{

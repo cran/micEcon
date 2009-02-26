@@ -39,7 +39,7 @@ translogDeriv( xNames, data, coef, coefCov = NULL,
    \code{\link{translogHessian}}
 }
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \examples{
    data( germanFarms )

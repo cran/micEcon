@@ -33,7 +33,7 @@ containing following objects:
       (only if the model was estimated with demand shifters).}
 }
 
-\author{Arne Henningsen, \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \seealso{\code{\link{aidsEst}}}
 

@@ -45,7 +45,7 @@
 
 \seealso{\code{\link{quantityIndex}}.}
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \examples{
    data( Missong03E7.7 )

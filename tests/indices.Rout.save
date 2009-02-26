@@ -1,5 +1,5 @@
 
-R version 2.8.0 (2008-10-20)
+R version 2.8.1 (2008-12-22)
 Copyright (C) 2008 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
@@ -47,6 +47,22 @@ Attaching package: 'zoo'
 
 	 as.Date.numeric 
 
+Loading required package: np
+Loading required package: boot
+
+Attaching package: 'boot'
+
+
+	The following object(s) are masked from package:car :
+
+	 logit 
+
+
+	The following object(s) are masked from package:lattice :
+
+	 melanoma 
+
+Nonparametric Kernel Methods for Mixed Datatypes (version 0.30-1)
 > 
 > ## function for printIndexing indices
 > printIndices <- function( what, ... ) {

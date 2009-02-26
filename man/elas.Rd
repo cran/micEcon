@@ -28,7 +28,7 @@
    \code{elas} from \code{object}.
 }
 
-\author{Arne Henningsen, \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \seealso{\code{\link{elas.aidsEst}}}
 

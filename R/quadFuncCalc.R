@@ -1,25 +1,59 @@
-quadFuncCalc <- function( xNames, data, coef, quadHalf = TRUE ) {
+quadFuncCalc <- function( xNames, data, coef, shifterNames = NULL,
+      homWeights = NULL, quadHalf = TRUE ) {
 
-   checkNames( c( xNames ), names( data ) )
+   # if 'data' is a vector, convert it to a data.frame
+   data <- .micEconVectorToDataFrame( data )
+
+   checkNames( c( xNames, shifterNames ), names( data ) )
+
+   # check argument 'homWeights'
+   .quadFuncCheckHomWeights( homWeights, xNames )
 
    nExog <- length( xNames )
-   nCoef <- 1 + nExog + nExog * ( nExog + 1 ) / 2
+   nShifter <- length( shifterNames )
+   nCoef <- 1 + nExog + nExog * ( nExog + 1 ) / 2 + nShifter
 
-   if( nCoef != length( coef ) ) {
+   if( nCoef > length( coef ) ) {
       stop( "a quadratic function with ", nExog, " exogenous variables",
-         " must have exactly ", nCoef, " coefficients" )
+         " and ", nShifter, " shifter variables",
+         " must have at least ", nCoef, " coefficients" )
    }
 
-   alpha0 <- coef[ 1 ]
-   alpha  <- coef[ 2:( nExog + 1 ) ]
-   beta   <- vecli2m( coef[ ( nExog + 2 ):nCoef ] )
+   # calculate index to normalize variables
+   if( !is.null( homWeights ) ) {
+      deflator <- 0
+      for( i in seq( along = homWeights ) ) {
+         deflator <- deflator + 
+            homWeights[ i ] * data[[ names( homWeights )[ i ] ]]
+      }
+   }
 
-   result <- rep( alpha0, nrow( data ) )
-   for( i in 1:nExog ) {
-      result <- result + alpha[ i ] * data[[ xNames[ i ] ]]
-      for( j in 1:nExog ) {
-         result <- result + ifelse( quadHalf, 0.5, 1 ) * beta[ i, j ] *
-            data[[ xNames[ i ] ]]  * data[[ xNames[ j ] ]]
+   result <- rep( coef[ "a_0" ], nrow( data ) )
+   for( i in seq( along = xNames ) ) {
+      result <- result + coef[ paste( "a", i, sep = "_" ) ] * 
+         .quadFuncVarHom( data, xNames[ i ], homWeights, deflator )
+      for( j in seq( along = xNames ) ) {
+         result <- result + ifelse( quadHalf, 0.5, 1 ) * 
+            coef[ paste( "b", min( i, j ), max( i, j ), sep = "_" ) ] *
+            .quadFuncVarHom( data, xNames[ i ], homWeights, deflator ) *
+            .quadFuncVarHom( data, xNames[ j ], homWeights, deflator )
+      }
+   }
+   for( i in seq( along = shifterNames ) ) {
+      if( is.logical( data[[ shifterNames[ i ] ]] ) ) {
+         result <- result + coef[ paste( "d", i, "TRUE", sep = "_" ) ] * 
+            data[[ shifterNames[ i ] ]]
+      } else if( is.factor( data[[ shifterNames[ i ] ]] ) ) {
+         for( j in levels( data[[ shifterNames[ i ] ]] ) ) {
+            thisCoefName <- paste( "d", i, j, sep = "_" )
+            if( thisCoefName %in% names( coef ) ) {
+               result <- result + coef[ thisCoefName ] * 
+                  ( data[[ shifterNames[ i ] ]] == j )
+            }
+         }
+      } else {
+         result <- result + coef[ paste( "d", i, sep = "_" ) ] * 
+            data[[ shifterNames[ i ] ]]
       }
    }
 

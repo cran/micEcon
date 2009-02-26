@@ -75,7 +75,7 @@ aidsMono( priceNames, totExpName, coef, data,
    Cambridge University Press, Cambridge.
 }
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \seealso{\code{\link{aidsEst}}, \code{\link{aidsCalc}}}
 

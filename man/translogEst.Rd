@@ -26,7 +26,10 @@
       of the independent variables that should be included
       as shifters only (not in quadratic or interaction terms).}
    \item{quadHalf}{logical. Multiply the quadratic terms by one half?}
-   \item{dataLogged}{logical. Are the values in \code{data} already logged?}
+   \item{dataLogged}{logical. Are the values in \code{data} already logged?
+      If \code{FALSE}, the logarithms of all variables (\code{yName}, 
+      \code{xNames}, \code{shifterNames}) are used except for
+      shifter variables that are factors or logical variables.}
    \item{x}{An object of class \code{translogEst}.}
    \item{\dots}{further arguments of \code{translogEst}
       are passed to \code{\link[stats]{lm}}
@@ -49,12 +52,18 @@
    \item{r2bar}{adjusted \eqn{R^2} value.}
    \item{nObs}{number of observations.}
    \item{model.matrix}{the model matrix.}
+   \item{call}{the matched call.}
+   \item{yName}{argument \code{yName}.}
+   \item{xNames}{argument \code{xNames}.}
+   \item{shifterNames}{argument \code{shifterNames}.}
+   \item{quadHalf}{argument \code{quadHalf}.}
+   \item{dataLogged}{argument \code{dataLogged}.}
 }
 
 \seealso{\code{\link{translogCalc}}, \code{\link{translogDeriv}}
    and \code{\link{quadFuncEst}}.}
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \examples{
    data( germanFarms )

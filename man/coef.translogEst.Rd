@@ -28,7 +28,7 @@ The \code{vcov} method returns the covariance matrix
 of all (linearly independent) coefficients of a translog function.
 }
 
-\author{Arne Henningsen, \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \seealso{\code{\link{translogEst}}}
 

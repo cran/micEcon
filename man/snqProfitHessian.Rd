@@ -20,7 +20,7 @@
 \seealso{\code{\link{snqProfitEst}}, \code{\link{snqProfitEla}} and
    \code{\link{snqProfitHessianDeriv}}.}
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \examples{
    # just a stupid simple example

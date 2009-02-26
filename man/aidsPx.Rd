@@ -69,7 +69,7 @@
    \emph{American Journal of Agricultural Economics}, 77, p. 63-68.
 }
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \seealso{ \code{\link{aidsEst}}}
 

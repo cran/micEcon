@@ -30,7 +30,7 @@
    3rd ed., McGraw-Hill.
 }
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \examples{
    quasiconcavity( matrix( 0, 3, 3 ) )

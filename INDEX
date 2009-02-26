@@ -13,13 +13,21 @@ aidsUtility             Indirect Utility Function of the Almost Ideal
 Blanciforti86           U.S. consumption data
 Bleymueller79E25.1      Artificial Prices and Quantities
 checkConsist            Testing Theoretical Consistency
+cobbDouglasCalc         Calculate dependent variable of a Cobb-Douglas
+                        function
+cobbDouglasOpt          Optimal Values of Independent Variables of a
+                        Cobb-Douglas Function
 coef.aidsEst            Coefficients of an Almost Ideal Demand System
 coef.quadFuncEst        Coefficients of a Quadratic Function
 coefTable               Coefficient Table
 coef.translogEst        Coefficients of a Translog Function
+colMedians              Medians of Columns and Rows
+compPlot                Scatterplot to Compare two Variables
 df.residual.aidsEst     Covariance matrix of an Almost Ideal Demand
                         System
 elas                    Calculating and returning elasticities
+elas.npregHom           Elasticities of a Homogeneous Nonparametric
+                        Function
 fitted.aidsEst          Fitted values of an Almost Ideal Demand System
 germanFarms             Output and Inputs of Farms in West-Germany
 insertCol               Insert Column into a Matrix
@@ -29,12 +37,15 @@ logLik.aidsEst          Log-Likelihood value of an object of class
 lrtest.aidsEst          Likelihood Ratio test for Almost Ideal Demand
                         Systems
 Missong03E7.7           Meat Prices and Quantities in Germany
+npregHom                Nonparametric Regression with Homogeneity
+                        Imposed
 predict.snqProfitEst    Predictions from an SNQ profit function
 priceIndex              Calculate Price Indices
 print.snqProfitEst      Print output of estimated SNQ profit function
 quadFuncCalc            Calculate dependent variable of a quadratic
                         function
 quadFuncDeriv           Derivatives of a quadratic function
+quadFuncEla             Elasticities of a Quadratic Function
 quadFuncEst             Estimate a quadratic function
 quantityIndex           Calculate Quantity Indices
 quasiconcavity          Test for quasiconcavity / quasiconvexity
@@ -67,7 +78,9 @@ translogCalc            Calculate dependent variable of a translog
 translogCheckCurvature
                         Curvature of a Translog Function
 translogCheckMono       Monotonicity of a Translog Function
+translogCostEst         Estimate a translog Cost Function
 translogDeriv           Derivatives of a translog function
+translogEla             Elasticities of a translog Function
 translogEst             Estimate a translog function
 translogHessian         Hessian matrix of a translog function
 translogMonoRestr       Monotonicity Restrictions of a Translog

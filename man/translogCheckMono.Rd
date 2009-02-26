@@ -57,7 +57,7 @@ translogCheckMono( xNames, data, coef, increasing = TRUE,
    and \code{\link{translogCheckCurvature}}
 }
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \examples{
    data( germanFarms )

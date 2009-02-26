@@ -1,26 +1,27 @@
-translogCalc <- function( xNames, data, coef, quadHalf = TRUE,
-   dataLogged = FALSE ) {
+translogCalc <- function( xNames, data, coef, shifterNames = NULL,
+   quadHalf = TRUE, dataLogged = FALSE ) {
 
-   checkNames( c( xNames ), names( data ) )
+   checkNames( c( xNames, shifterNames ), names( data ) )
 
    nExog <- length( xNames )
-   nCoef <- 1 + nExog + nExog * ( nExog + 1 ) / 2
+   nShifter <- length( shifterNames )
+   nCoef <- 1 + nExog + nExog * ( nExog + 1 ) / 2 + nShifter
 
-   if( nCoef != length( coef ) ) {
+   if( nCoef > length( coef ) ) {
       stop( "a translog function with ", nExog, " exogenous variables",
-         " must have exactly ", nCoef, " coefficients" )
+         " and ", nShifter, " shifter variables",
+         " must have at least ", nCoef, " coefficients" )
    }
 
    if( dataLogged ) {
       logData <- data
    } else {
-      logData <- data.frame( no = c( 1:nrow( data ) ) )
-      for( i in seq( along = xNames ) ) {
-         logData[[ xNames[ i ] ]] <- log( data[[ xNames[ i ] ]] )
-      }
+      logData <- .micEconLogData( data = data, 
+         varNames = xNames, varNamesNum = shifterNames )
    }
 
-   result <- quadFuncCalc( xNames, logData, coef, quadHalf = quadHalf )
+   result <- quadFuncCalc( xNames, logData, coef, 
+      shifterNames = shifterNames, quadHalf = quadHalf )
 
    if( !dataLogged ) {
       result <- exp( result )

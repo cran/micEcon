@@ -51,7 +51,7 @@ translogCheckCurvature( xNames, data, coef, convexity = TRUE,
    \code{\link{translogEst}} and \code{\link{translogCheckMono}}
 }
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \examples{
    data( germanFarms )

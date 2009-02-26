@@ -28,7 +28,7 @@
 
 \seealso{\code{\link{aidsEst}}, \code{\link{aidsElas}}.}
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \examples{
    # Using data published in Blanciforti, Green & King (1986)

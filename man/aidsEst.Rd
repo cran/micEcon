@@ -125,7 +125,7 @@ aidsEst( priceNames, shareNames, totExpName, data,
 \seealso{\code{\link{summary.aidsEst}}, \code{\link{aidsElas}},
    \code{\link{aidsCalc}}.}
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \examples{
    # Using data published in Blanciforti, Green & King (1986)

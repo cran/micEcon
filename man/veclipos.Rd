@@ -24,7 +24,7 @@
 
 \seealso{\code{\link{vecli}}, \code{\link{vecli2m}}.}
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \examples{
    veclipos( 1, 2, 3 )  # returns: 2

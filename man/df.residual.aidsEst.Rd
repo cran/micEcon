@@ -22,7 +22,7 @@ The \code{df.residual} method for objects of class \code{aidsEst}
 returns a symmetric matrix: the covariance matrix of the coefficients.
 }
 
-\author{Arne Henningsen, \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \seealso{\code{\link{aidsEst}}, \code{\link{coef.aidsEst}}}
 

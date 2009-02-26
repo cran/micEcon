@@ -136,7 +136,7 @@
    \emph{A Textbook of Econometrics}. Row, Petersen and Co., New York.
 }
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \seealso{\code{\link{aidsEst}}}
 

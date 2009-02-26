@@ -32,7 +32,7 @@
    in package "lmtest".
 }
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \seealso{\code{\link{aidsEst}}, \code{\link[lmtest]{lrtest}}
    (package "lmtest"),

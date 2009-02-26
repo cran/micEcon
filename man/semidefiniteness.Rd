@@ -41,7 +41,7 @@
    3rd ed., McGraw-Hill.
 }
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \examples{
    # a positive semidefinite matrix

@@ -1,0 +1,171 @@
+
+R version 2.8.1 (2008-12-22)
+Copyright (C) 2008 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library( micEcon )
+Loading required package: systemfit
+Loading required package: Matrix
+Loading required package: lattice
+
+Attaching package: 'Matrix'
+
+
+	The following object(s) are masked from package:stats :
+
+	 xtabs 
+
+
+	The following object(s) are masked from package:base :
+
+	 colMeans,
+	 colSums,
+	 rcond,
+	 rowMeans,
+	 rowSums 
+
+Loading required package: car
+Loading required package: lmtest
+Loading required package: zoo
+
+Attaching package: 'zoo'
+
+
+	The following object(s) are masked from package:base :
+
+	 as.Date.numeric 
+
+Loading required package: np
+Loading required package: boot
+
+Attaching package: 'boot'
+
+
+	The following object(s) are masked from package:car :
+
+	 logit 
+
+
+	The following object(s) are masked from package:lattice :
+
+	 melanoma 
+
+Nonparametric Kernel Methods for Mixed Datatypes (version 0.30-1)
+> 
+> data( germanFarms )
+> # output quantity:
+> germanFarms$qOutput <- germanFarms$vOutput / germanFarms$pOutput
+> # quantity of variable inputs
+> germanFarms$qVarInput <- germanFarms$vVarInput / germanFarms$pVarInput
+> # a time trend to account for technical progress:
+> germanFarms$time <- c(1:20)
+> 
+> # estimate a Cobb-Douglas production function
+> estResult <- translogEst( "qOutput", c( "qLabor", "qVarInput", "land", "time" ),
++    germanFarms, linear = TRUE )
+> 
+> # calculate fitted values
+> fitted <- cobbDouglasCalc( c( "qLabor", "qVarInput", "land", "time" ),
++    data = germanFarms, coef = coef( estResult )[ 1:5 ] )
+> print( fitted )
+        1         2         3         4         5         6         7         8 
+ 915.9295 1024.0093 1078.8583 1140.0400 1160.8934 1195.0936 1242.1365 1253.3053 
+        9        10        11        12        13        14        15        16 
+1231.9718 1288.6305 1343.3516 1537.1326 1619.5938 1667.9966 1617.0959 1624.9890 
+       17        18        19        20 
+1690.8755 1759.8691 1874.5322 1989.0299 
+> all.equal( fitted, estResult$fitted )
+[1] TRUE
+> 
+> # calculate fitted values using logged independent variables
+> germanFarms$lQLabor    <- log( germanFarms$qLabor )
+> germanFarms$lLand      <- log( germanFarms$land )
+> germanFarms$lQVarInput <- log( germanFarms$qVarInput )
+> germanFarms$lTime      <- log( germanFarms$time )
+> fittedLogged <- cobbDouglasCalc( c( "lQLabor", "lQVarInput", "lLand", "lTime" ),
++    data = germanFarms, coef = coef( estResult )[ 1:5 ], dataLogged = TRUE )
+> all.equal( fitted, exp( fittedLogged ) )
+[1] TRUE
+> 
+> # coefficients not named
+> coefNoNames <- coef( estResult )[ 1:5 ]
+> names( coefNoNames ) <- NULL
+> fittedNoNames <- cobbDouglasCalc( c( "qLabor", "qVarInput", "land", "time" ),
++    data = germanFarms, coef = coefNoNames )
+> all.equal( fitted, fittedNoNames )
+[1] TRUE
+> 
+> # coefficients in a different order
+> coefDiffOrder <- coef( estResult )[ c( 3, 5, 1, 2, 4 ) ]
+> fittedDiffOrder <- cobbDouglasCalc( c( "qLabor", "qVarInput", "land", "time" ),
++    data = germanFarms, coef = coefDiffOrder )
+> all.equal( fitted, fittedDiffOrder )
+[1] TRUE
+> 
+> # calculate optimal quantities of variable inputs
+> xCoef <- coef( estResult )[ 1:3 ]
+> zCoef <- coef( estResult )[ 4:5 ]
+> names( zCoef ) <- c( "d_1", "d_2" )
+> optInput <- cobbDouglasOpt( pyName = "pOutput",
++    pxNames = c( "pLabor", "pVarInput" ), coef = xCoef,
++    data = germanFarms, xNames = c( "qLabor", "qVarInput" ),
++    zNames = c( "land", "time" ), zCoef = zCoef )
+> print( optInput )
+      qLabor qVarInput
+1  1.2640342  196.5796
+2  0.7889562  194.7165
+3  0.5934942  194.7972
+4  0.7104717  198.3848
+5  0.7396314  198.6683
+6  0.7352334  192.4898
+7  0.7590359  204.0918
+8  0.7298039  199.2645
+9  0.7572819  193.5511
+10 0.6986687  191.4896
+11 0.7046215  194.1673
+12 0.6892230  222.5265
+13 0.6823710  232.3780
+14 0.7754472  249.5916
+15 0.7785506  252.0872
+16 0.6248399  225.3417
+17 0.6345964  236.7778
+18 0.5870300  218.7731
+19 0.5579027  221.7038
+20 0.5675505  242.3757
+> 
+> # determine optimal quantities of variable inputs using optim()
+> objFun <- function( xVal, obs = 1 ) {
++    tmpData <- germanFarms
++    tmpData$qLabor[ obs ] <- xVal[ 1 ]
++    tmpData$qVarInput[ obs ] <- xVal[ 2 ]
++    outp <- translogCalc( c( "qLabor", "qVarInput", "land", "time" ),
++       data = tmpData, coef = coef( estResult ) )
++    profit <- germanFarms$pOutput[ obs ] * outp[ obs ] -
++       germanFarms$pLabor[ obs ] * xVal[ 1 ] -
++       germanFarms$pVarInput[ obs ] * xVal[ 2 ]
++    return( profit )
++ }
+> optInputNum <- data.frame( qLabor = rep( NA, nrow( germanFarms ) ),
++    qVarInput = rep( NA, nrow( germanFarms ) ) )
+> for( obs in 1:nrow( germanFarms ) ) {
++    optResult <- optim(
++       c( germanFarms$qLabor[ obs ], germanFarms$qVarInput[ obs ] ),
++       objFun, method = "L-BFGS-B", lower = 1e-10,
++       control = list( fnscale = -1 ), obs = obs )
++    optInputNum[ obs, ] <- optResult$par
++ }
+> all.equal( optInput, optInputNum, check.attributes = FALSE, tolerance = 1e-5 )
+[1] TRUE
+> 

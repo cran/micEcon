@@ -13,7 +13,7 @@
    \item{ resid }{vector of residuals}
 }
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \examples{
    data( Blanciforti86 )

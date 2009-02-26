@@ -6,19 +6,8 @@ translogEst <- function( yName, xNames, data, shifterNames = NULL,
    if( dataLogged ) {
       logData   <- data
    } else {
-      if( "plm.dim" %in% class( data ) ) {
-         logData <- data[ , 1:2 ]
-      } else {
-         logData <- data.frame( no = c( 1:nrow( data ) ) )
-      }
-      logData[[ yName ]] <- log( data[[ yName ]] )
-      for( i in seq( along = xNames ) ) {
-         logData[[ xNames[ i ] ]] <- log( data[[ xNames[ i ] ]] )
-      }
-      for( i in seq( along = shifterNames ) ) {
-         logData[[ shifterNames[ i ] ]] <-
-            log( data[[ shifterNames[ i ] ]] )
-      }
+      logData <- .micEconLogData( data = data, 
+         varNames = c( yName, xNames ), varNamesNum = shifterNames )
    }
 
    result <- quadFuncEst( yName = yName, xNames = xNames, data = logData,
@@ -30,6 +19,15 @@ translogEst <- function( yName, xNames, data, shifterNames = NULL,
    if( !dataLogged ){
       result$fitted <- exp( result$fitted )
    }
+
+   result$call <- match.call()
+   result$yName         <- yName
+   result$xNames        <- xNames
+   result$shifterNames  <- shifterNames
+   result$quadHalf      <- quadHalf
+   result$dataLogged    <- dataLogged
+   result$homWeights    <- NULL
+   result$regScale      <- NULL
 
    class( result ) <- "translogEst"
    return( result )

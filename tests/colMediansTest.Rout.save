@@ -1,0 +1,108 @@
+
+R version 2.8.1 (2008-12-22)
+Copyright (C) 2008 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library( micEcon )
+Loading required package: systemfit
+Loading required package: Matrix
+Loading required package: lattice
+
+Attaching package: 'Matrix'
+
+
+	The following object(s) are masked from package:stats :
+
+	 xtabs 
+
+
+	The following object(s) are masked from package:base :
+
+	 colMeans,
+	 colSums,
+	 rcond,
+	 rowMeans,
+	 rowSums 
+
+Loading required package: car
+Loading required package: lmtest
+Loading required package: zoo
+
+Attaching package: 'zoo'
+
+
+	The following object(s) are masked from package:base :
+
+	 as.Date.numeric 
+
+Loading required package: np
+Loading required package: boot
+
+Attaching package: 'boot'
+
+
+	The following object(s) are masked from package:car :
+
+	 logit 
+
+
+	The following object(s) are masked from package:lattice :
+
+	 melanoma 
+
+Nonparametric Kernel Methods for Mixed Datatypes (version 0.30-1)
+> 
+> 
+> ## matrix
+> m <- matrix( 1:24, nrow = 6, ncol = 4 )
+> 
+> cm1 <- colMedians( m )
+> print( cm1 )
+[1]  3.5  9.5 15.5 21.5
+> 
+> rm1 <- rowMedians( m )
+> print( rm1 )
+[1] 10 11 12 13 14 15
+> 
+> all.equal( cm1, rowMedians( t( m ) ) )
+[1] TRUE
+> all.equal( rm1, colMedians( t( m ) ) )
+[1] TRUE
+> 
+> 
+> ## data.frame
+> data( germanFarms )
+> 
+> cm2 <- colMedians( germanFarms[ , -1 ] )
+> print( cm2 )
+     vOutput    vVarInput       qLabor       pLabor      pOutput    pVarInput 
+137031.85000  73459.23500      1.53000  19594.79000     98.13398    107.35075 
+        land 
+    26.42000 
+> 
+> rm2 <- rowMedians( germanFarms[ , -1 ] )
+> print( rm2 )
+        1         2         3         4         5         6         7         8 
+ 96.30739 100.39653  98.40646  94.87424  98.95358 100.00000 107.95849 109.74757 
+        9        10        11        12        13        14        15        16 
+111.38610 111.96210 108.90375 101.66481 100.32702 104.90524 107.69231 107.24638 
+       17        18        19        20 
+112.15162 111.70569 111.48272 113.48941 
+> 
+> all.equal( cm2, rowMedians( t( germanFarms[ , -1 ] ) ) )
+[1] TRUE
+> all.equal( rm2, colMedians( t( germanFarms[ , -1 ] ) ) )
+[1] TRUE
+> 

@@ -18,7 +18,7 @@ checkConsist( object, \dots )
   This is a generic function.
 }
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \seealso{\code{\link{checkConsist.aidsEst}}}
 

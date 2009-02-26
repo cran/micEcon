@@ -19,10 +19,8 @@ translogDeriv <- function( xNames, data, coef, coefCov = NULL,
    if( dataLogged ) {
       logData <- data
    } else {
-      logData   <- data.frame( no = c( 1:nrow( data ) ) )
-      for( i in seq( along = xNames ) ) {
-         logData[[ xNames[ i ] ]] <- log( data[[ xNames[ i ] ]] )
-      }
+      logData <- .micEconLogData( data = data, 
+         varNames = xNames )
    }
 
    if( is.null( yName ) ){

@@ -20,7 +20,7 @@
 
 \seealso{\code{\link{veclipos}}.}
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \examples{
    v <- c( 1:5 )

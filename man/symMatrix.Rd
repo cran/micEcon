@@ -28,7 +28,7 @@
 
 \seealso{\code{\link{matrix}}, \code{\link{lower.tri}}.}
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \examples{
    # fill the lower triangular part by columns

@@ -82,7 +82,7 @@
    \emph{International Economic Review}, 34, p. 243-255.
 }
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 
 \seealso{

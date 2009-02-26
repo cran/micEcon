@@ -23,7 +23,7 @@
    is filled with \code{NA}s.
 }
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \examples{
    coefTable( rnorm( 10 ), 0.5 * abs( rnorm( 10 ) ), 20 )

@@ -70,7 +70,7 @@
    \emph{European Review of Agricultural Economics}, 19 (2), p. 137-163.
 }
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \seealso{ \code{\link{aidsEst}}}
 

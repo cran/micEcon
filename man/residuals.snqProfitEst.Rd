@@ -27,7 +27,7 @@
    dataframe that contains the residuals for each netput and the profit.
 }
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 
 \seealso{

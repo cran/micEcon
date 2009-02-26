@@ -21,7 +21,7 @@
 
 \seealso{\code{\link{insertCol}}.}
 
-\author{Arne Henningsen \email{ahenningsen@agric-econ.uni-kiel.de}}
+\author{Arne Henningsen}
 
 \examples{
    m <- matrix( 1:4, 2 )
