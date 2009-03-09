@@ -3231,7 +3231,7 @@ attr(,"class")
 [1] TRUE
 > # random effects
 > ggResultRan <- translogEst( "invest", c( "value", "capital" ), ggData,
-+    model = "random", ercomp = "amemiya" )
++    model = "random", random.method = "amemiya" )
 > print( ggResultRan )
 Estimated Translog function with 100 observations.
        a_0        a_1        a_2      b_1_1      b_1_2      b_2_2 
@@ -3239,7 +3239,7 @@ Estimated Translog function with 100 observations.
 > print.default( ggResultRan )
 $call
 translogEst(yName = "invest", xNames = c("value", "capital"), 
-    data = ggData, model = "random", ercomp = "amemiya")
+    data = ggData, model = "random", random.method = "amemiya")
 
 $nExog
 [1] 2
@@ -3512,7 +3512,7 @@ attr(,"class")
 > ggResultRanLog <- translogEst( "logInvest", 
 +    xNames = c( "logValue", "logCapital" ),
 +    data = ggData, dataLogged = TRUE,
-+    model = "random", ercomp = "amemiya" )
++    model = "random", random.method = "amemiya" )
 > all.equal( ggResultRan[ -c(1,6,10,11,15) ], ggResultRanLog[ -c(1,6,10,11,15) ] )
 [1] TRUE
 > all.equal( ggResultRan$fitted, exp( ggResultRanLog$fitted ) )
@@ -4457,7 +4457,7 @@ attr(,"class")
 [1] "translogEst"
 > # random effects
 > ggResShifterRan <- translogEst( "invest", c( "value", "capital" ), ggData,
-+    shifterNames = "tech", model = "random", ercomp = "amemiya" )
++    shifterNames = "tech", model = "random", random.method = "amemiya" )
 > print( ggResShifterRan )
 Estimated Translog function with 100 observations.
         a_0         a_1         a_2       b_1_1       b_1_2       b_2_2 
@@ -4467,7 +4467,7 @@ Estimated Translog function with 100 observations.
 > print.default( ggResShifterRan )
 $call
 translogEst(yName = "invest", xNames = c("value", "capital"), 
-    data = ggData, shifterNames = "tech", model = "random", ercomp = "amemiya")
+    data = ggData, shifterNames = "tech", model = "random", random.method = "amemiya")
 
 $nExog
 [1] 2
@@ -5034,7 +5034,7 @@ attr(,"class")
 [1] "translogEst"
 > # random effects
 > ggResShifterLogiRan <- translogEst( "invest", c( "value", "capital" ), ggData,
-+    shifterNames = "war", model = "random", ercomp = "amemiya" )
++    shifterNames = "war", model = "random", random.method = "amemiya" )
 > print( ggResShifterLogiRan )
 Estimated Translog function with 100 observations.
         a_0         a_1         a_2       b_1_1       b_1_2       b_2_2 
@@ -5044,7 +5044,7 @@ Estimated Translog function with 100 observations.
 > print.default( ggResShifterLogiRan )
 $call
 translogEst(yName = "invest", xNames = c("value", "capital"), 
-    data = ggData, shifterNames = "war", model = "random", ercomp = "amemiya")
+    data = ggData, shifterNames = "war", model = "random", random.method = "amemiya")
 
 $nExog
 [1] 2
@@ -5618,7 +5618,7 @@ attr(,"class")
 [1] "translogEst"
 > # random effects
 > ggResShifterFacRan <- translogEst( "invest", c( "value", "capital" ), ggData,
-+    shifterNames = "decade", model = "random", ercomp = "amemiya" )
++    shifterNames = "decade", model = "random", random.method = "amemiya" )
 > print( ggResShifterFacRan )
 Estimated Translog function with 100 observations.
         a_0         a_1         a_2       b_1_1       b_1_2       b_2_2 
@@ -5629,7 +5629,7 @@ Estimated Translog function with 100 observations.
 $call
 translogEst(yName = "invest", xNames = c("value", "capital"), 
     data = ggData, shifterNames = "decade", model = "random", 
-    ercomp = "amemiya")
+    random.method = "amemiya")
 
 $nExog
 [1] 2

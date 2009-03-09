@@ -12,18 +12,16 @@ quadFuncDeriv <- function( xNames, data, coef, coefCov = NULL,
    result <- list()
 
    nExog <- length( xNames )
-   nCoef <- 1 + nExog + nExog * ( nExog + 1 ) / 2
 
-   if( nCoef > length( coef ) ) {
-      stop( "a quadratic function with ", nExog, " exogenous variables",
-         " must have at least ", nCoef, " coefficients" )
-   }
+   # check argument 'coef'
+   .quadFuncCheckCoefNames( names( coef ), nExog = length( xNames ),
+      warn = FALSE )
 
    # calculate index to normalize variables
    if( !is.null( homWeights ) ) {
       deflator <- 0
       for( i in seq( along = homWeights ) ) {
-         deflator <- deflator + 
+         deflator <- deflator +
             homWeights[ i ] * data[[ names( homWeights )[ i ] ]]
       }
       whichHom <- which( xNames %in% names( homWeights ) )

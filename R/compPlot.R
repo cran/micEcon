@@ -1,6 +1,6 @@
 compPlot <- function( x, y, lim = NULL, ... ) {
 
-   xyRange <- range( x, y )
+   xyRange <- range( x, y, na.rm = TRUE, finite = TRUE )
 
    if( is.null( lim ) ) {
       lim <- xyRange

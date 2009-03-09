@@ -9,13 +9,9 @@ quadFuncEla <- function( xNames, data, coef,
    # check argument 'homWeights'
    .quadFuncCheckHomWeights( homWeights, xNames )
 
-   nExog <- length( xNames )
-   nCoef <- 1 + nExog + nExog * ( nExog + 1 ) / 2
-
-   if( nCoef > length( coef ) ) {
-      stop( "a quadratic function with ", nExog, " exogenous variables",
-         " must have at least ", nCoef, " coefficients" )
-   }
+   # check argument 'coef'
+   .quadFuncCheckCoefNames( names( coef ), nExog = length( xNames ),
+      shifterNames = shifterNames, data = data, warn = FALSE )
 
    if( is.null( yName ) ){
       yHat <- quadFuncCalc( xNames = xNames, data = data, coef = coef, 

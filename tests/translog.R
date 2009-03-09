@@ -290,14 +290,14 @@ all.equal( ggResult[ -c(1,6,10,11,15) ], ggResultLog[ -c(1,6,10,11,15) ] )
 all.equal( ggResult$fitted, exp( ggResultLog$fitted ) )
 # random effects
 ggResultRan <- translogEst( "invest", c( "value", "capital" ), ggData,
-   model = "random", ercomp = "amemiya" )
+   model = "random", random.method = "amemiya" )
 print( ggResultRan )
 print.default( ggResultRan )
 # with dataLogged = TRUE
 ggResultRanLog <- translogEst( "logInvest", 
    xNames = c( "logValue", "logCapital" ),
    data = ggData, dataLogged = TRUE,
-   model = "random", ercomp = "amemiya" )
+   model = "random", random.method = "amemiya" )
 all.equal( ggResultRan[ -c(1,6,10,11,15) ], ggResultRanLog[ -c(1,6,10,11,15) ] )
 all.equal( ggResultRan$fitted, exp( ggResultRanLog$fitted ) )
 
@@ -331,7 +331,7 @@ print( ggResShifter )
 print.default( ggResShifter )
 # random effects
 ggResShifterRan <- translogEst( "invest", c( "value", "capital" ), ggData,
-   shifterNames = "tech", model = "random", ercomp = "amemiya" )
+   shifterNames = "tech", model = "random", random.method = "amemiya" )
 print( ggResShifterRan )
 print.default( ggResShifterRan )
 
@@ -344,7 +344,7 @@ print( ggResShifterLogi )
 print.default( ggResShifterLogi )
 # random effects
 ggResShifterLogiRan <- translogEst( "invest", c( "value", "capital" ), ggData,
-   shifterNames = "war", model = "random", ercomp = "amemiya" )
+   shifterNames = "war", model = "random", random.method = "amemiya" )
 print( ggResShifterLogiRan )
 print.default( ggResShifterLogiRan )
 
@@ -358,6 +358,6 @@ print( ggResShifterFac )
 print.default( ggResShifterFac )
 # random effects
 ggResShifterFacRan <- translogEst( "invest", c( "value", "capital" ), ggData,
-   shifterNames = "decade", model = "random", ercomp = "amemiya" )
+   shifterNames = "decade", model = "random", random.method = "amemiya" )
 print( ggResShifterFacRan )
 print.default( ggResShifterFacRan )

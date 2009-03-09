@@ -572,7 +572,7 @@ coef( ggResult )
 print( ggResult )
 # random effects
 ggResultRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
-   model = "random", ercomp = "amemiya" )
+   model = "random", random.method = "amemiya" )
 coef( ggResultRan )
 print( ggResultRan )
 
@@ -586,7 +586,7 @@ coef( ggResShifter )
 print.default( ggResShifter )
 # random effects
 ggResShifterRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
-   shifterNames = "tech", model = "random", ercomp = "amemiya" )
+   shifterNames = "tech", model = "random", random.method = "amemiya" )
 coef( ggResShifterRan )
 print.default( ggResShifterRan )
 
@@ -599,7 +599,7 @@ coef( ggResShifterLogi )
 print.default( ggResShifterLogi )
 # random effects
 ggResShifterLogiRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
-   shifterNames = "war", model = "random", ercomp = "amemiya" )
+   shifterNames = "war", model = "random", random.method = "amemiya" )
 coef( ggResShifterLogiRan )
 print.default( ggResShifterLogiRan )
 
@@ -613,7 +613,7 @@ coef( ggResShifterFac )
 print.default( ggResShifterFac )
 # random effects
 ggResShifterFacRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
-   shifterNames = "decade", model = "random", ercomp = "amemiya" )
+   shifterNames = "decade", model = "random", random.method = "amemiya" )
 coef( ggResShifterFacRan )
 print.default( ggResShifterFacRan )
 
@@ -626,7 +626,7 @@ vcov( ggResultLin )
 print( ggResultLin )
 # random effects
 ggResultLinRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
-   linear = TRUE, model = "random", ercomp = "amemiya" )
+   linear = TRUE, model = "random", random.method = "amemiya" )
 coef( ggResultLinRan )
 vcov( ggResultLinRan )
 print( ggResultLinRan )

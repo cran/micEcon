@@ -9,15 +9,9 @@ quadFuncCalc <- function( xNames, data, coef, shifterNames = NULL,
    # check argument 'homWeights'
    .quadFuncCheckHomWeights( homWeights, xNames )
 
-   nExog <- length( xNames )
-   nShifter <- length( shifterNames )
-   nCoef <- 1 + nExog + nExog * ( nExog + 1 ) / 2 + nShifter
-
-   if( nCoef > length( coef ) ) {
-      stop( "a quadratic function with ", nExog, " exogenous variables",
-         " and ", nShifter, " shifter variables",
-         " must have at least ", nCoef, " coefficients" )
-   }
+   # check argument 'coef'
+   .quadFuncCheckCoefNames( names( coef ), nExog = length( xNames ),
+      shifterNames = shifterNames, data = data )
 
    # calculate index to normalize variables
    if( !is.null( homWeights ) ) {

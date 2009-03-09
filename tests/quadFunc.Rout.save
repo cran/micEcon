@@ -3238,14 +3238,14 @@ attr(,"class")
 [1] "quadFuncEst"
 > # random effects
 > ggResultRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
-+    model = "random", ercomp = "amemiya" )
++    model = "random", random.method = "amemiya" )
 > coef( ggResultRan )
          a_0          a_1          a_2        b_1_1        b_1_2        b_2_2 
 3.949693e+01 6.159186e-02 1.075103e-01 5.177555e-06 3.163931e-05 1.186991e-04 
 > print( ggResultRan )
 $call
 quadFuncEst(yName = "invest", xNames = c("value", "capital"), 
-    data = ggData, model = "random", ercomp = "amemiya")
+    data = ggData, model = "random", random.method = "amemiya")
 
 $nExog
 [1] 2
@@ -3799,7 +3799,7 @@ attr(,"class")
 [1] "quadFuncEst"
 > # random effects
 > ggResShifterRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
-+    shifterNames = "tech", model = "random", ercomp = "amemiya" )
++    shifterNames = "tech", model = "random", random.method = "amemiya" )
 > coef( ggResShifterRan )
           a_0           a_1           a_2         b_1_1         b_1_2 
  3.770917e+01  6.265801e-02  1.102823e-01  5.069918e-06  3.052773e-05 
@@ -3808,7 +3808,7 @@ attr(,"class")
 > print.default( ggResShifterRan )
 $call
 quadFuncEst(yName = "invest", xNames = c("value", "capital"), 
-    data = ggData, shifterNames = "tech", model = "random", ercomp = "amemiya")
+    data = ggData, shifterNames = "tech", model = "random", random.method = "amemiya")
 
 $nExog
 [1] 2
@@ -4370,7 +4370,7 @@ attr(,"class")
 [1] "quadFuncEst"
 > # random effects
 > ggResShifterLogiRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
-+    shifterNames = "war", model = "random", ercomp = "amemiya" )
++    shifterNames = "war", model = "random", random.method = "amemiya" )
 > coef( ggResShifterLogiRan )
           a_0           a_1           a_2         b_1_1         b_1_2 
  4.601396e+01  6.428319e-02  8.673148e-02  4.174811e-06  3.645260e-05 
@@ -4379,7 +4379,7 @@ attr(,"class")
 > print.default( ggResShifterLogiRan )
 $call
 quadFuncEst(yName = "invest", xNames = c("value", "capital"), 
-    data = ggData, shifterNames = "war", model = "random", ercomp = "amemiya")
+    data = ggData, shifterNames = "war", model = "random", random.method = "amemiya")
 
 $nExog
 [1] 2
@@ -4946,7 +4946,7 @@ attr(,"class")
 [1] "quadFuncEst"
 > # random effects
 > ggResShifterFacRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
-+    shifterNames = "decade", model = "random", ercomp = "amemiya" )
++    shifterNames = "decade", model = "random", random.method = "amemiya" )
 > coef( ggResShifterFacRan )
           a_0           a_1           a_2         b_1_1         b_1_2 
  5.908080e+01  4.247392e-02 -1.036923e-01  5.757541e-06  4.878037e-05 
@@ -4956,7 +4956,7 @@ attr(,"class")
 $call
 quadFuncEst(yName = "invest", xNames = c("value", "capital"), 
     data = ggData, shifterNames = "decade", model = "random", 
-    ercomp = "amemiya")
+    random.method = "amemiya")
 
 $nExog
 [1] 2
@@ -5511,7 +5511,7 @@ attr(,"class")
 [1] "quadFuncEst"
 > # random effects
 > ggResultLinRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
-+    linear = TRUE, model = "random", ercomp = "amemiya" )
++    linear = TRUE, model = "random", random.method = "amemiya" )
 > coef( ggResultLinRan )
         a_0         a_1         a_2       b_1_1       b_1_2       b_2_2 
 -60.3474258   0.1049120   0.3460355   0.0000000   0.0000000   0.0000000 
@@ -5526,7 +5526,7 @@ b_2_2    0.00000000  0.0000000000  0.0000000000     0     0     0
 > print( ggResultLinRan )
 $call
 quadFuncEst(yName = "invest", xNames = c("value", "capital"), 
-    data = ggData, linear = TRUE, model = "random", ercomp = "amemiya")
+    data = ggData, linear = TRUE, model = "random", random.method = "amemiya")
 
 $nExog
 [1] 2
