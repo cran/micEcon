@@ -36,7 +36,7 @@ quadFuncEla( xNames, data, coef, yName = NULL,
    \item{quadHalf}{logical. Multiply the quadratic terms by one half?}
    \item{object}{object of class \code{quadFuncEst}
       (returned by \code{\link{quadFuncEst}}).}
-   \item{yObs}{logical. Use observed values of the andogenous variable.
+   \item{yObs}{logical. Use observed values of the endogenous variable.
       If \code{FALSE} (default) predicted values calculated by
       \code{\link{quadFuncCalc}} are used.}
    \item{\ldots}{currently ignored.}

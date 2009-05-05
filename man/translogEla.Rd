@@ -54,12 +54,12 @@ translogEla( xNames, data, coef, coefCov = NULL, quadHalf = TRUE,
 }
 
 \value{
-   a list of class \code{translogEla} containing following objects:
-   \item{ela}{data frame containing the elasticities.}
-   \item{variance}{data frame containing the variances of the elasticities
-      (only if argument \code{coefCov} is provided).}
-   \item{stdDev}{data frame containing the standard deviations of the elasticities
-      (only if argument \code{coefCov} is provided).}
+   A data frame containing the elasticities,
+   where each column corresponds to one of the independent variables.
+   If argument \code{coefCov} is provided, it has the attributes
+   \code{variance} and \code{stdDev},
+   which are two data frames containing the variances
+   and the standard deviations, respectively, of the elasticities.
 }
 
 \seealso{\code{\link{translogEst}} and \code{\link{translogCalc}}}
@@ -84,9 +84,9 @@ translogEla( xNames, data, coef, coefCov = NULL, quadHalf = TRUE,
       data = germanFarms, coef = coef( estResult ), 
       coefCov = vcov( estResult ) )
    # all elasticities
-   estEla$ela
+   estEla
    # t-values of all elasticities
-   estEla$ela / estEla$stdDev
+   estEla / attributes( estEla )$stdDev
 }
 
 \keyword{models}

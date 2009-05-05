@@ -21,8 +21,5 @@ translogEla <- function( xNames, data, coef, coefCov = NULL,
    result <- quadFuncDeriv( xNames = xNames, data = logData, coef = coef, 
       coefCov = coefCov, quadHalf = quadHalf )
 
-   names( result )[ 1 ] <- "ela"
-   class( result )  <- "translogEla"
-
    return( result )
 }

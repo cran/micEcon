@@ -61,6 +61,8 @@ all.equal( margProducts, margProductsFitted )
 estEla <- translogEla( c( "qLabor", "land", "qVarInput", "time" ), 
    data = germanFarms, coef = coef( estResult ), coefCov = vcov( estResult ) )
 print( estEla )
+print( attributes( estEla )$variance )
+print( attributes( estEla )$stdDev )
 estElaMet <- elas( estResult )
 all.equal( estEla, estElaMet )
 estElaLogMet <- elas( estResultLog )
@@ -171,6 +173,8 @@ estElaShifter <- translogEla( c( "qLabor", "land", "qVarInput" ),
    data = germanFarms, coef = coef( estResultShifter ), 
    coefCov = vcov( estResultShifter ) )
 print( estElaShifter )
+print( attributes( estElaShifter )$variance )
+print( attributes( estElaShifter )$stdDev )
 estElaShifterMet <- elas( estResultShifter )
 all.equal( estElaShifter, estElaShifterMet )
 estElaShifterLogMet <- elas( estResultShifterLog )
@@ -307,15 +311,19 @@ ggEla <- translogEla( c( "value", "capital" ),
    data = ggData, coef = coef( ggResult ), 
    coefCov = vcov( ggResult ) )
 print( ggEla )
+print( attributes( ggEla )$variance )
+print( attributes( ggEla )$stdDev )
 ggElaMet <- elas( ggResult )
 all.equal( ggEla, ggElaMet )
 ggElaLogMet <- elas( ggResultLog )
 all.equal( ggElaMet, ggElaLogMet, check.attributes = FALSE )
 # random effects
 ggElaRan <- translogEla( c( "value", "capital" ), 
-   data = ggData, coef = coef( ggResultRan ), 
+   data = ggData, coef = coef( ggResultRan ),
    coefCov = vcov( ggResultRan ) )
 print( ggElaRan )
+print( attributes( ggElaRan )$variance )
+print( attributes( ggElaRan )$stdDev )
 ggElaRanMet <- elas( ggResultRan )
 all.equal( ggElaRan, ggElaRanMet )
 ggElaRanLogMet <- elas( ggResultRanLog )

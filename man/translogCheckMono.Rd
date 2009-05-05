@@ -12,7 +12,7 @@
 \usage{
 translogCheckMono( xNames, data, coef, increasing = TRUE,
    strict = FALSE, quadHalf = TRUE, dataLogged = FALSE,
-   tol = 2 * .Machine$double.eps )
+   tol = 10 * .Machine$double.eps )
 
 \method{print}{translogCheckMono}( x, \dots )
 

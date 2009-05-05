@@ -1,6 +1,6 @@
 
-R version 2.8.1 (2008-12-22)
-Copyright (C) 2008 The R Foundation for Statistical Computing
+R version 2.9.0 (2009-04-17)
+Copyright (C) 2009 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -30,11 +30,7 @@ Attaching package: 'Matrix'
 
 	The following object(s) are masked from package:base :
 
-	 colMeans,
-	 colSums,
-	 rcond,
-	 rowMeans,
-	 rowSums 
+	 rcond 
 
 Loading required package: car
 Loading required package: lmtest
@@ -62,7 +58,7 @@ Attaching package: 'boot'
 
 	 melanoma 
 
-Nonparametric Kernel Methods for Mixed Datatypes (version 0.30-1)
+Nonparametric Kernel Methods for Mixed Datatypes (version 0.30-2)
 > library( plm )
 Loading required package: kinship
 Loading required package: survival
@@ -297,7 +293,6 @@ attr(,"class")
 +    c( "qLabor", "land", "qVarInput", "time" ),
 +    germanFarms, coef( estResult ), vcov( estResult ) )
 > print( margProducts )
-$deriv
        qLabor     land   qVarInput       time
 1   2546.6963 70.37321 -0.87697378  31.415311
 2   2218.5034 55.78284 -1.11310030  46.483105
@@ -319,8 +314,7 @@ $deriv
 18   115.7999 93.42042  1.34735027 -81.477061
 19   366.4300 77.01233  0.79468293 -67.890172
 20   525.3894 57.94714  0.22976523 -50.399087
-
-$variance
+> print( attributes( margProducts )$variance )
       qLabor     land qVarInput     time
 1  303296116 544270.7  364.2310 401578.9
 2  297350425 542045.0  363.1437 399238.4
@@ -342,8 +336,7 @@ $variance
 18 285652405 528980.1  362.4889 403757.9
 19 289769299 532351.5  363.6442 409489.4
 20 292717887 534964.8  365.3061 414059.8
-
-$stdDev
+> print( attributes( margProducts )$stdDev )
      qLabor     land qVarInput     time
 1  17415.40 737.7470  19.08484 633.7025
 2  17243.85 736.2371  19.05633 631.8532
@@ -365,29 +358,20 @@ $stdDev
 18 16901.25 727.3102  19.03914 635.4195
 19 17022.61 729.6242  19.06946 639.9136
 20 17109.00 731.4129  19.11298 643.4748
-
-attr(,"class")
-[1] "quadFuncDeriv"
 > # only at mean values
 > margProductsMean <- quadFuncDeriv(
 +    xNames = c( "qLabor", "land", "qVarInput", "time" ),
 +    data = germanFarmsMeans, coef = coef( estResult ),
 +    coefCov = vcov( estResult ) )
 > print( margProductsMean )
-$deriv
     qLabor     land qVarInput      time
 1 561.1157 72.52029 0.2683399 -13.31031
-
-$variance
+> print( attributes( margProductsMean )$variance )
      qLabor     land qVarInput     time
 1 282720621 532305.4  361.3141 395950.4
-
-$stdDev
+> print( attributes( margProductsMean )$stdDev )
     qLabor     land qVarInput     time
 1 16814.30 729.5926  19.00826 629.2459
-
-attr(,"class")
-[1] "quadFuncDeriv"
 > 
 > ## estimate a quadratic production function with a shifter
 > estResultShifter <- quadFuncEst( yName = "qOutput",
@@ -565,7 +549,6 @@ attr(,"class")
 +    c( "qLabor", "land", "qVarInput" ),
 +    germanFarms, coef( estResultShifter ), vcov( estResultShifter ) )
 > print( margProdShifter )
-$deriv
        qLabor     land qVarInput
 1   1635.9778 44.90187 0.6126722
 2   1197.3635 45.55146 0.9997671
@@ -587,8 +570,7 @@ $deriv
 18  -639.4222 32.66758 0.9598040
 19 -1018.1332 32.94379 1.2878562
 20 -1451.8469 33.58153 1.6919630
-
-$variance
+> print( attributes( margProdShifter )$variance )
       qLabor     land qVarInput
 1  127826924 140313.4  175.1015
 2  125015915 141524.7  168.8903
@@ -610,8 +592,7 @@ $variance
 18 142928871 155201.3  178.9230
 19 143241155 155398.4  173.2609
 20 143519843 155753.4  167.4724
-
-$stdDev
+> print( attributes( margProdShifter )$stdDev )
      qLabor     land qVarInput
 1  11306.06 374.5843  13.23259
 2  11181.05 376.1976  12.99578
@@ -633,9 +614,6 @@ $stdDev
 18 11955.29 393.9559  13.37621
 19 11968.34 394.2060  13.16286
 20 11979.98 394.6560  12.94111
-
-attr(,"class")
-[1] "quadFuncDeriv"
 > 
 > ## estimate a quadratic production function with 2 shifters
 > germanFarms$timeSq <- germanFarms$time^2
@@ -1107,13 +1085,13 @@ attr(,"class")
 +    c( "qLabor", "land", "qVarInput", "time" ),
 +    data = germanFarms, coef = coef( estResultLin ), 
 +    coefCov = vcov( estResultLin ) )
-> sd( margProducts$deriv )
+> sd( margProducts )
    qLabor      land qVarInput      time 
         0         0         0         0 
-> all.equal( margProducts$deriv[1,], coef( estResultLin )[2:5], 
+> all.equal( margProducts[1,], coef( estResultLin )[2:5],
 +    check.attributes = FALSE )
 [1] TRUE
-> all.equal( margProducts$variance[1,], diag( vcov( estResultLin ) )[2:5], 
+> all.equal( attributes( margProducts )$variance[1,], diag( vcov( estResultLin ) )[2:5], 
 +    check.attributes = FALSE )
 [1] TRUE
 > 
@@ -2326,7 +2304,6 @@ b_4_4     0     0     0     0     0     0     0     0
 +    coef = coef( estResultLinHom ), data = germanFarms, 
 +    homWeights = c( qLabor = 0.2, land = 0.5, qVarInput = 0.3 ) )
 > print( estResultLinHomDeriv )
-$deriv
        time     qLabor     land qVarInput
 1  35.00369 -1178.4390 27.04124  1.912124
 2  35.00369 -1084.9966 24.64462  1.610257
@@ -2348,12 +2325,9 @@ $deriv
 18 35.00369  -923.6061 20.53430  1.106181
 19 35.00369  -885.0597 19.51752  0.964913
 20 35.00369  -840.2963 18.38134  0.827398
-
-attr(,"class")
-[1] "quadFuncDeriv"
-> all.equal( estResultLinHomDeriv$deriv$qLabor * germanFarms$qLabor + 
-+    estResultLinHomDeriv$deriv$land * germanFarms$land, 
-+    - estResultLinHomDeriv$deriv$qVarInput * germanFarms$qVarInput )
+> all.equal( estResultLinHomDeriv$qLabor * germanFarms$qLabor +
++    estResultLinHomDeriv$land * germanFarms$land,
++    - estResultLinHomDeriv$qVarInput * germanFarms$qVarInput )
 [1] TRUE
 > # different order of weights (different from order used for estimation)
 > estResultLinHom1Deriv <- quadFuncDeriv(
@@ -2374,8 +2348,8 @@ attr(,"class")
 +    xNames = c( "qLabor", "land", "qVarInput", "time" ),
 +    coef = coef( estResultLinHom3 ), data = germanFarms,
 +    homWeights = c( qLabor = 0.2, land = 0.5, qVarInput = 0.3 ) )
-> all.equal( estResultLinHomDeriv$deriv, 
-+    estResultLinHom3Deriv$deriv[ , c( 4, 1, 2, 3 ) ] )
+> all.equal( estResultLinHomDeriv, 
++    estResultLinHom3Deriv[ , c( 4, 1, 2, 3 ) ] )
 [1] TRUE
 > # homogenous in all independent variables
 > estResultLinHom4Deriv <- quadFuncDeriv(
@@ -2383,7 +2357,6 @@ attr(,"class")
 +    coef = coef( estResultLinHom4 ), data = germanFarms,
 +    homWeights = c( qLabor = 0.2, land = 0.5, qVarInput = 0.3, time = 0 ) )
 > print( estResultLinHom4Deriv )
-$deriv
        time    qLabor     land qVarInput
 1  38.39356 -1660.528 39.59729 2.5625684
 2  35.34595 -1528.890 36.02354 2.1008025
@@ -2405,13 +2378,10 @@ $deriv
 18 30.08259 -1301.892 28.98846 0.7854790
 19 28.82504 -1247.564 27.53856 0.6097922
 20 27.36524 -1184.466 25.93625 0.4543152
-
-attr(,"class")
-[1] "quadFuncDeriv"
-> all.equal( estResultLinHom4Deriv$deriv$qLabor * germanFarms$qLabor + 
-+    estResultLinHom4Deriv$deriv$land * germanFarms$land +
-+    estResultLinHom4Deriv$deriv$qVarInput * germanFarms$qVarInput,
-+    - estResultLinHom4Deriv$deriv$time * germanFarms$time )
+> all.equal( estResultLinHom4Deriv$qLabor * germanFarms$qLabor +
++    estResultLinHom4Deriv$land * germanFarms$land +
++    estResultLinHom4Deriv$qVarInput * germanFarms$qVarInput,
++    - estResultLinHom4Deriv$time * germanFarms$time )
 [1] TRUE
 > 
 > ## quadratic functions with homogeneity imposed
@@ -2687,7 +2657,6 @@ b_4_4 -7.218313e+13 -1.217472e+14  2.888829e+13  4.823309e+13  8.155095e+13
 +    coef = coef( estResultHom ), data = germanFarms, 
 +    homWeights = c( qLabor = 0.7, land = 0.1, qVarInput = 0.2 ) )
 > print( estResultHomDeriv )
-$deriv
         time      qLabor       land qVarInput
 1   5.570767 -1158.69402  26.066323 1.9020266
 2  30.035570  -196.11320  -7.962407 0.7863887
@@ -2709,12 +2678,9 @@ $deriv
 18 51.167361 -1385.46948  16.048696 2.3964270
 19 68.463112  -718.06286  -1.172802 1.6506120
 20 85.948230  -145.60137 -17.405512 1.1964559
-
-attr(,"class")
-[1] "quadFuncDeriv"
-> all.equal( estResultHomDeriv$deriv$qLabor * germanFarms$qLabor + 
-+    estResultHomDeriv$deriv$land * germanFarms$land, 
-+    - estResultHomDeriv$deriv$qVarInput * germanFarms$qVarInput )
+> all.equal( estResultHomDeriv$qLabor * germanFarms$qLabor +
++    estResultHomDeriv$land * germanFarms$land,
++    - estResultHomDeriv$qVarInput * germanFarms$qVarInput )
 [1] TRUE
 > # different order of weights (different from order used for estimation)
 > estResultHom1Deriv <- quadFuncDeriv(
@@ -2735,8 +2701,8 @@ attr(,"class")
 +    xNames = c( "qLabor", "land", "qVarInput", "time" ),
 +    coef = coef( estResultHom3 ), data = germanFarms,
 +    homWeights = c( qLabor = 0.7, land = 0.1, qVarInput = 0.2 ) )
-> all.equal( estResultHomDeriv$deriv, 
-+    estResultHom3Deriv$deriv[ , c( 4, 1, 2, 3 ) ] )
+> all.equal( estResultHomDeriv, 
++    estResultHom3Deriv[ , c( 4, 1, 2, 3 ) ] )
 [1] TRUE
 > # homogenous in all independent variables
 > estResultHom4Deriv <- quadFuncDeriv(
@@ -2744,7 +2710,6 @@ attr(,"class")
 +    coef = coef( estResultHom4 ), data = germanFarms,
 +    homWeights = c( qLabor = 0.7, land = 0.1, qVarInput = 0.2, time = 0 ) )
 > print( estResultHom4Deriv )
-$deriv
         time      qLabor       land   qVarInput
 1  11.350230  -606.91202   7.656194  1.22801484
 2  51.772621   293.18816 -19.611718 -0.08912130
@@ -2766,13 +2731,10 @@ $deriv
 18 39.116972 -2742.60992  18.779413  4.38950049
 19 69.074919 -1651.65027 -14.259502  2.59180554
 20 96.013513  -627.62087 -42.790031  1.01532446
-
-attr(,"class")
-[1] "quadFuncDeriv"
-> all.equal( estResultHom4Deriv$deriv$qLabor * germanFarms$qLabor + 
-+    estResultHom4Deriv$deriv$land * germanFarms$land +
-+    estResultHom4Deriv$deriv$qVarInput * germanFarms$qVarInput,
-+    - estResultHom4Deriv$deriv$time * germanFarms$time )
+> all.equal( estResultHom4Deriv$qLabor * germanFarms$qLabor +
++    estResultHom4Deriv$land * germanFarms$land +
++    estResultHom4Deriv$qVarInput * germanFarms$qVarInput,
++    - estResultHom4Deriv$time * germanFarms$time )
 [1] TRUE
 > 
 > ## elasticities of quadratic functions with homogeneity imposed
@@ -5789,25 +5751,25 @@ attr(,"class")
 > # fixed effects
 > margProducts <- quadFuncDeriv( c( "value", "capital" ),
 +    data = ggData, coef = coef( ggResultLin ), coefCov = vcov( ggResultLin ) )
-> sd( margProducts$deriv )
+> sd( margProducts )
   value capital 
       0       0 
-> all.equal( margProducts$deriv[1,], coef( ggResultLin )[2:3], 
+> all.equal( margProducts[1,], coef( ggResultLin )[2:3],
 +    check.attributes = FALSE )
 [1] TRUE
-> all.equal( margProducts$variance[1,], diag( vcov( ggResultLin ) )[2:3], 
+> all.equal( attributes( margProducts )$variance[1,], diag( vcov( ggResultLin ) )[2:3], 
 +    check.attributes = FALSE )
 [1] TRUE
 > # random effects
 > margProducts <- quadFuncDeriv( c( "value", "capital" ),
 +    data = ggData, coef = coef( ggResultLinRan ), coefCov = vcov( ggResultLinRan ) )
-> sd( margProducts$deriv )
+> sd( margProducts )
   value capital 
       0       0 
-> all.equal( margProducts$deriv[1,], coef( ggResultLinRan )[2:3], 
+> all.equal( margProducts[1,], coef( ggResultLinRan )[2:3],
 +    check.attributes = FALSE )
 [1] TRUE
-> all.equal( margProducts$variance[1,], diag( vcov( ggResultLinRan ) )[2:3], 
+> all.equal( attributes( margProducts )$variance[1,], diag( vcov( ggResultLinRan ) )[2:3], 
 +    check.attributes = FALSE )
 [1] TRUE
 > 
@@ -6426,13 +6388,13 @@ b_3_4 b_4_4
 +    xNames = c( "qLabor", "landAr", "qVarInput", "time" ),
 +    data = germanFarmsMeans, coef = coef( estResultAr ),
 +    coefCov = vcov( estResultAr ) )
-> print( margProductsMean$deriv / margProductsMeanAr$deriv )
+> print( margProductsMean / margProductsMeanAr )
   qLabor land qVarInput time
 1      1  100         1    1
-> print( margProductsMean$variance / margProductsMeanAr$variance )
+> print( attributes( margProductsMean )$variance / attributes( margProductsMeanAr )$variance )
   qLabor  land qVarInput time
 1      1 10000         1    1
-> print( margProductsMean$stdDev / margProductsMeanAr$stdDev )
+> print( attributes( margProductsMean )$stdDev / attributes( margProductsMeanAr )$stdDev )
   qLabor land qVarInput time
 1      1  100         1    1
 > # elasticities
@@ -6466,7 +6428,7 @@ b_3_4 b_4_4
 +    xNames = c( "timeCent", "qLabor", "land", "qVarInput" ),
 +    coef = coef( estResultHomCent ), data = germanFarms,
 +    homWeights = c( qLabor = 0.7, land = 0.1, qVarInput = 0.2 ) )
-> print( estResultHomDerivCent$deriv / estResultHomDeriv$deriv )
+> print( estResultHomDerivCent / estResultHomDeriv )
    timeCent qLabor land qVarInput
 1       100      1    1         1
 2       100      1    1         1

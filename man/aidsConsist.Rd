@@ -80,6 +80,7 @@ aidsConsist( priceNames, totExpName, coef, data,
 \seealso{\code{\link{aidsEst}}}
 
 \examples{
+\dontrun{
    data( Blanciforti86 )
    # Data on food consumption are available only for the first 32 years
    Blanciforti86 <- Blanciforti86[ 1:32, ]
@@ -94,6 +95,7 @@ aidsConsist( priceNames, totExpName, coef, data,
 
    # the same can be obtained in an easier way
    checkConsist( estResult )
+}
 }
 
 \keyword{models}

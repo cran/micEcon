@@ -1,7 +1,7 @@
 translogDeriv <- function( xNames, data, coef, coefCov = NULL,
    yName = NULL, quadHalf = TRUE, dataLogged = FALSE ) {
 
-   checkNames( c( xNames ), names( data ) )
+   checkNames( c( xNames, yName ), names( data ) )
 
    nExog <- length( xNames )
    nCoef <- 1 + nExog + nExog * ( nExog + 1 ) / 2

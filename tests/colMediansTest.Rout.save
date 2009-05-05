@@ -1,6 +1,6 @@
 
-R version 2.8.1 (2008-12-22)
-Copyright (C) 2008 The R Foundation for Statistical Computing
+R version 2.9.0 (2009-04-17)
+Copyright (C) 2009 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -30,11 +30,7 @@ Attaching package: 'Matrix'
 
 	The following object(s) are masked from package:base :
 
-	 colMeans,
-	 colSums,
-	 rcond,
-	 rowMeans,
-	 rowSums 
+	 rcond 
 
 Loading required package: car
 Loading required package: lmtest
@@ -62,7 +58,7 @@ Attaching package: 'boot'
 
 	 melanoma 
 
-Nonparametric Kernel Methods for Mixed Datatypes (version 0.30-1)
+Nonparametric Kernel Methods for Mixed Datatypes (version 0.30-2)
 > 
 > 
 > ## matrix
@@ -87,19 +83,19 @@ Nonparametric Kernel Methods for Mixed Datatypes (version 0.30-1)
 > 
 > cm2 <- colMedians( germanFarms[ , -1 ] )
 > print( cm2 )
-     vOutput    vVarInput       qLabor       pLabor      pOutput    pVarInput 
-137031.85000  73459.23500      1.53000  19594.79000     98.13398    107.35075 
-        land 
-    26.42000 
+       vCrop      vAnimal      vOutput    vVarInput       qLabor       pLabor 
+ 31067.10000 106288.10000 137031.85000  73459.23500      1.53000  19594.79000 
+     pOutput    pVarInput         land 
+    98.13398    107.35075     26.42000 
 > 
 > rm2 <- rowMedians( germanFarms[ , -1 ] )
 > print( rm2 )
-        1         2         3         4         5         6         7         8 
- 96.30739 100.39653  98.40646  94.87424  98.95358 100.00000 107.95849 109.74757 
-        9        10        11        12        13        14        15        16 
-111.38610 111.96210 108.90375 101.66481 100.32702 104.90524 107.69231 107.24638 
-       17        18        19        20 
-112.15162 111.70569 111.48272 113.48941 
+       1        2        3        4        5        6        7        8 
+ 8287.50 14036.00 18444.88 15863.74 16329.89 16904.10 18655.20 19347.65 
+       9       10       11       12       13       14       15       16 
+18381.40 19813.20 19376.38 21193.48 22059.82 21801.41 22514.29 24972.67 
+      17       18       19       20 
+27018.33 26879.33 28604.33 31293.17 
 > 
 > all.equal( cm2, rowMedians( t( germanFarms[ , -1 ] ) ) )
 [1] TRUE

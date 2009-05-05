@@ -56,7 +56,7 @@ quadFuncDeriv <- function( xNames, data, coef, coefCov = NULL,
       }
    }
    colnames( deriv ) <- xNames
-   result$deriv    <- as.data.frame( deriv )
+   deriv    <- as.data.frame( deriv )
 
    if( !is.null( coefCov ) & is.null( homWeights ) ) {
       ## variances of the derivatives
@@ -85,10 +85,9 @@ quadFuncDeriv <- function( xNames, data, coef, coefCov = NULL,
       stdDev <- variance^0.5  # standard errors
       colnames( variance ) <- xNames
       colnames( stdDev )   <- xNames
-      result$variance <- as.data.frame( variance )
-      result$stdDev   <- as.data.frame( stdDev )
+      attributes( deriv )$variance <- as.data.frame( variance )
+      attributes( deriv )$stdDev   <- as.data.frame( stdDev )
    }
 
-   class( result ) <- "quadFuncDeriv"
-   return( result )
+   return( deriv )
 }

@@ -61,6 +61,7 @@
 \author{Arne Henningsen}
 
 \examples{
+\dontrun{
    data( germanFarms )
    germanFarms$qOutput   <- germanFarms$vOutput / germanFarms$pOutput
    germanFarms$qVarInput <- -germanFarms$vVarInput / germanFarms$pVarInput
@@ -71,6 +72,7 @@
    estResult  # Note: it is NOT convex in netput prices
    estResultConvex <- snqProfitImposeConvexity( estResult )
    estResultConvex  # now it is convex
+}
 }
 
 \keyword{models}

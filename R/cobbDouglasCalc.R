@@ -1,4 +1,5 @@
-cobbDouglasCalc <- function( xNames, data, coef, dataLogged = FALSE) {
+cobbDouglasCalc <- function( xNames, data, coef, coefCov = NULL,
+      dataLogged = FALSE ) {
 
    checkNames( c( xNames ), names( data ) )
 
@@ -37,6 +38,29 @@ cobbDouglasCalc <- function( xNames, data, coef, dataLogged = FALSE) {
 
    if( !dataLogged ) {
       result <- exp( result )
+   }
+
+   if( !is.null( coefCov ) ) {
+      if( nrow( coefCov ) != nExog + 1 | ncol( coefCov ) != nExog + 1 ) {
+         stop( "the covariance matrix of the coefficients",
+            " must have exactly ", nExog + 1, " rows and ",
+            nExog + 1, " columns" )
+      }
+
+      rownames( coefCov ) <- names( coef )
+      colnames( coefCov ) <- names( coef )
+      jacobian <- matrix( 0, nrow = nrow( data ), ncol = nExog + 1 )
+      colnames( jacobian ) <- names( coef )
+      jacobian[ , "a_0" ] <- 1
+      for( j in 1:nExog ) {
+         jacobian[ , paste( "a", j, sep = "_" ) ] <- logData[[ xNames[ j ] ]]
+      }
+      if( !dataLogged ) {
+         jacobian <- jacobian * matrix( rep( result, nExog + 1 ),
+            nrow = nrow( data ), ncol = nExog + 1 )
+      }
+      attributes( result )$variance <-
+         diag( jacobian %*% coefCov %*% t( jacobian ) )
    }
 
    names( result ) <- rownames( data )

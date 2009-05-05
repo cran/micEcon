@@ -21,7 +21,8 @@
 \seealso{\code{\link{snqProfitEst}}}
 
 \examples{
-\dontrun{library( systemfit )}
+\dontrun{
+   library( systemfit )
    data( germanFarms )
    germanFarms$qOutput   <- germanFarms$vOutput / germanFarms$pOutput
    germanFarms$qVarInput <- -germanFarms$vVarInput / germanFarms$pVarInput
@@ -31,6 +32,7 @@
 
    estResult <- snqProfitEst( priceNames, quantNames, "land", data = germanFarms )
    print( estResult )
+}
 }
 
 \keyword{models}

@@ -51,6 +51,7 @@
    # just a stupid simple example
    snqProfitEla( matrix(101:109,3,3), c(1,1,1), c(1,-1,-1), c(0.4,0.3,0.3) )
 
+\dontrun{
    # now with real data
    data( germanFarms )
    germanFarms$qOutput   <- germanFarms$vOutput   / germanFarms$pOutput
@@ -68,6 +69,7 @@
    snqProfitEla( estResult$coef$beta, estResult$data[ 20, priceNames ],
       estResult$data[ 20, quantNames ], estResult$weights,
       estResult$scalingFactors )
+}
 }
 
 \keyword{models}

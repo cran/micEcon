@@ -62,11 +62,13 @@
    USMeatConsump$turkey_pm <- USMeatConsump$turkey_p / mean( USMeatConsump$turkey_p )
 
    # Estimation of the model
+\dontrun{
    meatModel <- aidsEst( c( "beef_pm", "pork_pm", "chick_pm", "turkey_pm" ),
       c( "beef_w", "pork_w", "chick_w", "turkey_w" ),
       "meat_exp", shifterNames = c( "co1", "si1", "t" ),
       priceIndex ="S", data = USMeatConsump, maxiter=1000 )
    summary( meatModel )
+}
 }
 
 

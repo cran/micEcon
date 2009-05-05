@@ -15,6 +15,7 @@ Bleymueller79E25.1      Artificial Prices and Quantities
 checkConsist            Testing Theoretical Consistency
 cobbDouglasCalc         Calculate dependent variable of a Cobb-Douglas
                         function
+cobbDouglasDeriv        Derivatives of a Cobb-Douglas function
 cobbDouglasOpt          Optimal Values of Independent Variables of a
                         Cobb-Douglas Function
 coef.aidsEst            Coefficients of an Almost Ideal Demand System

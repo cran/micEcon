@@ -44,12 +44,12 @@
 }
 
 \value{
-   a list of class \code{quadFuncDeriv} containing following objects:
-   \item{deriv}{data frame containing the derivatives.}
-   \item{variance}{data frame containing the variances of the derivatives
-      (only if argument \code{coefCov} is provided).}
-   \item{stdDev}{data frame containing the standard deviations of the derivatives
-      (only if argument \code{coefCov} is provided).}
+   A data frame containing the derivatives,
+   where each column corresponds to one of the independent variables.
+   If argument \code{coefCov} is provided, it has the attributes
+   \code{variance} and \code{stdDev},
+   which are two data frames containing the variances
+   and the standard deviations, respectively, of the derivatives.
 }
 
 \seealso{\code{\link{quadFuncEst}} and \code{\link{quadFuncCalc}}}
@@ -72,7 +72,10 @@
    # compute the marginal products of the inputs
    margProducts <- quadFuncDeriv( c( "qLabor", "land", "qVarInput", "time" ),
       germanFarms, coef( estResult ), vcov( estResult ) )
-   margProducts$deriv
+   # all marginal products
+   margProducts
+   # their t-values
+   margProducts / attributes( margProducts )$stdDev
 }
 
 \keyword{models}

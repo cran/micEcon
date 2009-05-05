@@ -40,6 +40,7 @@
    snqProfitFixEla( matrix(1:6/6,3,2 ), matrix(4:1/4,2 ), c(1,1,1), c(1,1),
       c(0.4,0.3,0.3) )
 
+\dontrun{
    # now with real data
    data( germanFarms )
    germanFarms$qOutput   <- germanFarms$vOutput   / germanFarms$pOutput
@@ -59,6 +60,7 @@
    snqProfitFixEla( estResult$coef$delta, estResult$coef$gamma,
       estResult$data[ 20, quantNames ], estResult$data[ 20, fixNames ],
       estResult$weights, estResult$scalingFactors )
+}
 }
 
 \keyword{models}

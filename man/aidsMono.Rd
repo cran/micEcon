@@ -80,6 +80,7 @@ aidsMono( priceNames, totExpName, coef, data,
 \seealso{\code{\link{aidsEst}}, \code{\link{aidsCalc}}}
 
 \examples{
+\dontrun{
    data( Blanciforti86 )
    # Data on food consumption are available only for the first 32 years
    Blanciforti86 <- Blanciforti86[ 1:32, ]
@@ -104,6 +105,7 @@ aidsMono( priceNames, totExpName, coef, data,
    # with observed expenditure shares in the price index
    aidsMono( priceNames, "xFood", coef = coef( estResultLaT ),
       data = Blanciforti86, priceIndex = estResultLaT$lnp )
+}
 }
 
 \keyword{models}

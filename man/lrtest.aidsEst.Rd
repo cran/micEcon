@@ -39,6 +39,7 @@
    \code{\link{logLik.aidsEst}}}
 
 \examples{
+\dontrun{
    # Using data published in Blanciforti, Green & King (1986)
    data( Blanciforti86 )
    # Data on food consumption are available only for the first 32 years
@@ -73,6 +74,7 @@
 
    # LR tests
    lrtest( estResult, estResultTrend )
+}
 }
 
 \keyword{models}

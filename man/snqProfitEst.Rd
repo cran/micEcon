@@ -154,6 +154,7 @@
 
 
 \examples{
+\dontrun{
    data( germanFarms )
    germanFarms$qOutput   <- germanFarms$vOutput / germanFarms$pOutput
    germanFarms$qVarInput <- -germanFarms$vVarInput / germanFarms$pVarInput
@@ -168,6 +169,7 @@
    germanFarms$time <- c( 0:19 )
    estResult2 <- snqProfitEst( priceNames, quantNames, c("land","time"), data=germanFarms )
    estResult2$ela   # Ah, that looks good!
+}
 }
 
 \keyword{models}

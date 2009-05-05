@@ -69,6 +69,7 @@ aidsConcav( priceNames, totExpName, coef, data, shareNames = NULL )
 \seealso{\code{\link{aidsEst}}, \code{\link{aidsElas}}}
 
 \examples{
+\dontrun{
    data( Blanciforti86 )
    # Data on food consumption are available only for the first 32 years
    Blanciforti86 <- Blanciforti86[ 1:32, ]
@@ -87,6 +88,7 @@ aidsConcav( priceNames, totExpName, coef, data, shareNames = NULL )
    # check concavity with observed shares
    aidsConcav( priceNames, "xFood", coef = estResult$coef,
       data = Blanciforti86, shareNames = shareNames )
+}
 }
 
 \keyword{models}

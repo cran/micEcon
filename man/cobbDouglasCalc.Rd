@@ -7,7 +7,7 @@
 }
 
 \usage{
-cobbDouglasCalc( xNames, data, coef, dataLogged = FALSE  )
+cobbDouglasCalc( xNames, data, coef, coefCov = NULL, dataLogged = FALSE  )
 }
 
 \arguments{
@@ -26,6 +26,9 @@ cobbDouglasCalc( xNames, data, coef, dataLogged = FALSE  )
       and the elements named \code{a_1}, \ldots, \code{a_n}
       are taken as coefficients of the independent variables
       defined in argument \code{xNames} (numbered in that order).}
+   \item{coefCov}{optional covariance matrix of the coefficients
+      (the order of the rows and columns must correspond
+      to the order of the coefficients in argument \code{coef}).}
    \item{dataLogged}{logical. Are the values in \code{data} already logged?}
 }
 
@@ -35,6 +38,11 @@ cobbDouglasCalc( xNames, data, coef, dataLogged = FALSE  )
    (argument \code{dataLogged} is \code{TRUE}),
    the endogenous variable is returned as logarithm;
    non-logarithmic values are returned otherwise.
+
+   If argument \code{coefCov} is specified,
+   the returned vector has an attribute \code{"variance"}
+   that is a vector containing the variances
+   of the calculated (fitted) endogenous variable.
 }
 
 \seealso{\code{\link{translogCalc}}, \code{\link{cobbDouglasOpt}}.}
@@ -54,9 +62,16 @@ cobbDouglasCalc( xNames, data, coef, dataLogged = FALSE  )
    estResult <- translogEst( "qOutput", c( "qLabor", "land", "qVarInput", "time" ),
       germanFarms, linear = TRUE )
 
-   cobbDouglasCalc( c( "qLabor", "land", "qVarInput", "time" ), germanFarms,
+   # fitted values
+   fitted <- cobbDouglasCalc( c( "qLabor", "land", "qVarInput", "time" ), germanFarms,
       coef( estResult )[ 1:5 ] )
    #equal to estResult$fitted
+
+   # fitted values and their variances
+   fitted2 <- cobbDouglasCalc( c( "qLabor", "land", "qVarInput", "time" ), germanFarms,
+      coef( estResult )[ 1:5 ], coefCov = vcov( estResult )[ 1:5, 1:5 ] )
+   # t-values
+   c( fitted2 ) / attributes( fitted2 )$variance^0.5
 }
 
 \keyword{models}

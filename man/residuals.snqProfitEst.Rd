@@ -36,6 +36,7 @@
 }
 
 \examples{
+\dontrun{
    data( germanFarms )
    germanFarms$qOutput   <- germanFarms$vOutput / germanFarms$pOutput
    germanFarms$qVarInput <- -germanFarms$vVarInput / germanFarms$pVarInput
@@ -46,6 +47,7 @@
    estResult <- snqProfitEst( priceNames, quantNames, c("land","time"), data=germanFarms )
    residuals( estResult )
    residuals( estResult, scaled = FALSE )
+}
 }
 
 \keyword{models}

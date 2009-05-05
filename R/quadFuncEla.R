@@ -22,7 +22,7 @@ quadFuncEla <- function( xNames, data, coef,
    }
 
    result <- quadFuncDeriv( xNames = xNames, data = data, coef = coef,
-      homWeights = homWeights, quadHalf = quadHalf )$deriv
+      homWeights = homWeights, quadHalf = quadHalf )
    for( i in xNames ) {
       result[[ i ]] <- result[[ i ]] * data[[ i ]] / yHat
    }

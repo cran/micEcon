@@ -128,6 +128,7 @@ aidsEst( priceNames, shareNames, totExpName, data,
 \author{Arne Henningsen}
 
 \examples{
+\dontrun{
    # Using data published in Blanciforti, Green & King (1986)
    data( Blanciforti86 )
    # Data on food consumption are available only for the first 32 years
@@ -155,6 +156,7 @@ aidsEst( priceNames, shareNames, totExpName, data,
    estResult <- aidsEst( priceNames, shareNames, "xFood",
       data = Blanciforti86, shifterNames = c( "trend", "trend2" ) )
    print( estResult )
+}
 }
 
 \keyword{models}

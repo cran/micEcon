@@ -75,6 +75,7 @@
 \seealso{ \code{\link{aidsEst}}}
 
 \examples{
+\dontrun{
    data( Blanciforti86 )
    # Data on food consumption are available only for the first 32 years
    Blanciforti86 <- Blanciforti86[ 1:32, ]
@@ -86,6 +87,7 @@
    # the computation time only if the model and data set are small)
    print( bestA0$alpha0 )
    plot( bestA0$allValues ) # this should be convex
+}
 }
 
 \keyword{ models }

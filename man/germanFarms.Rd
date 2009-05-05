@@ -19,7 +19,9 @@
    This data frame contains the following columns:
    \describe{
       \item{year}{the book-keeping year.}
-      \item{vOutput}{the value of Outputs (in current Deutschmark).}
+      \item{vCrop}{the value of crop outputs (in current Deutschmark).}
+      \item{vAnimal}{the value of animal outputs (in current Deutschmark).}
+      \item{vOutput}{the value of outputs (in current Deutschmark).}
       \item{pOutput}{price index of agricultural outputs (1980/81 = 100).}
       \item{vVarInput}{the value of variable inputs (in current Deutschmark).}
       \item{pVarInput}{price index of variable agricultural inputs (1980/81 = 100).}

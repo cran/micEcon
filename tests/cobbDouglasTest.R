@@ -14,31 +14,68 @@ estResult <- translogEst( "qOutput", c( "qLabor", "qVarInput", "land", "time" ),
 
 # calculate fitted values
 fitted <- cobbDouglasCalc( c( "qLabor", "qVarInput", "land", "time" ),
-   data = germanFarms, coef = coef( estResult )[ 1:5 ] )
+   data = germanFarms, coef = coef( estResult )[ 1:5 ],
+   coefCov = vcov( estResult )[ 1:5, 1:5 ] )
 print( fitted )
-all.equal( fitted, estResult$fitted )
+# t-values
+print( c( fitted ) / attributes( fitted )$variance^0.5 )
+all.equal( fitted, estResult$fitted, check.attributes = FALSE )
 
-# calculate fitted values using logged independent variables
+# calculate logged variables
 germanFarms$lQLabor    <- log( germanFarms$qLabor )
 germanFarms$lLand      <- log( germanFarms$land )
 germanFarms$lQVarInput <- log( germanFarms$qVarInput )
 germanFarms$lTime      <- log( germanFarms$time )
+germanFarms$lQOutput   <- log( germanFarms$qOutput )
+
+# estimation with logged variables
+estResultLog <- translogEst( "lQOutput",
+   c( "lQLabor", "lQVarInput", "lLand", "lTime" ),
+   germanFarms, dataLogged = TRUE, linear = TRUE )
+all.equal( estResult[c(2:5,7:11,14:16)], estResultLog[c(2:5,7:11,14:16)] )
+
+# calculate fitted values using logged independent variables
 fittedLogged <- cobbDouglasCalc( c( "lQLabor", "lQVarInput", "lLand", "lTime" ),
-   data = germanFarms, coef = coef( estResult )[ 1:5 ], dataLogged = TRUE )
-all.equal( fitted, exp( fittedLogged ) )
+   data = germanFarms, coef = coef( estResult )[ 1:5 ],
+   coefCov = vcov( estResult )[ 1:5, 1:5 ], dataLogged = TRUE )
+all.equal( fitted, exp( fittedLogged ), check.attributes = FALSE )
+all.equal( attributes( fitted )$variance/fitted^2,
+   attributes( fittedLogged )$variance, check.attributes = FALSE )
+all.equal( fittedLogged, predict( estResult$est, se.fit=T )$fit,
+   check.attributes = FALSE )
+all.equal( attributes( fittedLogged )$variance^0.5,
+   predict( estResult$est, se.fit=T )$se.fit )
 
 # coefficients not named
 coefNoNames <- coef( estResult )[ 1:5 ]
 names( coefNoNames ) <- NULL
 fittedNoNames <- cobbDouglasCalc( c( "qLabor", "qVarInput", "land", "time" ),
    data = germanFarms, coef = coefNoNames )
-all.equal( fitted, fittedNoNames )
+all.equal( fitted, fittedNoNames, check.attributes = FALSE )
 
 # coefficients in a different order
 coefDiffOrder <- coef( estResult )[ c( 3, 5, 1, 2, 4 ) ]
 fittedDiffOrder <- cobbDouglasCalc( c( "qLabor", "qVarInput", "land", "time" ),
    data = germanFarms, coef = coefDiffOrder )
-all.equal( fitted, fittedDiffOrder )
+all.equal( fitted, fittedDiffOrder, check.attributes = FALSE )
+
+## derivatives (marginal products)
+# compute the marginal products of the inputs (with "fitted" Output)
+margProducts <- cobbDouglasDeriv( c( "qLabor", "qVarInput", "land", "time" ),
+   data = germanFarms, coef = coef( estResult )[1:5],
+   coefCov = vcov( estResult )[1:5, 1:5] )
+print( margProducts )
+# t-values
+margProducts$deriv / margProducts$variance^0.5
+
+# compute the marginal products of the inputs (with observed Output)
+margProductsObs <- cobbDouglasDeriv( c( "qLabor", "qVarInput", "land", "time" ),
+   data = germanFarms, coef = coef( estResult )[1:5],
+   coefCov = vcov( estResult )[1:5, 1:5], yName = "qOutput" )
+print( margProductsObs )
+# t-values
+margProductsObs$deriv / margProductsObs$variance^0.5
+
 
 # calculate optimal quantities of variable inputs
 xCoef <- coef( estResult )[ 1:3 ]

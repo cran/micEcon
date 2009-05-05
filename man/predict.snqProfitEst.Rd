@@ -91,6 +91,7 @@
 }
 
 \examples{
+\dontrun{
    data( germanFarms )
    germanFarms$qOutput   <- germanFarms$vOutput / germanFarms$pOutput
    germanFarms$qVarInput <- -germanFarms$vVarInput / germanFarms$pVarInput
@@ -101,6 +102,7 @@
    estResult <- snqProfitEst( priceNames, quantNames, c("land","time"), data=germanFarms )
    predict( estResult )
    predict( estResult, se.fit = TRUE, se.pred = TRUE, interval = "confidence" )
+}
 }
 
 \keyword{models}

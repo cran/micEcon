@@ -35,7 +35,7 @@ translogDeriv( xNames, data, coef, coefCov = NULL,
 }
 
 \seealso{
-   \code{\link{translogEst}}, \code{\link{translogCalc}} nad
+   \code{\link{translogEst}}, \code{\link{translogCalc}} and
    \code{\link{translogHessian}}
 }
 

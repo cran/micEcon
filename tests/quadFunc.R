@@ -33,12 +33,16 @@ margProducts <- quadFuncDeriv(
    c( "qLabor", "land", "qVarInput", "time" ),
    germanFarms, coef( estResult ), vcov( estResult ) )
 print( margProducts )
+print( attributes( margProducts )$variance )
+print( attributes( margProducts )$stdDev )
 # only at mean values
 margProductsMean <- quadFuncDeriv(
    xNames = c( "qLabor", "land", "qVarInput", "time" ),
    data = germanFarmsMeans, coef = coef( estResult ),
    coefCov = vcov( estResult ) )
 print( margProductsMean )
+print( attributes( margProductsMean )$variance )
+print( attributes( margProductsMean )$stdDev )
 
 ## estimate a quadratic production function with a shifter
 estResultShifter <- quadFuncEst( yName = "qOutput",
@@ -55,6 +59,8 @@ margProdShifter <- quadFuncDeriv(
    c( "qLabor", "land", "qVarInput" ),
    germanFarms, coef( estResultShifter ), vcov( estResultShifter ) )
 print( margProdShifter )
+print( attributes( margProdShifter )$variance )
+print( attributes( margProdShifter )$stdDev )
 
 ## estimate a quadratic production function with 2 shifters
 germanFarms$timeSq <- germanFarms$time^2
@@ -99,10 +105,10 @@ margProducts <- quadFuncDeriv(
    c( "qLabor", "land", "qVarInput", "time" ),
    data = germanFarms, coef = coef( estResultLin ), 
    coefCov = vcov( estResultLin ) )
-sd( margProducts$deriv )
-all.equal( margProducts$deriv[1,], coef( estResultLin )[2:5], 
+sd( margProducts )
+all.equal( margProducts[1,], coef( estResultLin )[2:5],
    check.attributes = FALSE )
-all.equal( margProducts$variance[1,], diag( vcov( estResultLin ) )[2:5], 
+all.equal( attributes( margProducts )$variance[1,], diag( vcov( estResultLin ) )[2:5], 
    check.attributes = FALSE )
 
 ## estimate a quadratic production function with a logical variable as shifter
@@ -289,9 +295,9 @@ estResultLinHomDeriv <- quadFuncDeriv(
    coef = coef( estResultLinHom ), data = germanFarms, 
    homWeights = c( qLabor = 0.2, land = 0.5, qVarInput = 0.3 ) )
 print( estResultLinHomDeriv )
-all.equal( estResultLinHomDeriv$deriv$qLabor * germanFarms$qLabor + 
-   estResultLinHomDeriv$deriv$land * germanFarms$land, 
-   - estResultLinHomDeriv$deriv$qVarInput * germanFarms$qVarInput )
+all.equal( estResultLinHomDeriv$qLabor * germanFarms$qLabor +
+   estResultLinHomDeriv$land * germanFarms$land,
+   - estResultLinHomDeriv$qVarInput * germanFarms$qVarInput )
 # different order of weights (different from order used for estimation)
 estResultLinHom1Deriv <- quadFuncDeriv(
    xNames = c( "time", "qLabor", "land", "qVarInput" ),
@@ -309,18 +315,18 @@ estResultLinHom3Deriv <- quadFuncDeriv(
    xNames = c( "qLabor", "land", "qVarInput", "time" ),
    coef = coef( estResultLinHom3 ), data = germanFarms,
    homWeights = c( qLabor = 0.2, land = 0.5, qVarInput = 0.3 ) )
-all.equal( estResultLinHomDeriv$deriv, 
-   estResultLinHom3Deriv$deriv[ , c( 4, 1, 2, 3 ) ] )
+all.equal( estResultLinHomDeriv, 
+   estResultLinHom3Deriv[ , c( 4, 1, 2, 3 ) ] )
 # homogenous in all independent variables
 estResultLinHom4Deriv <- quadFuncDeriv(
    xNames = c( "time", "qLabor", "land", "qVarInput" ),
    coef = coef( estResultLinHom4 ), data = germanFarms,
    homWeights = c( qLabor = 0.2, land = 0.5, qVarInput = 0.3, time = 0 ) )
 print( estResultLinHom4Deriv )
-all.equal( estResultLinHom4Deriv$deriv$qLabor * germanFarms$qLabor + 
-   estResultLinHom4Deriv$deriv$land * germanFarms$land +
-   estResultLinHom4Deriv$deriv$qVarInput * germanFarms$qVarInput,
-   - estResultLinHom4Deriv$deriv$time * germanFarms$time )
+all.equal( estResultLinHom4Deriv$qLabor * germanFarms$qLabor +
+   estResultLinHom4Deriv$land * germanFarms$land +
+   estResultLinHom4Deriv$qVarInput * germanFarms$qVarInput,
+   - estResultLinHom4Deriv$time * germanFarms$time )
 
 ## quadratic functions with homogeneity imposed
 estResultHom <- quadFuncEst( yName = "qOutput", 
@@ -448,9 +454,9 @@ estResultHomDeriv <- quadFuncDeriv(
    coef = coef( estResultHom ), data = germanFarms, 
    homWeights = c( qLabor = 0.7, land = 0.1, qVarInput = 0.2 ) )
 print( estResultHomDeriv )
-all.equal( estResultHomDeriv$deriv$qLabor * germanFarms$qLabor + 
-   estResultHomDeriv$deriv$land * germanFarms$land, 
-   - estResultHomDeriv$deriv$qVarInput * germanFarms$qVarInput )
+all.equal( estResultHomDeriv$qLabor * germanFarms$qLabor +
+   estResultHomDeriv$land * germanFarms$land,
+   - estResultHomDeriv$qVarInput * germanFarms$qVarInput )
 # different order of weights (different from order used for estimation)
 estResultHom1Deriv <- quadFuncDeriv(
    xNames = c( "time", "qLabor", "land", "qVarInput" ),
@@ -468,18 +474,18 @@ estResultHom3Deriv <- quadFuncDeriv(
    xNames = c( "qLabor", "land", "qVarInput", "time" ),
    coef = coef( estResultHom3 ), data = germanFarms,
    homWeights = c( qLabor = 0.7, land = 0.1, qVarInput = 0.2 ) )
-all.equal( estResultHomDeriv$deriv, 
-   estResultHom3Deriv$deriv[ , c( 4, 1, 2, 3 ) ] )
+all.equal( estResultHomDeriv, 
+   estResultHom3Deriv[ , c( 4, 1, 2, 3 ) ] )
 # homogenous in all independent variables
 estResultHom4Deriv <- quadFuncDeriv(
    xNames = c( "time", "qLabor", "land", "qVarInput" ),
    coef = coef( estResultHom4 ), data = germanFarms,
    homWeights = c( qLabor = 0.7, land = 0.1, qVarInput = 0.2, time = 0 ) )
 print( estResultHom4Deriv )
-all.equal( estResultHom4Deriv$deriv$qLabor * germanFarms$qLabor + 
-   estResultHom4Deriv$deriv$land * germanFarms$land +
-   estResultHom4Deriv$deriv$qVarInput * germanFarms$qVarInput,
-   - estResultHom4Deriv$deriv$time * germanFarms$time )
+all.equal( estResultHom4Deriv$qLabor * germanFarms$qLabor +
+   estResultHom4Deriv$land * germanFarms$land +
+   estResultHom4Deriv$qVarInput * germanFarms$qVarInput,
+   - estResultHom4Deriv$time * germanFarms$time )
 
 ## elasticities of quadratic functions with homogeneity imposed
 estResultHomEla <- quadFuncEla(
@@ -635,18 +641,18 @@ print( ggResultLinRan )
 # fixed effects
 margProducts <- quadFuncDeriv( c( "value", "capital" ),
    data = ggData, coef = coef( ggResultLin ), coefCov = vcov( ggResultLin ) )
-sd( margProducts$deriv )
-all.equal( margProducts$deriv[1,], coef( ggResultLin )[2:3], 
+sd( margProducts )
+all.equal( margProducts[1,], coef( ggResultLin )[2:3],
    check.attributes = FALSE )
-all.equal( margProducts$variance[1,], diag( vcov( ggResultLin ) )[2:3], 
+all.equal( attributes( margProducts )$variance[1,], diag( vcov( ggResultLin ) )[2:3], 
    check.attributes = FALSE )
 # random effects
 margProducts <- quadFuncDeriv( c( "value", "capital" ),
    data = ggData, coef = coef( ggResultLinRan ), coefCov = vcov( ggResultLinRan ) )
-sd( margProducts$deriv )
-all.equal( margProducts$deriv[1,], coef( ggResultLinRan )[2:3], 
+sd( margProducts )
+all.equal( margProducts[1,], coef( ggResultLinRan )[2:3],
    check.attributes = FALSE )
-all.equal( margProducts$variance[1,], diag( vcov( ggResultLinRan ) )[2:3], 
+all.equal( attributes( margProducts )$variance[1,], diag( vcov( ggResultLinRan ) )[2:3], 
    check.attributes = FALSE )
 
 ## compute elasticities using results of estimations with panel data
@@ -746,9 +752,9 @@ margProductsMeanAr <- quadFuncDeriv(
    xNames = c( "qLabor", "landAr", "qVarInput", "time" ),
    data = germanFarmsMeans, coef = coef( estResultAr ),
    coefCov = vcov( estResultAr ) )
-print( margProductsMean$deriv / margProductsMeanAr$deriv )
-print( margProductsMean$variance / margProductsMeanAr$variance )
-print( margProductsMean$stdDev / margProductsMeanAr$stdDev )
+print( margProductsMean / margProductsMeanAr )
+print( attributes( margProductsMean )$variance / attributes( margProductsMeanAr )$variance )
+print( attributes( margProductsMean )$stdDev / attributes( margProductsMeanAr )$stdDev )
 # elasticities
 estElaFitAr <- elas( estResultAr )
 all.equal( estElaFit, estElaFitAr, check.attributes = FALSE )
@@ -773,7 +779,7 @@ estResultHomDerivCent <- quadFuncDeriv(
    xNames = c( "timeCent", "qLabor", "land", "qVarInput" ),
    coef = coef( estResultHomCent ), data = germanFarms,
    homWeights = c( qLabor = 0.7, land = 0.1, qVarInput = 0.2 ) )
-print( estResultHomDerivCent$deriv / estResultHomDeriv$deriv )
+print( estResultHomDerivCent / estResultHomDeriv )
 # elasticities
 estResultHomElaCent <- elas( estResultHomCent )
 all.equal( estResultHomEla, estResultHomElaCent, check.attributes = FALSE )

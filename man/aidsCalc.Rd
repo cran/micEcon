@@ -68,6 +68,7 @@ aidsCalc( priceNames, totExpName, coef, data, priceIndex = "TL",
 \seealso{ \code{\link{aidsEst}}, \code{\link{aidsPx}} }
 
 \examples{
+\dontrun{
    data( Blanciforti86 )
    # Data on food consumption are available only for the first 32 years
    Blanciforti86 <- Blanciforti86[ 1:32, ]
@@ -108,6 +109,7 @@ aidsCalc( priceNames, totExpName, coef, data, priceIndex = "TL",
 
    fitted2 <- predict( estResult )
    all.equal( fitted, fitted2 ) 
+}
 }
 
 \keyword{ models }
