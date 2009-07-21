@@ -12,6 +12,7 @@ aidsUtility             Indirect Utility Function of the Almost Ideal
                         Demand System
 Blanciforti86           U.S. consumption data
 Bleymueller79E25.1      Artificial Prices and Quantities
+cesEst                  Estimate a CES function
 checkConsist            Testing Theoretical Consistency
 cobbDouglasCalc         Calculate dependent variable of a Cobb-Douglas
                         function
@@ -73,6 +74,9 @@ summary.aidsEst         Summarizing the Estimation of an Almost Ideal
                         Demand System
 summary.translogEst     Summarizing the Estimation of a Translog
                         Function
+summary.translogRayEst
+                        Summarizing the Estimation of a Translog Ray
+                        Function
 symMatrix               Symmetric Matrix
 translogCalc            Calculate dependent variable of a translog
                         function
@@ -86,6 +90,10 @@ translogEst             Estimate a translog function
 translogHessian         Hessian matrix of a translog function
 translogMonoRestr       Monotonicity Restrictions of a Translog
                         Function
+translogProdFuncMargCost
+                        Marginal Costs of Translog Production Function
+translogRayDeriv        Derivatives of a Translog Ray Function
+translogRayEst          Estimate a Translog Ray Function
 triang                  Upper triangular matrix from a vector
 USMeatConsump           U.S. Meat Consumption Data
 vcov.aidsEst            Covariance matrix of an Almost Ideal Demand

@@ -51,7 +51,6 @@ aidsUtilityDeriv( priceNames, totExpName, coef, data, rel = FALSE )
 \seealso{\code{\link{aidsEst}}, \code{\link{aidsCalc}}}
 
 \examples{
-\dontrun{
    data( Blanciforti86 )
    # Data on food consumption are available only for the first 32 years
    Blanciforti86 <- Blanciforti86[ 1:32, ]
@@ -72,7 +71,6 @@ aidsUtilityDeriv( priceNames, totExpName, coef, data, rel = FALSE )
 
    utilityEla <- aidsUtilityDeriv( priceNames, "xFood",
       coef = coef( estResult ), data = Blanciforti86, rel = TRUE )
-}
 }
 
 \keyword{ models }

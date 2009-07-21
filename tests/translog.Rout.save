@@ -1,5 +1,5 @@
 
-R version 2.9.0 (2009-04-17)
+R version 2.9.1 (2009-06-26)
 Copyright (C) 2009 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
@@ -58,7 +58,7 @@ Attaching package: 'boot'
 
 	 melanoma 
 
-Nonparametric Kernel Methods for Mixed Datatypes (version 0.30-2)
+Nonparametric Kernel Methods for Mixed Datatypes (version 0.30-3)
 > library( plm )
 Loading required package: kinship
 Loading required package: survival
@@ -318,6 +318,115 @@ $dataLogged
 
 attr(,"class")
 [1] "translogEst"
+> 
+> # estimate the translog production function with a different order of inputs
+> estResultOrder <- translogEst( yName = "qOutput",
++    xNames = c( "qLabor", "qVarInput", "land", "time" ),
++    data = germanFarms )
+> print( estResultOrder )
+Estimated Translog function with 20 observations.
+         a_0          a_1          a_2          a_3          a_4        b_1_1 
+-133.4851620   24.5892366   34.6307963   19.9228713  -12.4674226  -16.8647382 
+       b_1_2        b_1_3        b_1_4        b_2_2        b_2_3        b_2_4 
+  -8.5911234   14.3472829   -3.5734031   -3.9096383   -3.4684787    2.7933263 
+       b_3_3        b_3_4        b_4_4 
+   0.2644969   -1.1633161   -0.2456535 
+> summary( estResultOrder )
+Estimated Translog function with 20 observations.
+        Estimate Std. Error t value Pr(>|t|)  
+a_0   -133.48516  165.54756 -0.8063  0.45668  
+a_1     24.58924   66.49741  0.3698  0.72669  
+a_2     34.63080   55.32287  0.6260  0.55879  
+a_3     19.92287   16.49954  1.2075  0.28124  
+a_4    -12.46742    5.22824 -2.3846  0.06280 .
+b_1_1  -16.86474   19.10077 -0.8829  0.41769  
+b_1_2   -8.59112   10.55065 -0.8143  0.45251  
+b_1_3   14.34728    8.76958  1.6360  0.16276  
+b_1_4   -3.57340    1.89984 -1.8809  0.11874  
+b_2_2   -3.90964    9.32307 -0.4194  0.69237  
+b_2_3   -3.46848    3.48959 -0.9939  0.36588  
+b_2_4    2.79333    0.74993  3.7248  0.01364 *
+b_3_3    0.26450    4.82223  0.0548  0.95838  
+b_3_4   -1.16332    1.54187 -0.7545  0.48456  
+b_4_4   -0.24565    0.15974 -1.5378  0.18471  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+R-squared: 0.9982506     Adjusted R-squared: 0.9933521 
+> all.equal( residuals( estResult ), residuals( estResultOrder ) )
+[1] TRUE
+> 
+> # estimate the translog production function with a different order of inputs
+> estResultOrder2 <- translogEst( yName = "qOutput",
++    xNames = c( "land", "qVarInput", "qLabor", "time" ),
++    data = germanFarms )
+> print( estResultOrder2 )
+Estimated Translog function with 20 observations.
+         a_0          a_1          a_2          a_3          a_4        b_1_1 
+-133.4851620   19.9228713   34.6307963   24.5892366  -12.4674226    0.2644969 
+       b_1_2        b_1_3        b_1_4        b_2_2        b_2_3        b_2_4 
+  -3.4684787   14.3472829   -1.1633161   -3.9096383   -8.5911234    2.7933263 
+       b_3_3        b_3_4        b_4_4 
+ -16.8647382   -3.5734031   -0.2456535 
+> summary( estResultOrder2 )
+Estimated Translog function with 20 observations.
+        Estimate Std. Error t value Pr(>|t|)  
+a_0   -133.48516  165.54756 -0.8063  0.45668  
+a_1     19.92287   16.49954  1.2075  0.28124  
+a_2     34.63080   55.32287  0.6260  0.55879  
+a_3     24.58924   66.49741  0.3698  0.72669  
+a_4    -12.46742    5.22824 -2.3846  0.06280 .
+b_1_1    0.26450    4.82223  0.0548  0.95838  
+b_1_2   -3.46848    3.48959 -0.9939  0.36588  
+b_1_3   14.34728    8.76958  1.6360  0.16276  
+b_1_4   -1.16332    1.54187 -0.7545  0.48456  
+b_2_2   -3.90964    9.32307 -0.4194  0.69237  
+b_2_3   -8.59112   10.55065 -0.8143  0.45251  
+b_2_4    2.79333    0.74993  3.7248  0.01364 *
+b_3_3  -16.86474   19.10077 -0.8829  0.41769  
+b_3_4   -3.57340    1.89984 -1.8809  0.11874  
+b_4_4   -0.24565    0.15974 -1.5378  0.18471  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+R-squared: 0.9982506     Adjusted R-squared: 0.9933521 
+> all.equal( residuals( estResult ), residuals( estResultOrder2 ) )
+[1] TRUE
+> 
+> # estimate the translog production function with a different order of inputs
+> estResultOrder3 <- translogEst( yName = "qOutput",
++    xNames = c( "land", "qVarInput", "time", "qLabor" ),
++    data = germanFarms )
+> print( estResultOrder3 )
+Estimated Translog function with 20 observations.
+         a_0          a_1          a_2          a_3          a_4        b_1_1 
+-133.4851620   19.9228713   34.6307963  -12.4674226   24.5892366    0.2644969 
+       b_1_2        b_1_3        b_1_4        b_2_2        b_2_3        b_2_4 
+  -3.4684787   -1.1633161   14.3472829   -3.9096383    2.7933263   -8.5911234 
+       b_3_3        b_3_4        b_4_4 
+  -0.2456535   -3.5734031  -16.8647382 
+> summary( estResultOrder3 )
+Estimated Translog function with 20 observations.
+        Estimate Std. Error t value Pr(>|t|)  
+a_0   -133.48516  165.54756 -0.8063  0.45668  
+a_1     19.92287   16.49954  1.2075  0.28124  
+a_2     34.63080   55.32287  0.6260  0.55879  
+a_3    -12.46742    5.22824 -2.3846  0.06280 .
+a_4     24.58924   66.49741  0.3698  0.72669  
+b_1_1    0.26450    4.82223  0.0548  0.95838  
+b_1_2   -3.46848    3.48959 -0.9939  0.36588  
+b_1_3   -1.16332    1.54187 -0.7545  0.48456  
+b_1_4   14.34728    8.76958  1.6360  0.16276  
+b_2_2   -3.90964    9.32307 -0.4194  0.69237  
+b_2_3    2.79333    0.74993  3.7248  0.01364 *
+b_2_4   -8.59112   10.55065 -0.8143  0.45251  
+b_3_3   -0.24565    0.15974 -1.5378  0.18471  
+b_3_4   -3.57340    1.89984 -1.8809  0.11874  
+b_4_4  -16.86474   19.10077 -0.8829  0.41769  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+R-squared: 0.9982506     Adjusted R-squared: 0.9933521 
+> all.equal( residuals( estResult ), residuals( estResultOrder3 ) )
+[1] TRUE
+> 
 > 
 > ## testing translogEst with dataLogged = TRUE
 > estResultLog <- translogEst( "qLogOutput", 
@@ -1370,6 +1479,65 @@ $convexity
 $quasi
 [1] TRUE
 
+> 
+> 
+> ## testing translogProdFuncMargCost
+> # generate (artificial) prices
+> germanFarms$pLand <- 200 + 15 * germanFarms$time
+> germanFarms$pTime <- 1
+> 
+> # compute the marginal costs of producing the output
+> margCost <- translogProdFuncMargCost( yNames = "qOutput",
++    xNames = c( "qLabor", "land", "qVarInput", "time" ),
++    wNames = c( "pLabor", "pLand", "pVarInput", "pTime" ),
++    data = germanFarms, coef = coef( estResult ) )
+> print( margCost )
+      qOutput
+1    72.11431
+2    46.48731
+3    29.45556
+4    27.92428
+5    26.98740
+6    27.71317
+7    28.89256
+8    29.51751
+9    27.88100
+10   28.83129
+11   28.99058
+12   18.18645
+13   12.96290
+14   26.24096
+15   34.33378
+16   39.85884
+17   57.60993
+18   79.61372
+19  604.22249
+20 -100.06247
+> 
+> # compute the marginal costs again with different order of inputs
+> margCostOrder <- translogProdFuncMargCost( yNames = "qOutput",
++    xNames = c( "qLabor", "qVarInput", "land", "time" ),
++    wNames = c( "pLabor", "pVarInput", "pLand", "pTime" ),
++    data = germanFarms, coef = coef( estResultOrder ) )
+> all.equal( margCost, margCostOrder )
+[1] TRUE
+> 
+> # compute the marginal costs again with different order of inputs
+> margCostOrder2 <- translogProdFuncMargCost( yNames = "qOutput",
++    xNames = c( "land", "qVarInput", "qLabor", "time" ),
++    wNames = c( "pLand", "pVarInput", "pLabor", "pTime" ),
++    data = germanFarms, coef = coef( estResultOrder2 ) )
+> all.equal( margCost, margCostOrder2 )
+[1] TRUE
+> 
+> # compute the marginal costs again with different order of inputs
+> margCostOrder3 <- translogProdFuncMargCost( yNames = "qOutput",
++    xNames = c( "land", "qVarInput", "time", "qLabor" ),
++    wNames = c( "pLand", "pVarInput", "pTime", "pLabor" ),
++    data = germanFarms, coef = coef( estResultOrder3 ) )
+> all.equal( margCost, margCostOrder3 )
+[1] TRUE
+> 
 > 
 > ## testing translogEst with one shifter
 > germanFarms$tech <- exp( germanFarms$time )
@@ -2936,6 +3104,7 @@ attr(,"class")
 > ggData$logCapital <- log( ggData$capital )
 > # fixed effects
 > ggResult <- translogEst( "invest", c( "value", "capital" ), ggData )
+[1] 100   5
 > print( ggResult )
 Estimated Translog function with 100 observations.
        a_0        a_1        a_2      b_1_1      b_1_2      b_2_2 
@@ -3209,6 +3378,7 @@ attr(,"class")
 > ggResultLog <- translogEst( "logInvest", 
 +    xNames = c( "logValue", "logCapital" ),
 +    data = ggData, dataLogged = TRUE )
+[1] 100   5
 > all.equal( ggResult[ -c(1,6,10,11,15) ], ggResultLog[ -c(1,6,10,11,15) ] )
 [1] TRUE
 > all.equal( ggResult$fitted, exp( ggResultLog$fitted ) )
@@ -3216,6 +3386,7 @@ attr(,"class")
 > # random effects
 > ggResultRan <- translogEst( "invest", c( "value", "capital" ), ggData,
 +    model = "random", random.method = "amemiya" )
+[1] 100   5
 > print( ggResultRan )
 Estimated Translog function with 100 observations.
        a_0        a_1        a_2      b_1_1      b_1_2      b_2_2 
@@ -3497,6 +3668,7 @@ attr(,"class")
 +    xNames = c( "logValue", "logCapital" ),
 +    data = ggData, dataLogged = TRUE,
 +    model = "random", random.method = "amemiya" )
+[1] 100   5
 > all.equal( ggResultRan[ -c(1,6,10,11,15) ], ggResultRanLog[ -c(1,6,10,11,15) ] )
 [1] TRUE
 > all.equal( ggResultRan$fitted, exp( ggResultRanLog$fitted ) )
@@ -4142,6 +4314,7 @@ attr(,"class")
 > # fixed effects
 > ggResShifter <- translogEst( "invest", c( "value", "capital" ), ggData,
 +    shifterNames = "tech" )
+[1] 100   6
 > print( ggResShifter )
 Estimated Translog function with 100 observations.
         a_0         a_1         a_2       b_1_1       b_1_2       b_2_2 
@@ -4430,6 +4603,7 @@ attr(,"class")
 > # random effects
 > ggResShifterRan <- translogEst( "invest", c( "value", "capital" ), ggData,
 +    shifterNames = "tech", model = "random", random.method = "amemiya" )
+[1] 100   6
 > print( ggResShifterRan )
 Estimated Translog function with 100 observations.
         a_0         a_1         a_2       b_1_1       b_1_2       b_2_2 
@@ -4723,6 +4897,7 @@ attr(,"class")
 > # fixed effects
 > ggResShifterLogi <- translogEst( "invest", c( "value", "capital" ), ggData,
 +    shifterNames = "war" )
+[1] 100   6
 > print( ggResShifterLogi )
 Estimated Translog function with 100 observations.
        a_0        a_1        a_2      b_1_1      b_1_2      b_2_2   d_1_TRUE 
@@ -5007,6 +5182,7 @@ attr(,"class")
 > # random effects
 > ggResShifterLogiRan <- translogEst( "invest", c( "value", "capital" ), ggData,
 +    shifterNames = "war", model = "random", random.method = "amemiya" )
+[1] 100   6
 > print( ggResShifterLogiRan )
 Estimated Translog function with 100 observations.
         a_0         a_1         a_2       b_1_1       b_1_2       b_2_2 
@@ -5301,6 +5477,7 @@ attr(,"class")
 > # fixed effects
 > ggResShifterFac <- translogEst( "invest", c( "value", "capital" ), ggData,
 +    shifterNames = "decade" )
+[1] 100   7
 > print( ggResShifterFac )
 Estimated Translog function with 100 observations.
        a_0        a_1        a_2      b_1_1      b_1_2      b_2_2    d_1_40s 
@@ -5591,6 +5768,7 @@ attr(,"class")
 > # random effects
 > ggResShifterFacRan <- translogEst( "invest", c( "value", "capital" ), ggData,
 +    shifterNames = "decade", model = "random", random.method = "amemiya" )
+[1] 100   7
 > print( ggResShifterFacRan )
 Estimated Translog function with 100 observations.
         a_0         a_1         a_2       b_1_1       b_1_2       b_2_2 
@@ -5881,4 +6059,392 @@ $dataLogged
 
 attr(,"class")
 [1] "translogEst"
+> 
+> 
+> ## translog ray production function
+> # quantity of crop outputs
+> germanFarms$qCrop <- germanFarms$vCrop / germanFarms$pOutput
+> # quantity of animal outputs
+> germanFarms$qAnimal <- germanFarms$vAnimal / germanFarms$pOutput
+> 
+> # estimate a translog ray production function
+> estResultRay <- translogRayEst( yNames = c( "qCrop", "qAnimal" ),
++    xNames = c( "qLabor", "land", "qVarInput" ),
++    data = germanFarms )
+> print( estResultRay )
+Estimated Translog ray function with 2 dependent variables,
+3 independent variables, and 20 observations.
+        a_0         a_1         a_2         a_3         a_t       b_1_1 
+-113.745131  -60.497541   87.950650  -70.468436  331.732075  -25.355108 
+      b_1_2       b_1_3       b_1_t       b_2_2       b_2_3       b_2_t 
+  12.125150  -17.762254  114.289404   -6.713577   -3.628978  -35.704874 
+      b_3_3       b_3_t       b_t_t 
+  16.582689  -13.657600 -133.830408 
+> summary( estResultRay )
+Estimated Translog ray function with 2 dependent variables,
+3 independent variables, and 20 observations.
+       Estimate Std. Error t value Pr(>|t|)  
+a_0   -113.7451   210.6085 -0.5401  0.61232  
+a_1    -60.4975    94.9532 -0.6371  0.55207  
+a_2     87.9506    36.3808  2.4175  0.06030 .
+a_3    -70.4684    50.4917 -1.3956  0.22163  
+a_t    331.7321   129.7812  2.5561  0.05089 .
+b_1_1  -25.3551    21.1587 -1.1983  0.28449  
+b_1_2   12.1252     9.1498  1.3252  0.24243  
+b_1_3  -17.7623    11.6235 -1.5281  0.18702  
+b_1_t  114.2894    38.8992  2.9381  0.03233 *
+b_2_2   -6.7136     3.4957 -1.9205  0.11285  
+b_2_3   -3.6290     3.4526 -1.0511  0.34135  
+b_2_t  -35.7049    14.8411 -2.4058  0.06118 .
+b_3_3   16.5827     7.1232  2.3280  0.06738 .
+b_3_t  -13.6576    12.3866 -1.1026  0.32042  
+b_t_t -133.8304    65.3549 -2.0477  0.09592 .
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+R-squared: 0.9978144     Adjusted R-squared: 0.9916946 
+> print.default( estResultRay )
+$call
+translogRayEst(yNames = c("qCrop", "qAnimal"), xNames = c("qLabor", 
+    "land", "qVarInput"), data = germanFarms)
+
+$nExog
+[1] 4
+
+$nShifter
+[1] 0
+
+$est
+
+Call:
+lm(formula = as.formula(estFormula), data = estData)
+
+Coefficients:
+(Intercept)          a_1          a_2          a_3          a_4        b_1_1  
+   -113.745      -60.498       87.951      -70.468      331.732      -25.355  
+      b_1_2        b_1_3        b_1_4        b_2_2        b_2_3        b_2_4  
+     12.125      -17.762      114.289       -6.714       -3.629      -35.705  
+      b_3_3        b_3_4        b_4_4  
+     16.583      -13.658     -133.830  
+
+
+$residuals
+            1             2             3             4             5 
+ 0.0010272401 -0.0007781936 -0.0098190250  0.0044216517 -0.0011059030 
+            6             7             8             9            10 
+-0.0198145319  0.0059183876  0.0236058174  0.0122908306 -0.0039844345 
+           11            12            13            14            15 
+-0.0099164437  0.0030665644 -0.0064124362  0.0073266843  0.0049063922 
+           16            17            18            19            20 
+-0.0107184408 -0.0028375659 -0.0043997349  0.0134320091 -0.0062088679 
+
+$fitted
+       1        2        3        4        5        6        7        8 
+6.664630 6.678118 6.756613 6.839415 6.857806 6.883835 6.905926 6.916525 
+       9       10       11       12       13       14       15       16 
+6.871304 6.940265 7.019247 7.128891 7.158562 7.220806 7.191527 7.184701 
+      17       18       19       20 
+7.183792 7.256251 7.296422 7.365883 
+
+$coef
+        a_0         a_1         a_2         a_3         a_t       b_1_1 
+-113.745131  -60.497541   87.950650  -70.468436  331.732075  -25.355108 
+      b_1_2       b_1_3       b_1_t       b_2_2       b_2_3       b_2_t 
+  12.125150  -17.762254  114.289404   -6.713577   -3.628978  -35.704874 
+      b_3_3       b_3_t       b_t_t 
+  16.582689  -13.657600 -133.830408 
+
+$coefCov
+              a_0        a_1         a_2         a_3          a_t       b_1_1
+a_0    44355.9585 17834.0010 -3523.42835 -8910.11452 -20590.27406  2935.88245
+a_1    17834.0010  9016.1176 -2516.64969 -3095.71481  -8503.47826  1749.39571
+a_2    -3523.4284 -2516.6497  1323.56488   -26.09094   3018.75517  -539.63120
+a_3    -8910.1145 -3095.7148   -26.09094  2549.41306   2015.58141  -473.67059
+a_t   -20590.2741 -8503.4783  3018.75517  2015.58141  16843.14961 -1343.18369
+b_1_1   2935.8824  1749.3957  -539.63120  -473.67059  -1343.18369   447.69153
+b_1_2   -616.8750  -426.8967   246.65343   -42.22372    677.66589  -109.75462
+b_1_3  -1747.8337  -747.3589    43.84472   492.23908    354.46716  -141.21585
+b_1_t  -4342.5479 -2678.9735  1272.40574   167.93054   3495.65569  -506.69765
+b_2_2    346.3295   177.1140   -80.44376   -15.21764   -312.71323    33.75330
+b_2_3    218.5541   180.5435   -87.98461   -15.76322    -90.71695    44.29888
+b_2_t    922.9127   717.8303  -456.41736   158.21465  -1298.25543   143.61524
+b_3_3    958.3552   276.6235    74.68658  -325.27561   -126.24821    34.17364
+b_3_t   2082.8627   784.7443  -144.99610  -454.45592   -815.68973   126.46226
+b_t_t   4524.5267  1667.7560  -851.91338   264.92126  -6765.32533   200.22903
+            b_1_2        b_1_3        b_1_t        b_2_2       b_2_3
+a_0   -616.875027 -1747.833657 -4342.547865  346.3295114 218.5541082
+a_1   -426.896689  -747.358931 -2678.973476  177.1139780 180.5434646
+a_2    246.653429    43.844717  1272.405743  -80.4437636 -87.9846078
+a_3    -42.223722   492.239077   167.930540  -15.2176369 -15.7632172
+a_t    677.665890   354.467160  3495.655687 -312.7132252 -90.7169541
+b_1_1 -109.754618  -141.215852  -506.697653   33.7532997  44.2988848
+b_1_2   83.718627   -24.553449   277.161890  -24.9680692  -9.5287520
+b_1_3  -24.553449   135.105683     3.616865    3.0485202 -12.5938095
+b_1_t  277.161890     3.616865  1513.146053  -99.6992020 -66.1394772
+b_2_2  -24.968069     3.048520   -99.699202   12.2198261  -0.4917291
+b_2_3   -9.528752   -12.593809   -66.139477   -0.4917291  11.9207039
+b_2_t -107.481583    31.473590  -487.727220   41.6685440  12.3821050
+b_3_3   17.055142   -62.908627    49.379091    0.6803033  -6.7645020
+b_3_t  -20.639870   -75.998391  -210.908212    8.7677655  19.6034938
+b_t_t -236.012773    26.147089  -886.999326  123.9295470 -38.7636358
+             b_2_t        b_3_3       b_3_t        b_t_t
+a_0     922.912708  958.3551514 2082.862658  4524.526709
+a_1     717.830281  276.6234677  784.744324  1667.755973
+a_2    -456.417363   74.6865771 -144.996097  -851.913381
+a_3     158.214651 -325.2756068 -454.455923   264.921262
+a_t   -1298.255425 -126.2482056 -815.689735 -6765.325328
+b_1_1   143.615235   34.1736355  126.462263   200.229035
+b_1_2  -107.481583   17.0551421  -20.639870  -236.012773
+b_1_3    31.473590  -62.9086265  -75.998391    26.147089
+b_1_t  -487.727220   49.3790909 -210.908212  -886.999326
+b_2_2    41.668544    0.6803033    8.767766   123.929547
+b_2_3    12.382105   -6.7645020   19.603494   -38.763636
+b_2_t   220.257189  -31.8327323   -3.277824   616.028409
+b_3_3   -31.832732   50.7395489   34.204536    -8.793946
+b_3_t    -3.277824   34.2045364  153.426856   -62.460232
+b_t_t   616.028409   -8.7939459  -62.460232  4271.268395
+
+$r2
+[1] 0.9978144
+
+$r2bar
+[1] 0.9916946
+
+$nObs
+[1] 20
+
+$xNames
+[1] "qLabor"    "land"      "qVarInput"
+
+$quadHalf
+[1] TRUE
+
+$model.matrix
+              a_1      a_2      a_3      a_4      b_1_1    b_1_2    b_1_3
+ [1,] 1 0.3646431 3.152736 6.321752 1.335877 0.06648230 1.149623 2.305183
+ [2,] 1 0.3715636 3.186353 6.407935 1.326480 0.06902974 1.183933 2.380955
+ [3,] 1 0.3646431 3.206398 6.410036 1.262373 0.06648230 1.169191 2.337375
+ [4,] 1 0.3920421 3.215269 6.483047 1.273388 0.07684850 1.260521 2.541627
+ [5,] 1 0.3920421 3.215269 6.473315 1.287256 0.07684850 1.260521 2.537812
+ [6,] 1 0.3852624 3.228034 6.487668 1.288731 0.07421356 1.243640 2.499454
+ [7,] 1 0.3715636 3.254629 6.512427 1.295320 0.06902974 1.209302 2.419781
+ [8,] 1 0.3987761 3.256942 6.473742 1.275843 0.07951120 1.298791 2.581574
+ [9,] 1 0.3920421 3.226050 6.461433 1.291045 0.07684850 1.264747 2.533154
+[10,] 1 0.4252677 3.260785 6.474628 1.283378 0.09042632 1.386707 2.753450
+[11,] 1 0.4252677 3.287282 6.525584 1.302694 0.09042632 1.397975 2.775120
+[12,] 1 0.5247285 3.396855 6.634587 1.299619 0.13767001 1.782427 3.481357
+[13,] 1 0.5306283 3.437529 6.686188 1.296431 0.14078317 1.824050 3.547880
+[14,] 1 0.5128236 3.471656 6.681865 1.300004 0.13149404 1.780347 3.426618
+[15,] 1 0.5007753 3.450622 6.602564 1.298227 0.12538794 1.727986 3.306401
+[16,] 1 0.4762342 3.461979 6.577546 1.278151 0.11339950 1.648713 3.132452
+[17,] 1 0.4824261 3.512739 6.552074 1.257706 0.11636749 1.694637 3.160892
+[18,] 1 0.4824261 3.557061 6.553637 1.280379 0.11636749 1.716019 3.161646
+[19,] 1 0.4824261 3.619261 6.594763 1.252806 0.11636749 1.746026 3.181486
+[20,] 1 0.4824261 3.673512 6.646614 1.244691 0.11636749 1.772198 3.206501
+          b_1_4    b_2_2    b_2_3    b_2_4    b_3_3    b_3_4     b_4_4
+ [1,] 0.4871185 4.969872 19.93081 4.211669 19.98227 8.445085 0.8922842
+ [2,] 0.4928717 5.076422 20.41794 4.226634 20.53081 8.499998 0.8797748
+ [3,] 0.4603158 5.140495 20.55313 4.047672 20.54428 8.091859 0.7967934
+ [4,] 0.4992216 5.168978 20.84474 4.094285 21.01495 8.255433 0.8107583
+ [5,] 0.5046585 5.168978 20.81345 4.138875 20.95190 8.332813 0.8285140
+ [6,] 0.4964996 5.210101 20.94241 4.160067 21.04492 8.360859 0.8304138
+ [7,] 0.4812938 5.296305 21.19553 4.215786 21.20585 8.435678 0.8389271
+ [8,] 0.5087756 5.303836 21.08460 4.155346 20.95467 8.259477 0.8138873
+ [9,] 0.5061441 5.203699 20.84491 4.164977 20.87506 8.342003 0.8333991
+[10,] 0.5457791 5.316360 21.11237 4.184819 20.96040 8.309393 0.8235291
+[11,] 0.5539936 5.403111 21.45143 4.282321 21.29162 8.500837 0.8485055
+[12,] 0.6819474 5.769311 22.53673 4.414618 22.00887 8.622438 0.8445054
+[13,] 0.6879230 5.908304 22.98397 4.456520 22.35256 8.668183 0.8403670
+[14,] 0.6666728 6.026197 23.19714 4.513167 22.32366 8.686452 0.8450053
+[15,] 0.6501202 5.953397 22.78296 4.479693 21.79693 8.571630 0.8426973
+[16,] 0.6086991 5.992649 22.77133 4.424931 21.63206 8.407096 0.8168348
+[17,] 0.6067501 6.169667 23.01573 4.417991 21.46484 8.240581 0.7909117
+[18,] 0.6176885 6.326341 23.31169 4.554388 21.47508 8.391142 0.8196857
+[19,] 0.6043865 6.549526 23.86817 4.534233 21.74545 8.261960 0.7847616
+[20,] 0.6004717 6.747345 24.41642 4.572389 22.08874 8.272984 0.7746284
+
+$r2nonLog
+          [,1]
+[1,] 0.9978442
+
+$dataLogged
+[1] TRUE
+
+$yNames
+[1] "qCrop"   "qAnimal"
+
+$distance
+ [1]  784.9789  794.2038  851.3251  938.0815  950.2259  957.2073 1004.0977
+ [8] 1032.9054  976.1289 1028.9362 1106.9130 1251.3244 1276.8482 1377.6481
+[15] 1334.6620 1305.0320 1314.1625 1410.7138 1494.9590 1571.3244
+
+$theta
+ [1] 1.335877 1.326480 1.262373 1.273388 1.287256 1.288731 1.295320 1.275843
+ [9] 1.291045 1.283378 1.302694 1.299619 1.296431 1.300004 1.298227 1.278151
+[17] 1.257706 1.280379 1.252806 1.244691
+
+attr(,"class")
+[1] "translogRayEst" "translogEst"   
+> 
+> # different order of outputs
+> estResultRay2 <- translogRayEst( yNames = c( "qAnimal", "qCrop" ),
++    xNames = c( "qLabor", "land", "qVarInput" ),
++    data = germanFarms )
+> print( estResultRay2 )
+Estimated Translog ray function with 2 dependent variables,
+3 independent variables, and 20 observations.
+        a_0         a_1         a_2         a_3         a_t       b_1_1 
+ 242.231746  119.027835   31.865566  -91.921745 -121.511762  -25.355108 
+      b_1_2       b_1_3       b_1_t       b_2_2       b_2_3       b_2_t 
+  12.125150  -17.762254 -114.289404   -6.713577   -3.628978   35.704874 
+      b_3_3       b_3_t       b_t_t 
+  16.582689   13.657600 -133.830408 
+> summary( estResultRay2 )
+Estimated Translog ray function with 2 dependent variables,
+3 independent variables, and 20 observations.
+       Estimate Std. Error t value Pr(>|t|)  
+a_0    242.2317   112.5715  2.1518  0.08405 .
+a_1    119.0278    65.8287  1.8081  0.13038  
+a_2     31.8656    20.8123  1.5311  0.18631  
+a_3    -91.9217    38.7332 -2.3732  0.06370 .
+a_t   -121.5118    78.2827 -1.5522  0.18131  
+b_1_1  -25.3551    21.1587 -1.1983  0.28449  
+b_1_2   12.1252     9.1498  1.3252  0.24243  
+b_1_3  -17.7623    11.6235 -1.5281  0.18702  
+b_1_t -114.2894    38.8992 -2.9381  0.03233 *
+b_2_2   -6.7136     3.4957 -1.9205  0.11285  
+b_2_3   -3.6290     3.4526 -1.0511  0.34135  
+b_2_t   35.7049    14.8411  2.4058  0.06118 .
+b_3_3   16.5827     7.1232  2.3280  0.06738 .
+b_3_t   13.6576    12.3866  1.1026  0.32042  
+b_t_t -133.8304    65.3549 -2.0477  0.09592 .
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+R-squared: 0.9978144     Adjusted R-squared: 0.9916946 
+> all.equal( abs( coef( estResultRay2 )[ 6:15 ] ),
++    abs( coef( estResultRay )[ 6:15 ] ) )
+[1] TRUE
+> 
+> # different order of inputs
+> estResultRay3 <- translogRayEst( yNames = c( "qCrop", "qAnimal" ),
++    xNames = c( "qVarInput", "qLabor", "land" ),
++    data = germanFarms )
+> print( estResultRay3 )
+Estimated Translog ray function with 2 dependent variables,
+3 independent variables, and 20 observations.
+        a_0         a_1         a_2         a_3         a_t       b_1_1 
+-113.745131  -70.468436  -60.497541   87.950650  331.732075   16.582689 
+      b_1_2       b_1_3       b_1_t       b_2_2       b_2_3       b_2_t 
+ -17.762254   -3.628978  -13.657600  -25.355108   12.125150  114.289404 
+      b_3_3       b_3_t       b_t_t 
+  -6.713577  -35.704874 -133.830408 
+> summary( estResultRay3 )
+Estimated Translog ray function with 2 dependent variables,
+3 independent variables, and 20 observations.
+       Estimate Std. Error t value Pr(>|t|)  
+a_0   -113.7451   210.6085 -0.5401  0.61232  
+a_1    -70.4684    50.4917 -1.3956  0.22163  
+a_2    -60.4975    94.9532 -0.6371  0.55207  
+a_3     87.9506    36.3808  2.4175  0.06030 .
+a_t    331.7321   129.7812  2.5561  0.05089 .
+b_1_1   16.5827     7.1232  2.3280  0.06738 .
+b_1_2  -17.7623    11.6235 -1.5281  0.18702  
+b_1_3   -3.6290     3.4526 -1.0511  0.34135  
+b_1_t  -13.6576    12.3866 -1.1026  0.32042  
+b_2_2  -25.3551    21.1587 -1.1983  0.28449  
+b_2_3   12.1252     9.1498  1.3252  0.24243  
+b_2_t  114.2894    38.8992  2.9381  0.03233 *
+b_3_3   -6.7136     3.4957 -1.9205  0.11285  
+b_3_t  -35.7049    14.8411 -2.4058  0.06118 .
+b_t_t -133.8304    65.3549 -2.0477  0.09592 .
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+R-squared: 0.9978144     Adjusted R-squared: 0.9916946 
+> all.equal( coef( estResultRay ), coef( estResultRay3 )[
++    c( 1, 3, 4, 2, 5, 10, 11, 7, 12, 13, 8, 14, 6, 9, 15 ) ],
++    check.attributes = FALSE )
+[1] TRUE
+> 
+> 
+> ## testing translogRayDeriv
+> tlRayDeriv <- translogRayDeriv( yNames = c( "qCrop", "qAnimal" ),
++    xNames = c( "qLabor", "land", "qVarInput" ),
++    data = germanFarms, coef = coef( estResultRay ) )
+> print( tlRayDeriv )
+        qLabor        land     qVarInput         qCrop       qAnimal
+1   6.16136038 0.024232310 -3.233803e-03  0.0050086929 -0.0025086688
+2   4.48254790 0.018513694 -8.031058e-04  0.0053286505 -0.0026260717
+3  -0.30959902 0.101694521  7.786806e-04 -0.0030798468 -0.0002516048
+4  -0.72362908 0.085318237  1.551768e-03 -0.0031423919 -0.0001518128
+5   0.46410716 0.066858004  1.025289e-03 -0.0013589328 -0.0007001683
+6   0.63073893 0.055203355  1.455081e-03  0.0002815927 -0.0011692916
+7   1.31742733 0.027904879  2.113525e-03  0.0038554734 -0.0021247395
+8  -0.19502726 0.072132078  8.583573e-04 -0.0020015668 -0.0004037314
+9   0.98765707 0.059605800  5.876710e-04 -0.0006017117 -0.0008930297
+10 -0.04591935 0.072743902 -2.557495e-05 -0.0037490207  0.0000947740
+11  1.01539196 0.031526035  6.864701e-04  0.0001963922 -0.0009908354
+12 -1.14035095 0.034432554  2.019729e-04 -0.0047395068  0.0004882390
+13 -1.68502071 0.024221701  9.990870e-04 -0.0038470528  0.0002691945
+14 -0.90669594 0.006109421  1.093565e-03 -0.0009978234 -0.0004763196
+15 -0.15649755 0.017227174 -1.736369e-04 -0.0015322179 -0.0003496799
+16 -0.83754094 0.030640389  1.753739e-04 -0.0014405397 -0.0003662608
+17 -1.71247617 0.045722867 -4.442582e-04 -0.0028706369  0.0001295131
+18  0.20174234 0.012000821 -1.077089e-03  0.0004740147 -0.0008815095
+19 -1.72889163 0.022471603  1.052228e-04 -0.0001524695 -0.0006540333
+20 -2.46384878 0.014617102  1.104604e-03  0.0007898713 -0.0009389297
+> 
+> tlRayDeriv2 <- translogRayDeriv( yNames = c( "qAnimal", "qCrop" ),
++    xNames = c( "qLabor", "land", "qVarInput" ),
++    data = germanFarms, coef = coef( estResultRay2 ) )
+> all.equal( tlRayDeriv, tlRayDeriv2[ , c( 1:3, 5, 4 ) ] )
+[1] TRUE
+> 
+> tlRayDeriv3 <- translogRayDeriv( yNames = c( "qCrop", "qAnimal" ),
++    xNames = c( "qVarInput", "qLabor", "land" ),
++    data = germanFarms, coef = coef( estResultRay3 ) )
+> all.equal( tlRayDeriv, tlRayDeriv3[ , c( 2, 3, 1, 4, 5 ) ] )
+[1] TRUE
+> 
+> 
+> ## testing translogProdFuncMargCost with a ray function
+> # compute the marginal costs of producing the output
+> margCostRay <- translogProdFuncMargCost( yNames = c( "qCrop", "qAnimal" ),
++    xNames = c( "qLabor", "land", "qVarInput" ),
++    wNames = c( "pLabor", "pLand", "pVarInput" ),
++    data = germanFarms, coef = coef( estResultRay ) )
+> print( margCostRay )
+        qCrop    qAnimal
+1   -15.33371 -16.713331
+2   -70.34138  -4.603070
+3  -217.51828  55.531747
+4  -187.24327  45.221682
+5  -174.34942  31.146490
+6  -182.66292  31.500720
+7  -175.22870  26.135686
+8  -216.43924  46.766520
+9  -187.07957  27.703767
+10 -209.61446  37.937154
+11 -138.82214   5.118408
+12 -152.28541  44.130470
+13 -111.42821  76.487159
+14 -175.91738 -46.930229
+15 -182.44837 -24.398399
+16 -185.64288  42.339513
+17 -141.24659  49.328448
+18  260.11268  40.671861
+19   24.06514  14.671295
+20  276.76258 -42.643928
+> 
+> margCostRay2 <- translogProdFuncMargCost( yNames = c( "qAnimal", "qCrop" ),
++    xNames = c( "qLabor", "land", "qVarInput" ),
++    wNames = c( "pLabor", "pLand", "pVarInput" ),
++    data = germanFarms, coef = coef( estResultRay2 ) )
+> all.equal( margCostRay, margCostRay2[ , c( 2:1 ) ] )
+[1] TRUE
+> 
+> margCostRay3 <- translogProdFuncMargCost( yNames = c( "qCrop", "qAnimal" ),
++    xNames = c( "qVarInput", "qLabor", "land" ),
++    wNames = c( "pVarInput", "pLabor", "pLand" ),
++    data = germanFarms, coef = coef( estResultRay3 ) )
+> all.equal( margCostRay, margCostRay3 )
+[1] TRUE
 > 

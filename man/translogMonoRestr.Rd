@@ -33,7 +33,7 @@ translogMonoRestr( xNames, data, quadHalf = TRUE,
    \eqn{N} is the number of data points at which monotonicity
    should be imposed (if argument \code{box} is \code{FALSE},
    \eqn{N} is the number of rows in \code{data};
-   if argument \code{box} is \code{TRUE}, \eqn{N = n^2}),
+   if argument \code{box} is \code{TRUE}, \eqn{N = 2^n}),
    and \eqn{c = 1 + n ( n + 3 ) / 2} is the number of (linearly independent) 
    coefficients.
    Multiplying a row of this matrix (e.g.\ the \eqn{k}th row of \eqn{M})
@@ -41,9 +41,11 @@ translogMonoRestr( xNames, data, quadHalf = TRUE,
    results in the derivative of the dependent variable (\eqn{y}) 
    with respect to one independent variable (e.g.\ \eqn{x_i})
    at one data point (e.g.\ \eqn{j}): 
-   \deqn{M[k,] \cdot \beta = \frac{ \partial \ln y }{ \partial \ln x_i},}
+   \deqn{M[k,] \cdot \beta = \frac{ \partial \ln y }{ \partial \ln x_i}}{
+   M[k,] * \beta = ( d log y )/( d log x_i )},
    evaluated at \eqn{x_{1j}}, \ldots, \eqn{x_{nj}},
    where \eqn{k = ( i - 1 ) N + j}.
+   Hence, the observations run faster than the independent variables.
 }
 
 \seealso{

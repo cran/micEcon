@@ -141,7 +141,6 @@
 \seealso{\code{\link{aidsEst}}}
 
 \examples{
-\dontrun{
    data( Blanciforti86 )
    # Data on food consumption are available only for the first 32 years
    Blanciforti86 <- Blanciforti86[ 1:32, ]
@@ -181,7 +180,6 @@
 
    # LA-AIDS + formula of Green + Alston (= 1st of Buse):
    diag( elas( estResultLA, method = "GA" )$marshall )
-}
 }
 
 \keyword{ models }

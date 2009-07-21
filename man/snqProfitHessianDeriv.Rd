@@ -27,7 +27,6 @@
    # just a stupid simple example
    snqProfitHessianDeriv( c(1,2,3),c(0.4,0.3,0.3) )
 
-\dontrun{
    # now with real data
    data( germanFarms )
    germanFarms$qOutput   <- germanFarms$vOutput   / germanFarms$pOutput
@@ -40,7 +39,6 @@
    estResult <- snqProfitEst( priceNames, quantNames, c("land","time"), data=germanFarms )
 
    snqProfitHessianDeriv( estResult$pMean, estResult$weights, 2 )
-}
 }
 
 \keyword{models}

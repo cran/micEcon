@@ -1,5 +1,5 @@
 
-R version 2.9.0 (2009-04-17)
+R version 2.9.1 (2009-06-26)
 Copyright (C) 2009 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
@@ -58,7 +58,7 @@ Attaching package: 'boot'
 
 	 melanoma 
 
-Nonparametric Kernel Methods for Mixed Datatypes (version 0.30-2)
+Nonparametric Kernel Methods for Mixed Datatypes (version 0.30-3)
 > library( plm )
 Loading required package: kinship
 Loading required package: survival
@@ -2934,6 +2934,7 @@ b_4_4 -7.218313e+13 -1.217472e+14  2.888829e+13  4.823309e+13  8.155095e+13
 > ggData <- plm.data( GrunfeldGreene, c( "firm", "year" ) )
 > # fixed effects
 > ggResult <- quadFuncEst( "invest", c( "value", "capital" ), ggData )
+[1] 100   5
 > coef( ggResult )
          a_0          a_1          a_2        b_1_1        b_1_2        b_2_2 
 5.311242e+01 5.089985e-02 1.108780e-01 7.569854e-06 3.008554e-05 1.230247e-04 
@@ -3201,6 +3202,7 @@ attr(,"class")
 > # random effects
 > ggResultRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
 +    model = "random", random.method = "amemiya" )
+[1] 100   5
 > coef( ggResultRan )
          a_0          a_1          a_2        b_1_1        b_1_2        b_2_2 
 3.949693e+01 6.159186e-02 1.075103e-01 5.177555e-06 3.163931e-05 1.186991e-04 
@@ -3479,6 +3481,7 @@ attr(,"class")
 > # fixed effects
 > ggResShifter <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
 +    shifterNames = "tech" )
+[1] 100   6
 > coef( ggResShifter )
          a_0          a_1          a_2        b_1_1        b_1_2        b_2_2 
 5.341766e+01 5.071286e-02 1.104716e-01 7.591567e-06 3.024672e-05 1.224109e-04 
@@ -3762,6 +3765,7 @@ attr(,"class")
 > # random effects
 > ggResShifterRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
 +    shifterNames = "tech", model = "random", random.method = "amemiya" )
+[1] 100   6
 > coef( ggResShifterRan )
           a_0           a_1           a_2         b_1_1         b_1_2 
  3.770917e+01  6.265801e-02  1.102823e-01  5.069918e-06  3.052773e-05 
@@ -4050,6 +4054,7 @@ attr(,"class")
 > # fixed effects
 > ggResShifterLogi <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
 +    shifterNames = "war" )
+[1] 100   6
 > coef( ggResShifterLogi )
           a_0           a_1           a_2         b_1_1         b_1_2 
  5.977437e+01  5.338292e-02  9.034515e-02  6.618904e-06  3.483770e-05 
@@ -4333,6 +4338,7 @@ attr(,"class")
 > # random effects
 > ggResShifterLogiRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
 +    shifterNames = "war", model = "random", random.method = "amemiya" )
+[1] 100   6
 > coef( ggResShifterLogiRan )
           a_0           a_1           a_2         b_1_1         b_1_2 
  4.601396e+01  6.428319e-02  8.673148e-02  4.174811e-06  3.645260e-05 
@@ -4622,6 +4628,7 @@ attr(,"class")
 > # fixed effects
 > ggResShifterFac <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
 +    shifterNames = "decade" )
+[1] 100   7
 > coef( ggResShifterFac )
           a_0           a_1           a_2         b_1_1         b_1_2 
  8.218321e+01  2.569244e-02 -1.152257e-01  9.014871e-06  4.923642e-05 
@@ -4909,6 +4916,7 @@ attr(,"class")
 > # random effects
 > ggResShifterFacRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
 +    shifterNames = "decade", model = "random", random.method = "amemiya" )
+[1] 100   7
 > coef( ggResShifterFacRan )
           a_0           a_1           a_2         b_1_1         b_1_2 
  5.908080e+01  4.247392e-02 -1.036923e-01  5.757541e-06  4.878037e-05 
@@ -5199,6 +5207,7 @@ attr(,"class")
 > # fixed effects
 > ggResultLin <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
 +    linear = TRUE )
+[1] 100   2
 > coef( ggResultLin )
         a_0         a_1         a_2       b_1_1       b_1_2       b_2_2 
 -62.5943940   0.1059799   0.3466596   0.0000000   0.0000000   0.0000000 
@@ -5474,6 +5483,7 @@ attr(,"class")
 > # random effects
 > ggResultLinRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
 +    linear = TRUE, model = "random", random.method = "amemiya" )
+[1] 100   2
 > coef( ggResultLinRan )
         a_0         a_1         a_2       b_1_1       b_1_2       b_2_2 
 -60.3474258   0.1049120   0.3460355   0.0000000   0.0000000   0.0000000 
@@ -6209,6 +6219,7 @@ attr(,"class")
 > ggResultLinHom <- quadFuncEst( "invest", 
 +    xNames = c( "value", "capital" ), data = ggData,
 +    linear = TRUE, homWeights = c( value = 0.3, capital = 0.7 ) )
+[1] 100   1
 > coef( ggResultLinHom )
       a_0       a_1       a_2     b_1_1     b_1_2     b_2_2 
  515.5525 -123.3956  123.3956    0.0000    0.0000    0.0000 
@@ -6234,6 +6245,7 @@ b_2_2   0    0.0000    0.0000     0     0     0
 > ggResultHom <- quadFuncEst( "invest", 
 +    xNames = c( "value", "capital" ), data = ggData,
 +    homWeights = c( value = 0.3, capital = 0.7 ) )
+[1] 100   2
 > coef( ggResultHom )
        a_0        a_1        a_2      b_1_1      b_1_2      b_2_2 
  627.08756 -239.46789  239.46789   54.95271  -54.95271   54.95271 

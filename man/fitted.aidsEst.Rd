@@ -29,7 +29,6 @@ containing following objects:
 \seealso{\code{\link{aidsEst}}}
 
 \examples{
-\dontrun{
    # Using data published in Blanciforti, Green & King (1986)
    data( Blanciforti86 )
    # Data on food consumption are available only for the first 32 years
@@ -39,7 +38,6 @@ containing following objects:
       c( "wFood1", "wFood2", "wFood3", "wFood4" ), "xFood",
       data = Blanciforti86 )
    fitted( estResult )
-}
 }
 
 \keyword{methods}

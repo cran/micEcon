@@ -34,7 +34,6 @@
 \author{Arne Henningsen}
 
 \examples{
-\dontrun{
    # Using data published in Blanciforti, Green & King (1986)
    data( Blanciforti86 )
    # Data on food consumption are available only for the first 32 years
@@ -45,7 +44,6 @@
       c( "wFood1", "wFood2", "wFood3", "wFood4" ), "xFood",
       data = Blanciforti86, method = "IL" )
    summary( elas( estResult ) )
-}
 }
 
 \keyword{models}

@@ -40,7 +40,7 @@
    a list of class \code{snqProfitImposeConvexity} containing the same
    objects as an object of class \code{\link{snqProfitEst}}
    and additionally the objects:
-   \item{mindist}{object returned by \code{\optim}.}
+   \item{mindist}{object returned by \code{\link{optim}}.}
    \item{sim}{results of the simulation to obtain the standard errors
       of the estimated coefficients.}
 }
@@ -61,7 +61,6 @@
 \author{Arne Henningsen}
 
 \examples{
-\dontrun{
    data( germanFarms )
    germanFarms$qOutput   <- germanFarms$vOutput / germanFarms$pOutput
    germanFarms$qVarInput <- -germanFarms$vVarInput / germanFarms$pVarInput
@@ -72,7 +71,6 @@
    estResult  # Note: it is NOT convex in netput prices
    estResultConvex <- snqProfitImposeConvexity( estResult )
    estResultConvex  # now it is convex
-}
 }
 
 \keyword{models}

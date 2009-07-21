@@ -25,7 +25,7 @@
    \displaystyle \sum_{i=1}^{n} \left| \overline{x}_{i} \right| p_{i}^{0}}}
 
    Defining the scaled netput quantities as
-   \eqn{\widetilde{x}_{i}^{t} & = & x_{i}^{t}\cdot p_{i}^{0}}
+   \eqn{\widetilde{x}_{i}^{t} = x_{i}^{t}\cdot p_{i}^{0}}
    we get following formula:
 
    \deqn{ \theta_{i} = \frac{

@@ -1,5 +1,5 @@
 
-R version 2.9.0 (2009-04-17)
+R version 2.9.1 (2009-06-26)
 Copyright (C) 2009 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
@@ -58,7 +58,7 @@ Attaching package: 'boot'
 
 	 melanoma 
 
-Nonparametric Kernel Methods for Mixed Datatypes (version 0.30-2)
+Nonparametric Kernel Methods for Mixed Datatypes (version 0.30-3)
 > data( germanFarms )
 > options( digits = 3 )
 > 
@@ -71,7 +71,13 @@ Nonparametric Kernel Methods for Mixed Datatypes (version 0.30-2)
 > qNamesT <- c( "qOutput", "qVarInput", "qLabor" )
 > fNamesT <- c( "land", "time" )
 > 
-> estResult <- snqProfitEst( pNamesT, qNamesT, "land", data = germanFarms, useMatrix = FALSE )
+> estResult <- snqProfitEst( pNamesT, qNamesT, "land", data = germanFarms )
+Note: Method with signature "ANY#diagonalMatrix" chosen for function "kronecker",
+ target signature "dspMatrix#ddiMatrix".
+ "Matrix#ANY" would also be valid
+Note: Method with signature "ANY#sparseMatrix" chosen for function "kronecker",
+ target signature "dspMatrix#dtTMatrix".
+ "Matrix#ANY" would also be valid
 > print( estResult )
 
 Estimation results of the SNQ profit function:
@@ -210,7 +216,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 4697.966 on 5 degrees of freedom
 Number of observations: 20 Degrees of Freedom: 5 
-SSR: 308992413.744 MSE: 22070886.696 Root MSE: 4697.966 
+SSR: 308992413.743 MSE: 22070886.696 Root MSE: 4697.966 
 Multiple R-Squared: 0.449 Adjusted R-Squared: 0.252 
 
 
@@ -584,7 +590,7 @@ $scalingFactors
 
 > 
 > ################ without fix inputs ##############################
-> estResult <- snqProfitEst( pNamesT, qNamesT, NULL, data = germanFarms, useMatrix = FALSE )
+> estResult <- snqProfitEst( pNamesT, qNamesT, NULL, data = germanFarms )
 > print( estResult )
 
 Estimation results of the SNQ profit function:
@@ -684,7 +690,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 10567.122 on 7 degrees of freedom
 Number of observations: 20 Degrees of Freedom: 7 
-SSR: 1786625218.892 MSE: 111664076.181 Root MSE: 10567.122 
+SSR: 1786625218.893 MSE: 111664076.181 Root MSE: 10567.122 
 Multiple R-Squared: 0.891 Adjusted R-Squared: 0.871 
 
 
@@ -1080,7 +1086,7 @@ qVarInput   17920      3981  -5846
 qLabor      29331     -5846  -5066
 > 
 > ########### with fix inputs, form = 0 ########################
-> estResult <- snqProfitEst( pNamesT, qNamesT, fNamesT, data=germanFarms, useMatrix = FALSE )
+> estResult <- snqProfitEst( pNamesT, qNamesT, fNamesT, data=germanFarms )
 > print( estResult )
 
 Estimation results of the SNQ profit function:
@@ -1197,7 +1203,7 @@ fq1.2.2       -96006      61790   -1.55     0.13
 
 Residual standard error: 4222.034 on 1 degrees of freedom
 Number of observations: 20 Degrees of Freedom: 1 
-SSR: 196081253.397 MSE: 17825568.491 Root MSE: 4222.034 
+SSR: 196081253.396 MSE: 17825568.491 Root MSE: 4222.034 
 Multiple R-Squared: 0.988 Adjusted R-Squared: 0.979 
 
 
@@ -1772,7 +1778,7 @@ qLabor      -2973      1057    345
 20 3733.5  -735
 > 
 > ####################################################
-> estResult <- snqProfitEst( pNamesT, qNamesT, fNamesT, data=germanFarms, form = 1, useMatrix = FALSE )
+> estResult <- snqProfitEst( pNamesT, qNamesT, fNamesT, data=germanFarms, form = 1 )
 > print( estResult )
 
 Estimation results of the SNQ profit function:
@@ -2047,7 +2053,7 @@ gamma 3 1 2  5.21e+05 -6.59e+05 -6.12e+05 -2.05e+04 -2.56e+02    20746
 gamma 3 2 1  5.21e+05 -6.59e+05 -6.12e+05 -2.05e+04 -2.56e+02    20746
 gamma 3 2 2 -4.16e+05  5.13e+05  4.70e+05  2.66e+04 -6.20e+03   -20393
              beta 2 1  beta 2 2 beta 2 3 beta 3 1 beta 3 2 beta 3 3 delta 1 1
-alpha 1      7.16e+07 -6.31e+07 -8486553  9288379 -8486553  -801826 -2.18e+09
+alpha 1      7.16e+07 -6.31e+07 -8486552  9288379 -8486552  -801826 -2.18e+09
 alpha 2     -6.78e+07  6.21e+07  5741360 -5998573  5741360   257212  1.81e+08
 alpha 3     -1.52e+06  7.20e+05   804518 -1198890   804518   394372  1.09e+07
 beta 1 1    -1.86e+08  1.83e+08  3712411 -4268284  3712411   555873  2.21e+07
