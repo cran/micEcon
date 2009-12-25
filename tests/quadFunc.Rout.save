@@ -1,5 +1,5 @@
 
-R version 2.9.1 (2009-06-26)
+R version 2.10.1 (2009-12-14)
 Copyright (C) 2009 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
@@ -19,30 +19,9 @@ Type 'q()' to quit R.
 Loading required package: systemfit
 Loading required package: Matrix
 Loading required package: lattice
-
-Attaching package: 'Matrix'
-
-
-	The following object(s) are masked from package:stats :
-
-	 xtabs 
-
-
-	The following object(s) are masked from package:base :
-
-	 rcond 
-
 Loading required package: car
 Loading required package: lmtest
 Loading required package: zoo
-
-Attaching package: 'zoo'
-
-
-	The following object(s) are masked from package:base :
-
-	 as.Date.numeric 
-
 Loading required package: np
 Loading required package: boot
 
@@ -74,14 +53,6 @@ Attaching package: 'survival'
 Loading required package: nlme
 [1] "kinship is loaded"
 Loading required package: Formula
-
-Attaching package: 'Formula'
-
-
-	The following object(s) are masked from package:car :
-
-	 has.intercept 
-
 Loading required package: MASS
 Loading required package: sandwich
 > 
@@ -2142,7 +2113,7 @@ attr(,"class")
 +    homWeights = c( qLabor = 0.2, land = 0.5, qVarInput = 0.3 ) )
 > coef( estResultLinHom )
           a_0           a_1           a_2           a_3           a_4 
--204866.29706      35.00369 -169743.59535  107690.54362   62053.05172 
+-204866.29706      35.00369 -169743.59534  107690.54362   62053.05172 
         b_1_1         b_1_2         b_1_3         b_1_4         b_2_2 
       0.00000       0.00000       0.00000       0.00000       0.00000 
         b_2_3         b_2_4         b_3_3         b_3_4         b_4_4 
@@ -2934,7 +2905,6 @@ b_4_4 -7.218313e+13 -1.217472e+14  2.888829e+13  4.823309e+13  8.155095e+13
 > ggData <- plm.data( GrunfeldGreene, c( "firm", "year" ) )
 > # fixed effects
 > ggResult <- quadFuncEst( "invest", c( "value", "capital" ), ggData )
-[1] 100   5
 > coef( ggResult )
          a_0          a_1          a_2        b_1_1        b_1_2        b_2_2 
 5.311242e+01 5.089985e-02 1.108780e-01 7.569854e-06 3.008554e-05 1.230247e-04 
@@ -2959,112 +2929,76 @@ Coefficients:
 
 
 $residuals
-     General Motors    General Motors.1    General Motors.2    General Motors.3 
-         23.6351776         -41.9402777        -118.6137892         -58.2218382 
-   General Motors.4    General Motors.5    General Motors.6    General Motors.7 
-       -111.4754880         -12.1913627          33.8713011          73.2251075 
-   General Motors.8    General Motors.9   General Motors.10   General Motors.11 
-         64.4602012          99.7623972          52.9754969         133.0579145 
-  General Motors.12   General Motors.13   General Motors.14   General Motors.15 
-         40.6064652         -22.3174897         -76.5665905         -22.7978563 
-  General Motors.16   General Motors.17   General Motors.18   General Motors.19 
-        -78.5650968         -48.5479632          13.2946243          56.3490668 
-           Chrysler          Chrysler.1          Chrysler.2          Chrysler.3 
-        -14.0903871          -5.1020975         -17.6988342          -9.1728714 
-         Chrysler.4          Chrysler.5          Chrysler.6          Chrysler.7 
-        -23.8009654          -9.9929396          -7.2859946         -15.0337975 
-         Chrysler.8          Chrysler.9         Chrysler.10         Chrysler.11 
-        -23.9316359         -17.1961547           4.1921241         -17.6901588 
-        Chrysler.12         Chrysler.13         Chrysler.14         Chrysler.15 
-        -12.2225340           5.7431226          -3.8497553           9.2348715 
-        Chrysler.16         Chrysler.17         Chrysler.18         Chrysler.19 
-         55.7337247          31.0564792          32.8190765          38.2887274 
-   General Electric  General Electric.1  General Electric.2  General Electric.3 
-         46.4683294           1.4533772         -26.1086943         -10.3576274 
- General Electric.4  General Electric.5  General Electric.6  General Electric.7 
-        -25.6783839           6.8770104          60.2433445          43.7856093 
- General Electric.8  General Electric.9 General Electric.10 General Electric.11 
-         -4.9144934          -5.1223462           8.1421702          53.3397738 
-General Electric.12 General Electric.13 General Electric.14 General Electric.15 
-         59.3346495          43.2640746          -8.0288374         -34.2086480 
-General Electric.16 General Electric.17 General Electric.18 General Electric.19 
-        -15.8192687         -30.2824390         -54.7227803        -107.6648203 
-       Westinghouse      Westinghouse.1      Westinghouse.2      Westinghouse.3 
-          8.1683834           3.8614124           0.2810341          -3.8204778 
-     Westinghouse.4      Westinghouse.5      Westinghouse.6      Westinghouse.7 
-         -6.3184039          -3.0635382          20.7351398          10.9222977 
-     Westinghouse.8      Westinghouse.9     Westinghouse.10     Westinghouse.11 
-         -1.8660271          -2.5840571          -7.7953317           5.9381332 
-    Westinghouse.12     Westinghouse.13     Westinghouse.14     Westinghouse.15 
-         15.0009465           1.3913307         -13.0805696         -15.2029425 
-    Westinghouse.16     Westinghouse.17     Westinghouse.18     Westinghouse.19 
-          2.6504980           9.0884811           1.7367331         -26.0430420 
-           US Steel          US Steel.1          US Steel.2          US Steel.3 
-       -106.7352118          10.5415472          51.1896096        -120.7417888 
-         US Steel.4          US Steel.5          US Steel.6          US Steel.7 
-       -174.7419676        -149.8172974          46.3613449          27.4075482 
-         US Steel.8          US Steel.9         US Steel.10         US Steel.11 
-        -43.3617809         -99.4647412        -118.7655666          23.3691474 
-        US Steel.12         US Steel.13         US Steel.14         US Steel.15 
-         36.9271812         114.9935736          13.6960624          25.2520400 
-        US Steel.16         US Steel.17         US Steel.18         US Steel.19 
-        151.2150306         195.4748188         158.9002296         -41.6997793 
-attr(,"data")
-[1] "mydata"
+           1            2            3            4            5            6 
+  23.6351776  -41.9402777 -118.6137892  -58.2218382 -111.4754880  -12.1913627 
+           7            8            9           10           11           12 
+  33.8713011   73.2251075   64.4602012   99.7623972   52.9754969  133.0579145 
+          13           14           15           16           17           18 
+  40.6064652  -22.3174897  -76.5665905  -22.7978563  -78.5650968  -48.5479632 
+          19           20           21           22           23           24 
+  13.2946243   56.3490668  -14.0903871   -5.1020975  -17.6988342   -9.1728714 
+          25           26           27           28           29           30 
+ -23.8009654   -9.9929396   -7.2859946  -15.0337975  -23.9316359  -17.1961547 
+          31           32           33           34           35           36 
+   4.1921241  -17.6901588  -12.2225340    5.7431226   -3.8497553    9.2348715 
+          37           38           39           40           41           42 
+  55.7337247   31.0564792   32.8190765   38.2887274   46.4683294    1.4533772 
+          43           44           45           46           47           48 
+ -26.1086943  -10.3576274  -25.6783839    6.8770104   60.2433445   43.7856093 
+          49           50           51           52           53           54 
+  -4.9144934   -5.1223462    8.1421702   53.3397738   59.3346495   43.2640746 
+          55           56           57           58           59           60 
+  -8.0288374  -34.2086480  -15.8192687  -30.2824390  -54.7227803 -107.6648203 
+          61           62           63           64           65           66 
+   8.1683834    3.8614124    0.2810341   -3.8204778   -6.3184039   -3.0635382 
+          67           68           69           70           71           72 
+  20.7351398   10.9222977   -1.8660271   -2.5840571   -7.7953317    5.9381332 
+          73           74           75           76           77           78 
+  15.0009465    1.3913307  -13.0805696  -15.2029425    2.6504980    9.0884811 
+          79           80           81           82           83           84 
+   1.7367331  -26.0430420 -106.7352118   10.5415472   51.1896096 -120.7417888 
+          85           86           87           88           89           90 
+-174.7419676 -149.8172974   46.3613449   27.4075482  -43.3617809  -99.4647412 
+          91           92           93           94           95           96 
+-118.7655666   23.3691474   36.9271812  114.9935736   13.6960624   25.2520400 
+          97           98           99          100 
+ 151.2150306  195.4748188  158.9002296  -41.6997793 
 
 $fitted
-     General Motors    General Motors.1    General Motors.2    General Motors.3 
-         293.964822          433.740278          529.213789          315.921838 
-   General Motors.4    General Motors.5    General Motors.6    General Motors.7 
-         442.275488          473.391363          478.128699          374.774893 
-   General Motors.8    General Motors.9   General Motors.10   General Motors.11 
-         435.139799          447.737603          508.224503          555.042086 
-  General Motors.12   General Motors.13   General Motors.14   General Motors.15 
-         528.293535          551.517490          631.666591          665.697856 
-  General Motors.16   General Motors.17   General Motors.18   General Motors.19 
-         834.465097          939.747963         1291.105376         1430.350933 
-           Chrysler          Chrysler.1          Chrysler.2          Chrysler.3 
-          54.380387           77.862098           83.958834           60.772871 
-         Chrysler.4          Chrysler.5          Chrysler.6          Chrysler.7 
-          76.210965           79.402940           75.635995           61.833797 
-         Chrysler.8          Chrysler.9         Chrysler.10         Chrysler.11 
-          71.331636           76.766155           84.587876           91.810159 
-        Chrysler.12         Chrysler.13         Chrysler.14         Chrysler.15 
-          74.902534           83.616877           82.829755           91.425129 
-        Chrysler.16         Chrysler.17         Chrysler.18         Chrysler.19 
-         104.886275          113.943521          142.110923          134.201273 
-   General Electric  General Electric.1  General Electric.2  General Electric.3 
-         -13.368329           43.546623          103.308694           54.957627 
- General Electric.4  General Electric.5  General Electric.6  General Electric.7 
-          73.778384           67.522990           52.756656           48.114391 
- General Electric.8  General Electric.9 General Electric.10 General Electric.11 
-          66.214493           61.922346           85.457830          106.560226 
-General Electric.12 General Electric.13 General Electric.14 General Electric.15 
-          87.865351          103.035925          106.328837          127.708648 
-General Electric.16 General Electric.17 General Electric.18 General Electric.19 
-         151.019269          187.582439          234.222780          297.264820 
-       Westinghouse      Westinghouse.1      Westinghouse.2      Westinghouse.3 
-           4.761617           22.038588           34.768966           26.710478 
-     Westinghouse.4      Westinghouse.5      Westinghouse.6      Westinghouse.7 
-          25.158404           31.633538           27.774860           32.417702 
-     Westinghouse.8      Westinghouse.9     Westinghouse.10     Westinghouse.11 
-          38.886027           40.394057           47.065332           47.521867 
-    Westinghouse.12     Westinghouse.13     Westinghouse.14     Westinghouse.15 
-          40.559054           48.168669           45.120570           47.442942 
-    Westinghouse.16     Westinghouse.17     Westinghouse.18     Westinghouse.19 
-          51.729502           62.691519           88.343267           94.643042 
-           US Steel          US Steel.1          US Steel.2          US Steel.3 
-         316.635212          344.758453          418.710390          383.041789 
-         US Steel.4          US Steel.5          US Steel.6          US Steel.7 
-         405.141968          411.417297          426.438655          418.192452 
-         US Steel.8          US Steel.9         US Steel.10         US Steel.11 
-         404.961781          387.664741          377.465567          396.930853 
-        US Steel.12         US Steel.13         US Steel.14         US Steel.15 
-         383.572819          379.506426          391.403938          393.547960 
-        US Steel.16         US Steel.17         US Steel.18         US Steel.19 
-         436.984969          449.725181          482.099770          500.999779 
-attr(,"data")
-[1] "mydata"
+          1           2           3           4           5           6 
+ 293.964822  433.740278  529.213789  315.921838  442.275488  473.391363 
+          7           8           9          10          11          12 
+ 478.128699  374.774893  435.139799  447.737603  508.224503  555.042086 
+         13          14          15          16          17          18 
+ 528.293535  551.517490  631.666591  665.697856  834.465097  939.747963 
+         19          20          21          22          23          24 
+1291.105376 1430.350933   54.380387   77.862098   83.958834   60.772871 
+         25          26          27          28          29          30 
+  76.210965   79.402940   75.635995   61.833797   71.331636   76.766155 
+         31          32          33          34          35          36 
+  84.587876   91.810159   74.902534   83.616877   82.829755   91.425129 
+         37          38          39          40          41          42 
+ 104.886275  113.943521  142.110923  134.201273  -13.368329   43.546623 
+         43          44          45          46          47          48 
+ 103.308694   54.957627   73.778384   67.522990   52.756656   48.114391 
+         49          50          51          52          53          54 
+  66.214493   61.922346   85.457830  106.560226   87.865351  103.035925 
+         55          56          57          58          59          60 
+ 106.328837  127.708648  151.019269  187.582439  234.222780  297.264820 
+         61          62          63          64          65          66 
+   4.761617   22.038588   34.768966   26.710478   25.158404   31.633538 
+         67          68          69          70          71          72 
+  27.774860   32.417702   38.886027   40.394057   47.065332   47.521867 
+         73          74          75          76          77          78 
+  40.559054   48.168669   45.120570   47.442942   51.729502   62.691519 
+         79          80          81          82          83          84 
+  88.343267   94.643042  316.635212  344.758453  418.710390  383.041789 
+         85          86          87          88          89          90 
+ 405.141968  411.417297  426.438655  418.192452  404.961781  387.664741 
+         91          92          93          94          95          96 
+ 377.465567  396.930853  383.572819  379.506426  391.403938  393.547960 
+         97          98          99         100 
+ 436.984969  449.725181  482.099770  500.999779 
 
 $coef
          a_0          a_1          a_2        b_1_1        b_1_2        b_2_2 
@@ -3202,7 +3136,6 @@ attr(,"class")
 > # random effects
 > ggResultRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
 +    model = "random", random.method = "amemiya" )
-[1] 100   5
 > coef( ggResultRan )
          a_0          a_1          a_2        b_1_1        b_1_2        b_2_2 
 3.949693e+01 6.159186e-02 1.075103e-01 5.177555e-06 3.163931e-05 1.186991e-04 
@@ -3227,112 +3160,76 @@ Coefficients:
 
 
 $residuals
-     General Motors    General Motors.1    General Motors.2    General Motors.3 
-         30.6507076         -37.3882895        -113.6323659         -50.2601319 
-   General Motors.4    General Motors.5    General Motors.6    General Motors.7 
-       -107.3293900          -8.1537400          37.7805564          79.4178121 
-   General Motors.8    General Motors.9   General Motors.10   General Motors.11 
-         68.7492668         103.8727501          56.8973174         136.6279416 
-  General Motors.12   General Motors.13   General Motors.14   General Motors.15 
-         46.0215209         -15.5652400         -71.3321695         -17.5825895 
-  General Motors.16   General Motors.17   General Motors.18   General Motors.19 
-        -75.5486460         -45.2971985          17.3384182          61.4347541 
-           Chrysler          Chrysler.1          Chrysler.2          Chrysler.3 
-        -13.7421915          -8.6241489         -21.5683390          -8.9057027 
-         Chrysler.4          Chrysler.5          Chrysler.6          Chrysler.7 
-        -25.7833082         -12.4063341          -8.9067946         -14.4444689 
-         Chrysler.8          Chrysler.9         Chrysler.10         Chrysler.11 
-        -25.0594992         -19.3591801           0.6926672         -21.5329042 
-        Chrysler.12         Chrysler.13         Chrysler.14         Chrysler.15 
-        -13.1782092           3.7468363          -4.7614252           7.4014255 
-        Chrysler.16         Chrysler.17         Chrysler.18         Chrysler.19 
-         52.9606657          29.3234517          28.7716621          37.2526573 
-   General Electric  General Electric.1  General Electric.2  General Electric.3 
-         32.1762196         -18.7782020         -50.3554260         -30.6932073 
- General Electric.4  General Electric.5  General Electric.6  General Electric.7 
-        -47.2594321         -13.9842312          41.2895402          26.6740382 
- General Electric.8  General Electric.9 General Electric.10 General Electric.11 
-        -23.1165737         -22.8811661         -11.7897175          32.2114033 
-General Electric.12 General Electric.13 General Electric.14 General Electric.15 
-         42.1296190          26.7155507         -22.9392323         -50.4462398 
-General Electric.16 General Electric.17 General Electric.18 General Electric.19 
-        -33.5624157         -49.6931098         -75.8081463        -130.7591986 
-       Westinghouse      Westinghouse.1      Westinghouse.2      Westinghouse.3 
-          5.9514417          -1.5539465          -7.0799171          -9.6095459 
-     Westinghouse.4      Westinghouse.5      Westinghouse.6      Westinghouse.7 
-        -11.7113319          -9.4649058          15.2132388           5.2395801 
-     Westinghouse.8      Westinghouse.9     Westinghouse.10     Westinghouse.11 
-         -8.0095962          -8.7974497         -15.0224327          -1.5161554 
-    Westinghouse.12     Westinghouse.13     Westinghouse.14     Westinghouse.15 
-          9.2706060          -5.0418101         -18.7413078         -21.3648412 
-    Westinghouse.16     Westinghouse.17     Westinghouse.18     Westinghouse.19 
-         -4.3532401           0.8642628          -9.2085445         -36.8596548 
-           US Steel          US Steel.1          US Steel.2          US Steel.3 
-        -80.2981387          33.8700664          69.7890007         -97.1196963 
-         US Steel.4          US Steel.5          US Steel.6          US Steel.7 
-       -152.0632800        -128.7302363          66.4586855          48.7486720 
-         US Steel.8          US Steel.9         US Steel.10         US Steel.11 
-        -20.8803161         -75.8914768         -95.5388674          45.2384389 
-        US Steel.12         US Steel.13         US Steel.14         US Steel.15 
-         60.5924640         139.9442861          38.4461622          49.9422476 
-        US Steel.16         US Steel.17         US Steel.18         US Steel.19 
-        171.9040044         217.1065501         181.8001544         -19.2313870 
-attr(,"data")
-[1] "mydata"
+           1            2            3            4            5            6 
+  30.6507076  -37.3882895 -113.6323659  -50.2601319 -107.3293900   -8.1537400 
+           7            8            9           10           11           12 
+  37.7805564   79.4178121   68.7492668  103.8727501   56.8973174  136.6279416 
+          13           14           15           16           17           18 
+  46.0215209  -15.5652400  -71.3321695  -17.5825895  -75.5486460  -45.2971985 
+          19           20           21           22           23           24 
+  17.3384182   61.4347541  -13.7421915   -8.6241489  -21.5683390   -8.9057027 
+          25           26           27           28           29           30 
+ -25.7833082  -12.4063341   -8.9067946  -14.4444689  -25.0594992  -19.3591801 
+          31           32           33           34           35           36 
+   0.6926672  -21.5329042  -13.1782092    3.7468363   -4.7614252    7.4014255 
+          37           38           39           40           41           42 
+  52.9606657   29.3234517   28.7716621   37.2526573   32.1762196  -18.7782020 
+          43           44           45           46           47           48 
+ -50.3554260  -30.6932073  -47.2594321  -13.9842312   41.2895402   26.6740382 
+          49           50           51           52           53           54 
+ -23.1165737  -22.8811661  -11.7897175   32.2114033   42.1296190   26.7155507 
+          55           56           57           58           59           60 
+ -22.9392323  -50.4462398  -33.5624157  -49.6931098  -75.8081463 -130.7591986 
+          61           62           63           64           65           66 
+   5.9514417   -1.5539465   -7.0799171   -9.6095459  -11.7113319   -9.4649058 
+          67           68           69           70           71           72 
+  15.2132388    5.2395801   -8.0095962   -8.7974497  -15.0224327   -1.5161554 
+          73           74           75           76           77           78 
+   9.2706060   -5.0418101  -18.7413078  -21.3648412   -4.3532401    0.8642628 
+          79           80           81           82           83           84 
+  -9.2085445  -36.8596548  -80.2981387   33.8700664   69.7890007  -97.1196963 
+          85           86           87           88           89           90 
+-152.0632800 -128.7302363   66.4586855   48.7486720  -20.8803161  -75.8914768 
+          91           92           93           94           95           96 
+ -95.5388674   45.2384389   60.5924640  139.9442861   38.4461622   49.9422476 
+          97           98           99          100 
+ 171.9040044  217.1065501  181.8001544  -19.2313870 
 
 $fitted
-     General Motors    General Motors.1    General Motors.2    General Motors.3 
-        286.9492924         429.1882895         524.2323659         307.9601319 
-   General Motors.4    General Motors.5    General Motors.6    General Motors.7 
-        438.1293900         469.3537400         474.2194436         368.5821879 
-   General Motors.8    General Motors.9   General Motors.10   General Motors.11 
-        430.8507332         443.6272499         504.3026826         551.4720584 
-  General Motors.12   General Motors.13   General Motors.14   General Motors.15 
-        522.8784791         544.7652400         626.4321695         660.4825895 
-  General Motors.16   General Motors.17   General Motors.18   General Motors.19 
-        831.4486460         936.4971985        1287.0615818        1425.2652459 
-           Chrysler          Chrysler.1          Chrysler.2          Chrysler.3 
-         54.0321915          81.3841489          87.8283390          60.5057027 
-         Chrysler.4          Chrysler.5          Chrysler.6          Chrysler.7 
-         78.1933082          81.8163341          77.2567946          61.2444689 
-         Chrysler.8          Chrysler.9         Chrysler.10         Chrysler.11 
-         72.4594992          78.9291801          88.0873328          95.6529042 
-        Chrysler.12         Chrysler.13         Chrysler.14         Chrysler.15 
-         75.8582092          85.6131637          83.7414252          93.2585745 
-        Chrysler.16         Chrysler.17         Chrysler.18         Chrysler.19 
-        107.6593343         115.6765483         146.1583379         135.2373427 
-   General Electric  General Electric.1  General Electric.2  General Electric.3 
-          0.9237804          63.7782020         127.5554260          75.2932073 
- General Electric.4  General Electric.5  General Electric.6  General Electric.7 
-         95.3594321          88.3842312          71.7104598          65.2259618 
- General Electric.8  General Electric.9 General Electric.10 General Electric.11 
-         84.4165737          79.6811661         105.3897175         127.6885967 
-General Electric.12 General Electric.13 General Electric.14 General Electric.15 
-        105.0703810         119.5844493         121.2392323         143.9462398 
-General Electric.16 General Electric.17 General Electric.18 General Electric.19 
-        168.7624157         206.9931098         255.3081463         320.3591986 
-       Westinghouse      Westinghouse.1      Westinghouse.2      Westinghouse.3 
-          6.9785583          27.4539465          42.1299171          32.4995459 
-     Westinghouse.4      Westinghouse.5      Westinghouse.6      Westinghouse.7 
-         30.5513319          38.0349058          33.2967612          38.1004199 
-     Westinghouse.8      Westinghouse.9     Westinghouse.10     Westinghouse.11 
-         45.0295962          46.6074497          54.2924327          54.9761554 
-    Westinghouse.12     Westinghouse.13     Westinghouse.14     Westinghouse.15 
-         46.2893940          54.6018101          50.7813078          53.6048412 
-    Westinghouse.16     Westinghouse.17     Westinghouse.18     Westinghouse.19 
-         58.7332401          70.9157372          99.2885445         105.4596548 
-           US Steel          US Steel.1          US Steel.2          US Steel.3 
-        290.1981387         321.4299336         400.1109993         359.4196963 
-         US Steel.4          US Steel.5          US Steel.6          US Steel.7 
-        382.4632800         390.3302363         406.3413145         396.8513280 
-         US Steel.8          US Steel.9         US Steel.10         US Steel.11 
-        382.4803161         364.0914768         354.2388674         375.0615611 
-        US Steel.12         US Steel.13         US Steel.14         US Steel.15 
-        359.9075360         354.5557139         366.6538378         368.8577524 
-        US Steel.16         US Steel.17         US Steel.18         US Steel.19 
-        416.2959956         428.0934499         459.1998456         478.5313870 
-attr(,"data")
-[1] "mydata"
+           1            2            3            4            5            6 
+ 286.9492924  429.1882895  524.2323659  307.9601319  438.1293900  469.3537400 
+           7            8            9           10           11           12 
+ 474.2194436  368.5821879  430.8507332  443.6272499  504.3026826  551.4720584 
+          13           14           15           16           17           18 
+ 522.8784791  544.7652400  626.4321695  660.4825895  831.4486460  936.4971985 
+          19           20           21           22           23           24 
+1287.0615818 1425.2652459   54.0321915   81.3841489   87.8283390   60.5057027 
+          25           26           27           28           29           30 
+  78.1933082   81.8163341   77.2567946   61.2444689   72.4594992   78.9291801 
+          31           32           33           34           35           36 
+  88.0873328   95.6529042   75.8582092   85.6131637   83.7414252   93.2585745 
+          37           38           39           40           41           42 
+ 107.6593343  115.6765483  146.1583379  135.2373427    0.9237804   63.7782020 
+          43           44           45           46           47           48 
+ 127.5554260   75.2932073   95.3594321   88.3842312   71.7104598   65.2259618 
+          49           50           51           52           53           54 
+  84.4165737   79.6811661  105.3897175  127.6885967  105.0703810  119.5844493 
+          55           56           57           58           59           60 
+ 121.2392323  143.9462398  168.7624157  206.9931098  255.3081463  320.3591986 
+          61           62           63           64           65           66 
+   6.9785583   27.4539465   42.1299171   32.4995459   30.5513319   38.0349058 
+          67           68           69           70           71           72 
+  33.2967612   38.1004199   45.0295962   46.6074497   54.2924327   54.9761554 
+          73           74           75           76           77           78 
+  46.2893940   54.6018101   50.7813078   53.6048412   58.7332401   70.9157372 
+          79           80           81           82           83           84 
+  99.2885445  105.4596548  290.1981387  321.4299336  400.1109993  359.4196963 
+          85           86           87           88           89           90 
+ 382.4632800  390.3302363  406.3413145  396.8513280  382.4803161  364.0914768 
+          91           92           93           94           95           96 
+ 354.2388674  375.0615611  359.9075360  354.5557139  366.6538378  368.8577524 
+          97           98           99          100 
+ 416.2959956  428.0934499  459.1998456  478.5313870 
 
 $coef
          a_0          a_1          a_2        b_1_1        b_1_2        b_2_2 
@@ -3481,7 +3378,6 @@ attr(,"class")
 > # fixed effects
 > ggResShifter <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
 +    shifterNames = "tech" )
-[1] 100   6
 > coef( ggResShifter )
          a_0          a_1          a_2        b_1_1        b_1_2        b_2_2 
 5.341766e+01 5.071286e-02 1.104716e-01 7.591567e-06 3.024672e-05 1.224109e-04 
@@ -3508,112 +3404,76 @@ Coefficients:
 
 
 $residuals
-     General Motors    General Motors.1    General Motors.2    General Motors.3 
-         23.5345996         -41.8948965        -118.5595218         -58.3531571 
-   General Motors.4    General Motors.5    General Motors.6    General Motors.7 
-       -111.4900665         -12.1879242          33.8608625          73.1373031 
-   General Motors.8    General Motors.9   General Motors.10   General Motors.11 
-         64.4228863          99.7520650          52.9756098         133.0356992 
-  General Motors.12   General Motors.13   General Motors.14   General Motors.15 
-         40.6119015         -22.2462120         -76.4744849         -22.6795936 
-  General Motors.16   General Motors.17   General Motors.18   General Motors.19 
-        -78.5171508         -48.4623975          13.1715272          56.3629507 
-           Chrysler          Chrysler.1          Chrysler.2          Chrysler.3 
-        -14.1351865          -5.0748256         -17.6570758          -9.1994219 
-         Chrysler.4          Chrysler.5          Chrysler.6          Chrysler.7 
-        -23.7830976          -9.9663888          -7.2702201         -15.0575178 
-         Chrysler.8          Chrysler.9         Chrysler.10         Chrysler.11 
-        -23.9276611         -17.1765499           4.2336356         -17.6319964 
-        Chrysler.12         Chrysler.13         Chrysler.14         Chrysler.15 
-        -12.2097860           5.7780387          -3.8188081           9.2811571 
-        Chrysler.16         Chrysler.17         Chrysler.18         Chrysler.19 
-         55.7954086          31.0992494          32.7944718          37.9265744 
-   General Electric  General Electric.1  General Electric.2  General Electric.3 
-         46.3158146           1.4172958         -26.0516605         -10.3825299 
- General Electric.4  General Electric.5  General Electric.6  General Electric.7 
-        -25.6759944           6.8679911          60.2084727          43.7431306 
- General Electric.8  General Electric.9 General Electric.10 General Electric.11 
-         -4.9301508          -5.1436586           8.1508182          53.3730287 
-General Electric.12 General Electric.13 General Electric.14 General Electric.15 
-         59.3609293          43.3249850          -7.9418289         -34.1025880 
-General Electric.16 General Electric.17 General Electric.18 General Electric.19 
-        -15.7082807         -30.1805907         -54.7032013        -107.9419821 
-       Westinghouse      Westinghouse.1      Westinghouse.2      Westinghouse.3 
-          8.0996263           3.8504245           0.3088928          -3.8181197 
-     Westinghouse.4      Westinghouse.5      Westinghouse.6      Westinghouse.7 
-         -6.3212151          -3.0468461          20.7395757          10.9393142 
-     Westinghouse.8      Westinghouse.9     Westinghouse.10     Westinghouse.11 
-         -1.8315152          -2.5455987          -7.7391001           5.9957150 
-    Westinghouse.12     Westinghouse.13     Westinghouse.14     Westinghouse.15 
-         15.0391855           1.4486029         -13.0331202         -15.1559530 
-    Westinghouse.16     Westinghouse.17     Westinghouse.18     Westinghouse.19 
-          2.6912599           9.1096460           1.6884241         -26.4191989 
-           US Steel          US Steel.1          US Steel.2          US Steel.3 
-       -106.8325717          10.5076999          51.2707240        -120.7320496 
-         US Steel.4          US Steel.5          US Steel.6          US Steel.7 
-       -174.7020251        -149.7680815          46.4289590          27.4634620 
-         US Steel.8          US Steel.9         US Steel.10         US Steel.11 
-        -43.3222376         -99.4484734        -118.7625722          23.3999030 
-        US Steel.12         US Steel.13         US Steel.14         US Steel.15 
-         36.9371570         114.9978569          13.7172598          25.2703548 
-        US Steel.16         US Steel.17         US Steel.18         US Steel.19 
-        151.2652489         195.4987272         158.8630106         -42.0523521 
-attr(,"data")
-[1] "mydata"
+           1            2            3            4            5            6 
+  23.5345996  -41.8948965 -118.5595218  -58.3531571 -111.4900665  -12.1879242 
+           7            8            9           10           11           12 
+  33.8608625   73.1373031   64.4228863   99.7520650   52.9756098  133.0356992 
+          13           14           15           16           17           18 
+  40.6119015  -22.2462120  -76.4744849  -22.6795936  -78.5171508  -48.4623975 
+          19           20           21           22           23           24 
+  13.1715272   56.3629507  -14.1351865   -5.0748256  -17.6570758   -9.1994219 
+          25           26           27           28           29           30 
+ -23.7830976   -9.9663888   -7.2702201  -15.0575178  -23.9276611  -17.1765499 
+          31           32           33           34           35           36 
+   4.2336356  -17.6319964  -12.2097860    5.7780387   -3.8188081    9.2811571 
+          37           38           39           40           41           42 
+  55.7954086   31.0992494   32.7944718   37.9265744   46.3158146    1.4172958 
+          43           44           45           46           47           48 
+ -26.0516605  -10.3825299  -25.6759944    6.8679911   60.2084727   43.7431306 
+          49           50           51           52           53           54 
+  -4.9301508   -5.1436586    8.1508182   53.3730287   59.3609293   43.3249850 
+          55           56           57           58           59           60 
+  -7.9418289  -34.1025880  -15.7082807  -30.1805907  -54.7032013 -107.9419821 
+          61           62           63           64           65           66 
+   8.0996263    3.8504245    0.3088928   -3.8181197   -6.3212151   -3.0468461 
+          67           68           69           70           71           72 
+  20.7395757   10.9393142   -1.8315152   -2.5455987   -7.7391001    5.9957150 
+          73           74           75           76           77           78 
+  15.0391855    1.4486029  -13.0331202  -15.1559530    2.6912599    9.1096460 
+          79           80           81           82           83           84 
+   1.6884241  -26.4191989 -106.8325717   10.5076999   51.2707240 -120.7320496 
+          85           86           87           88           89           90 
+-174.7020251 -149.7680815   46.4289590   27.4634620  -43.3222376  -99.4484734 
+          91           92           93           94           95           96 
+-118.7625722   23.3999030   36.9371570  114.9978569   13.7172598   25.2703548 
+          97           98           99          100 
+ 151.2652489  195.4987272  158.8630106  -42.0523521 
 
 $fitted
-     General Motors    General Motors.1    General Motors.2    General Motors.3 
-         294.065400          433.694897          529.159522          316.053157 
-   General Motors.4    General Motors.5    General Motors.6    General Motors.7 
-         442.290066          473.387924          478.139138          374.862697 
-   General Motors.8    General Motors.9   General Motors.10   General Motors.11 
-         435.177114          447.747935          508.224390          555.064301 
-  General Motors.12   General Motors.13   General Motors.14   General Motors.15 
-         528.288098          551.446212          631.574485          665.579594 
-  General Motors.16   General Motors.17   General Motors.18   General Motors.19 
-         834.417151          939.662398         1291.228473         1430.337049 
-           Chrysler          Chrysler.1          Chrysler.2          Chrysler.3 
-          54.425187           77.834826           83.917076           60.799422 
-         Chrysler.4          Chrysler.5          Chrysler.6          Chrysler.7 
-          76.193098           79.376389           75.620220           61.857518 
-         Chrysler.8          Chrysler.9         Chrysler.10         Chrysler.11 
-          71.327661           76.746550           84.546364           91.751996 
-        Chrysler.12         Chrysler.13         Chrysler.14         Chrysler.15 
-          74.889786           83.581961           82.798808           91.378843 
-        Chrysler.16         Chrysler.17         Chrysler.18         Chrysler.19 
-         104.824591          113.900751          142.135528          134.563426 
-   General Electric  General Electric.1  General Electric.2  General Electric.3 
-         -13.215815           43.582704          103.251660           54.982530 
- General Electric.4  General Electric.5  General Electric.6  General Electric.7 
-          73.775994           67.532009           52.791527           48.156869 
- General Electric.8  General Electric.9 General Electric.10 General Electric.11 
-          66.230151           61.943659           85.449182          106.526971 
-General Electric.12 General Electric.13 General Electric.14 General Electric.15 
-          87.839071          102.975015          106.241829          127.602588 
-General Electric.16 General Electric.17 General Electric.18 General Electric.19 
-         150.908281          187.480591          234.203201          297.541982 
-       Westinghouse      Westinghouse.1      Westinghouse.2      Westinghouse.3 
-           4.830374           22.049576           34.741107           26.708120 
-     Westinghouse.4      Westinghouse.5      Westinghouse.6      Westinghouse.7 
-          25.161215           31.616846           27.770424           32.400686 
-     Westinghouse.8      Westinghouse.9     Westinghouse.10     Westinghouse.11 
-          38.851515           40.355599           47.009100           47.464285 
-    Westinghouse.12     Westinghouse.13     Westinghouse.14     Westinghouse.15 
-          40.520814           48.111397           45.073120           47.395953 
-    Westinghouse.16     Westinghouse.17     Westinghouse.18     Westinghouse.19 
-          51.688740           62.670354           88.391576           95.019199 
-           US Steel          US Steel.1          US Steel.2          US Steel.3 
-         316.732572          344.792300          418.629276          383.032050 
-         US Steel.4          US Steel.5          US Steel.6          US Steel.7 
-         405.102025          411.368081          426.371041          418.136538 
-         US Steel.8          US Steel.9         US Steel.10         US Steel.11 
-         404.922238          387.648473          377.462572          396.900097 
-        US Steel.12         US Steel.13         US Steel.14         US Steel.15 
-         383.562843          379.502143          391.382740          393.529645 
-        US Steel.16         US Steel.17         US Steel.18         US Steel.19 
-         436.934751          449.701273          482.136989          501.352352 
-attr(,"data")
-[1] "mydata"
+          1           2           3           4           5           6 
+ 294.065400  433.694897  529.159522  316.053157  442.290066  473.387924 
+          7           8           9          10          11          12 
+ 478.139138  374.862697  435.177114  447.747935  508.224390  555.064301 
+         13          14          15          16          17          18 
+ 528.288098  551.446212  631.574485  665.579594  834.417151  939.662398 
+         19          20          21          22          23          24 
+1291.228473 1430.337049   54.425187   77.834826   83.917076   60.799422 
+         25          26          27          28          29          30 
+  76.193098   79.376389   75.620220   61.857518   71.327661   76.746550 
+         31          32          33          34          35          36 
+  84.546364   91.751996   74.889786   83.581961   82.798808   91.378843 
+         37          38          39          40          41          42 
+ 104.824591  113.900751  142.135528  134.563426  -13.215815   43.582704 
+         43          44          45          46          47          48 
+ 103.251660   54.982530   73.775994   67.532009   52.791527   48.156869 
+         49          50          51          52          53          54 
+  66.230151   61.943659   85.449182  106.526971   87.839071  102.975015 
+         55          56          57          58          59          60 
+ 106.241829  127.602588  150.908281  187.480591  234.203201  297.541982 
+         61          62          63          64          65          66 
+   4.830374   22.049576   34.741107   26.708120   25.161215   31.616846 
+         67          68          69          70          71          72 
+  27.770424   32.400686   38.851515   40.355599   47.009100   47.464285 
+         73          74          75          76          77          78 
+  40.520814   48.111397   45.073120   47.395953   51.688740   62.670354 
+         79          80          81          82          83          84 
+  88.391576   95.019199  316.732572  344.792300  418.629276  383.032050 
+         85          86          87          88          89          90 
+ 405.102025  411.368081  426.371041  418.136538  404.922238  387.648473 
+         91          92          93          94          95          96 
+ 377.462572  396.900097  383.562843  379.502143  391.382740  393.529645 
+         97          98          99         100 
+ 436.934751  449.701273  482.136989  501.352352 
 
 $coef
          a_0          a_1          a_2        b_1_1        b_1_2        b_2_2 
@@ -3765,7 +3625,6 @@ attr(,"class")
 > # random effects
 > ggResShifterRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
 +    shifterNames = "tech", model = "random", random.method = "amemiya" )
-[1] 100   6
 > coef( ggResShifterRan )
           a_0           a_1           a_2         b_1_1         b_1_2 
  3.770917e+01  6.265801e-02  1.102823e-01  5.069918e-06  3.052773e-05 
@@ -3794,112 +3653,76 @@ Coefficients:
 
 
 $residuals
-     General Motors    General Motors.1    General Motors.2    General Motors.3 
-         31.0877047         -37.8606858        -114.1546891         -49.6342897 
-   General Motors.4    General Motors.5    General Motors.6    General Motors.7 
-       -107.3964588          -8.3334519          37.6947970          79.7889991 
-   General Motors.8    General Motors.9   General Motors.10   General Motors.11 
-         68.8280079         103.7790302          56.7464335         136.6344769 
-  General Motors.12   General Motors.13   General Motors.14   General Motors.15 
-         45.7765460         -16.2868089         -72.1638172         -18.5915406 
-  General Motors.16   General Motors.17   General Motors.18   General Motors.19 
-        -76.0273892         -46.0358261          18.0198609          61.1883867 
-           Chrysler          Chrysler.1          Chrysler.2          Chrysler.3 
-        -13.3639635          -8.6601606         -21.6948994          -8.6479263 
-         Chrysler.4          Chrysler.5          Chrysler.6          Chrysler.7 
-        -25.7831687         -12.4566760          -8.8989774         -14.2112116 
-         Chrysler.8          Chrysler.9         Chrysler.10         Chrysler.11 
-        -24.9814314         -19.3674881           0.5613734         -21.7693305 
-        Chrysler.12         Chrysler.13         Chrysler.14         Chrysler.15 
-        -13.1616732           3.6336328          -4.8666431           7.2115094 
-        Chrysler.16         Chrysler.17         Chrysler.18         Chrysler.19 
-         52.6888079          29.1713130          29.1451199          39.9225390 
-   General Electric  General Electric.1  General Electric.2  General Electric.3 
-         32.9413629         -18.6837084         -50.8066844         -30.6712003 
- General Electric.4  General Electric.5  General Electric.6  General Electric.7 
-        -47.3964578         -14.0585024          41.3526069          26.7536538 
- General Electric.8  General Electric.9 General Electric.10 General Electric.11 
-        -23.1966253         -22.9315910         -12.0001067          31.8587857 
-General Electric.12 General Electric.13 General Electric.14 General Electric.15 
-         41.7483128          26.0882497         -23.7733950         -51.3827426 
-General Electric.16 General Electric.17 General Electric.18 General Electric.19 
-        -34.5000589         -50.5276490         -76.0288779        -128.8655608 
-       Westinghouse      Westinghouse.1      Westinghouse.2      Westinghouse.3 
-          6.4451739          -1.3909729          -7.1426360          -9.5291754 
-     Westinghouse.4      Westinghouse.5      Westinghouse.6      Westinghouse.7 
-        -11.6032790          -9.4696273          15.2751462           5.2202567 
-     Westinghouse.8      Westinghouse.9     Westinghouse.10     Westinghouse.11 
-         -8.1378006          -8.9508124         -15.2768142          -1.7755414 
-    Westinghouse.12     Westinghouse.13     Westinghouse.14     Westinghouse.15 
-          9.1103441          -5.3168168         -18.9636161         -21.5735078 
-    Westinghouse.16     Westinghouse.17     Westinghouse.18     Westinghouse.19 
-         -4.5007040           0.8821770          -8.6428392         -34.0094226 
-           US Steel          US Steel.1          US Steel.2          US Steel.3 
-        -79.6358335          34.1639563          69.4040659         -97.1220865 
-         US Steel.4          US Steel.5          US Steel.6          US Steel.7 
-       -152.2505543        -128.9492055          66.1355235          48.4798602 
-         US Steel.8          US Steel.9         US Steel.10         US Steel.11 
-        -21.0611280         -75.9367531         -95.4886278          45.1282949 
-        US Steel.12         US Steel.13         US Steel.14         US Steel.15 
-         60.5877985         139.9538575          38.3463485          49.8644415 
-        US Steel.16         US Steel.17         US Steel.18         US Steel.19 
-        171.6927422         217.0644968         182.1725196         -16.6490910 
-attr(,"data")
-[1] "mydata"
+           1            2            3            4            5            6 
+  31.0877047  -37.8606858 -114.1546891  -49.6342897 -107.3964588   -8.3334519 
+           7            8            9           10           11           12 
+  37.6947970   79.7889991   68.8280079  103.7790302   56.7464335  136.6344769 
+          13           14           15           16           17           18 
+  45.7765460  -16.2868089  -72.1638172  -18.5915406  -76.0273892  -46.0358261 
+          19           20           21           22           23           24 
+  18.0198609   61.1883867  -13.3639635   -8.6601606  -21.6948994   -8.6479263 
+          25           26           27           28           29           30 
+ -25.7831687  -12.4566760   -8.8989774  -14.2112116  -24.9814314  -19.3674881 
+          31           32           33           34           35           36 
+   0.5613734  -21.7693305  -13.1616732    3.6336328   -4.8666431    7.2115094 
+          37           38           39           40           41           42 
+  52.6888079   29.1713130   29.1451199   39.9225390   32.9413629  -18.6837084 
+          43           44           45           46           47           48 
+ -50.8066844  -30.6712003  -47.3964578  -14.0585024   41.3526069   26.7536538 
+          49           50           51           52           53           54 
+ -23.1966253  -22.9315910  -12.0001067   31.8587857   41.7483128   26.0882497 
+          55           56           57           58           59           60 
+ -23.7733950  -51.3827426  -34.5000589  -50.5276490  -76.0288779 -128.8655608 
+          61           62           63           64           65           66 
+   6.4451739   -1.3909729   -7.1426360   -9.5291754  -11.6032790   -9.4696273 
+          67           68           69           70           71           72 
+  15.2751462    5.2202567   -8.1378006   -8.9508124  -15.2768142   -1.7755414 
+          73           74           75           76           77           78 
+   9.1103441   -5.3168168  -18.9636161  -21.5735078   -4.5007040    0.8821770 
+          79           80           81           82           83           84 
+  -8.6428392  -34.0094226  -79.6358335   34.1639563   69.4040659  -97.1220865 
+          85           86           87           88           89           90 
+-152.2505543 -128.9492055   66.1355235   48.4798602  -21.0611280  -75.9367531 
+          91           92           93           94           95           96 
+ -95.4886278   45.1282949   60.5877985  139.9538575   38.3463485   49.8644415 
+          97           98           99          100 
+ 171.6927422  217.0644968  182.1725196  -16.6490910 
 
 $fitted
-     General Motors    General Motors.1    General Motors.2    General Motors.3 
-        286.5122953         429.6606858         524.7546891         307.3342897 
-   General Motors.4    General Motors.5    General Motors.6    General Motors.7 
-        438.1964588         469.5334519         474.3052030         368.2110009 
-   General Motors.8    General Motors.9   General Motors.10   General Motors.11 
-        430.7719921         443.7209698         504.4535665         551.4655231 
-  General Motors.12   General Motors.13   General Motors.14   General Motors.15 
-        523.1234540         545.4868089         627.2638172         661.4915406 
-  General Motors.16   General Motors.17   General Motors.18   General Motors.19 
-        831.9273892         937.2358261        1286.3801391        1425.5116133 
-           Chrysler          Chrysler.1          Chrysler.2          Chrysler.3 
-         53.6539635          81.4201606          87.9548994          60.2479263 
-         Chrysler.4          Chrysler.5          Chrysler.6          Chrysler.7 
-         78.1931687          81.8666760          77.2489774          61.0112116 
-         Chrysler.8          Chrysler.9         Chrysler.10         Chrysler.11 
-         72.3814314          78.9374881          88.2186266          95.8893305 
-        Chrysler.12         Chrysler.13         Chrysler.14         Chrysler.15 
-         75.8416732          85.7263672          83.8466431          93.4484906 
-        Chrysler.16         Chrysler.17         Chrysler.18         Chrysler.19 
-        107.9311921         115.8286870         145.7848801         132.5674610 
-   General Electric  General Electric.1  General Electric.2  General Electric.3 
-          0.1586371          63.6837084         128.0066844          75.2712003 
- General Electric.4  General Electric.5  General Electric.6  General Electric.7 
-         95.4964578          88.4585024          71.6473931          65.1463462 
- General Electric.8  General Electric.9 General Electric.10 General Electric.11 
-         84.4966253          79.7315910         105.6001067         128.0412143 
-General Electric.12 General Electric.13 General Electric.14 General Electric.15 
-        105.4516872         120.2117503         122.0733950         144.8827426 
-General Electric.16 General Electric.17 General Electric.18 General Electric.19 
-        169.7000589         207.8276490         255.5288779         318.4655608 
-       Westinghouse      Westinghouse.1      Westinghouse.2      Westinghouse.3 
-          6.4848261          27.2909729          42.1926360          32.4191754 
-     Westinghouse.4      Westinghouse.5      Westinghouse.6      Westinghouse.7 
-         30.4432790          38.0396273          33.2348538          38.1197433 
-     Westinghouse.8      Westinghouse.9     Westinghouse.10     Westinghouse.11 
-         45.1578006          46.7608124          54.5468142          55.2355414 
-    Westinghouse.12     Westinghouse.13     Westinghouse.14     Westinghouse.15 
-         46.4496559          54.8768168          51.0036161          53.8135078 
-    Westinghouse.16     Westinghouse.17     Westinghouse.18     Westinghouse.19 
-         58.8807040          70.8978230          98.7228392         102.6094226 
-           US Steel          US Steel.1          US Steel.2          US Steel.3 
-        289.5358335         321.1360437         400.4959341         359.4220865 
-         US Steel.4          US Steel.5          US Steel.6          US Steel.7 
-        382.6505543         390.5492055         406.6644765         397.1201398 
-         US Steel.8          US Steel.9         US Steel.10         US Steel.11 
-        382.6611280         364.1367531         354.1886278         375.1717051 
-        US Steel.12         US Steel.13         US Steel.14         US Steel.15 
-        359.9122015         354.5461425         366.7536515         368.9355585 
-        US Steel.16         US Steel.17         US Steel.18         US Steel.19 
-        416.5072578         428.1355032         458.8274804         475.9490910 
-attr(,"data")
-[1] "mydata"
+           1            2            3            4            5            6 
+ 286.5122953  429.6606858  524.7546891  307.3342897  438.1964588  469.5334519 
+           7            8            9           10           11           12 
+ 474.3052030  368.2110009  430.7719921  443.7209698  504.4535665  551.4655231 
+          13           14           15           16           17           18 
+ 523.1234540  545.4868089  627.2638172  661.4915406  831.9273892  937.2358261 
+          19           20           21           22           23           24 
+1286.3801391 1425.5116133   53.6539635   81.4201606   87.9548994   60.2479263 
+          25           26           27           28           29           30 
+  78.1931687   81.8666760   77.2489774   61.0112116   72.3814314   78.9374881 
+          31           32           33           34           35           36 
+  88.2186266   95.8893305   75.8416732   85.7263672   83.8466431   93.4484906 
+          37           38           39           40           41           42 
+ 107.9311921  115.8286870  145.7848801  132.5674610    0.1586371   63.6837084 
+          43           44           45           46           47           48 
+ 128.0066844   75.2712003   95.4964578   88.4585024   71.6473931   65.1463462 
+          49           50           51           52           53           54 
+  84.4966253   79.7315910  105.6001067  128.0412143  105.4516872  120.2117503 
+          55           56           57           58           59           60 
+ 122.0733950  144.8827426  169.7000589  207.8276490  255.5288779  318.4655608 
+          61           62           63           64           65           66 
+   6.4848261   27.2909729   42.1926360   32.4191754   30.4432790   38.0396273 
+          67           68           69           70           71           72 
+  33.2348538   38.1197433   45.1578006   46.7608124   54.5468142   55.2355414 
+          73           74           75           76           77           78 
+  46.4496559   54.8768168   51.0036161   53.8135078   58.8807040   70.8978230 
+          79           80           81           82           83           84 
+  98.7228392  102.6094226  289.5358335  321.1360437  400.4959341  359.4220865 
+          85           86           87           88           89           90 
+ 382.6505543  390.5492055  406.6644765  397.1201398  382.6611280  364.1367531 
+          91           92           93           94           95           96 
+ 354.1886278  375.1717051  359.9122015  354.5461425  366.7536515  368.9355585 
+          97           98           99          100 
+ 416.5072578  428.1355032  458.8274804  475.9490910 
 
 $coef
           a_0           a_1           a_2         b_1_1         b_1_2 
@@ -4054,7 +3877,6 @@ attr(,"class")
 > # fixed effects
 > ggResShifterLogi <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
 +    shifterNames = "war" )
-[1] 100   6
 > coef( ggResShifterLogi )
           a_0           a_1           a_2         b_1_1         b_1_2 
  5.977437e+01  5.338292e-02  9.034515e-02  6.618904e-06  3.483770e-05 
@@ -4081,112 +3903,82 @@ Coefficients:
 
 
 $residuals
-     General Motors    General Motors.1    General Motors.2    General Motors.3 
-        13.59719780        -50.17076161       -125.77978494        -66.62544695 
-   General Motors.4    General Motors.5    General Motors.6    General Motors.7 
-      -104.24211157         -4.68838404         41.34925552         81.07330649 
-   General Motors.8    General Motors.9   General Motors.10   General Motors.11 
-        71.77583376        107.03778972         60.67784497        125.09527679 
-  General Motors.12   General Motors.13   General Motors.14   General Motors.15 
-        36.63048423        -23.33664730        -77.93109528        -23.32118848 
-  General Motors.16   General Motors.17   General Motors.18   General Motors.19 
-       -81.99719532        -49.99940739          9.02996774         61.82506586 
-           Chrysler          Chrysler.1          Chrysler.2          Chrysler.3 
-       -21.09518807        -12.92563886        -25.19567774        -15.44607566 
-         Chrysler.4          Chrysler.5          Chrysler.6          Chrysler.7 
-       -14.58259290         -0.82685635          2.20843375         -5.06847396 
-         Chrysler.8          Chrysler.9         Chrysler.10         Chrysler.11 
-       -14.46220175         -8.08546896         12.90065280        -24.35891160 
-        Chrysler.12         Chrysler.13         Chrysler.14         Chrysler.15 
-       -17.97889477         -0.03862736         -8.67406779          4.44198642 
-        Chrysler.16         Chrysler.17         Chrysler.18         Chrysler.19 
-        51.39367822         28.64290724         30.62317719         38.52784015 
-   General Electric  General Electric.1  General Electric.2  General Electric.3 
-        37.57425288         -8.57269262        -36.56318399        -19.77957160 
- General Electric.4  General Electric.5  General Electric.6  General Electric.7 
-       -19.36898980         13.50811573         67.79227134         52.84309202 
- General Electric.8  General Electric.9 General Electric.10 General Electric.11 
-         4.26772789          4.22926905         16.74751181         46.09821462 
-General Electric.12 General Electric.13 General Electric.14 General Electric.15 
-        55.19821531         40.84936201         -8.35352916        -34.68401770 
-General Electric.16 General Electric.17 General Electric.18 General Electric.19 
-       -16.67311450        -31.16256310        -55.46149933       -108.48887086 
-       Westinghouse      Westinghouse.1      Westinghouse.2      Westinghouse.3 
-         2.15108968         -2.87334508         -6.74441430        -10.33214191 
-     Westinghouse.4      Westinghouse.5      Westinghouse.6      Westinghouse.7 
-         3.15128697          6.23705392         30.40100143         20.98823191 
-     Westinghouse.8      Westinghouse.9     Westinghouse.10     Westinghouse.11 
-         8.50860197          7.89415470          2.45381097          0.22232478 
-    Westinghouse.12     Westinghouse.13     Westinghouse.14     Westinghouse.15 
-        10.15962810         -3.28307296        -17.34363862        -19.69493572 
-    Westinghouse.16     Westinghouse.17     Westinghouse.18     Westinghouse.19 
-        -2.19081077          4.19960819         -3.39303445        -30.51139880 
-           US Steel          US Steel.1          US Steel.2          US Steel.3 
-      -114.86600628          1.82186209         42.54141906       -126.61920521 
-         US Steel.4          US Steel.5          US Steel.6          US Steel.7 
-      -164.37961826       -140.69911459         55.29605107         37.15961921 
-         US Steel.8          US Steel.9         US Steel.10         US Steel.11 
-       -33.21225382        -89.29041345       -109.59443755         16.62835251 
-        US Steel.12         US Steel.13         US Steel.14         US Steel.15 
-        31.12750290        110.21514145          9.52309255         21.16042807 
-        US Steel.16         US Steel.17         US Steel.18         US Steel.19 
-       145.51059586        191.48125619        158.15301165        -41.95728346 
-attr(,"data")
-[1] "mydata"
+            1             2             3             4             5 
+  13.59719780  -50.17076161 -125.77978494  -66.62544695 -104.24211157 
+            6             7             8             9            10 
+  -4.68838404   41.34925552   81.07330649   71.77583376  107.03778972 
+           11            12            13            14            15 
+  60.67784497  125.09527679   36.63048423  -23.33664730  -77.93109528 
+           16            17            18            19            20 
+ -23.32118848  -81.99719532  -49.99940739    9.02996774   61.82506586 
+           21            22            23            24            25 
+ -21.09518807  -12.92563886  -25.19567774  -15.44607566  -14.58259290 
+           26            27            28            29            30 
+  -0.82685635    2.20843375   -5.06847396  -14.46220175   -8.08546896 
+           31            32            33            34            35 
+  12.90065280  -24.35891160  -17.97889477   -0.03862736   -8.67406779 
+           36            37            38            39            40 
+   4.44198642   51.39367822   28.64290724   30.62317719   38.52784015 
+           41            42            43            44            45 
+  37.57425288   -8.57269262  -36.56318399  -19.77957160  -19.36898980 
+           46            47            48            49            50 
+  13.50811573   67.79227134   52.84309202    4.26772789    4.22926905 
+           51            52            53            54            55 
+  16.74751181   46.09821462   55.19821531   40.84936201   -8.35352916 
+           56            57            58            59            60 
+ -34.68401770  -16.67311450  -31.16256310  -55.46149933 -108.48887086 
+           61            62            63            64            65 
+   2.15108968   -2.87334508   -6.74441430  -10.33214191    3.15128697 
+           66            67            68            69            70 
+   6.23705392   30.40100143   20.98823191    8.50860197    7.89415470 
+           71            72            73            74            75 
+   2.45381097    0.22232478   10.15962810   -3.28307296  -17.34363862 
+           76            77            78            79            80 
+ -19.69493572   -2.19081077    4.19960819   -3.39303445  -30.51139880 
+           81            82            83            84            85 
+-114.86600628    1.82186209   42.54141906 -126.61920521 -164.37961826 
+           86            87            88            89            90 
+-140.69911459   55.29605107   37.15961921  -33.21225382  -89.29041345 
+           91            92            93            94            95 
+-109.59443755   16.62835251   31.12750290  110.21514145    9.52309255 
+           96            97            98            99           100 
+  21.16042807  145.51059586  191.48125619  158.15301165  -41.95728346 
 
 $fitted
-     General Motors    General Motors.1    General Motors.2    General Motors.3 
-         304.002802          441.970762          536.379785          324.325447 
-   General Motors.4    General Motors.5    General Motors.6    General Motors.7 
-         435.042112          465.888384          470.650744          366.926694 
-   General Motors.8    General Motors.9   General Motors.10   General Motors.11 
-         427.824166          440.462210          500.522155          563.004723 
-  General Motors.12   General Motors.13   General Motors.14   General Motors.15 
-         532.269516          552.536647          633.031095          666.221188 
-  General Motors.16   General Motors.17   General Motors.18   General Motors.19 
-         837.897195          941.199407         1295.370032         1424.874934 
-           Chrysler          Chrysler.1          Chrysler.2          Chrysler.3 
-          61.385188           85.685639           91.455678           67.046076 
-         Chrysler.4          Chrysler.5          Chrysler.6          Chrysler.7 
-          66.992593           70.236856           66.141566           51.868474 
-         Chrysler.8          Chrysler.9         Chrysler.10         Chrysler.11 
-          61.862202           67.655469           75.879347           98.478912 
-        Chrysler.12         Chrysler.13         Chrysler.14         Chrysler.15 
-          80.658895           89.398627           87.654068           96.218014 
-        Chrysler.16         Chrysler.17         Chrysler.18         Chrysler.19 
-         109.226322          116.357093          144.306823          133.962160 
-   General Electric  General Electric.1  General Electric.2  General Electric.3 
-          -4.474253           53.572693          113.763184           64.379572 
- General Electric.4  General Electric.5  General Electric.6  General Electric.7 
-          67.468990           60.891884           45.207729           39.056908 
- General Electric.8  General Electric.9 General Electric.10 General Electric.11 
-          57.032272           52.570731           76.852488          113.801785 
-General Electric.12 General Electric.13 General Electric.14 General Electric.15 
-          92.001785          105.450638          106.653529          128.184018 
-General Electric.16 General Electric.17 General Electric.18 General Electric.19 
-         151.873115          188.462563          234.961499          298.088871 
-       Westinghouse      Westinghouse.1      Westinghouse.2      Westinghouse.3 
-          10.778910           28.773345           41.794414           33.222142 
-     Westinghouse.4      Westinghouse.5      Westinghouse.6      Westinghouse.7 
-          15.688713           22.332946           18.108999           22.351768 
-     Westinghouse.8      Westinghouse.9     Westinghouse.10     Westinghouse.11 
-          28.511398           29.915845           36.816189           53.237675 
-    Westinghouse.12     Westinghouse.13     Westinghouse.14     Westinghouse.15 
-          45.400372           52.843073           49.383639           51.934936 
-    Westinghouse.16     Westinghouse.17     Westinghouse.18     Westinghouse.19 
-          56.570811           67.580392           93.473034           99.111399 
-           US Steel          US Steel.1          US Steel.2          US Steel.3 
-         324.766006          353.478138          427.358581          388.919205 
-         US Steel.4          US Steel.5          US Steel.6          US Steel.7 
-         394.779618          402.299115          417.503949          408.440381 
-         US Steel.8          US Steel.9         US Steel.10         US Steel.11 
-         394.812254          377.490413          368.294438          403.671647 
-        US Steel.12         US Steel.13         US Steel.14         US Steel.15 
-         389.372497          384.284859          395.576907          397.639572 
-        US Steel.16         US Steel.17         US Steel.18         US Steel.19 
-         442.689404          453.718744          482.846988          501.257283 
-attr(,"data")
-[1] "mydata"
+          1           2           3           4           5           6 
+ 304.002802  441.970762  536.379785  324.325447  435.042112  465.888384 
+          7           8           9          10          11          12 
+ 470.650744  366.926694  427.824166  440.462210  500.522155  563.004723 
+         13          14          15          16          17          18 
+ 532.269516  552.536647  633.031095  666.221188  837.897195  941.199407 
+         19          20          21          22          23          24 
+1295.370032 1424.874934   61.385188   85.685639   91.455678   67.046076 
+         25          26          27          28          29          30 
+  66.992593   70.236856   66.141566   51.868474   61.862202   67.655469 
+         31          32          33          34          35          36 
+  75.879347   98.478912   80.658895   89.398627   87.654068   96.218014 
+         37          38          39          40          41          42 
+ 109.226322  116.357093  144.306823  133.962160   -4.474253   53.572693 
+         43          44          45          46          47          48 
+ 113.763184   64.379572   67.468990   60.891884   45.207729   39.056908 
+         49          50          51          52          53          54 
+  57.032272   52.570731   76.852488  113.801785   92.001785  105.450638 
+         55          56          57          58          59          60 
+ 106.653529  128.184018  151.873115  188.462563  234.961499  298.088871 
+         61          62          63          64          65          66 
+  10.778910   28.773345   41.794414   33.222142   15.688713   22.332946 
+         67          68          69          70          71          72 
+  18.108999   22.351768   28.511398   29.915845   36.816189   53.237675 
+         73          74          75          76          77          78 
+  45.400372   52.843073   49.383639   51.934936   56.570811   67.580392 
+         79          80          81          82          83          84 
+  93.473034   99.111399  324.766006  353.478138  427.358581  388.919205 
+         85          86          87          88          89          90 
+ 394.779618  402.299115  417.503949  408.440381  394.812254  377.490413 
+         91          92          93          94          95          96 
+ 368.294438  403.671647  389.372497  384.284859  395.576907  397.639572 
+         97          98          99         100 
+ 442.689404  453.718744  482.846988  501.257283 
 
 $coef
           a_0           a_1           a_2         b_1_1         b_1_2 
@@ -4338,7 +4130,6 @@ attr(,"class")
 > # random effects
 > ggResShifterLogiRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
 +    shifterNames = "war", model = "random", random.method = "amemiya" )
-[1] 100   6
 > coef( ggResShifterLogiRan )
           a_0           a_1           a_2         b_1_1         b_1_2 
  4.601396e+01  6.428319e-02  8.673148e-02  4.174811e-06  3.645260e-05 
@@ -4367,112 +4158,76 @@ Coefficients:
 
 
 $residuals
-     General Motors    General Motors.1    General Motors.2    General Motors.3 
-         20.5354396         -45.7104692        -120.8619178         -58.7064007 
-   General Motors.4    General Motors.5    General Motors.6    General Motors.7 
-        -99.9896604          -0.5407236          45.3668975          87.4072769 
-   General Motors.8    General Motors.9   General Motors.10   General Motors.11 
-         76.1740910         111.2547773          64.7135132         128.5741879 
-  General Motors.12   General Motors.13   General Motors.14   General Motors.15 
-         42.0134893         -16.5691720         -72.7044440         -18.1054733 
-  General Motors.16   General Motors.17   General Motors.18   General Motors.19 
-        -79.0259823         -46.7694093          13.0720262          66.9933111 
-           Chrysler          Chrysler.1          Chrysler.2          Chrysler.3 
-        -20.8361190         -16.6110175         -29.2313074         -15.2626167 
-         Chrysler.4          Chrysler.5          Chrysler.6          Chrysler.7 
-        -16.4846981          -3.1678779           0.6766492          -4.3478275 
-         Chrysler.8          Chrysler.9         Chrysler.10         Chrysler.11 
-        -15.4928392         -10.1723619           9.4506864         -28.3594203 
-        Chrysler.12         Chrysler.13         Chrysler.14         Chrysler.15 
-        -19.0344718          -2.1528491          -9.6762670           2.5025651 
-        Chrysler.16         Chrysler.17         Chrysler.18         Chrysler.19 
-         48.5028428          26.8273827          26.4561331          37.4448893 
-   General Electric  General Electric.1  General Electric.2  General Electric.3 
-         23.4156323         -28.7812201         -60.8564030         -40.0875303 
- General Electric.4  General Electric.5  General Electric.6  General Electric.7 
-        -40.7379330          -7.1260228          49.1059658          36.0440342 
- General Electric.8  General Electric.9 General Electric.10 General Electric.11 
-        -13.6385711         -13.2248743          -2.9223594          25.0067528 
-General Electric.12 General Electric.13 General Electric.14 General Electric.15 
-         38.1233520          24.4576454         -23.0612995         -50.7421128 
-General Electric.16 General Electric.17 General Electric.18 General Electric.19 
-        -34.2646483         -50.4485790         -76.4472163        -131.5149765 
-       Westinghouse      Westinghouse.1      Westinghouse.2      Westinghouse.3 
-         -0.2014801          -8.4862202         -14.3390528         -16.3230528 
-     Westinghouse.4      Westinghouse.5      Westinghouse.6      Westinghouse.7 
-         -2.2295441          -0.1711282          24.8908192          15.3182136 
-     Westinghouse.8      Westinghouse.9     Westinghouse.10     Westinghouse.11 
-          2.3727149           1.6882150          -4.7853081          -7.4548370 
-    Westinghouse.12     Westinghouse.13     Westinghouse.14     Westinghouse.15 
-          4.2440474          -9.9119232         -23.1830834         -26.0462209 
-    Westinghouse.16     Westinghouse.17     Westinghouse.18     Westinghouse.19 
-         -9.4015475          -4.2528280         -14.6148115         -41.5960720 
-           US Steel          US Steel.1          US Steel.2          US Steel.3 
-        -88.4673796          25.0538860          60.9678590        -103.0601366 
-         US Steel.4          US Steel.5          US Steel.6          US Steel.7 
-       -141.5695903        -119.5188367          75.4689133          58.6044519 
-         US Steel.8          US Steel.9         US Steel.10         US Steel.11 
-        -10.6047397         -65.5730806         -86.2392424          38.3974571 
-        US Steel.12         US Steel.13         US Steel.14         US Steel.15 
-         54.7312314         135.1352990          34.2451174          45.8223522 
-        US Steel.16         US Steel.17         US Steel.18         US Steel.19 
-        166.0908962         213.0361666         181.0270796         -19.5170725 
-attr(,"data")
-[1] "mydata"
+           1            2            3            4            5            6 
+  20.5354396  -45.7104692 -120.8619178  -58.7064007  -99.9896604   -0.5407236 
+           7            8            9           10           11           12 
+  45.3668975   87.4072769   76.1740910  111.2547773   64.7135132  128.5741879 
+          13           14           15           16           17           18 
+  42.0134893  -16.5691720  -72.7044440  -18.1054733  -79.0259823  -46.7694093 
+          19           20           21           22           23           24 
+  13.0720262   66.9933111  -20.8361190  -16.6110175  -29.2313074  -15.2626167 
+          25           26           27           28           29           30 
+ -16.4846981   -3.1678779    0.6766492   -4.3478275  -15.4928392  -10.1723619 
+          31           32           33           34           35           36 
+   9.4506864  -28.3594203  -19.0344718   -2.1528491   -9.6762670    2.5025651 
+          37           38           39           40           41           42 
+  48.5028428   26.8273827   26.4561331   37.4448893   23.4156323  -28.7812201 
+          43           44           45           46           47           48 
+ -60.8564030  -40.0875303  -40.7379330   -7.1260228   49.1059658   36.0440342 
+          49           50           51           52           53           54 
+ -13.6385711  -13.2248743   -2.9223594   25.0067528   38.1233520   24.4576454 
+          55           56           57           58           59           60 
+ -23.0612995  -50.7421128  -34.2646483  -50.4485790  -76.4472163 -131.5149765 
+          61           62           63           64           65           66 
+  -0.2014801   -8.4862202  -14.3390528  -16.3230528   -2.2295441   -0.1711282 
+          67           68           69           70           71           72 
+  24.8908192   15.3182136    2.3727149    1.6882150   -4.7853081   -7.4548370 
+          73           74           75           76           77           78 
+   4.2440474   -9.9119232  -23.1830834  -26.0462209   -9.4015475   -4.2528280 
+          79           80           81           82           83           84 
+ -14.6148115  -41.5960720  -88.4673796   25.0538860   60.9678590 -103.0601366 
+          85           86           87           88           89           90 
+-141.5695903 -119.5188367   75.4689133   58.6044519  -10.6047397  -65.5730806 
+          91           92           93           94           95           96 
+ -86.2392424   38.3974571   54.7312314  135.1352990   34.2451174   45.8223522 
+          97           98           99          100 
+ 166.0908962  213.0361666  181.0270796  -19.5170725 
 
 $fitted
-     General Motors    General Motors.1    General Motors.2    General Motors.3 
-         297.064560          437.510469          531.461918          316.406401 
-   General Motors.4    General Motors.5    General Motors.6    General Motors.7 
-         430.789660          461.740724          466.633103          360.592723 
-   General Motors.8    General Motors.9   General Motors.10   General Motors.11 
-         423.425909          436.245223          496.486487          559.525812 
-  General Motors.12   General Motors.13   General Motors.14   General Motors.15 
-         526.886511          545.769172          627.804444          661.005473 
-  General Motors.16   General Motors.17   General Motors.18   General Motors.19 
-         834.925982          937.969409         1291.327974         1419.706689 
-           Chrysler          Chrysler.1          Chrysler.2          Chrysler.3 
-          61.126119           89.371018           95.491307           66.862617 
-         Chrysler.4          Chrysler.5          Chrysler.6          Chrysler.7 
-          68.894698           72.577878           67.673351           51.147827 
-         Chrysler.8          Chrysler.9         Chrysler.10         Chrysler.11 
-          62.892839           69.742362           79.329314          102.479420 
-        Chrysler.12         Chrysler.13         Chrysler.14         Chrysler.15 
-          81.714472           91.512849           88.656267           98.157435 
-        Chrysler.16         Chrysler.17         Chrysler.18         Chrysler.19 
-         112.117157          118.172617          148.473867          135.045111 
-   General Electric  General Electric.1  General Electric.2  General Electric.3 
-           9.684368           73.781220          138.056403           84.687530 
- General Electric.4  General Electric.5  General Electric.6  General Electric.7 
-          88.837933           81.526023           63.894034           55.855966 
- General Electric.8  General Electric.9 General Electric.10 General Electric.11 
-          74.938571           70.024874           96.522359          134.893247 
-General Electric.12 General Electric.13 General Electric.14 General Electric.15 
-         109.076648          121.842355          121.361300          144.242113 
-General Electric.16 General Electric.17 General Electric.18 General Electric.19 
-         169.464648          207.748579          255.947216          321.114977 
-       Westinghouse      Westinghouse.1      Westinghouse.2      Westinghouse.3 
-          13.131480           34.386220           49.389053           39.213053 
-     Westinghouse.4      Westinghouse.5      Westinghouse.6      Westinghouse.7 
-          21.069544           28.741128           23.619181           28.021786 
-     Westinghouse.8      Westinghouse.9     Westinghouse.10     Westinghouse.11 
-          34.647285           36.121785           44.055308           60.914837 
-    Westinghouse.12     Westinghouse.13     Westinghouse.14     Westinghouse.15 
-          51.315953           59.471923           55.223083           58.286221 
-    Westinghouse.16     Westinghouse.17     Westinghouse.18     Westinghouse.19 
-          63.781548           76.032828          104.694812          110.196072 
-           US Steel          US Steel.1          US Steel.2          US Steel.3 
-         298.367380          330.246114          408.932141          365.360137 
-         US Steel.4          US Steel.5          US Steel.6          US Steel.7 
-         371.969590          381.118837          397.331087          386.995548 
-         US Steel.8          US Steel.9         US Steel.10         US Steel.11 
-         372.204740          353.773081          344.939242          381.902543 
-        US Steel.12         US Steel.13         US Steel.14         US Steel.15 
-         365.768769          359.364701          370.854883          372.977648 
-        US Steel.16         US Steel.17         US Steel.18         US Steel.19 
-         422.109104          432.163833          459.972920          478.817072 
-attr(,"data")
-[1] "mydata"
+          1           2           3           4           5           6 
+ 297.064560  437.510469  531.461918  316.406401  430.789660  461.740724 
+          7           8           9          10          11          12 
+ 466.633103  360.592723  423.425909  436.245223  496.486487  559.525812 
+         13          14          15          16          17          18 
+ 526.886511  545.769172  627.804444  661.005473  834.925982  937.969409 
+         19          20          21          22          23          24 
+1291.327974 1419.706689   61.126119   89.371018   95.491307   66.862617 
+         25          26          27          28          29          30 
+  68.894698   72.577878   67.673351   51.147827   62.892839   69.742362 
+         31          32          33          34          35          36 
+  79.329314  102.479420   81.714472   91.512849   88.656267   98.157435 
+         37          38          39          40          41          42 
+ 112.117157  118.172617  148.473867  135.045111    9.684368   73.781220 
+         43          44          45          46          47          48 
+ 138.056403   84.687530   88.837933   81.526023   63.894034   55.855966 
+         49          50          51          52          53          54 
+  74.938571   70.024874   96.522359  134.893247  109.076648  121.842355 
+         55          56          57          58          59          60 
+ 121.361300  144.242113  169.464648  207.748579  255.947216  321.114977 
+         61          62          63          64          65          66 
+  13.131480   34.386220   49.389053   39.213053   21.069544   28.741128 
+         67          68          69          70          71          72 
+  23.619181   28.021786   34.647285   36.121785   44.055308   60.914837 
+         73          74          75          76          77          78 
+  51.315953   59.471923   55.223083   58.286221   63.781548   76.032828 
+         79          80          81          82          83          84 
+ 104.694812  110.196072  298.367380  330.246114  408.932141  365.360137 
+         85          86          87          88          89          90 
+ 371.969590  381.118837  397.331087  386.995548  372.204740  353.773081 
+         91          92          93          94          95          96 
+ 344.939242  381.902543  365.768769  359.364701  370.854883  372.977648 
+         97          98          99         100 
+ 422.109104  432.163833  459.972920  478.817072 
 
 $coef
           a_0           a_1           a_2         b_1_1         b_1_2 
@@ -4628,7 +4383,6 @@ attr(,"class")
 > # fixed effects
 > ggResShifterFac <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
 +    shifterNames = "decade" )
-[1] 100   7
 > coef( ggResShifterFac )
           a_0           a_1           a_2         b_1_1         b_1_2 
  8.218321e+01  2.569244e-02 -1.152257e-01  9.014871e-06  4.923642e-05 
@@ -4657,112 +4411,76 @@ Coefficients:
 
 
 $residuals
-     General Motors    General Motors.1    General Motors.2    General Motors.3 
-           2.572103          -25.332605          -77.790378          -51.432504 
-   General Motors.4    General Motors.5    General Motors.6    General Motors.7 
-         -80.982070          -39.435055           11.035230           38.033537 
-   General Motors.8    General Motors.9   General Motors.10   General Motors.11 
-          35.740072           67.920989           35.158868          130.423598 
-  General Motors.12   General Motors.13   General Motors.14   General Motors.15 
-          62.137745           12.916746          -32.813295          -18.300728 
-  General Motors.16   General Motors.17   General Motors.18   General Motors.19 
-         -72.019555          -37.161130            2.590654           36.737779 
-           Chrysler          Chrysler.1          Chrysler.2          Chrysler.3 
-          15.340278           34.394768           27.973524           29.641711 
-         Chrysler.4          Chrysler.5          Chrysler.6          Chrysler.7 
-          23.277825          -24.333060          -21.872536          -35.780177 
-         Chrysler.8          Chrysler.9         Chrysler.10         Chrysler.11 
-         -41.473973          -33.578830          -10.007093          -24.664660 
-        Chrysler.12         Chrysler.13         Chrysler.14         Chrysler.15 
-         -23.795146           -0.498205           -4.805067          -30.936156 
-        Chrysler.16         Chrysler.17         Chrysler.18         Chrysler.19 
-          25.870382           16.255771           33.104933           45.885712 
-   General Electric  General Electric.1  General Electric.2  General Electric.3 
-          40.515419           14.459792            4.653178           12.269536 
- General Electric.4  General Electric.5  General Electric.6  General Electric.7 
-           3.865301          -26.616328           27.133568           17.820411 
- General Electric.8  General Electric.9 General Electric.10 General Electric.11 
-         -22.706100          -23.711795           -5.470408           47.078229 
-General Electric.12 General Electric.13 General Electric.14 General Electric.15 
-          62.196546           58.824805           16.675054          -47.926531 
-General Electric.16 General Electric.17 General Electric.18 General Electric.19 
-         -24.098177          -29.006743          -42.316768          -83.638988 
-       Westinghouse      Westinghouse.1      Westinghouse.2      Westinghouse.3 
-          37.665955           41.145613           44.137479           38.260263 
-     Westinghouse.4      Westinghouse.5      Westinghouse.6      Westinghouse.7 
-          35.945084          -20.667691            3.018921           -1.022182 
-     Westinghouse.8      Westinghouse.9     Westinghouse.10     Westinghouse.11 
-          -7.594967           -6.690413           -9.172790            3.774455 
-    Westinghouse.12     Westinghouse.13     Westinghouse.14     Westinghouse.15 
-          13.984430            6.138006           -7.763425          -54.399693 
-    Westinghouse.16     Westinghouse.17     Westinghouse.18     Westinghouse.19 
-         -36.041170          -23.443073          -18.328125          -38.946677 
-           US Steel          US Steel.1          US Steel.2          US Steel.3 
-        -103.204942           23.187168           93.442567          -70.698425 
-         US Steel.4          US Steel.5          US Steel.6          US Steel.7 
-        -113.306640         -156.903644           43.446847           26.938115 
-         US Steel.8          US Steel.9         US Steel.10         US Steel.11 
-         -46.349530         -109.112753         -138.921764           10.352059 
-        US Steel.12         US Steel.13         US Steel.14         US Steel.15 
-          24.559584          106.830084           13.622991          -18.140481 
-        US Steel.16         US Steel.17         US Steel.18         US Steel.19 
-         114.891814          172.718855          160.134328          -33.486230 
-attr(,"data")
-[1] "mydata"
+          1           2           3           4           5           6 
+   2.572103  -25.332605  -77.790378  -51.432504  -80.982070  -39.435055 
+          7           8           9          10          11          12 
+  11.035230   38.033537   35.740072   67.920989   35.158868  130.423598 
+         13          14          15          16          17          18 
+  62.137745   12.916746  -32.813295  -18.300728  -72.019555  -37.161130 
+         19          20          21          22          23          24 
+   2.590654   36.737779   15.340278   34.394768   27.973524   29.641711 
+         25          26          27          28          29          30 
+  23.277825  -24.333060  -21.872536  -35.780177  -41.473973  -33.578830 
+         31          32          33          34          35          36 
+ -10.007093  -24.664660  -23.795146   -0.498205   -4.805067  -30.936156 
+         37          38          39          40          41          42 
+  25.870382   16.255771   33.104933   45.885712   40.515419   14.459792 
+         43          44          45          46          47          48 
+   4.653178   12.269536    3.865301  -26.616328   27.133568   17.820411 
+         49          50          51          52          53          54 
+ -22.706100  -23.711795   -5.470408   47.078229   62.196546   58.824805 
+         55          56          57          58          59          60 
+  16.675054  -47.926531  -24.098177  -29.006743  -42.316768  -83.638988 
+         61          62          63          64          65          66 
+  37.665955   41.145613   44.137479   38.260263   35.945084  -20.667691 
+         67          68          69          70          71          72 
+   3.018921   -1.022182   -7.594967   -6.690413   -9.172790    3.774455 
+         73          74          75          76          77          78 
+  13.984430    6.138006   -7.763425  -54.399693  -36.041170  -23.443073 
+         79          80          81          82          83          84 
+ -18.328125  -38.946677 -103.204942   23.187168   93.442567  -70.698425 
+         85          86          87          88          89          90 
+-113.306640 -156.903644   43.446847   26.938115  -46.349530 -109.112753 
+         91          92          93          94          95          96 
+-138.921764   10.352059   24.559584  106.830084   13.622991  -18.140481 
+         97          98          99         100 
+ 114.891814  172.718855  160.134328  -33.486230 
 
 $fitted
-     General Motors    General Motors.1    General Motors.2    General Motors.3 
-         315.027897          417.132605          488.390378          309.132504 
-   General Motors.4    General Motors.5    General Motors.6    General Motors.7 
-         411.782070          500.635055          500.964770          409.966463 
-   General Motors.8    General Motors.9   General Motors.10   General Motors.11 
-         463.859928          479.579011          526.041132          557.676402 
-  General Motors.12   General Motors.13   General Motors.14   General Motors.15 
-         506.762255          516.283254          587.913295          661.200728 
-  General Motors.16   General Motors.17   General Motors.18   General Motors.19 
-         827.919555          928.361130         1301.809346         1449.962221 
-           Chrysler          Chrysler.1          Chrysler.2          Chrysler.3 
-          24.949722           38.365232           38.286476           21.958289 
-         Chrysler.4          Chrysler.5          Chrysler.6          Chrysler.7 
-          29.132175           93.743060           90.222536           82.580177 
-         Chrysler.8          Chrysler.9         Chrysler.10         Chrysler.11 
-          88.873973           93.148830           98.787093           98.784660 
-        Chrysler.12         Chrysler.13         Chrysler.14         Chrysler.15 
-          86.475146           89.858205           83.785067          131.596156 
-        Chrysler.16         Chrysler.17         Chrysler.18         Chrysler.19 
-         134.749618          128.744229          141.825067          126.604288 
-   General Electric  General Electric.1  General Electric.2  General Electric.3 
-          -7.415419           30.540208           72.546822           32.330464 
- General Electric.4  General Electric.5  General Electric.6  General Electric.7 
-          44.234699          101.016328           85.866432           74.079589 
- General Electric.8  General Electric.9 General Electric.10 General Electric.11 
-          84.006100           80.511795           99.070408          112.821771 
-General Electric.12 General Electric.13 General Electric.14 General Electric.15 
-          85.003454           87.475195           81.624946          141.426531 
-General Electric.16 General Electric.17 General Electric.18 General Electric.19 
-         159.298177          186.306743          221.816768          273.238988 
-       Westinghouse      Westinghouse.1      Westinghouse.2      Westinghouse.3 
-         -24.735955          -15.245613           -9.087479          -15.370263 
-     Westinghouse.4      Westinghouse.5      Westinghouse.6      Westinghouse.7 
-         -17.105084           49.237691           45.491079           44.362182 
-     Westinghouse.8      Westinghouse.9     Westinghouse.10     Westinghouse.11 
-          44.614967           44.500413           48.442790           49.685545 
-    Westinghouse.12     Westinghouse.13     Westinghouse.14     Westinghouse.15 
-          41.575570           43.421994           39.803425           86.639693 
-    Westinghouse.16     Westinghouse.17     Westinghouse.18     Westinghouse.19 
-          90.421170           95.223073          108.408125          107.546677 
-           US Steel          US Steel.1          US Steel.2          US Steel.3 
-         313.104942          332.112832          376.457433          332.998425 
-         US Steel.4          US Steel.5          US Steel.6          US Steel.7 
-         343.706640          418.503644          429.353153          418.661885 
-         US Steel.8          US Steel.9         US Steel.10         US Steel.11 
-         407.949530          397.312753          397.621764          409.947941 
-        US Steel.12         US Steel.13         US Steel.14         US Steel.15 
-         395.940416          387.669916          391.477009          436.940481 
-        US Steel.16         US Steel.17         US Steel.18         US Steel.19 
-         473.308186          472.481145          480.865672          492.786230 
-attr(,"data")
-[1] "mydata"
+          1           2           3           4           5           6 
+ 315.027897  417.132605  488.390378  309.132504  411.782070  500.635055 
+          7           8           9          10          11          12 
+ 500.964770  409.966463  463.859928  479.579011  526.041132  557.676402 
+         13          14          15          16          17          18 
+ 506.762255  516.283254  587.913295  661.200728  827.919555  928.361130 
+         19          20          21          22          23          24 
+1301.809346 1449.962221   24.949722   38.365232   38.286476   21.958289 
+         25          26          27          28          29          30 
+  29.132175   93.743060   90.222536   82.580177   88.873973   93.148830 
+         31          32          33          34          35          36 
+  98.787093   98.784660   86.475146   89.858205   83.785067  131.596156 
+         37          38          39          40          41          42 
+ 134.749618  128.744229  141.825067  126.604288   -7.415419   30.540208 
+         43          44          45          46          47          48 
+  72.546822   32.330464   44.234699  101.016328   85.866432   74.079589 
+         49          50          51          52          53          54 
+  84.006100   80.511795   99.070408  112.821771   85.003454   87.475195 
+         55          56          57          58          59          60 
+  81.624946  141.426531  159.298177  186.306743  221.816768  273.238988 
+         61          62          63          64          65          66 
+ -24.735955  -15.245613   -9.087479  -15.370263  -17.105084   49.237691 
+         67          68          69          70          71          72 
+  45.491079   44.362182   44.614967   44.500413   48.442790   49.685545 
+         73          74          75          76          77          78 
+  41.575570   43.421994   39.803425   86.639693   90.421170   95.223073 
+         79          80          81          82          83          84 
+ 108.408125  107.546677  313.104942  332.112832  376.457433  332.998425 
+         85          86          87          88          89          90 
+ 343.706640  418.503644  429.353153  418.661885  407.949530  397.312753 
+         91          92          93          94          95          96 
+ 397.621764  409.947941  395.940416  387.669916  391.477009  436.940481 
+         97          98          99         100 
+ 473.308186  472.481145  480.865672  492.786230 
 
 $coef
           a_0           a_1           a_2         b_1_1         b_1_2 
@@ -4916,7 +4634,6 @@ attr(,"class")
 > # random effects
 > ggResShifterFacRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
 +    shifterNames = "decade", model = "random", random.method = "amemiya" )
-[1] 100   7
 > coef( ggResShifterFacRan )
           a_0           a_1           a_2         b_1_1         b_1_2 
  5.908080e+01  4.247392e-02 -1.036923e-01  5.757541e-06  4.878037e-05 
@@ -4946,112 +4663,76 @@ Coefficients:
 
 
 $residuals
-     General Motors    General Motors.1    General Motors.2    General Motors.3 
-         18.0169291         -16.9567741         -70.5834336         -35.9150508 
-   General Motors.4    General Motors.5    General Motors.6    General Motors.7 
-        -73.1939142         -30.6468151          19.5908022          51.3661317 
-   General Motors.8    General Motors.9   General Motors.10   General Motors.11 
-         45.5411734          77.2830429          43.2409863         137.4408088 
-  General Motors.12   General Motors.13   General Motors.14   General Motors.15 
-         70.7177402          22.1099274         -26.2886046          -7.9173149 
-  General Motors.16   General Motors.17   General Motors.18   General Motors.19 
-        -64.4119235         -29.9939406          12.5961577          45.6447048 
-           Chrysler          Chrysler.1          Chrysler.2          Chrysler.3 
-         12.6388357          25.5046977          18.1697222          26.1656258 
-         Chrysler.4          Chrysler.5          Chrysler.6          Chrysler.7 
-         16.0536177         -30.5569817         -26.9618876         -37.3305614 
-         Chrysler.8          Chrysler.9         Chrysler.10         Chrysler.11 
-        -45.6616468         -39.3069257         -17.7785497         -33.4201493 
-        Chrysler.12         Chrysler.13         Chrysler.14         Chrysler.15 
-        -28.1641891          -6.7047691          -9.8767999         -33.2877756 
-        Chrysler.16         Chrysler.17         Chrysler.18         Chrysler.19 
-         21.4635367          12.1581086          24.6949220          40.9827522 
-   General Electric  General Electric.1  General Electric.2  General Electric.3 
-         36.6320360           0.7503466         -16.1842646          -2.1931161 
- General Electric.4  General Electric.5  General Electric.6  General Electric.7 
-        -12.8574057         -40.5616750          15.9123161           8.7056269 
- General Electric.8  General Electric.9 General Electric.10 General Electric.11 
-        -33.9204667         -34.2521003         -19.3985513          30.9620948 
-General Electric.12 General Electric.13 General Electric.14 General Electric.15 
-         50.8381078          47.3612550           6.6424828         -55.8397455 
-General Electric.16 General Electric.17 General Electric.18 General Electric.19 
-        -34.4552335         -42.3631453         -58.8145365        -103.7537746 
-       Westinghouse      Westinghouse.1      Westinghouse.2      Westinghouse.3 
-         33.4801665          31.8997061          31.6753179          28.1529278 
-     Westinghouse.4      Westinghouse.5      Westinghouse.6      Westinghouse.7 
-         26.3854411         -30.1527072          -5.2146653          -9.8873836 
-     Westinghouse.8      Westinghouse.9     Westinghouse.10     Westinghouse.11 
-        -17.5467734         -16.8551435         -20.9546352          -8.2722115 
-    Westinghouse.12     Westinghouse.13     Westinghouse.14     Westinghouse.15 
-          4.2760139          -4.9657671         -17.8314193         -60.7789336 
-    Westinghouse.16     Westinghouse.17     Westinghouse.18     Westinghouse.19 
-        -43.6324656         -33.1813972         -32.7640256         -53.7065243 
-           US Steel          US Steel.1          US Steel.2          US Steel.3 
-        -77.5181508          43.7520798         105.1229269         -52.1391881 
-         US Steel.4          US Steel.5          US Steel.6          US Steel.7 
-        -96.8590791        -140.6300986          58.0216020          43.1393343 
-         US Steel.8          US Steel.9         US Steel.10         US Steel.11 
-        -28.3629711         -89.1302396        -118.7200308          28.1374814 
-        US Steel.12         US Steel.13         US Steel.14         US Steel.15 
-         44.8586526         128.6374791          34.5716598           7.0258565 
-        US Steel.16         US Steel.17         US Steel.18         US Steel.19 
-        133.9743649         192.1713956         179.4743666         -15.2854294 
-attr(,"data")
-[1] "mydata"
+           1            2            3            4            5            6 
+  18.0169291  -16.9567741  -70.5834336  -35.9150508  -73.1939142  -30.6468151 
+           7            8            9           10           11           12 
+  19.5908022   51.3661317   45.5411734   77.2830429   43.2409863  137.4408088 
+          13           14           15           16           17           18 
+  70.7177402   22.1099274  -26.2886046   -7.9173149  -64.4119235  -29.9939406 
+          19           20           21           22           23           24 
+  12.5961577   45.6447048   12.6388357   25.5046977   18.1697222   26.1656258 
+          25           26           27           28           29           30 
+  16.0536177  -30.5569817  -26.9618876  -37.3305614  -45.6616468  -39.3069257 
+          31           32           33           34           35           36 
+ -17.7785497  -33.4201493  -28.1641891   -6.7047691   -9.8767999  -33.2877756 
+          37           38           39           40           41           42 
+  21.4635367   12.1581086   24.6949220   40.9827522   36.6320360    0.7503466 
+          43           44           45           46           47           48 
+ -16.1842646   -2.1931161  -12.8574057  -40.5616750   15.9123161    8.7056269 
+          49           50           51           52           53           54 
+ -33.9204667  -34.2521003  -19.3985513   30.9620948   50.8381078   47.3612550 
+          55           56           57           58           59           60 
+   6.6424828  -55.8397455  -34.4552335  -42.3631453  -58.8145365 -103.7537746 
+          61           62           63           64           65           66 
+  33.4801665   31.8997061   31.6753179   28.1529278   26.3854411  -30.1527072 
+          67           68           69           70           71           72 
+  -5.2146653   -9.8873836  -17.5467734  -16.8551435  -20.9546352   -8.2722115 
+          73           74           75           76           77           78 
+   4.2760139   -4.9657671  -17.8314193  -60.7789336  -43.6324656  -33.1813972 
+          79           80           81           82           83           84 
+ -32.7640256  -53.7065243  -77.5181508   43.7520798  105.1229269  -52.1391881 
+          85           86           87           88           89           90 
+ -96.8590791 -140.6300986   58.0216020   43.1393343  -28.3629711  -89.1302396 
+          91           92           93           94           95           96 
+-118.7200308   28.1374814   44.8586526  128.6374791   34.5716598    7.0258565 
+          97           98           99          100 
+ 133.9743649  192.1713956  179.4743666  -15.2854294 
 
 $fitted
-     General Motors    General Motors.1    General Motors.2    General Motors.3 
-         299.583071          408.756774          481.183434          293.615051 
-   General Motors.4    General Motors.5    General Motors.6    General Motors.7 
-         403.993914          491.846815          492.409198          396.633868 
-   General Motors.8    General Motors.9   General Motors.10   General Motors.11 
-         454.058827          470.216957          517.959014          550.659191 
-  General Motors.12   General Motors.13   General Motors.14   General Motors.15 
-         498.182260          507.090073          581.388605          650.817315 
-  General Motors.16   General Motors.17   General Motors.18   General Motors.19 
-         820.311923          921.193941         1291.803842         1441.055295 
-           Chrysler          Chrysler.1          Chrysler.2          Chrysler.3 
-          27.651164           47.255302           48.090278           25.434374 
-         Chrysler.4          Chrysler.5          Chrysler.6          Chrysler.7 
-          36.356382           99.966982           95.311888           84.130561 
-         Chrysler.8          Chrysler.9         Chrysler.10         Chrysler.11 
-          93.061647           98.876926          106.558550          107.540149 
-        Chrysler.12         Chrysler.13         Chrysler.14         Chrysler.15 
-          90.844189           96.064769           88.856800          133.947776 
-        Chrysler.16         Chrysler.17         Chrysler.18         Chrysler.19 
-         139.156463          132.841891          150.235078          131.507248 
-   General Electric  General Electric.1  General Electric.2  General Electric.3 
-          -3.532036           44.249653           93.384265           46.793116 
- General Electric.4  General Electric.5  General Electric.6  General Electric.7 
-          60.957406          114.961675           97.087684           83.194373 
- General Electric.8  General Electric.9 General Electric.10 General Electric.11 
-          95.220467           91.052100          112.998551          128.937905 
-General Electric.12 General Electric.13 General Electric.14 General Electric.15 
-          96.361892           98.938745           91.657517          149.339745 
-General Electric.16 General Electric.17 General Electric.18 General Electric.19 
-         169.655233          199.663145          238.314537          293.353775 
-       Westinghouse      Westinghouse.1      Westinghouse.2      Westinghouse.3 
-         -20.550167           -5.999706            3.374682           -5.262928 
-     Westinghouse.4      Westinghouse.5      Westinghouse.6      Westinghouse.7 
-          -7.545441           58.722707           53.724665           53.227384 
-     Westinghouse.8      Westinghouse.9     Westinghouse.10     Westinghouse.11 
-          54.566773           54.665144           60.224635           61.732212 
-    Westinghouse.12     Westinghouse.13     Westinghouse.14     Westinghouse.15 
-          51.283986           54.525767           49.871419           93.018934 
-    Westinghouse.16     Westinghouse.17     Westinghouse.18     Westinghouse.19 
-          98.012466          104.961397          122.844026          122.306524 
-           US Steel          US Steel.1          US Steel.2          US Steel.3 
-         287.418151          311.547920          364.777073          314.439188 
-         US Steel.4          US Steel.5          US Steel.6          US Steel.7 
-         327.259079          402.230099          414.778398          402.460666 
-         US Steel.8          US Steel.9         US Steel.10         US Steel.11 
-         389.962971          377.330240          377.420031          392.162519 
-        US Steel.12         US Steel.13         US Steel.14         US Steel.15 
-         375.641347          365.862521          370.528340          411.774143 
-        US Steel.16         US Steel.17         US Steel.18         US Steel.19 
-         454.225635          453.028604          461.525633          474.585429 
-attr(,"data")
-[1] "mydata"
+          1           2           3           4           5           6 
+ 299.583071  408.756774  481.183434  293.615051  403.993914  491.846815 
+          7           8           9          10          11          12 
+ 492.409198  396.633868  454.058827  470.216957  517.959014  550.659191 
+         13          14          15          16          17          18 
+ 498.182260  507.090073  581.388605  650.817315  820.311923  921.193941 
+         19          20          21          22          23          24 
+1291.803842 1441.055295   27.651164   47.255302   48.090278   25.434374 
+         25          26          27          28          29          30 
+  36.356382   99.966982   95.311888   84.130561   93.061647   98.876926 
+         31          32          33          34          35          36 
+ 106.558550  107.540149   90.844189   96.064769   88.856800  133.947776 
+         37          38          39          40          41          42 
+ 139.156463  132.841891  150.235078  131.507248   -3.532036   44.249653 
+         43          44          45          46          47          48 
+  93.384265   46.793116   60.957406  114.961675   97.087684   83.194373 
+         49          50          51          52          53          54 
+  95.220467   91.052100  112.998551  128.937905   96.361892   98.938745 
+         55          56          57          58          59          60 
+  91.657517  149.339745  169.655233  199.663145  238.314537  293.353775 
+         61          62          63          64          65          66 
+ -20.550167   -5.999706    3.374682   -5.262928   -7.545441   58.722707 
+         67          68          69          70          71          72 
+  53.724665   53.227384   54.566773   54.665144   60.224635   61.732212 
+         73          74          75          76          77          78 
+  51.283986   54.525767   49.871419   93.018934   98.012466  104.961397 
+         79          80          81          82          83          84 
+ 122.844026  122.306524  287.418151  311.547920  364.777073  314.439188 
+         85          86          87          88          89          90 
+ 327.259079  402.230099  414.778398  402.460666  389.962971  377.330240 
+         91          92          93          94          95          96 
+ 377.420031  392.162519  375.641347  365.862521  370.528340  411.774143 
+         97          98          99         100 
+ 454.225635  453.028604  461.525633  474.585429 
 
 $coef
           a_0           a_1           a_2         b_1_1         b_1_2 
@@ -5207,7 +4888,6 @@ attr(,"class")
 > # fixed effects
 > ggResultLin <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
 +    linear = TRUE )
-[1] 100   2
 > coef( ggResultLin )
         a_0         a_1         a_2       b_1_1       b_1_2       b_2_2 
 -62.5943940   0.1059799   0.3466596   0.0000000   0.0000000   0.0000000 
@@ -5240,112 +4920,82 @@ Coefficients:
 
 
 $residuals
-     General Motors    General Motors.1    General Motors.2    General Motors.3 
-        66.43692240        -44.41413169       -138.64855928        -34.67156554 
-   General Motors.4    General Motors.5    General Motors.6    General Motors.7 
-      -120.75639572        -26.72126114         17.26341716         74.97677849 
-   General Motors.8    General Motors.9   General Motors.10   General Motors.11 
-        54.50315621         89.56231893         32.36377087        105.34328057 
-  General Motors.12   General Motors.13   General Motors.14   General Motors.15 
-         7.24729108        -59.42489451       -114.60758968        -60.03031849 
-  General Motors.16   General Motors.17   General Motors.18   General Motors.19 
-       -98.89497951        -50.57028977        102.85380934        198.18924029 
-           Chrysler          Chrysler.1          Chrysler.2          Chrysler.3 
-        21.77703914          9.80767734        -10.07115676         16.60800790 
-         Chrysler.4          Chrysler.5          Chrysler.6          Chrysler.7 
-       -12.54118118         -1.60946209          3.44610439          7.87493781 
-         Chrysler.8          Chrysler.9         Chrysler.10         Chrysler.11 
-        -8.84586147         -6.04569922          9.52456442        -20.62800321 
-        Chrysler.12         Chrysler.13         Chrysler.14         Chrysler.15 
-        -2.86543995          6.91804304         -5.30398808         -0.03833711 
-        Chrysler.16         Chrysler.17         Chrysler.18         Chrysler.19 
-        33.71060101         -3.41309563        -21.81419024        -16.49056011 
-   General Electric  General Electric.1  General Electric.2  General Electric.3 
-       117.30736499         37.34518474        -18.62857132         16.45529814 
- General Electric.4  General Electric.5  General Electric.6  General Electric.7 
-        -8.67457139         25.91370428         84.21589413         66.00602573 
- General Electric.8  General Electric.9 General Electric.10 General Electric.11 
-         7.17309420          8.77972170         12.20247917         48.09109448 
-General Electric.12 General Electric.13 General Electric.14 General Electric.15 
-        55.57839914         30.06176488        -25.61090420        -59.43730956 
-General Electric.16 General Electric.17 General Electric.18 General Electric.19 
-       -48.16167861        -72.64519666       -107.10287611       -168.86891772 
-       Westinghouse      Westinghouse.1      Westinghouse.2      Westinghouse.3 
-        49.91027234         28.83644843         13.12477255         15.12372921 
-     Westinghouse.4      Westinghouse.5      Westinghouse.6      Westinghouse.7 
-        13.49395414         10.67455625         36.93852280         20.68658096 
-     Westinghouse.8      Westinghouse.9     Westinghouse.10     Westinghouse.11 
-         0.25053930         -2.32355511        -12.99032759          0.94896167 
-    Westinghouse.12     Westinghouse.13     Westinghouse.14     Westinghouse.15 
-        13.32880943         -8.00482789        -21.08799166        -24.56739558 
-    Westinghouse.16     Westinghouse.17     Westinghouse.18     Westinghouse.19 
-        -9.39059924        -12.33680324        -39.10371421        -73.51193257 
-           US Steel          US Steel.1          US Steel.2          US Steel.3 
-       -45.67586383         53.73884312         52.78691009       -111.40457649 
-         US Steel.4          US Steel.5          US Steel.6          US Steel.7 
-      -177.97348407       -152.52256623         37.35945125         19.68619339 
-         US Steel.8          US Steel.9         US Steel.10         US Steel.11 
-       -45.94113631        -93.32820169       -104.03840176         27.99376579 
-        US Steel.12         US Steel.13         US Steel.14         US Steel.15 
-        45.75188499        123.26948446         14.18075812         24.45594774 
-        US Steel.16         US Steel.17         US Steel.18         US Steel.19 
-       134.42819523        169.82223888        117.00753668        -89.59697936 
-attr(,"data")
-[1] "mydata"
+            1             2             3             4             5 
+  66.43692240  -44.41413169 -138.64855928  -34.67156554 -120.75639572 
+            6             7             8             9            10 
+ -26.72126114   17.26341716   74.97677849   54.50315621   89.56231893 
+           11            12            13            14            15 
+  32.36377087  105.34328057    7.24729108  -59.42489451 -114.60758968 
+           16            17            18            19            20 
+ -60.03031849  -98.89497951  -50.57028977  102.85380934  198.18924029 
+           21            22            23            24            25 
+  21.77703914    9.80767734  -10.07115676   16.60800790  -12.54118118 
+           26            27            28            29            30 
+  -1.60946209    3.44610439    7.87493781   -8.84586147   -6.04569922 
+           31            32            33            34            35 
+   9.52456442  -20.62800321   -2.86543995    6.91804304   -5.30398808 
+           36            37            38            39            40 
+  -0.03833711   33.71060101   -3.41309563  -21.81419024  -16.49056011 
+           41            42            43            44            45 
+ 117.30736499   37.34518474  -18.62857132   16.45529814   -8.67457139 
+           46            47            48            49            50 
+  25.91370428   84.21589413   66.00602573    7.17309420    8.77972170 
+           51            52            53            54            55 
+  12.20247917   48.09109448   55.57839914   30.06176488  -25.61090420 
+           56            57            58            59            60 
+ -59.43730956  -48.16167861  -72.64519666 -107.10287611 -168.86891772 
+           61            62            63            64            65 
+  49.91027234   28.83644843   13.12477255   15.12372921   13.49395414 
+           66            67            68            69            70 
+  10.67455625   36.93852280   20.68658096    0.25053930   -2.32355511 
+           71            72            73            74            75 
+ -12.99032759    0.94896167   13.32880943   -8.00482789  -21.08799166 
+           76            77            78            79            80 
+ -24.56739558   -9.39059924  -12.33680324  -39.10371421  -73.51193257 
+           81            82            83            84            85 
+ -45.67586383   53.73884312   52.78691009 -111.40457649 -177.97348407 
+           86            87            88            89            90 
+-152.52256623   37.35945125   19.68619339  -45.94113631  -93.32820169 
+           91            92            93            94            95 
+-104.03840176   27.99376579   45.75188499  123.26948446   14.18075812 
+           96            97            98            99           100 
+  24.45594774  134.42819523  169.82223888  117.00753668  -89.59697936 
 
 $fitted
-     General Motors    General Motors.1    General Motors.2    General Motors.3 
-         251.163078          436.214132          549.248559          292.371566 
-   General Motors.4    General Motors.5    General Motors.6    General Motors.7 
-         451.556396          487.921261          494.736583          373.023222 
-   General Motors.8    General Motors.9   General Motors.10   General Motors.11 
-         445.096844          457.937681          528.836229          582.756719 
-  General Motors.12   General Motors.13   General Motors.14   General Motors.15 
-         561.652709          588.624895          669.707590          702.930318 
-  General Motors.16   General Motors.17   General Motors.18   General Motors.19 
-         854.794980          941.770290         1201.546191         1288.510760 
-           Chrysler          Chrysler.1          Chrysler.2          Chrysler.3 
-          18.512961           62.952323           76.331157           34.991992 
-         Chrysler.4          Chrysler.5          Chrysler.6          Chrysler.7 
-          64.951181           71.019462           64.903896           38.925062 
-         Chrysler.8          Chrysler.9         Chrysler.10         Chrysler.11 
-          56.245861           65.615699           79.255436           94.748003 
-        Chrysler.12         Chrysler.13         Chrysler.14         Chrysler.15 
-          65.545440           82.441957           84.283988          100.698337 
-        Chrysler.16         Chrysler.17         Chrysler.18         Chrysler.19 
-         126.909399          148.413096          196.744190          188.980560 
-   General Electric  General Electric.1  General Electric.2  General Electric.3 
-         -84.207365            7.654815           95.828571           28.144702 
- General Electric.4  General Electric.5  General Electric.6  General Electric.7 
-          56.774571           48.486296           28.784106           25.893974 
- General Electric.8  General Electric.9 General Electric.10 General Electric.11 
-          54.126906           48.020278           81.397521          111.808906 
-General Electric.12 General Electric.13 General Electric.14 General Electric.15 
-          91.621601          116.238235          123.910904          152.937310 
-General Electric.16 General Electric.17 General Electric.18 General Electric.19 
-         183.361679          229.945197          286.602876          358.468918 
-       Westinghouse      Westinghouse.1      Westinghouse.2      Westinghouse.3 
-         -36.980272           -2.936448           21.925227            7.766271 
-     Westinghouse.4      Westinghouse.5      Westinghouse.6      Westinghouse.7 
-           5.346046           17.895444           11.571477           22.653419 
-     Westinghouse.8      Westinghouse.9     Westinghouse.10     Westinghouse.11 
-          36.769461           40.133555           52.260328           52.511038 
-    Westinghouse.12     Westinghouse.13     Westinghouse.14     Westinghouse.15 
-          42.231191           57.564828           53.127992           56.807396 
-    Westinghouse.16     Westinghouse.17     Westinghouse.18     Westinghouse.19 
-          63.770599           84.116803          129.183714          142.111933 
-           US Steel          US Steel.1          US Steel.2          US Steel.3 
-         255.575864          301.561157          417.113090          373.704576 
-         US Steel.4          US Steel.5          US Steel.6          US Steel.7 
-         408.373484          414.122566          435.440549          425.913807 
-         US Steel.8          US Steel.9         US Steel.10         US Steel.11 
-         407.541136          381.528202          362.738402          392.306234 
-        US Steel.12         US Steel.13         US Steel.14         US Steel.15 
-         374.748115          371.230516          390.919242          394.344052 
-        US Steel.16         US Steel.17         US Steel.18         US Steel.19 
-         453.771805          475.377761          523.992463          548.896979 
-attr(,"data")
-[1] "mydata"
+          1           2           3           4           5           6 
+ 251.163078  436.214132  549.248559  292.371566  451.556396  487.921261 
+          7           8           9          10          11          12 
+ 494.736583  373.023222  445.096844  457.937681  528.836229  582.756719 
+         13          14          15          16          17          18 
+ 561.652709  588.624895  669.707590  702.930318  854.794980  941.770290 
+         19          20          21          22          23          24 
+1201.546191 1288.510760   18.512961   62.952323   76.331157   34.991992 
+         25          26          27          28          29          30 
+  64.951181   71.019462   64.903896   38.925062   56.245861   65.615699 
+         31          32          33          34          35          36 
+  79.255436   94.748003   65.545440   82.441957   84.283988  100.698337 
+         37          38          39          40          41          42 
+ 126.909399  148.413096  196.744190  188.980560  -84.207365    7.654815 
+         43          44          45          46          47          48 
+  95.828571   28.144702   56.774571   48.486296   28.784106   25.893974 
+         49          50          51          52          53          54 
+  54.126906   48.020278   81.397521  111.808906   91.621601  116.238235 
+         55          56          57          58          59          60 
+ 123.910904  152.937310  183.361679  229.945197  286.602876  358.468918 
+         61          62          63          64          65          66 
+ -36.980272   -2.936448   21.925227    7.766271    5.346046   17.895444 
+         67          68          69          70          71          72 
+  11.571477   22.653419   36.769461   40.133555   52.260328   52.511038 
+         73          74          75          76          77          78 
+  42.231191   57.564828   53.127992   56.807396   63.770599   84.116803 
+         79          80          81          82          83          84 
+ 129.183714  142.111933  255.575864  301.561157  417.113090  373.704576 
+         85          86          87          88          89          90 
+ 408.373484  414.122566  435.440549  425.913807  407.541136  381.528202 
+         91          92          93          94          95          96 
+ 362.738402  392.306234  374.748115  371.230516  390.919242  394.344052 
+         97          98          99         100 
+ 453.771805  475.377761  523.992463  548.896979 
 
 $coef
         a_0         a_1         a_2       b_1_1       b_1_2       b_2_2 
@@ -5483,7 +5133,6 @@ attr(,"class")
 > # random effects
 > ggResultLinRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
 +    linear = TRUE, model = "random", random.method = "amemiya" )
-[1] 100   2
 > coef( ggResultLinRan )
         a_0         a_1         a_2       b_1_1       b_1_2       b_2_2 
 -60.3474258   0.1049120   0.3460355   0.0000000   0.0000000   0.0000000 
@@ -5516,112 +5165,76 @@ Coefficients:
 
 
 $residuals
-     General Motors    General Motors.1    General Motors.2    General Motors.3 
-         63.1548377         -45.9743630        -139.3690085         -38.1305896 
-   General Motors.4    General Motors.5    General Motors.6    General Motors.7 
-       -122.5946925         -28.2040163          15.7116200          72.0593368 
-   General Motors.8    General Motors.9   General Motors.10   General Motors.11 
-         52.4256100          87.7934901          31.1274741         104.2566868 
-  General Motors.12   General Motors.13   General Motors.14   General Motors.15 
-          4.9171496         -61.9448866        -116.5908371         -61.9051604 
-  General Motors.16   General Motors.17   General Motors.18   General Motors.19 
-        -99.5513761         -50.9894930         104.0573156         198.9808302 
-           Chrysler          Chrysler.1          Chrysler.2          Chrysler.3 
-         25.9902438          14.4695529          -5.3447585          20.8687740 
-         Chrysler.4          Chrysler.5          Chrysler.6          Chrysler.7 
-         -8.0143844           2.9704505           7.9411510          12.1191016 
-         Chrysler.8          Chrysler.9         Chrysler.10         Chrysler.11 
-         -4.4148207          -1.5013034          14.2233342         -15.8597650 
-        Chrysler.12         Chrysler.13         Chrysler.14         Chrysler.15 
-          1.5740978          11.4893984          -0.8208032           4.5649207 
-        Chrysler.16         Chrysler.17         Chrysler.18         Chrysler.19 
-         38.4623578           1.3054484         -16.7678574         -11.7198578 
-   General Electric  General Electric.1  General Electric.2  General Electric.3 
-         90.4529980          11.3975655         -43.7266947          -9.4344689 
- General Electric.4  General Electric.5  General Electric.6  General Electric.7 
-        -34.3228928           0.1416949          58.1469363          39.7159984 
- General Electric.8  General Electric.9 General Electric.10 General Electric.11 
-        -18.9245330         -17.3834581         -13.6194846          22.4998370 
-General Electric.12 General Electric.13 General Electric.14 General Electric.15 
-         29.4669626           3.9487713         -51.8614805         -85.4788825 
-General Electric.16 General Electric.17 General Electric.18 General Electric.19 
-        -73.9652416         -98.1365725        -132.2362102        -193.5322730 
-       Westinghouse      Westinghouse.1      Westinghouse.2      Westinghouse.3 
-         49.8092510          29.0813517          13.6012675          15.4268462 
-     Westinghouse.4      Westinghouse.5      Westinghouse.6      Westinghouse.7 
-         13.7571894          11.0556428          37.2280528          21.0172013 
-     Westinghouse.8      Westinghouse.9     Westinghouse.10     Westinghouse.11 
-          0.6556934          -1.9040117         -12.4520271           1.5081511 
-    Westinghouse.12     Westinghouse.13     Westinghouse.14     Westinghouse.15 
-         13.7123944          -7.5226761         -20.6826838         -24.1103782 
-    Westinghouse.16     Westinghouse.17     Westinghouse.18     Westinghouse.19 
-         -8.8433304         -11.6298407         -38.0266840         -72.4156623 
-           US Steel          US Steel.1          US Steel.2          US Steel.3 
-        -24.1392361          75.7483273          75.7668426         -89.2697723 
-         US Steel.4          US Steel.5          US Steel.6          US Steel.7 
-       -155.6399558        -129.9632600          60.1129184          42.2366414 
-         US Steel.8          US Steel.9         US Steel.10         US Steel.11 
-        -23.5847218         -71.1687867         -81.8809739          50.3952051 
-        US Steel.12         US Steel.13         US Steel.14         US Steel.15 
-         67.8840067         145.2453686          36.2282268          46.5187045 
-        US Steel.16         US Steel.17         US Steel.18         US Steel.19 
-        157.1348439         192.4536680         139.6141250         -66.8716990 
-attr(,"data")
-[1] "mydata"
+           1            2            3            4            5            6 
+  63.1548377  -45.9743630 -139.3690085  -38.1305896 -122.5946925  -28.2040163 
+           7            8            9           10           11           12 
+  15.7116200   72.0593368   52.4256100   87.7934901   31.1274741  104.2566868 
+          13           14           15           16           17           18 
+   4.9171496  -61.9448866 -116.5908371  -61.9051604  -99.5513761  -50.9894930 
+          19           20           21           22           23           24 
+ 104.0573156  198.9808302   25.9902438   14.4695529   -5.3447585   20.8687740 
+          25           26           27           28           29           30 
+  -8.0143844    2.9704505    7.9411510   12.1191016   -4.4148207   -1.5013034 
+          31           32           33           34           35           36 
+  14.2233342  -15.8597650    1.5740978   11.4893984   -0.8208032    4.5649207 
+          37           38           39           40           41           42 
+  38.4623578    1.3054484  -16.7678574  -11.7198578   90.4529980   11.3975655 
+          43           44           45           46           47           48 
+ -43.7266947   -9.4344689  -34.3228928    0.1416949   58.1469363   39.7159984 
+          49           50           51           52           53           54 
+ -18.9245330  -17.3834581  -13.6194846   22.4998370   29.4669626    3.9487713 
+          55           56           57           58           59           60 
+ -51.8614805  -85.4788825  -73.9652416  -98.1365725 -132.2362102 -193.5322730 
+          61           62           63           64           65           66 
+  49.8092510   29.0813517   13.6012675   15.4268462   13.7571894   11.0556428 
+          67           68           69           70           71           72 
+  37.2280528   21.0172013    0.6556934   -1.9040117  -12.4520271    1.5081511 
+          73           74           75           76           77           78 
+  13.7123944   -7.5226761  -20.6826838  -24.1103782   -8.8433304  -11.6298407 
+          79           80           81           82           83           84 
+ -38.0266840  -72.4156623  -24.1392361   75.7483273   75.7668426  -89.2697723 
+          85           86           87           88           89           90 
+-155.6399558 -129.9632600   60.1129184   42.2366414  -23.5847218  -71.1687867 
+          91           92           93           94           95           96 
+ -81.8809739   50.3952051   67.8840067  145.2453686   36.2282268   46.5187045 
+          97           98           99          100 
+ 157.1348439  192.4536680  139.6141250  -66.8716990 
 
 $fitted
-     General Motors    General Motors.1    General Motors.2    General Motors.3 
-         254.445162          437.774363          549.969009          295.830590 
-   General Motors.4    General Motors.5    General Motors.6    General Motors.7 
-         453.394692          489.404016          496.288380          375.940663 
-   General Motors.8    General Motors.9   General Motors.10   General Motors.11 
-         447.174390          459.706510          530.072526          583.843313 
-  General Motors.12   General Motors.13   General Motors.14   General Motors.15 
-         563.982850          591.144887          671.690837          704.805160 
-  General Motors.16   General Motors.17   General Motors.18   General Motors.19 
-         855.451376          942.189493         1200.342684         1287.719170 
-           Chrysler          Chrysler.1          Chrysler.2          Chrysler.3 
-          14.299756           58.290447           71.604758           30.731226 
-         Chrysler.4          Chrysler.5          Chrysler.6          Chrysler.7 
-          60.424384           66.439550           60.408849           34.680898 
-         Chrysler.8          Chrysler.9         Chrysler.10         Chrysler.11 
-          51.814821           61.071303           74.556666           89.979765 
-        Chrysler.12         Chrysler.13         Chrysler.14         Chrysler.15 
-          61.105902           77.870602           79.800803           96.095079 
-        Chrysler.16         Chrysler.17         Chrysler.18         Chrysler.19 
-         122.157642          143.694552          191.697857          184.209858 
-   General Electric  General Electric.1  General Electric.2  General Electric.3 
-         -57.352998           33.602435          120.926695           54.034469 
- General Electric.4  General Electric.5  General Electric.6  General Electric.7 
-          82.422893           74.258305           54.853064           52.184002 
- General Electric.8  General Electric.9 General Electric.10 General Electric.11 
-          80.224533           74.183458          107.219485          137.400163 
-General Electric.12 General Electric.13 General Electric.14 General Electric.15 
-         117.733037          142.351229          150.161481          178.978883 
-General Electric.16 General Electric.17 General Electric.18 General Electric.19 
-         209.165242          255.436572          311.736210          383.132273 
-       Westinghouse      Westinghouse.1      Westinghouse.2      Westinghouse.3 
-         -36.879251           -3.181352           21.448732            7.463154 
-     Westinghouse.4      Westinghouse.5      Westinghouse.6      Westinghouse.7 
-           5.082811           17.514357           11.281947           22.322799 
-     Westinghouse.8      Westinghouse.9     Westinghouse.10     Westinghouse.11 
-          36.364307           39.714012           51.722027           51.951849 
-    Westinghouse.12     Westinghouse.13     Westinghouse.14     Westinghouse.15 
-          41.847606           57.082676           52.722684           56.350378 
-    Westinghouse.16     Westinghouse.17     Westinghouse.18     Westinghouse.19 
-          63.223330           83.409841          128.106684          141.015662 
-           US Steel          US Steel.1          US Steel.2          US Steel.3 
-         234.039236          279.551673          394.133157          351.569772 
-         US Steel.4          US Steel.5          US Steel.6          US Steel.7 
-         386.039956          391.563260          412.687082          403.363359 
-         US Steel.8          US Steel.9         US Steel.10         US Steel.11 
-         385.184722          359.368787          340.580974          369.904795 
-        US Steel.12         US Steel.13         US Steel.14         US Steel.15 
-         352.615993          349.254631          368.871773          372.281296 
-        US Steel.16         US Steel.17         US Steel.18         US Steel.19 
-         431.065156          452.746332          501.385875          526.171699 
-attr(,"data")
-[1] "mydata"
+          1           2           3           4           5           6 
+ 254.445162  437.774363  549.969009  295.830590  453.394692  489.404016 
+          7           8           9          10          11          12 
+ 496.288380  375.940663  447.174390  459.706510  530.072526  583.843313 
+         13          14          15          16          17          18 
+ 563.982850  591.144887  671.690837  704.805160  855.451376  942.189493 
+         19          20          21          22          23          24 
+1200.342684 1287.719170   14.299756   58.290447   71.604758   30.731226 
+         25          26          27          28          29          30 
+  60.424384   66.439550   60.408849   34.680898   51.814821   61.071303 
+         31          32          33          34          35          36 
+  74.556666   89.979765   61.105902   77.870602   79.800803   96.095079 
+         37          38          39          40          41          42 
+ 122.157642  143.694552  191.697857  184.209858  -57.352998   33.602435 
+         43          44          45          46          47          48 
+ 120.926695   54.034469   82.422893   74.258305   54.853064   52.184002 
+         49          50          51          52          53          54 
+  80.224533   74.183458  107.219485  137.400163  117.733037  142.351229 
+         55          56          57          58          59          60 
+ 150.161481  178.978883  209.165242  255.436572  311.736210  383.132273 
+         61          62          63          64          65          66 
+ -36.879251   -3.181352   21.448732    7.463154    5.082811   17.514357 
+         67          68          69          70          71          72 
+  11.281947   22.322799   36.364307   39.714012   51.722027   51.951849 
+         73          74          75          76          77          78 
+  41.847606   57.082676   52.722684   56.350378   63.223330   83.409841 
+         79          80          81          82          83          84 
+ 128.106684  141.015662  234.039236  279.551673  394.133157  351.569772 
+         85          86          87          88          89          90 
+ 386.039956  391.563260  412.687082  403.363359  385.184722  359.368787 
+         91          92          93          94          95          96 
+ 340.580974  369.904795  352.615993  349.254631  368.871773  372.281296 
+         97          98          99         100 
+ 431.065156  452.746332  501.385875  526.171699 
 
 $coef
         a_0         a_1         a_2       b_1_1       b_1_2       b_2_2 
@@ -6219,7 +5832,6 @@ attr(,"class")
 > ggResultLinHom <- quadFuncEst( "invest", 
 +    xNames = c( "value", "capital" ), data = ggData,
 +    linear = TRUE, homWeights = c( value = 0.3, capital = 0.7 ) )
-[1] 100   1
 > coef( ggResultLinHom )
       a_0       a_1       a_2     b_1_1     b_1_2     b_2_2 
  515.5525 -123.3956  123.3956    0.0000    0.0000    0.0000 
@@ -6245,7 +5857,6 @@ b_2_2   0    0.0000    0.0000     0     0     0
 > ggResultHom <- quadFuncEst( "invest", 
 +    xNames = c( "value", "capital" ), data = ggData,
 +    homWeights = c( value = 0.3, capital = 0.7 ) )
-[1] 100   2
 > coef( ggResultHom )
        a_0        a_1        a_2      b_1_1      b_1_2      b_2_2 
  627.08756 -239.46789  239.46789   54.95271  -54.95271   54.95271 

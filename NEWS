@@ -1,0 +1,23 @@
+THIS IS THE CHANGELOG OF THE "micEcon" PACKAGE
+
+Please note that only the most significant changes are reported here.
+A full ChangeLog is available in the log messages of the SVN repository
+on R-Forge.
+
+
+            CHANGES IN VERSION 0.6-0
+
+* The "micEcon" package has been split into three packages:
+a) miscTools (version 0.6-0): includes miscellaneous small tools and
+   utilities that are not related to (micro)economics, e.g. colMedians(),
+   rowMedians(), insertCol(), insertRow(), vecli(), symMatrix(), triang(),
+   semidefiniteness(), compPlot(), and rSquared().
+b) micEconAids (version 0.6-0): includes all functions and methods for demand
+   analysis with the Almost Ideal Demand System (AIDS).
+c) micEcon (version 0.6-0): includes the remaining parts of the "old" micEcon
+   package
+
+
+            CHANGES IN VERSION 0.5-23 AND BEFORE
+
+* please take a look at the log messages of the SVN repository on R-Forge

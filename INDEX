@@ -1,16 +1,3 @@
-aidsBestA0              Find 'best' Value for alpha 0 in the AIDS
-aidsCalc                Shares and Quantities of the Almost Ideal
-                        Demand System
-aidsConcav              Concavity of the AIDS
-aidsConsist             Check Consistency of the AIDS
-aidsElas                Elasticities of the AIDS model
-aidsEst                 Estimating the Almost Ideal Demand System
-                        (AIDS)
-aidsMono                Monotonicity of the AIDS
-aidsPx                  Price Index for the AIDS
-aidsUtility             Indirect Utility Function of the Almost Ideal
-                        Demand System
-Blanciforti86           U.S. consumption data
 Bleymueller79E25.1      Artificial Prices and Quantities
 cesEst                  Estimate a CES function
 checkConsist            Testing Theoretical Consistency
@@ -19,25 +6,12 @@ cobbDouglasCalc         Calculate dependent variable of a Cobb-Douglas
 cobbDouglasDeriv        Derivatives of a Cobb-Douglas function
 cobbDouglasOpt          Optimal Values of Independent Variables of a
                         Cobb-Douglas Function
-coef.aidsEst            Coefficients of an Almost Ideal Demand System
 coef.quadFuncEst        Coefficients of a Quadratic Function
-coefTable               Coefficient Table
 coef.translogEst        Coefficients of a Translog Function
-colMedians              Medians of Columns and Rows
-compPlot                Scatterplot to Compare two Variables
-df.residual.aidsEst     Covariance matrix of an Almost Ideal Demand
-                        System
 elas                    Calculating and returning elasticities
 elas.npregHom           Elasticities of a Homogeneous Nonparametric
                         Function
-fitted.aidsEst          Fitted values of an Almost Ideal Demand System
 germanFarms             Output and Inputs of Farms in West-Germany
-insertCol               Insert Column into a Matrix
-insertRow               Insert Row into a Matrix
-logLik.aidsEst          Log-Likelihood value of an object of class
-                        aidsEst
-lrtest.aidsEst          Likelihood Ratio test for Almost Ideal Demand
-                        Systems
 Missong03E7.7           Meat Prices and Quantities in Germany
 npregHom                Nonparametric Regression with Homogeneity
                         Imposed
@@ -50,12 +24,9 @@ quadFuncDeriv           Derivatives of a quadratic function
 quadFuncEla             Elasticities of a Quadratic Function
 quadFuncEst             Estimate a quadratic function
 quantityIndex           Calculate Quantity Indices
-quasiconcavity          Test for quasiconcavity / quasiconvexity
 residuals.snqProfitEst
                         Residuals of an SNQ profit function
 residuals.translogEst   Residuals of a Translog function
-rSquared                Calculate R squared value
-semidefiniteness        Positive or Negative Semidefiniteness
 snqProfitCalc           Calculations with the SNQ Profit function
 snqProfitEla            Price Elasticities of SNQ Profit function
 snqProfitEst            Estimation of a SNQ Profit function
@@ -68,16 +39,11 @@ snqProfitImposeConvexity
 snqProfitShadowPrices   Shadow Prices of a SNQ Profit function
 snqProfitWeights        SNQ Profit function: Weights of prices for
                         normalization
-summary.aidsElas        Summarizing the Elasticities of an Almost Ideal
-                        Demand System
-summary.aidsEst         Summarizing the Estimation of an Almost Ideal
-                        Demand System
 summary.translogEst     Summarizing the Estimation of a Translog
                         Function
 summary.translogRayEst
                         Summarizing the Estimation of a Translog Ray
                         Function
-symMatrix               Symmetric Matrix
 translogCalc            Calculate dependent variable of a translog
                         function
 translogCheckCurvature
@@ -94,12 +60,3 @@ translogProdFuncMargCost
                         Marginal Costs of Translog Production Function
 translogRayDeriv        Derivatives of a Translog Ray Function
 translogRayEst          Estimate a Translog Ray Function
-triang                  Upper triangular matrix from a vector
-USMeatConsump           U.S. Meat Consumption Data
-vcov.aidsEst            Covariance matrix of an Almost Ideal Demand
-                        System
-vecli                   Vector of linear independent values
-vecli2m                 Convert vector of linear independent values
-                        into a Matrix
-veclipos                Position in a vector of linear independent
-                        values

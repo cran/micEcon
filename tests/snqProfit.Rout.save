@@ -1,5 +1,5 @@
 
-R version 2.9.1 (2009-06-26)
+R version 2.10.1 (2009-12-14)
 Copyright (C) 2009 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
@@ -19,30 +19,9 @@ Type 'q()' to quit R.
 Loading required package: systemfit
 Loading required package: Matrix
 Loading required package: lattice
-
-Attaching package: 'Matrix'
-
-
-	The following object(s) are masked from package:stats :
-
-	 xtabs 
-
-
-	The following object(s) are masked from package:base :
-
-	 rcond 
-
 Loading required package: car
 Loading required package: lmtest
 Loading required package: zoo
-
-Attaching package: 'zoo'
-
-
-	The following object(s) are masked from package:base :
-
-	 as.Date.numeric 
-
 Loading required package: np
 Loading required package: boot
 
@@ -72,12 +51,6 @@ Nonparametric Kernel Methods for Mixed Datatypes (version 0.30-3)
 > fNamesT <- c( "land", "time" )
 > 
 > estResult <- snqProfitEst( pNamesT, qNamesT, "land", data = germanFarms )
-Note: Method with signature "ANY#diagonalMatrix" chosen for function "kronecker",
- target signature "dspMatrix#ddiMatrix".
- "Matrix#ANY" would also be valid
-Note: Method with signature "ANY#sparseMatrix" chosen for function "kronecker",
- target signature "dspMatrix#dtTMatrix".
- "Matrix#ANY" would also be valid
 > print( estResult )
 
 Estimation results of the SNQ profit function:
@@ -1203,7 +1176,7 @@ fq1.2.2       -96006      61790   -1.55     0.13
 
 Residual standard error: 4222.034 on 1 degrees of freedom
 Number of observations: 20 Degrees of Freedom: 1 
-SSR: 196081253.396 MSE: 17825568.491 Root MSE: 4222.034 
+SSR: 196081253.398 MSE: 17825568.491 Root MSE: 4222.034 
 Multiple R-Squared: 0.988 Adjusted R-Squared: 0.979 
 
 
@@ -1237,7 +1210,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 5038.67 on 1 degrees of freedom
 Number of observations: 20 Degrees of Freedom: 1 
-SSR: 279270123.115 MSE: 25388193.01 Root MSE: 5038.67 
+SSR: 279270123.114 MSE: 25388193.01 Root MSE: 5038.67 
 Multiple R-Squared: 0.502 Adjusted R-Squared: 0.14 
 
 

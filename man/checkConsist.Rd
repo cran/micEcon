@@ -20,6 +20,6 @@ checkConsist( object, \dots )
 
 \author{Arne Henningsen}
 
-\seealso{\code{\link{checkConsist.aidsEst}}}
+\seealso{\code{\link[micEconAids]{checkConsist.aidsEst}}}
 
 \keyword{methods}

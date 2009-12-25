@@ -30,6 +30,6 @@
 
 \author{Arne Henningsen}
 
-\seealso{\code{\link{elas.aidsEst}}}
+\seealso{\code{\link[micEconAids]{elas.aidsEst}}}
 
 \keyword{methods}
