@@ -5,16 +5,30 @@ A full ChangeLog is available in the log messages of the SVN repository
 on R-Forge.
 
 
+            CHANGES IN VERSION 0.6-2
+
+* The "micEcon" package has been split into three packages again:
+a) micEconSNQP (version >= 0.6-0): includes all functions and methods for production
+   analysis with the Symmetric Normalized Profit (SNQ) function.
+b) micEconCES (version >= 0.6-0): includes all functions and methods for economic
+   analysis with the Constant Elasticity of Scale (CES) function.
+c) micEcon (version >= 0.6-0): includes the remaining parts of the previous
+   version of the micEcon package
+
+* function ".micEconLogData" has been moved from the "micEcon" package
+  to the "miscTools" package and was renamed as "logDataSet"
+
+
             CHANGES IN VERSION 0.6-0
 
 * The "micEcon" package has been split into three packages:
-a) miscTools (version 0.6-0): includes miscellaneous small tools and
+a) miscTools (version >= 0.6-0): includes miscellaneous small tools and
    utilities that are not related to (micro)economics, e.g. colMedians(),
    rowMedians(), insertCol(), insertRow(), vecli(), symMatrix(), triang(),
    semidefiniteness(), compPlot(), and rSquared().
-b) micEconAids (version 0.6-0): includes all functions and methods for demand
+b) micEconAids (version >= 0.6-0): includes all functions and methods for demand
    analysis with the Almost Ideal Demand System (AIDS).
-c) micEcon (version 0.6-0): includes the remaining parts of the "old" micEcon
+c) micEcon (version >= 0.6-0): includes the remaining parts of the "old" micEcon
    package
 
 

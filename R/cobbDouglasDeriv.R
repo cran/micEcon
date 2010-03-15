@@ -27,7 +27,7 @@ cobbDouglasDeriv <- function( xNames, data, coef, coefCov = NULL,
    if( dataLogged ) {
       logData <- data
    } else {
-      logData <- .micEconLogData( data = data, varNames = xNames )
+      logData <- logDataSet( data = data, varNames = xNames )
    }
 
    result <- list()

@@ -6,7 +6,7 @@ translogEst <- function( yName, xNames, data, shifterNames = NULL,
    if( dataLogged ) {
       logData   <- data
    } else {
-      logData <- .micEconLogData( data = data, 
+      logData <- logDataSet( data = data,
          varNames = c( yName, xNames ), varNamesNum = shifterNames )
    }
 

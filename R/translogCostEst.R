@@ -7,7 +7,7 @@ translogCostEst <- function( cName, yName, pNames, data,
    if( dataLogged ) {
       logData   <- data
    } else {
-      logData <- .micEconLogData( data = data, 
+      logData <- logDataSet( data = data,
          varNames = c( cName, yName, pNames, fNames ), 
          varNamesNum = shifterNames )
    }

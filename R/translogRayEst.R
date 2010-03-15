@@ -14,7 +14,7 @@ translogRayEst <- function( yNames, xNames, data, shifterNames = NULL, ... ) {
 
    nInput <- length( xNames )
 
-   logData <- .micEconLogData( data = data, varNames = xNames,
+   logData <- logDataSet( data = data, varNames = xNames,
       varNamesNum = shifterNames )
 
    distance <- sqrt( data[[ yNames[ 1 ] ]]^2 + data[[ yNames[ 2 ] ]]^2 )

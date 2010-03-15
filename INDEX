@@ -1,5 +1,4 @@
 Bleymueller79E25.1      Artificial Prices and Quantities
-cesEst                  Estimate a CES function
 checkConsist            Testing Theoretical Consistency
 cobbDouglasCalc         Calculate dependent variable of a Cobb-Douglas
                         function
@@ -15,30 +14,14 @@ germanFarms             Output and Inputs of Farms in West-Germany
 Missong03E7.7           Meat Prices and Quantities in Germany
 npregHom                Nonparametric Regression with Homogeneity
                         Imposed
-predict.snqProfitEst    Predictions from an SNQ profit function
 priceIndex              Calculate Price Indices
-print.snqProfitEst      Print output of estimated SNQ profit function
 quadFuncCalc            Calculate dependent variable of a quadratic
                         function
 quadFuncDeriv           Derivatives of a quadratic function
 quadFuncEla             Elasticities of a Quadratic Function
 quadFuncEst             Estimate a quadratic function
 quantityIndex           Calculate Quantity Indices
-residuals.snqProfitEst
-                        Residuals of an SNQ profit function
 residuals.translogEst   Residuals of a Translog function
-snqProfitCalc           Calculations with the SNQ Profit function
-snqProfitEla            Price Elasticities of SNQ Profit function
-snqProfitEst            Estimation of a SNQ Profit function
-snqProfitFixEla         Fixed Factor Elasticities of SNQ Profit
-                        function
-snqProfitHessian        SNQ Profit function: Hessian matrix
-snqProfitHessianDeriv   SNQ Profit function: Derivatives of the Hessian
-snqProfitImposeConvexity
-                        Imposing Convexity on a SNQ Profit function
-snqProfitShadowPrices   Shadow Prices of a SNQ Profit function
-snqProfitWeights        SNQ Profit function: Weights of prices for
-                        normalization
 summary.translogEst     Summarizing the Estimation of a Translog
                         Function
 summary.translogRayEst

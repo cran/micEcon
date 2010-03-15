@@ -27,7 +27,7 @@ cobbDouglasCalc <- function( xNames, data, coef, coefCov = NULL,
    if( dataLogged ) {
       logData <- data
    } else {
-      logData <- .micEconLogData( data = data, varNames = xNames )
+      logData <- logDataSet( data = data, varNames = xNames )
    }
 
    result <- rep( coef[ "a_0" ], nrow( data ) )

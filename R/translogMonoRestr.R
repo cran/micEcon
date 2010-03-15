@@ -9,7 +9,7 @@ translogMonoRestr <- function( xNames, data, quadHalf = TRUE,
    if( dataLogged ) {
       logData <- data
    } else {
-      logData <- .micEconLogData( data = data, 
+      logData <- logDataSet( data = data,
          varNames = xNames )
    }
 

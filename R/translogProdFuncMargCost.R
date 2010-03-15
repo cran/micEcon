@@ -17,7 +17,7 @@ translogProdFuncMargCost <- function( yNames, xNames, wNames,
    if( dataLogged ) {
       logData   <- data
    } else {
-      logData <- .micEconLogData( data = data,
+      logData <- logDataSet( data = data,
          varNames = c( yNames, xNames, wNames ) )
    }
 

@@ -87,7 +87,7 @@ quadFuncEst( yName, xNames, data, shifterNames = NULL,
 }
 
 \seealso{\code{\link{quadFuncCalc}}, \code{\link{quadFuncDeriv}},
-   \code{\link{translogEst}} and \code{\link{snqProfitEst}}.}
+   \code{\link{translogEst}} and \code{\link[micEconSNQP]{snqProfitEst}}.}
 
 \author{Arne Henningsen}
 

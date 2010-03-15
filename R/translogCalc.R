@@ -16,7 +16,7 @@ translogCalc <- function( xNames, data, coef, shifterNames = NULL,
    if( dataLogged ) {
       logData <- data
    } else {
-      logData <- .micEconLogData( data = data, 
+      logData <- logDataSet( data = data,
          varNames = xNames, varNamesNum = shifterNames )
    }
 
