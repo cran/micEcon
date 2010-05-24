@@ -58,7 +58,7 @@ all.equal( residuals( estResult ), residuals( estResultOrder3 ) )
 estResultLog <- translogEst( "qLogOutput", 
    xNames = c( "qLogLabor", "qLogLand", "qLogVarInput", "logTime" ),
    data = germanFarms, dataLogged = TRUE )
-all.equal( estResult[ -c(1,6,12,13,17) ], estResultLog[ -c(1,6,12,13,17) ] )
+all.equal( estResult[ -c(1,6,12,13,16) ], estResultLog[ -c(1,6,12,13,16) ] )
 all.equal( estResult$fitted, exp( estResultLog$fitted ) )
 
 ## testing translogCalc
@@ -147,6 +147,22 @@ summary( test )
 class( test ) <- NULL
 print( test )
 
+test <- translogCheckMono( c( "qLabor", "land", "qVarInput", "time" ),
+   germanFarms, coef( estResult ), increasing = c( FALSE, TRUE, FALSE, FALSE ) )
+summary( test )
+print.default( test )
+
+test <- translogCheckMono( c( "qLabor", "land", "qVarInput", "time" ),
+   germanFarms, coef( estResult ), increasing = c( FALSE, TRUE, TRUE, FALSE ),
+   strict = TRUE )
+summary( test )
+print.default( test )
+
+test <- translogCheckMono( c( "qLabor", "land", "qVarInput", "time" ),
+   germanFarms, coef( estResult ), increasing = c( TRUE, TRUE, FALSE, TRUE ) )
+summary( test )
+print.default( test )
+
 
 ## testing translogCheckCurvature
 test <- translogCheckCurvature( c( "qLabor", "land", "qVarInput", "time" ),
@@ -221,8 +237,8 @@ print.default( estResultShifter )
 estResultShifterLog <- translogEst( "qLogOutput", 
    xNames = c( "qLogLabor", "qLogLand", "qLogVarInput" ),
    data = germanFarms, shifterNames = "time", dataLogged = TRUE )
-all.equal( estResultShifter[ -c(1,6,12,13,14,18) ],
-   estResultShifterLog[ -c(1,6,12,13,14,18) ] )
+all.equal( estResultShifter[ -c(1,6,12,13,14,17) ],
+   estResultShifterLog[ -c(1,6,12,13,14,17) ] )
 all.equal( estResultShifter$fitted, exp( estResultShifterLog$fitted ) )
 # testing translogCalc
 fitted <- translogCalc( c( "qLabor", "land", "qVarInput" ),
@@ -268,8 +284,8 @@ print.default( estResultShifterLogi )
 estResultShifterLogiLog <- translogEst( "qLogOutput", 
    xNames = c( "qLogLabor", "qLogLand", "qLogVarInput" ),
    data = germanFarms, shifterNames = "reUnif", dataLogged = TRUE )
-all.equal( estResultShifterLogi[ -c(1,6,12,13,18) ],
-   estResultShifterLogiLog[ -c(1,6,12,13,18) ] )
+all.equal( estResultShifterLogi[ -c(1,6,12,13,17) ],
+   estResultShifterLogiLog[ -c(1,6,12,13,17) ] )
 all.equal( estResultShifterLogi$fitted, exp( estResultShifterLogiLog$fitted ) )
 # testing translogCalc
 fitted <- translogCalc( c( "qLabor", "land", "qVarInput" ),
@@ -291,8 +307,8 @@ print.default( estResultShifterFac )
 estResultShifterFacLog <- translogEst( "qLogOutput", 
    xNames = c( "qLogLabor", "qLogLand", "qLogVarInput" ),
    data = germanFarms, shifterNames = "decade", dataLogged = TRUE )
-all.equal( estResultShifterFac[ -c(1,6,12,13,18) ],
-   estResultShifterFacLog[ -c(1,6,12,13,18) ] )
+all.equal( estResultShifterFac[ -c(1,6,12,13,17) ],
+   estResultShifterFacLog[ -c(1,6,12,13,17) ] )
 all.equal( estResultShifterFac$fitted, exp( estResultShifterFacLog$fitted ) )
 # testing translogCalc
 fitted <- translogCalc( c( "qLabor", "land", "qVarInput" ),
@@ -350,7 +366,7 @@ print.default( ggResult )
 ggResultLog <- translogEst( "logInvest", 
    xNames = c( "logValue", "logCapital" ),
    data = ggData, dataLogged = TRUE )
-all.equal( ggResult[ -c(1,6,10,11,15) ], ggResultLog[ -c(1,6,10,11,15) ] )
+all.equal( ggResult[ -c(1,6,10,11,14) ], ggResultLog[ -c(1,6,10,11,14) ] )
 all.equal( ggResult$fitted, exp( ggResultLog$fitted ) )
 # random effects
 ggResultRan <- translogEst( "invest", c( "value", "capital" ), ggData,
@@ -362,7 +378,7 @@ ggResultRanLog <- translogEst( "logInvest",
    xNames = c( "logValue", "logCapital" ),
    data = ggData, dataLogged = TRUE,
    model = "random", random.method = "amemiya" )
-all.equal( ggResultRan[ -c(1,6,10,11,15) ], ggResultRanLog[ -c(1,6,10,11,15) ] )
+all.equal( ggResultRan[ -c(1,6,10,11,14) ], ggResultRanLog[ -c(1,6,10,11,14) ] )
 all.equal( ggResultRan$fitted, exp( ggResultRanLog$fitted ) )
 
 ## testing translogEla with panel data

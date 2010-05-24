@@ -1,23 +1,33 @@
 translogCheckMono <- function( xNames, data, coef, increasing = TRUE,
-   strict = FALSE, quadHalf = TRUE, dataLogged = FALSE,
+   strict = FALSE, dataLogged = FALSE,
    tol = 10 * .Machine$double.eps ) {
+
+   if( !is.logical( increasing ) ) {
+      stop( "argument 'increasing' must be logical" )
+   } else if( length( increasing ) == 1 ) {
+      increasing <- rep( increasing, length( xNames ) )
+   } else if( length( increasing ) != length( xNames ) ) {
+      stop( "argument 'increasing' must be either a single logical variable",
+         " or a vector of logical variables with same length as argument",
+         " 'xNames' (", length( xNames ), ")" )
+   }
 
    result <- list()
 
    deriv <- translogDeriv( xNames = xNames, data = data, coef = coef,
-      quadHalf = quadHalf, dataLogged = dataLogged )$deriv
+      dataLogged = dataLogged )$deriv
 
-   if( increasing ) {
+   nExog <- ncol( deriv )
+   nObs <- nrow( deriv )
+
+   result$exog <- matrix( NA, nrow = nObs, ncol = nExog )
+   colnames( result$exog ) <- colnames( deriv )
+
+   for( i in 1:nExog ) {
       if( strict ) {
-         result$exog <- deriv > 0
+         result$exog[ , i ] <- deriv[ , i ] * (-1)^increasing[ i ] < 0
       } else {
-         result$exog <- deriv >= - tol
-      }
-   } else {
-      if( strict ) {
-         result$exog <- deriv < 0
-      } else {
-         result$exog <- deriv <= tol
+         result$exog[ , i ] <- deriv[ , i ] * (-1)^increasing[ i ] <= tol
       }
    }
 

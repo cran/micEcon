@@ -9,7 +9,7 @@
 
 \usage{
 translogCheckCurvature( xNames, data, coef, convexity = TRUE,
-   quasi = FALSE, quadHalf = TRUE, dataLogged = FALSE, \dots )
+   quasi = FALSE, dataLogged = FALSE, \dots )
 
 \method{print}{translogCheckCurvature}( x, \dots )
 }
@@ -23,7 +23,6 @@ translogCheckCurvature( xNames, data, coef, convexity = TRUE,
       (default, \code{TRUE}) or (quasi)concave (\code{FALSE}).}
    \item{quasi}{logical. Check whether the function is quasiconvex/quasiconcave
       (\code{TRUE}) or convex/concave (default, \code{FALSE}).}
-   \item{quadHalf}{logical. Multiply the quadratic terms by one half?}
    \item{dataLogged}{logical. Are the values in \code{data} already logged?}
    \item{x}{an object returned by \code{translogCheckCurvature}.}
    \item{\dots}{arguments passed from \code{translogCheckCurvature}

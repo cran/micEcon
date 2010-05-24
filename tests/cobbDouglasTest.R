@@ -32,7 +32,7 @@ germanFarms$lQOutput   <- log( germanFarms$qOutput )
 estResultLog <- translogEst( "lQOutput",
    c( "lQLabor", "lQVarInput", "lLand", "lTime" ),
    germanFarms, dataLogged = TRUE, linear = TRUE )
-all.equal( estResult[c(2:5,7:11,14:16)], estResultLog[c(2:5,7:11,14:16)] )
+all.equal( estResult[c(2:5,7:11,14:15)], estResultLog[c(2:5,7:11,14:15)] )
 
 # calculate fitted values using logged independent variables
 fittedLogged <- cobbDouglasCalc( c( "lQLabor", "lQVarInput", "lLand", "lTime" ),

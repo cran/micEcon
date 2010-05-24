@@ -11,7 +11,7 @@
 
 \usage{
 translogCheckMono( xNames, data, coef, increasing = TRUE,
-   strict = FALSE, quadHalf = TRUE, dataLogged = FALSE,
+   strict = FALSE, dataLogged = FALSE,
    tol = 10 * .Machine$double.eps )
 
 \method{print}{translogCheckMono}( x, \dots )
@@ -26,11 +26,13 @@ translogCheckMono( xNames, data, coef, increasing = TRUE,
       independent variables.}
    \item{data}{dataframe containing the data.}
    \item{coef}{vector containing all coefficients.}
-   \item{increasing}{logical. Check whether the function is monotonically
-      increasing (default, TRUE) or decreasing (FALSE)?}
+   \item{increasing}{single logical value or vector of logical values
+      of the same length as argument \code{xNames}
+      indicating whether it should be checked if the translog function
+      is monotonically increasing (default, TRUE) or decreasing (FALSE)
+      in the explanatory variables.}
    \item{strict}{logical. Check for strict (TRUE) or non-strict
       (default, FALSE) monotonicity?}
-   \item{quadHalf}{logical. Multiply the quadratic terms by one half?}
    \item{dataLogged}{logical. Are the values in \code{data} already logged?}
    \item{tol}{tolerance level for checking non-strict monotonicity:
       values between \code{-tol} and \code{tol} are considered to be zero
@@ -73,8 +75,18 @@ translogCheckMono( xNames, data, coef, increasing = TRUE,
       germanFarms )
 
    # check whether the production function is monotonically increasing
-   translogCheckMono( c( "qLabor", "land", "qVarInput", "time" ),
-      germanFarms, coef( estResult ) )
+   # in all inputs
+   test <- translogCheckMono( xNames = c( "qLabor", "land", "qVarInput", "time" ),
+      data = germanFarms, coef = coef( estResult ) )
+   test
+   summary( test )
+
+   # check whether the production function is monotonically decreasing
+   # in time and monotonically increasing in all other inputs
+   test <- translogCheckMono( c( "qLabor", "land", "qVarInput", "time" ),
+      germanFarms, coef( estResult ), increasing = c( TRUE, TRUE, TRUE, FALSE ) )
+   test
+   summary( test )
 }
 
 \keyword{models}

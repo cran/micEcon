@@ -1,5 +1,5 @@
 quadFuncCalc <- function( xNames, data, coef, shifterNames = NULL,
-      homWeights = NULL, quadHalf = TRUE ) {
+      homWeights = NULL ) {
 
    # if 'data' is a vector, convert it to a data.frame
    data <- .micEconVectorToDataFrame( data )
@@ -27,7 +27,7 @@ quadFuncCalc <- function( xNames, data, coef, shifterNames = NULL,
       result <- result + coef[ paste( "a", i, sep = "_" ) ] * 
          .quadFuncVarHom( data, xNames[ i ], homWeights, deflator )
       for( j in seq( along = xNames ) ) {
-         result <- result + ifelse( quadHalf, 0.5, 1 ) * 
+         result <- result + 0.5 * 
             coef[ paste( "b", min( i, j ), max( i, j ), sep = "_" ) ] *
             .quadFuncVarHom( data, xNames[ i ], homWeights, deflator ) *
             .quadFuncVarHom( data, xNames[ j ], homWeights, deflator )

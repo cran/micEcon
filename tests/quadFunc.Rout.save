@@ -1,6 +1,6 @@
 
-R version 2.10.1 (2009-12-14)
-Copyright (C) 2009 The R Foundation for Statistical Computing
+R version 2.11.0 (2010-04-22)
+Copyright (C) 2010 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -16,29 +16,10 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 Type 'q()' to quit R.
 
 > library( micEcon )
-Loading required package: systemfit
-Loading required package: Matrix
-Loading required package: lattice
-Loading required package: car
-Loading required package: lmtest
-Loading required package: zoo
 Loading required package: np
 Loading required package: boot
-
-Attaching package: 'boot'
-
-
-	The following object(s) are masked from package:car :
-
-	 logit 
-
-
-	The following object(s) are masked from package:lattice :
-
-	 melanoma 
-
 Loading required package: cubature
-Nonparametric Kernel Methods for Mixed Datatypes (version 0.30-7)
+Nonparametric Kernel Methods for Mixed Datatypes (version 0.30-9)
 Loading required package: miscTools
 > library( plm )
 Loading required package: kinship
@@ -47,16 +28,24 @@ Loading required package: splines
 
 Attaching package: 'survival'
 
+The following object(s) are masked from 'package:boot':
 
-	The following object(s) are masked from package:boot :
-
-	 aml 
+    aml
 
 Loading required package: nlme
+Loading required package: lattice
+
+Attaching package: 'lattice'
+
+The following object(s) are masked from 'package:boot':
+
+    melanoma
+
 [1] "kinship is loaded"
 Loading required package: Formula
 Loading required package: MASS
 Loading required package: sandwich
+Loading required package: zoo
 > 
 > ## preparing data
 > data( germanFarms )
@@ -194,9 +183,6 @@ $yName
 
 $xNames
 [1] "qLabor"    "land"      "qVarInput" "time"     
-
-$quadHalf
-[1] TRUE
 
 $regScale
 [1] 1
@@ -460,9 +446,6 @@ $xNames
 $shifterNames
 [1] "time"
 
-$quadHalf
-[1] TRUE
-
 $regScale
 [1] 1
 
@@ -706,9 +689,6 @@ $xNames
 $shifterNames
 [1] "time"   "timeSq"
 
-$quadHalf
-[1] TRUE
-
 $regScale
 [1] 1
 
@@ -835,9 +815,6 @@ $yName
 
 $shifterNames
 [1] "time"      "qLabor"    "land"      "qVarInput"
-
-$quadHalf
-[1] TRUE
 
 $regScale
 [1] 1
@@ -1010,9 +987,6 @@ $yName
 $xNames
 [1] "time"      "qLabor"    "land"      "qVarInput"
 
-$quadHalf
-[1] TRUE
-
 $regScale
 [1] 1
 
@@ -1182,9 +1156,6 @@ $xNames
 
 $shifterNames
 [1] "reUnif"
-
-$quadHalf
-[1] TRUE
 
 $regScale
 [1] 1
@@ -1361,9 +1332,6 @@ $xNames
 $shifterNames
 [1] "decade"
 
-$quadHalf
-[1] TRUE
-
 $regScale
 [1] 1
 
@@ -1536,9 +1504,6 @@ $xNames
 
 $shifterNames
 [1] "time"   "reUnif"
-
-$quadHalf
-[1] TRUE
 
 $regScale
 [1] 1
@@ -1717,9 +1682,6 @@ $xNames
 
 $shifterNames
 [1] "time"   "decade"
-
-$quadHalf
-[1] TRUE
 
 $regScale
 [1] 1
@@ -1903,9 +1865,6 @@ $yName
 
 $xNames
 [1] "qLabor"    "land"      "qVarInput" "time"     
-
-$quadHalf
-[1] TRUE
 
 $regScale
 [1] 1
@@ -3024,9 +2983,6 @@ $yName
 $xNames
 [1] "value"   "capital"
 
-$quadHalf
-[1] TRUE
-
 $regScale
 [1] 1
 
@@ -3261,9 +3217,6 @@ $yName
 
 $xNames
 [1] "value"   "capital"
-
-$quadHalf
-[1] TRUE
 
 $regScale
 [1] 1
@@ -3513,9 +3466,6 @@ $xNames
 $shifterNames
 [1] "tech"
 
-$quadHalf
-[1] TRUE
-
 $regScale
 [1] 1
 
@@ -3761,9 +3711,6 @@ $xNames
 
 $shifterNames
 [1] "tech"
-
-$quadHalf
-[1] TRUE
 
 $regScale
 [1] 1
@@ -4018,9 +3965,6 @@ $xNames
 $shifterNames
 [1] "war"
 
-$quadHalf
-[1] TRUE
-
 $regScale
 [1] 1
 
@@ -4266,9 +4210,6 @@ $xNames
 
 $shifterNames
 [1] "war"
-
-$quadHalf
-[1] TRUE
 
 $regScale
 [1] 1
@@ -4522,9 +4463,6 @@ $xNames
 $shifterNames
 [1] "decade"
 
-$quadHalf
-[1] TRUE
-
 $regScale
 [1] 1
 
@@ -4774,9 +4712,6 @@ $xNames
 $shifterNames
 [1] "decade"
 
-$quadHalf
-[1] TRUE
-
 $regScale
 [1] 1
 
@@ -5021,9 +4956,6 @@ $yName
 $xNames
 [1] "value"   "capital"
 
-$quadHalf
-[1] TRUE
-
 $regScale
 [1] 1
 
@@ -5259,9 +5191,6 @@ $yName
 
 $xNames
 [1] "value"   "capital"
-
-$quadHalf
-[1] TRUE
 
 $regScale
 [1] 1

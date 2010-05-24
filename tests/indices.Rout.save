@@ -1,6 +1,6 @@
 
-R version 2.10.1 (2009-12-14)
-Copyright (C) 2009 The R Foundation for Statistical Computing
+R version 2.11.0 (2010-04-22)
+Copyright (C) 2010 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -16,29 +16,10 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 Type 'q()' to quit R.
 
 > library( micEcon )
-Loading required package: systemfit
-Loading required package: Matrix
-Loading required package: lattice
-Loading required package: car
-Loading required package: lmtest
-Loading required package: zoo
 Loading required package: np
 Loading required package: boot
-
-Attaching package: 'boot'
-
-
-	The following object(s) are masked from package:car :
-
-	 logit 
-
-
-	The following object(s) are masked from package:lattice :
-
-	 melanoma 
-
 Loading required package: cubature
-Nonparametric Kernel Methods for Mixed Datatypes (version 0.30-7)
+Nonparametric Kernel Methods for Mixed Datatypes (version 0.30-9)
 Loading required package: miscTools
 > 
 > ## function for printIndexing indices

@@ -1,5 +1,5 @@
 quadFuncEla <- function( xNames, data, coef,
-   yName = NULL, shifterNames = NULL, homWeights = NULL, quadHalf = TRUE ) {
+   yName = NULL, shifterNames = NULL, homWeights = NULL ) {
 
    checkNames( c( xNames, yName ), names( data ) )
 
@@ -15,14 +15,13 @@ quadFuncEla <- function( xNames, data, coef,
 
    if( is.null( yName ) ){
       yHat <- quadFuncCalc( xNames = xNames, data = data, coef = coef, 
-         shifterNames = shifterNames, homWeights = homWeights, 
-         quadHalf = quadHalf )
+         shifterNames = shifterNames, homWeights = homWeights )
    } else {
       yHat <- data[[ yName ]]
    }
 
    result <- quadFuncDeriv( xNames = xNames, data = data, coef = coef,
-      homWeights = homWeights, quadHalf = quadHalf )
+      homWeights = homWeights )
    for( i in xNames ) {
       result[[ i ]] <- result[[ i ]] * data[[ i ]] / yHat
    }

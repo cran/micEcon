@@ -1,10 +1,10 @@
 translogCheckCurvature <- function( xNames, data, coef, convexity = TRUE,
-   quasi = FALSE, quadHalf = TRUE, dataLogged = FALSE, ... ) {
+   quasi = FALSE, dataLogged = FALSE, ... ) {
 
    result <- list()
 
    hessian <- translogHessian( xNames = xNames, data = data, coef = coef,
-      quadHalf = quadHalf, dataLogged = dataLogged, bordered = quasi )
+      dataLogged = dataLogged, bordered = quasi )
 
    if( quasi ) {
       if( convexity ) {

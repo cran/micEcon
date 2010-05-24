@@ -1,5 +1,5 @@
 translogDeriv <- function( xNames, data, coef, coefCov = NULL,
-   yName = NULL, quadHalf = TRUE, dataLogged = FALSE ) {
+   yName = NULL, dataLogged = FALSE ) {
 
    checkNames( c( xNames, yName ), names( data ) )
 
@@ -24,7 +24,7 @@ translogDeriv <- function( xNames, data, coef, coefCov = NULL,
    }
 
    if( is.null( yName ) ){
-      logyHat <- translogCalc( xNames, logData, coef, quadHalf = quadHalf,
+      logyHat <- translogCalc( xNames, logData, coef,
          dataLogged = TRUE )
    } else {
       if( dataLogged ) {
@@ -38,7 +38,7 @@ translogDeriv <- function( xNames, data, coef, coefCov = NULL,
    for( i in seq( along = xNames ) ) {
       deriv[ , i ] <- alpha[ i ]
       for( j in seq( along = xNames ) ) {
-         deriv[ , i ] <- deriv[ , i ] + ifelse( quadHalf, 1, 2 ) *
+         deriv[ , i ] <- deriv[ , i ] +
             beta[ i, j ] * logData[[ xNames[ j ] ]]
       }
       deriv[ , i ] <- deriv[ , i ] * exp( logyHat ) / exp( logData[[ xNames[ i ] ]] )

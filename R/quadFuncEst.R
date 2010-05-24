@@ -1,5 +1,5 @@
 quadFuncEst <- function( yName, xNames, data, shifterNames = NULL,
-   linear = FALSE, homWeights = NULL, quadHalf = TRUE, regScale = 1, ... ) {
+   linear = FALSE, homWeights = NULL, regScale = 1, ... ) {
 
    checkNames( c( yName, xNames, shifterNames ), names( data ) )
 
@@ -47,7 +47,7 @@ quadFuncEst <- function( yName, xNames, data, shifterNames = NULL,
             if( i != iOmit & j != iOmit ) {
                xName <- paste( "b", as.character( i ), as.character( j ),
                   sep = "_" )
-               estData[[ xName ]] <- ifelse( quadHalf, 0.5, 1 ) *
+               estData[[ xName ]] <- 0.5 *
                   ifelse( i == j, 1, 2 ) *
                   .quadFuncVarHom( data, xNames[ i ], homWeights, 
                      estData$deflator, xOmit ) * 
@@ -194,7 +194,6 @@ quadFuncEst <- function( yName, xNames, data, shifterNames = NULL,
    result$xNames       <- xNames
    result$shifterNames <- shifterNames
    result$homWeights   <- homWeights
-   result$quadHalf     <- quadHalf
    result$regScale     <- regScale
 
    if( "plm.dim" %in% class( data ) ) {

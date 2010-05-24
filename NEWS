@@ -5,6 +5,21 @@ A full ChangeLog is available in the log messages of the SVN repository
 on R-Forge.
 
 
+            CHANGES IN VERSION 0.6-4
+
+* removed argument "quadHalf" of many functions for econometric analysis
+with the translog and quadratic functional form, because this argument
+is confusing and not really helpful
+
+* translogCheckMono() now can check whether a translog function is monotonically
+decreasing in some explanatory variables and monotonically increasing in other
+explanatory variables
+
+* the "micEcon" package no longer *depends* on the "systemfit" package
+but *suggests* it now
+
+
+
             CHANGES IN VERSION 0.6-2
 
 * The "micEcon" package has been split into three packages again:

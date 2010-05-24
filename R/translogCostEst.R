@@ -22,7 +22,7 @@ translogCostEst <- function( cName, yName, pNames, data,
    qxVars <- c( qxVars, fNames )
       
    result <- quadFuncEst( yName = cName, xNames = qxVars, 
-      data = logData, shifterNames = shifterNames, quadHalf = TRUE, ... )
+      data = logData, shifterNames = shifterNames, ... )
 
    result$r2nonLog <- rSquared( exp( logData[[ yName ]] ),
       exp( logData[[ yName ]] ) - exp( result$fitted ) )
@@ -41,7 +41,6 @@ translogCostEst <- function( cName, yName, pNames, data,
    result$homPrice      <- homPrice
    result$xNames        <- NULL
    result$homWeights    <- NULL
-   result$quadHalf      <- NULL
    result$regScale      <- NULL
 
    class( result ) <- "translogCostEst"

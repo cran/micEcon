@@ -1,5 +1,5 @@
 quadFuncDeriv <- function( xNames, data, coef, coefCov = NULL,
-      homWeights = NULL, quadHalf = TRUE ) {
+      homWeights = NULL ) {
 
    # if 'data' is a vector, convert it to a data.frame
    data <- .micEconVectorToDataFrame( data )
@@ -34,7 +34,7 @@ quadFuncDeriv <- function( xNames, data, coef, coefCov = NULL,
    for( i in 1:nExog ) {
       deriv[ , i ] <- coef[ paste( "a", i, sep = "_" ) ]
       for( j in 1:nExog ) {
-         deriv[ , i ] <- deriv[ , i ] + ifelse( quadHalf, 1, 2 ) *
+         deriv[ , i ] <- deriv[ , i ] +
             coef[ paste( "b", min( i, j ), max( i, j ), sep = "_" ) ] * 
             .quadFuncVarHom( data, xNames[ j ], homWeights, deflator )
       }
@@ -68,7 +68,7 @@ quadFuncDeriv <- function( xNames, data, coef, coefCov = NULL,
             variance[ , i ] <- variance[ , i ] +
                coefCov[ paste( "a", i, sep = "_" ), 
                   paste( "b", min( i, j ), max( i, j ), sep = "_" ) ] *
-               ifelse( quadHalf, 1, 2 ) * data[[ xNames[ j ] ]]
+               data[[ xNames[ j ] ]]
                # covariance alpha(i)-beta(i,_)
          }
          for( j in 1:nExog ) {
@@ -76,7 +76,6 @@ quadFuncDeriv <- function( xNames, data, coef, coefCov = NULL,
                variance[ , i ] <- variance[ , i ] +
                   coefCov[ paste( "b", min( i, j ), max( i, j ), sep = "_" ),
                      paste( "b", min( i, k ), max( i, k ), sep = "_" ) ] *
-                  ifelse( quadHalf, 1, 4 ) *
                   data[[ xNames[ j ] ]] * data[[ xNames[ k ] ]]
                   # variances + covariance beta(i,_)-beta(i,_)
             }

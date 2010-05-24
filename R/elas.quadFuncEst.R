@@ -13,8 +13,7 @@ elas.quadFuncEst <- function( object, data = NULL, yObs = FALSE, ... ) {
    result <- quadFuncEla( xNames = object$xNames,
       data = data, coef = coef( object ), yName = yName,
       shifterNames = object$shifterNames,
-      homWeights = object$homWeights,
-      quadHalf = object$quadHalf )
+      homWeights = object$homWeights )
 
    return( result )
 }

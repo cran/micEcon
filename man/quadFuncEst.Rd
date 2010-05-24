@@ -8,7 +8,7 @@
 
 \usage{
 quadFuncEst( yName, xNames, data, shifterNames = NULL,
-   linear = FALSE, homWeights = NULL, quadHalf = TRUE, 
+   linear = FALSE, homWeights = NULL, 
    regScale = 1, \dots )
 }
 
@@ -30,7 +30,6 @@ quadFuncEst( yName, xNames, data, shifterNames = NULL,
       for calculating an index that is used to normalize the variables
       for imposing homogeneity of degree zero in these variables
       (see details).}
-   \item{quadHalf}{logical. Multiply the quadratic terms by one half?}
    \item{regScale}{a scalar or vector with length equal to \code{nrow( data )}.
       All regressors except for shifter variables that are logical 
       or factors are divided by \code{regScale}
@@ -82,7 +81,6 @@ quadFuncEst( yName, xNames, data, shifterNames = NULL,
    \item{xNames}{argument \code{xNames}.}
    \item{shifterNames}{argument \code{shifterNames}.}
    \item{homWeights}{argument \code{homWeights}.}
-   \item{quadHalf}{argument \code{quadHalf}.}
    \item{regScale}{argument \code{regScale}.}
 }
 

@@ -8,7 +8,7 @@
 }
 
 \usage{
-translogEla( xNames, data, coef, coefCov = NULL, quadHalf = TRUE, 
+translogEla( xNames, data, coef, coefCov = NULL,
    dataLogged = FALSE  )
 
 \method{elas}{translogEst}( object, data = NULL, dataLogged = NULL,
@@ -35,7 +35,6 @@ translogEla( xNames, data, coef, coefCov = NULL, quadHalf = TRUE,
    \item{coefCov}{optional covariance matrix of the coefficients:
       the row names and column names must be the same as the names
       of \code{coef}.}
-   \item{quadHalf}{logical. Multiply the quadratic terms by one half?}
    \item{dataLogged}{logical. Are the values in \code{data} already logged?
       If argument \code{dataLogged} of \code{elas.translogEst} is not specified,
       the same value as used in \code{translogEst} for creating \code{object}

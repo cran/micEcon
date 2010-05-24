@@ -1,4 +1,4 @@
-translogMonoRestr <- function( xNames, data, quadHalf = TRUE,
+translogMonoRestr <- function( xNames, data,
    dataLogged = FALSE, box = FALSE ) {
 
    checkNames( c( xNames ), names( data ) )
@@ -30,7 +30,7 @@ translogMonoRestr <- function( xNames, data, quadHalf = TRUE,
       restr[ myRows, 1 + i ] <- 1
       for( j in seq( along = xNames ) ) {
          restr[ myRows, 1 + nExog + veclipos( i, j, nExog ) ] <-
-            ifelse( quadHalf, 1, 2 ) * logData[[ xNames[ j ] ]]
+            logData[[ xNames[ j ] ]]
       }
    }
 

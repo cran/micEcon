@@ -8,7 +8,7 @@
 
 \usage{
 translogCalc( xNames, data, coef, shifterNames = NULL,
-   quadHalf = TRUE, dataLogged = FALSE  )
+   dataLogged = FALSE  )
 }
 
 \arguments{
@@ -31,7 +31,6 @@ translogCalc( xNames, data, coef, shifterNames = NULL,
    \item{shifterNames}{a vector of strings containing the names
       of the independent variables that should be included
       as shifters only (not in quadratic or interaction terms).}
-   \item{quadHalf}{logical. Multiply the quadratic terms by one half?}
    \item{dataLogged}{logical. Are the values in \code{data} already logged?}
 }
 

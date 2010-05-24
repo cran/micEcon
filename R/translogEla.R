@@ -1,5 +1,5 @@
 translogEla <- function( xNames, data, coef, coefCov = NULL,
-   quadHalf = TRUE, dataLogged = FALSE ) {
+   dataLogged = FALSE ) {
 
    checkNames( c( xNames ), names( data ) )
 
@@ -19,7 +19,7 @@ translogEla <- function( xNames, data, coef, coefCov = NULL,
    }
 
    result <- quadFuncDeriv( xNames = xNames, data = logData, coef = coef, 
-      coefCov = coefCov, quadHalf = quadHalf )
+      coefCov = coefCov )
 
    return( result )
 }

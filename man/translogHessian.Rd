@@ -8,7 +8,7 @@
 
 \usage{
    translogHessian( xNames, data, coef, yName = NULL,
-   quadHalf = TRUE, dataLogged = FALSE, bordered = FALSE )
+   dataLogged = FALSE, bordered = FALSE )
 }
 
 \arguments{
@@ -20,7 +20,6 @@
       variable.
       If it is \code{NULL}, the dependent variable is calculated
       from the independent variables and the coefficients.}
-   \item{quadHalf}{logical. Multiply the quadratic terms by one half?}
    \item{dataLogged}{logical. Are the values in \code{data} already logged?}
    \item{bordered}{logical. Should the \emph{bordered} Hessians be returned?}
 }

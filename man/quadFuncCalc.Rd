@@ -8,7 +8,7 @@
 
 \usage{
 quadFuncCalc( xNames, data, coef, shifterNames = NULL, 
-   homWeights = NULL, quadHalf = TRUE  )
+   homWeights = NULL )
 }
 
 \arguments{
@@ -35,7 +35,6 @@ quadFuncCalc( xNames, data, coef, shifterNames = NULL,
       for calculating an index that is used to normalize the variables
       for imposing homogeneity of degree zero in these variables
       (see documentation of \code{\link{quadFuncEst}}).}
-   \item{quadHalf}{logical. Multiply the quadratic terms by one half?}
 }
 
 \value{

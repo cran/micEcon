@@ -9,7 +9,7 @@
 }
 
 \usage{
-translogMonoRestr( xNames, data, quadHalf = TRUE,
+translogMonoRestr( xNames, data,
    dataLogged = FALSE, box = FALSE )
 }
 
@@ -17,7 +17,6 @@ translogMonoRestr( xNames, data, quadHalf = TRUE,
    \item{xNames}{a vector of strings containing the names of the
       independent variables.}
    \item{data}{dataframe containing the data.}
-   \item{quadHalf}{logical. Multiply the quadratic terms by one half?}
    \item{dataLogged}{logical. Are the values in \code{data} already logged?}
    \item{box}{logical. Should monotonicity be imposed within 
       an \eqn{n}-dimensional box that includes all points in \code{data}?

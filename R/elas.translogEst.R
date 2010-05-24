@@ -10,7 +10,7 @@ elas.translogEst <- function( object, data = NULL, dataLogged = NULL, ... ) {
 
    result <- translogEla( xNames = object$xNames,
       data = data, coef = coef( object ), coefCov = vcov( object ),
-      quadHalf = object$quadHalf,dataLogged = dataLogged )
+      dataLogged = dataLogged )
 
    return( result )
 }

@@ -1,5 +1,5 @@
 translogCalc <- function( xNames, data, coef, shifterNames = NULL,
-   quadHalf = TRUE, dataLogged = FALSE ) {
+   dataLogged = FALSE ) {
 
    checkNames( c( xNames, shifterNames ), names( data ) )
 
@@ -21,7 +21,7 @@ translogCalc <- function( xNames, data, coef, shifterNames = NULL,
    }
 
    result <- quadFuncCalc( xNames, logData, coef, 
-      shifterNames = shifterNames, quadHalf = quadHalf )
+      shifterNames = shifterNames )
 
    if( !dataLogged ) {
       result <- exp( result )
