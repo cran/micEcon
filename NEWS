@@ -5,6 +5,13 @@ A full ChangeLog is available in the log messages of the SVN repository
 on R-Forge.
 
 
+            CHANGES IN VERSION 0.6-6
+
+* translogCheckMono() now automatically removes the coefficients of shifter
+variables before it calls translogDeriv() so that it can be used also with
+models that have shifter variables now
+
+
             CHANGES IN VERSION 0.6-4
 
 * removed argument "quadHalf" of many functions for econometric analysis

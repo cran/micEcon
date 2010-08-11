@@ -14,6 +14,10 @@ translogCheckMono <- function( xNames, data, coef, increasing = TRUE,
 
    result <- list()
 
+   # strip coefficients of shifter variables
+   coef <- coef[ !grepl( "^d_[0-9]*$", names( coef ) ) ]
+   coef <- coef[ !grepl( "^d_[0-9]*_", names( coef ) ) ]
+
    deriv <- translogDeriv( xNames = xNames, data = data, coef = coef,
       dataLogged = dataLogged )$deriv
 

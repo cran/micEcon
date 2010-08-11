@@ -344,6 +344,49 @@ fitted <- translogCalc( c( "qLabor", "land", "qVarInput" ),
    coef = estResultShifterFac2$coef )
 all.equal( fitted, estResultShifterFac2$fitted )
 
+
+## checking monotonicity of models with shifter variables
+test <- translogCheckMono( c( "qLabor", "land", "qVarInput" ),
+   germanFarms, coef( estResultShifter ) )
+summary( test )
+print.default( test )
+
+# with logarithmized  data
+test2 <- translogCheckMono( c( "qLogLabor", "qLogLand", "qLogVarInput" ),
+   germanFarms, coef( estResultShifterLog ), dataLogged = TRUE )
+all.equal( test, test2, check.attributes = FALSE )
+
+# with two shifter variables
+test <- translogCheckMono( c( "qLabor", "land", "qVarInput" ),
+   germanFarms, coef( estResultShifter2 ) )
+summary( test )
+print.default( test )
+
+# with a logical variable as shifter
+test <- translogCheckMono( c( "qLabor", "land", "qVarInput" ),
+   germanFarms, coef( estResultShifterLogi ) )
+summary( test )
+print.default( test )
+
+# with a factor as shifter
+test <- translogCheckMono( c( "qLabor", "land", "qVarInput" ),
+   germanFarms, coef( estResultShifterFac ) )
+summary( test )
+print.default( test )
+
+# with two shifters and one is logical
+test <- translogCheckMono( c( "qLabor", "land", "qVarInput" ),
+   germanFarms, coef( estResultShifterLogi2 ) )
+summary( test )
+print.default( test )
+
+# with two shifters and one is a factor
+test <- translogCheckMono( c( "qLabor", "land", "qVarInput" ),
+   germanFarms, coef( estResultShifterFac2 ) )
+summary( test )
+print.default( test )
+
+
 ## estimate with further argument passed to lm()
 estResult2 <- translogEst( yName = "qOutput",
    xNames = c( "qLabor", "land", "qVarInput", "time" ),

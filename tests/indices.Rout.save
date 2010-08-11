@@ -1,5 +1,5 @@
 
-R version 2.11.0 (2010-04-22)
+R version 2.11.1 (2010-05-31)
 Copyright (C) 2010 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
@@ -19,7 +19,7 @@ Type 'q()' to quit R.
 Loading required package: np
 Loading required package: boot
 Loading required package: cubature
-Nonparametric Kernel Methods for Mixed Datatypes (version 0.30-9)
+Nonparametric Kernel Methods for Mixed Datatypes (version 0.40-1)
 Loading required package: miscTools
 > 
 > ## function for printIndexing indices

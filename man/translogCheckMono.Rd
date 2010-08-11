@@ -54,6 +54,21 @@ translogCheckMono( xNames, data, coef, increasing = TRUE,
    \item{strict}{argument \code{strict}.}
 }
 
+\details{
+   Function \code{translogCheckMono} internally calls
+   function \code{\link{translogDeriv}}
+   and then checks if the derivatives have the sign
+   specified in argument \code{increasing}.
+
+   Function \code{translogCheckMono} does not have an argument
+   \code{shifterNames}, because shifter variables do not affect
+   the monotonicity conditions of the eplanatory variables
+   defined in Argument \code{xNames}.
+   Therefore, \code{translogCheckMono} automatically removes
+   all coefficients of the shifter variables
+   before it calls \code{\link{translogDeriv}}.
+}
+
 \seealso{
    \code{\link{translogEst}}, \code{\link{translogDeriv}},
    and \code{\link{translogCheckCurvature}}

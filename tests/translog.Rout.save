@@ -1,5 +1,5 @@
 
-R version 2.11.0 (2010-04-22)
+R version 2.11.1 (2010-05-31)
 Copyright (C) 2010 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
@@ -19,7 +19,7 @@ Type 'q()' to quit R.
 Loading required package: np
 Loading required package: boot
 Loading required package: cubature
-Nonparametric Kernel Methods for Mixed Datatypes (version 0.30-9)
+Nonparametric Kernel Methods for Mixed Datatypes (version 0.40-1)
 Loading required package: miscTools
 > library( plm )
 Loading required package: kinship
@@ -2969,6 +2969,290 @@ attr(,"class")
 +    coef = estResultShifterFac2$coef )
 > all.equal( fitted, estResultShifterFac2$fitted )
 [1] TRUE
+> 
+> 
+> ## checking monotonicity of models with shifter variables
+> test <- translogCheckMono( c( "qLabor", "land", "qVarInput" ),
++    germanFarms, coef( estResultShifter ) )
+> summary( test )
+This translog function is monotonically increasing in qLabor, land, qVarInput at 11 out of 20 observations (55%)
+The monotonicity condition for the exogenous variable
+- 'qLabor' is fulfilled at 11 out of 20 observations (55%)
+- 'land' is fulfilled at 20 out of 20 observations (100%)
+- 'qVarInput' is fulfilled at 20 out of 20 observations (100%)
+> print.default( test )
+$exog
+      qLabor land qVarInput
+ [1,]   TRUE TRUE      TRUE
+ [2,]   TRUE TRUE      TRUE
+ [3,]   TRUE TRUE      TRUE
+ [4,]   TRUE TRUE      TRUE
+ [5,]   TRUE TRUE      TRUE
+ [6,]   TRUE TRUE      TRUE
+ [7,]   TRUE TRUE      TRUE
+ [8,]   TRUE TRUE      TRUE
+ [9,]   TRUE TRUE      TRUE
+[10,]   TRUE TRUE      TRUE
+[11,]   TRUE TRUE      TRUE
+[12,]  FALSE TRUE      TRUE
+[13,]  FALSE TRUE      TRUE
+[14,]  FALSE TRUE      TRUE
+[15,]  FALSE TRUE      TRUE
+[16,]  FALSE TRUE      TRUE
+[17,]  FALSE TRUE      TRUE
+[18,]  FALSE TRUE      TRUE
+[19,]  FALSE TRUE      TRUE
+[20,]  FALSE TRUE      TRUE
+
+$obs
+ [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE
+[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+
+$increasing
+[1] TRUE TRUE TRUE
+
+$strict
+[1] FALSE
+
+attr(,"class")
+[1] "translogCheckMono"
+> 
+> # with logarithmized  data
+> test2 <- translogCheckMono( c( "qLogLabor", "qLogLand", "qLogVarInput" ),
++    germanFarms, coef( estResultShifterLog ), dataLogged = TRUE )
+> all.equal( test, test2, check.attributes = FALSE )
+[1] TRUE
+> 
+> # with two shifter variables
+> test <- translogCheckMono( c( "qLabor", "land", "qVarInput" ),
++    germanFarms, coef( estResultShifter2 ) )
+> summary( test )
+This translog function is monotonically increasing in qLabor, land, qVarInput at 8 out of 20 observations (40%)
+The monotonicity condition for the exogenous variable
+- 'qLabor' is fulfilled at 11 out of 20 observations (55%)
+- 'land' is fulfilled at 20 out of 20 observations (100%)
+- 'qVarInput' is fulfilled at 12 out of 20 observations (60%)
+> print.default( test )
+$exog
+      qLabor land qVarInput
+ [1,]   TRUE TRUE     FALSE
+ [2,]   TRUE TRUE     FALSE
+ [3,]   TRUE TRUE      TRUE
+ [4,]   TRUE TRUE      TRUE
+ [5,]   TRUE TRUE      TRUE
+ [6,]   TRUE TRUE      TRUE
+ [7,]   TRUE TRUE      TRUE
+ [8,]   TRUE TRUE      TRUE
+ [9,]   TRUE TRUE      TRUE
+[10,]   TRUE TRUE     FALSE
+[11,]   TRUE TRUE      TRUE
+[12,]  FALSE TRUE     FALSE
+[13,]  FALSE TRUE     FALSE
+[14,]  FALSE TRUE      TRUE
+[15,]  FALSE TRUE     FALSE
+[16,]  FALSE TRUE      TRUE
+[17,]  FALSE TRUE     FALSE
+[18,]  FALSE TRUE     FALSE
+[19,]  FALSE TRUE      TRUE
+[20,]  FALSE TRUE      TRUE
+
+$obs
+ [1] FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE
+[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+
+$increasing
+[1] TRUE TRUE TRUE
+
+$strict
+[1] FALSE
+
+attr(,"class")
+[1] "translogCheckMono"
+> 
+> # with a logical variable as shifter
+> test <- translogCheckMono( c( "qLabor", "land", "qVarInput" ),
++    germanFarms, coef( estResultShifterLogi ) )
+> summary( test )
+This translog function is monotonically increasing in qLabor, land, qVarInput at 10 out of 20 observations (50%)
+The monotonicity condition for the exogenous variable
+- 'qLabor' is fulfilled at 11 out of 20 observations (55%)
+- 'land' is fulfilled at 20 out of 20 observations (100%)
+- 'qVarInput' is fulfilled at 17 out of 20 observations (85%)
+> print.default( test )
+$exog
+      qLabor land qVarInput
+ [1,]   TRUE TRUE     FALSE
+ [2,]   TRUE TRUE      TRUE
+ [3,]   TRUE TRUE      TRUE
+ [4,]   TRUE TRUE      TRUE
+ [5,]   TRUE TRUE      TRUE
+ [6,]   TRUE TRUE      TRUE
+ [7,]   TRUE TRUE      TRUE
+ [8,]   TRUE TRUE      TRUE
+ [9,]   TRUE TRUE      TRUE
+[10,]   TRUE TRUE      TRUE
+[11,]   TRUE TRUE      TRUE
+[12,]  FALSE TRUE      TRUE
+[13,]  FALSE TRUE      TRUE
+[14,]  FALSE TRUE      TRUE
+[15,]  FALSE TRUE      TRUE
+[16,]  FALSE TRUE      TRUE
+[17,]  FALSE TRUE     FALSE
+[18,]  FALSE TRUE     FALSE
+[19,]  FALSE TRUE      TRUE
+[20,]  FALSE TRUE      TRUE
+
+$obs
+ [1] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE
+[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+
+$increasing
+[1] TRUE TRUE TRUE
+
+$strict
+[1] FALSE
+
+attr(,"class")
+[1] "translogCheckMono"
+> 
+> # with a factor as shifter
+> test <- translogCheckMono( c( "qLabor", "land", "qVarInput" ),
++    germanFarms, coef( estResultShifterFac ) )
+> summary( test )
+This translog function is monotonically increasing in qLabor, land, qVarInput at 10 out of 20 observations (50%)
+The monotonicity condition for the exogenous variable
+- 'qLabor' is fulfilled at 11 out of 20 observations (55%)
+- 'land' is fulfilled at 20 out of 20 observations (100%)
+- 'qVarInput' is fulfilled at 17 out of 20 observations (85%)
+> print.default( test )
+$exog
+      qLabor land qVarInput
+ [1,]   TRUE TRUE     FALSE
+ [2,]   TRUE TRUE      TRUE
+ [3,]   TRUE TRUE      TRUE
+ [4,]   TRUE TRUE      TRUE
+ [5,]   TRUE TRUE      TRUE
+ [6,]   TRUE TRUE      TRUE
+ [7,]   TRUE TRUE      TRUE
+ [8,]   TRUE TRUE      TRUE
+ [9,]   TRUE TRUE      TRUE
+[10,]   TRUE TRUE      TRUE
+[11,]   TRUE TRUE      TRUE
+[12,]  FALSE TRUE      TRUE
+[13,]  FALSE TRUE      TRUE
+[14,]  FALSE TRUE      TRUE
+[15,]  FALSE TRUE      TRUE
+[16,]  FALSE TRUE      TRUE
+[17,]  FALSE TRUE     FALSE
+[18,]  FALSE TRUE     FALSE
+[19,]  FALSE TRUE      TRUE
+[20,]  FALSE TRUE      TRUE
+
+$obs
+ [1] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE
+[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+
+$increasing
+[1] TRUE TRUE TRUE
+
+$strict
+[1] FALSE
+
+attr(,"class")
+[1] "translogCheckMono"
+> 
+> # with two shifters and one is logical
+> test <- translogCheckMono( c( "qLabor", "land", "qVarInput" ),
++    germanFarms, coef( estResultShifterLogi2 ) )
+> summary( test )
+This translog function is monotonically increasing in qLabor, land, qVarInput at 10 out of 20 observations (50%)
+The monotonicity condition for the exogenous variable
+- 'qLabor' is fulfilled at 11 out of 20 observations (55%)
+- 'land' is fulfilled at 20 out of 20 observations (100%)
+- 'qVarInput' is fulfilled at 18 out of 20 observations (90%)
+> print.default( test )
+$exog
+      qLabor land qVarInput
+ [1,]   TRUE TRUE     FALSE
+ [2,]   TRUE TRUE      TRUE
+ [3,]   TRUE TRUE      TRUE
+ [4,]   TRUE TRUE      TRUE
+ [5,]   TRUE TRUE      TRUE
+ [6,]   TRUE TRUE      TRUE
+ [7,]   TRUE TRUE      TRUE
+ [8,]   TRUE TRUE      TRUE
+ [9,]   TRUE TRUE      TRUE
+[10,]   TRUE TRUE      TRUE
+[11,]   TRUE TRUE      TRUE
+[12,]  FALSE TRUE      TRUE
+[13,]  FALSE TRUE      TRUE
+[14,]  FALSE TRUE      TRUE
+[15,]  FALSE TRUE      TRUE
+[16,]  FALSE TRUE      TRUE
+[17,]  FALSE TRUE      TRUE
+[18,]  FALSE TRUE     FALSE
+[19,]  FALSE TRUE      TRUE
+[20,]  FALSE TRUE      TRUE
+
+$obs
+ [1] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE
+[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+
+$increasing
+[1] TRUE TRUE TRUE
+
+$strict
+[1] FALSE
+
+attr(,"class")
+[1] "translogCheckMono"
+> 
+> # with two shifters and one is a factor
+> test <- translogCheckMono( c( "qLabor", "land", "qVarInput" ),
++    germanFarms, coef( estResultShifterFac2 ) )
+> summary( test )
+This translog function is monotonically increasing in qLabor, land, qVarInput at 10 out of 20 observations (50%)
+The monotonicity condition for the exogenous variable
+- 'qLabor' is fulfilled at 11 out of 20 observations (55%)
+- 'land' is fulfilled at 20 out of 20 observations (100%)
+- 'qVarInput' is fulfilled at 17 out of 20 observations (85%)
+> print.default( test )
+$exog
+      qLabor land qVarInput
+ [1,]   TRUE TRUE     FALSE
+ [2,]   TRUE TRUE      TRUE
+ [3,]   TRUE TRUE      TRUE
+ [4,]   TRUE TRUE      TRUE
+ [5,]   TRUE TRUE      TRUE
+ [6,]   TRUE TRUE      TRUE
+ [7,]   TRUE TRUE      TRUE
+ [8,]   TRUE TRUE      TRUE
+ [9,]   TRUE TRUE      TRUE
+[10,]   TRUE TRUE      TRUE
+[11,]   TRUE TRUE      TRUE
+[12,]  FALSE TRUE      TRUE
+[13,]  FALSE TRUE      TRUE
+[14,]  FALSE TRUE      TRUE
+[15,]  FALSE TRUE      TRUE
+[16,]  FALSE TRUE      TRUE
+[17,]  FALSE TRUE     FALSE
+[18,]  FALSE TRUE     FALSE
+[19,]  FALSE TRUE      TRUE
+[20,]  FALSE TRUE      TRUE
+
+$obs
+ [1] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE
+[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+
+$increasing
+[1] TRUE TRUE TRUE
+
+$strict
+[1] FALSE
+
+attr(,"class")
+[1] "translogCheckMono"
+> 
 > 
 > ## estimate with further argument passed to lm()
 > estResult2 <- translogEst( yName = "qOutput",
