@@ -409,7 +409,7 @@ print.default( ggResult )
 ggResultLog <- translogEst( "logInvest", 
    xNames = c( "logValue", "logCapital" ),
    data = ggData, dataLogged = TRUE )
-all.equal( ggResult[ -c(1,6,10,11,14) ], ggResultLog[ -c(1,6,10,11,14) ] )
+all.equal( ggResult[ -c(1,6,12,13,16) ], ggResultLog[ -c(1,6,12,13,16) ] )
 all.equal( ggResult$fitted, exp( ggResultLog$fitted ) )
 # random effects
 ggResultRan <- translogEst( "invest", c( "value", "capital" ), ggData,
@@ -421,7 +421,7 @@ ggResultRanLog <- translogEst( "logInvest",
    xNames = c( "logValue", "logCapital" ),
    data = ggData, dataLogged = TRUE,
    model = "random", random.method = "amemiya" )
-all.equal( ggResultRan[ -c(1,6,10,11,14) ], ggResultRanLog[ -c(1,6,10,11,14) ] )
+all.equal( ggResultRan[ -c(1,6,12,13,16) ], ggResultRanLog[ -c(1,6,12,13,16) ] )
 all.equal( ggResultRan$fitted, exp( ggResultRanLog$fitted ) )
 
 ## testing translogEla with panel data
@@ -488,75 +488,3 @@ ggResShifterFacRan <- translogEst( "invest", c( "value", "capital" ), ggData,
    shifterNames = "decade", model = "random", random.method = "amemiya" )
 print( ggResShifterFacRan )
 print.default( ggResShifterFacRan )
-
-
-## translog ray production function
-# quantity of crop outputs
-germanFarms$qCrop <- germanFarms$vCrop / germanFarms$pOutput
-# quantity of animal outputs
-germanFarms$qAnimal <- germanFarms$vAnimal / germanFarms$pOutput
-
-# estimate a translog ray production function
-estResultRay <- translogRayEst( yNames = c( "qCrop", "qAnimal" ),
-   xNames = c( "qLabor", "land", "qVarInput" ),
-   data = germanFarms )
-print( estResultRay )
-summary( estResultRay )
-print.default( estResultRay )
-
-# different order of outputs
-estResultRay2 <- translogRayEst( yNames = c( "qAnimal", "qCrop" ),
-   xNames = c( "qLabor", "land", "qVarInput" ),
-   data = germanFarms )
-print( estResultRay2 )
-summary( estResultRay2 )
-all.equal( abs( coef( estResultRay2 )[ 6:15 ] ),
-   abs( coef( estResultRay )[ 6:15 ] ) )
-
-# different order of inputs
-estResultRay3 <- translogRayEst( yNames = c( "qCrop", "qAnimal" ),
-   xNames = c( "qVarInput", "qLabor", "land" ),
-   data = germanFarms )
-print( estResultRay3 )
-summary( estResultRay3 )
-all.equal( coef( estResultRay ), coef( estResultRay3 )[
-   c( 1, 3, 4, 2, 5, 10, 11, 7, 12, 13, 8, 14, 6, 9, 15 ) ],
-   check.attributes = FALSE )
-
-
-## testing translogRayDeriv
-tlRayDeriv <- translogRayDeriv( yNames = c( "qCrop", "qAnimal" ),
-   xNames = c( "qLabor", "land", "qVarInput" ),
-   data = germanFarms, coef = coef( estResultRay ) )
-print( tlRayDeriv )
-
-tlRayDeriv2 <- translogRayDeriv( yNames = c( "qAnimal", "qCrop" ),
-   xNames = c( "qLabor", "land", "qVarInput" ),
-   data = germanFarms, coef = coef( estResultRay2 ) )
-all.equal( tlRayDeriv, tlRayDeriv2[ , c( 1:3, 5, 4 ) ] )
-
-tlRayDeriv3 <- translogRayDeriv( yNames = c( "qCrop", "qAnimal" ),
-   xNames = c( "qVarInput", "qLabor", "land" ),
-   data = germanFarms, coef = coef( estResultRay3 ) )
-all.equal( tlRayDeriv, tlRayDeriv3[ , c( 2, 3, 1, 4, 5 ) ] )
-
-
-## testing translogProdFuncMargCost with a ray function
-# compute the marginal costs of producing the output
-margCostRay <- translogProdFuncMargCost( yNames = c( "qCrop", "qAnimal" ),
-   xNames = c( "qLabor", "land", "qVarInput" ),
-   wNames = c( "pLabor", "pLand", "pVarInput" ),
-   data = germanFarms, coef = coef( estResultRay ) )
-print( margCostRay )
-
-margCostRay2 <- translogProdFuncMargCost( yNames = c( "qAnimal", "qCrop" ),
-   xNames = c( "qLabor", "land", "qVarInput" ),
-   wNames = c( "pLabor", "pLand", "pVarInput" ),
-   data = germanFarms, coef = coef( estResultRay2 ) )
-all.equal( margCostRay, margCostRay2[ , c( 2:1 ) ] )
-
-margCostRay3 <- translogProdFuncMargCost( yNames = c( "qCrop", "qAnimal" ),
-   xNames = c( "qVarInput", "qLabor", "land" ),
-   wNames = c( "pVarInput", "pLabor", "pLand" ),
-   data = germanFarms, coef = coef( estResultRay3 ) )
-all.equal( margCostRay, margCostRay3 )

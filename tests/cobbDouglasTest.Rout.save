@@ -1,7 +1,8 @@
 
-R version 2.11.1 (2010-05-31)
-Copyright (C) 2010 The R Foundation for Statistical Computing
+R version 2.15.0 (2012-03-30)
+Copyright (C) 2012 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
+Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -16,10 +17,6 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 Type 'q()' to quit R.
 
 > library( micEcon )
-Loading required package: np
-Loading required package: boot
-Loading required package: cubature
-Nonparametric Kernel Methods for Mixed Datatypes (version 0.40-1)
 Loading required package: miscTools
 > 
 > data( germanFarms )
@@ -317,3 +314,6 @@ attr(,"class")
 > all.equal( optInput, optInputNum, check.attributes = FALSE, tolerance = 1e-5 )
 [1] TRUE
 > 
+> proc.time()
+   user  system elapsed 
+  3.072   0.020   3.083 

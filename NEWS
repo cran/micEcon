@@ -5,6 +5,26 @@ A full ChangeLog is available in the log messages of the SVN repository
 on R-Forge.
 
 
+            CHANGES IN VERSION 0.6-10  (2012-06-02)
+
+* internal change, not relevant for the user
+
+
+            CHANGES IN VERSION 0.6-8  (2012-06-01)
+
+* separated tools for non-parametric microeconomic analysis into a new package 
+micEconNP (currently only available via micEcon's RForge site)
+
+* added data set "appleProdFr86"
+
+* quadFuncEst() and translogEst() now return components "r2" and "r2bar" also 
+when a panel data model was estimated by plm()
+
+* if the data set is a panel data frame, quadFuncEst(), and hence, also 
+translogEst(), should call plm() rather than lm() again (the class name of 
+panel data frames has changed)
+
+
             CHANGES IN VERSION 0.6-6
 
 * translogCheckMono() now automatically removes the coefficients of shifter

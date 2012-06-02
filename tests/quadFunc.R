@@ -105,7 +105,7 @@ margProducts <- quadFuncDeriv(
    c( "qLabor", "land", "qVarInput", "time" ),
    data = germanFarms, coef = coef( estResultLin ), 
    coefCov = vcov( estResultLin ) )
-sd( margProducts )
+sapply( margProducts, sd )
 all.equal( margProducts[1,], coef( estResultLin )[2:5],
    check.attributes = FALSE )
 all.equal( attributes( margProducts )$variance[1,], diag( vcov( estResultLin ) )[2:5], 
@@ -641,7 +641,7 @@ print( ggResultLinRan )
 # fixed effects
 margProducts <- quadFuncDeriv( c( "value", "capital" ),
    data = ggData, coef = coef( ggResultLin ), coefCov = vcov( ggResultLin ) )
-sd( margProducts )
+sapply( margProducts, sd )
 all.equal( margProducts[1,], coef( ggResultLin )[2:3],
    check.attributes = FALSE )
 all.equal( attributes( margProducts )$variance[1,], diag( vcov( ggResultLin ) )[2:3], 
@@ -649,7 +649,7 @@ all.equal( attributes( margProducts )$variance[1,], diag( vcov( ggResultLin ) )[
 # random effects
 margProducts <- quadFuncDeriv( c( "value", "capital" ),
    data = ggData, coef = coef( ggResultLinRan ), coefCov = vcov( ggResultLinRan ) )
-sd( margProducts )
+sapply( margProducts, sd )
 all.equal( margProducts[1,], coef( ggResultLinRan )[2:3],
    check.attributes = FALSE )
 all.equal( attributes( margProducts )$variance[1,], diag( vcov( ggResultLinRan ) )[2:3], 
