@@ -1,4 +1,5 @@
 library( micEcon )
+options( digits = 4 )
 
 ## function for printIndexing indices
 printIndices <- function( what, ... ) {

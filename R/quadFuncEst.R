@@ -203,12 +203,8 @@ quadFuncEst <- function( yName, xNames, data, shifterNames = NULL,
    result$homWeights   <- homWeights
    result$regScale     <- regScale
 
-   if( isPanel ) {
-      result$model.matrix <- cbind( rep( 1, result$nObs ),
-         as.matrix( estData[ , 4:( ncol( estData ) ) ] ) )
-   } else {
-      result$model.matrix <- cbind( rep( 1, result$nObs ),
-         as.matrix( estData[ , 2:( ncol( estData ) ) ] ) )
+   if( !isPanel ) {
+      result$model.matrix <- model.matrix( result$est )
    }
    class( result ) <- "quadFuncEst"
    return( result )

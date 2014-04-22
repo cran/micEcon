@@ -5,6 +5,16 @@ A full ChangeLog is available in the log messages of the SVN repository
 on R-Forge.
 
 
+            CHANGES IN VERSION 0.6-12  (2014-04-22)
+
+* 'micEcon' no loger depends on package 'miscTools' but imports this package
+
+* no panel data (e.g. cross-sectional data): fixed the returned 'model.matrix'
+in the presence of categorical explanatory variables
+
+* panel data: the returned object no longer includes the 'model.matrix'
+
+
             CHANGES IN VERSION 0.6-10  (2012-06-02)
 
 * internal change, not relevant for the user

@@ -1,5 +1,23 @@
 library( micEcon )
 library( plm )
+options( digits = 3 )
+printQuadFuncEst <- function( x ) {
+   for( n in names( x ) ) {
+      cat( "$", n, "\n", sep ="" )
+      if( n == "model.matrix" && is.numeric( x[[ n ]] ) ) {
+         for( i in 1:ncol( x[[ n ]] ) ) {
+            size <- floor( log( x[[ n ]][ , i ], base = 10 ) ) + 1
+            size[ size < -5 ] <- -5
+            fac <- 10^( size - 5 )
+            x[[ n ]][ , i ] <- fac * round( x[[ n ]][ , i ] / fac ) 
+         }
+      }
+      print( x[[ n ]] )
+      cat( "\n" )
+   }
+   cat( "attr(,\"class\")\n" )
+   print( class( x ) )   
+}
 
 ## preparing data
 data( germanFarms )
@@ -589,12 +607,12 @@ ggData$tech <- exp( ggData$yearInt - min( ggData$yearInt ) )
 ggResShifter <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
    shifterNames = "tech" )
 coef( ggResShifter )
-print.default( ggResShifter )
+printQuadFuncEst( ggResShifter )
 # random effects
 ggResShifterRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
    shifterNames = "tech", model = "random", random.method = "amemiya" )
 coef( ggResShifterRan )
-print.default( ggResShifterRan )
+printQuadFuncEst( ggResShifterRan )
 
 ## panel data with a logical variable as shifter
 ggData$war <- ggData$yearInt >= 1939 & ggData$yearInt <= 1945
@@ -602,12 +620,12 @@ ggData$war <- ggData$yearInt >= 1939 & ggData$yearInt <= 1945
 ggResShifterLogi <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
    shifterNames = "war" )
 coef( ggResShifterLogi )
-print.default( ggResShifterLogi )
+printQuadFuncEst( ggResShifterLogi )
 # random effects
 ggResShifterLogiRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
    shifterNames = "war", model = "random", random.method = "amemiya" )
 coef( ggResShifterLogiRan )
-print.default( ggResShifterLogiRan )
+printQuadFuncEst( ggResShifterLogiRan )
 
 ## panel data with a factor as shifter
 ggData$decade <- as.factor( ifelse( ggData$yearInt <= 1939, "30s",
@@ -616,12 +634,12 @@ ggData$decade <- as.factor( ifelse( ggData$yearInt <= 1939, "30s",
 ggResShifterFac <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
    shifterNames = "decade" )
 coef( ggResShifterFac )
-print.default( ggResShifterFac )
+printQuadFuncEst( ggResShifterFac )
 # random effects
 ggResShifterFacRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
    shifterNames = "decade", model = "random", random.method = "amemiya" )
 coef( ggResShifterFacRan )
-print.default( ggResShifterFacRan )
+printQuadFuncEst( ggResShifterFacRan )
 
 ## linear estimations with panel data
 # fixed effects
@@ -725,6 +743,7 @@ for( i in 1:15 ) {
    testData[[ xName ]] <- rnorm( nObs )
    testData$y <- testData$y + log( i + 1 ) * testData[[ xName ]]
 }
+testData$y <- testData$y + 0.1 * rnorm( nObs )
 testResult <- quadFuncEst( yName = "y",
    xNames = paste( "x", 1:15, sep = "_" ),
    data = testData, linear = TRUE )
