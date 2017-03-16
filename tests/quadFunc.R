@@ -40,11 +40,16 @@ print( estResult )
 fitted <- quadFuncCalc( c( "qLabor", "land", "qVarInput", "time" ),
    germanFarms, coef( estResult ) )
 all.equal( fitted, estResult$fitted )
+all.equal( fitted, predict( estResult ) )
+all.equal( fitted, predict( estResult, newdata = germanFarms ) )
+
 # only at mean values
 fittedMean <- quadFuncCalc(
    xNames = c( "qLabor", "land", "qVarInput", "time" ),
    data = germanFarmsMeans, coef = coef( estResult ) )
 print( fittedMean )
+all.equal( fittedMean,
+   predict( estResult, newdata = germanFarmsMeans ) )
 
 ## compute the marginal products of the inputs
 margProducts <- quadFuncDeriv(
@@ -72,6 +77,8 @@ print( estResultShifter )
 fitted <- quadFuncCalc( c( "qLabor", "land", "qVarInput" ),
    shifterNames = "time", data = germanFarms, coef( estResultShifter ) )
 all.equal( fitted, estResultShifter$fitted )
+all.equal( fitted, predict( estResultShifter ) )
+all.equal( fitted, predict( estResultShifter, newdata = germanFarms ) )
 # compute marginal products = partial derivatives
 margProdShifter <- quadFuncDeriv(
    c( "qLabor", "land", "qVarInput" ),
@@ -92,6 +99,8 @@ fitted <- quadFuncCalc( c( "qLabor", "land", "qVarInput" ),
    shifterNames = c( "time", "timeSq" ), data = germanFarms, 
    coef( estResultShifter2 ) )
 all.equal( fitted, estResultShifter2$fitted )
+all.equal( fitted, predict( estResultShifter2 ) )
+all.equal( fitted, predict( estResultShifter2, newdata = germanFarms ) )
 
 ## estimate a linear functions with quadFuncEst
 estResultLinear <- quadFuncEst( yName = "qOutput", xNames = NULL,
@@ -114,9 +123,14 @@ fitted <- quadFuncCalc( xNames = NULL,
    shifterNames = c( "time", "qLabor", "land", "qVarInput" ), 
    data = germanFarms, coef( estResultLinear ) )
 all.equal( fitted, estResultLinear$fitted )
+all.equal( fitted, predict( estResultLinear ) )
+all.equal( fitted, predict( estResultLinear, newdata = germanFarms ) )
+
 fitted <- quadFuncCalc( xNames = c( "time", "qLabor", "land", "qVarInput" ), 
    data = germanFarms, coef( estResultLin ) )
 all.equal( fitted, estResultLin$fitted )
+all.equal( fitted, predict( estResultLin ) )
+all.equal( fitted, predict( estResultLin, newdata = germanFarms ) )
 all.equal( estResultLinear$fitted, estResultLin$fitted )
 # compute partial derivatives
 margProducts <- quadFuncDeriv(
@@ -141,6 +155,8 @@ fitted <- quadFuncCalc( c( "qLabor", "land", "qVarInput" ),
    shifterNames = c( "reUnif" ), data = germanFarms, 
    coef( estResultShifterLogi ) )
 all.equal( fitted, estResultShifterLogi$fitted )
+all.equal( fitted, predict( estResultShifterLogi ) )
+all.equal( fitted, predict( estResultShifterLogi, newdata = germanFarms ) )
 
 ## estimate a quadratic production function with a factor as shifter
 germanFarms$decade <- as.factor( c( rep( "70s", 5 ), rep( "80s", 10 ), 
@@ -155,6 +171,8 @@ fitted <- quadFuncCalc( c( "qLabor", "land", "qVarInput" ),
    shifterNames = c( "decade" ), data = germanFarms, 
    coef( estResultShifterFac ) )
 all.equal( fitted, estResultShifterFac$fitted )
+all.equal( fitted, predict( estResultShifterFac ) )
+all.equal( fitted, predict( estResultShifterFac, newdata = germanFarms ) )
 
 ## estimate a quadratic production function with some shifters are logical
 estResultShifterLogi2 <- quadFuncEst( yName = "qOutput",
@@ -167,6 +185,8 @@ fitted <- quadFuncCalc( c( "qLabor", "land", "qVarInput" ),
    shifterNames = c( "time", "reUnif" ), data = germanFarms, 
    coef( estResultShifterLogi2 ) )
 all.equal( fitted, estResultShifterLogi2$fitted )
+all.equal( fitted, predict( estResultShifterLogi2 ) )
+all.equal( fitted, predict( estResultShifterLogi2, newdata = germanFarms ) )
 
 ## estimate a quadratic production function with some shifters are factors
 estResultShifterFac2 <- quadFuncEst( yName = "qOutput",
@@ -179,6 +199,8 @@ fitted <- quadFuncCalc( c( "qLabor", "land", "qVarInput" ),
    shifterNames = c( "time", "decade" ), data = germanFarms, 
    coef( estResultShifterFac2 ) )
 all.equal( fitted, estResultShifterFac2$fitted )
+all.equal( fitted, predict( estResultShifterFac2 ) )
+all.equal( fitted, predict( estResultShifterFac2, newdata = germanFarms ) )
 
 ## estimate with further argument passed to lm()
 estResult2 <- quadFuncEst( yName = "qOutput",
@@ -286,6 +308,8 @@ fitted <- quadFuncCalc(
    coef = coef( estResultLinHom ), data = germanFarms, 
    homWeights = c( qLabor = 0.2, land = 0.5, qVarInput = 0.3 ) )
 all.equal( estResultLinHom$fitted, fitted )
+all.equal( fitted, predict( estResultLinHom ) )
+all.equal( fitted, predict( estResultLinHom, newdata = germanFarms ) )
 fitted <- quadFuncCalc(
    xNames = c( "time", "qLabor", "land", "qVarInput" ),
    coef = coef( estResultLinHom ), data = germanFarms, 
@@ -296,16 +320,22 @@ fitted <- quadFuncCalc(
    coef = coef( estResultLinHom2 ), data = germanFarms, 
    homWeights = c( qVarInput = 0.3, land = 0.5, qLabor = 0.2 ) )
 all.equal( estResultLinHom2$fitted, fitted )
+all.equal( fitted, predict( estResultLinHom2 ) )
+all.equal( fitted, predict( estResultLinHom2, newdata = germanFarms ) )
 fitted <- quadFuncCalc(
    xNames = c( "qLabor", "land", "qVarInput", "time" ),
    coef = coef( estResultLinHom3 ), data = germanFarms,
    homWeights = c( qLabor = 0.2, land = 0.5, qVarInput = 0.3 ) )
 all.equal( estResultLinHom3$fitted, fitted )
+all.equal( fitted, predict( estResultLinHom3 ) )
+all.equal( fitted, predict( estResultLinHom3, newdata = germanFarms ) )
 fitted <- quadFuncCalc(
    xNames = c( "time", "qLabor", "land", "qVarInput" ),
    coef = coef( estResultLinHom4 ), data = germanFarms,
    homWeights = c( qLabor = 0.2, land = 0.5, qVarInput = 0.3, time = 0 ) )
 all.equal( estResultLinHom4$fitted, fitted )
+all.equal( fitted, predict( estResultLinHom4 ) )
+all.equal( fitted, predict( estResultLinHom4, newdata = germanFarms ) )
 
 ## derivatives of linear functions with homogeneity imposed
 estResultLinHomDeriv <- quadFuncDeriv(
@@ -445,6 +475,8 @@ fitted <- quadFuncCalc(
    coef = coef( estResultHom ), data = germanFarms, 
    homWeights = c( qLabor = 0.7, land = 0.1, qVarInput = 0.2 ) )
 all.equal( estResultHom$fitted, fitted )
+all.equal( fitted, predict( estResultHom ) )
+all.equal( fitted, predict( estResultHom, newdata = germanFarms ) )
 fitted <- quadFuncCalc(
    xNames = c( "time", "qLabor", "land", "qVarInput" ),
    coef = coef( estResultHom ), data = germanFarms, 
@@ -455,16 +487,22 @@ fitted <- quadFuncCalc(
    coef = coef( estResultHom2 ), data = germanFarms, 
    homWeights = c( qVarInput = 0.2, land = 0.1, qLabor = 0.7 ) )
 all.equal( estResultHom2$fitted, fitted )
+all.equal( fitted, predict( estResultHom2 ) )
+all.equal( fitted, predict( estResultHom2, newdata = germanFarms ) )
 fitted <- quadFuncCalc(
    xNames = c( "qLabor", "land", "qVarInput", "time" ),
    coef = coef( estResultHom3 ), data = germanFarms,
    homWeights = c( qLabor = 0.7, land = 0.1, qVarInput = 0.2 ) )
 all.equal( estResultHom3$fitted, fitted )
+all.equal( fitted, predict( estResultHom3 ) )
+all.equal( fitted, predict( estResultHom3, newdata = germanFarms ) )
 fitted <- quadFuncCalc(
    xNames = c( "time", "qLabor", "land", "qVarInput" ),
    coef = coef( estResultHom4 ), data = germanFarms,
    homWeights = c( qLabor = 0.7, land = 0.1, qVarInput = 0.2, time = 0 ) )
 all.equal( estResultHom4$fitted, fitted )
+all.equal( fitted, predict( estResultHom4 ) )
+all.equal( fitted, predict( estResultHom4, newdata = germanFarms ) )
 
 ## derivatives of quadratic functions with homogeneity imposed
 estResultHomDeriv <- quadFuncDeriv(
@@ -589,30 +627,69 @@ max( abs( estResultHom4Ela - estResultHom4ElaObs ) )
 
 ################ panel data #####################
 data( "GrunfeldGreene", package = "systemfit" )
-ggData <- plm.data( GrunfeldGreene, c( "firm", "year" ) )
+ggData <- pdata.frame( GrunfeldGreene, c( "firm", "year" ),
+   row.names = FALSE )
 # fixed effects
 ggResult <- quadFuncEst( "invest", c( "value", "capital" ), ggData )
 coef( ggResult )
 print( ggResult )
+round( fitted( ggResult ), 2 )
+round( predict( ggResult ), 2 )
+all.equal( predict( ggResult ),
+   fitted( ggResult ), check.attributes = FALSE )
+round( predict( ggResult, newdata = ggData ), 2 )
+all.equal( predict( ggResult, newdata = ggData ),
+   fitted( ggResult ), check.attributes = FALSE )
+all.equal( predict( ggResult, newdata = ggData ),
+   predict( ggResult ), check.attributes = FALSE )
+
 # random effects
 ggResultRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
    model = "random", random.method = "amemiya" )
 coef( ggResultRan )
 print( ggResultRan )
+round( fitted( ggResultRan ), 2 )
+round( predict( ggResultRan ), 2 )
+all.equal( predict( ggResultRan ),
+   fitted( ggResultRan ), check.attributes = FALSE )
+round( predict( ggResultRan, newdata = ggData ), 2 )
+all.equal( predict( ggResultRan, newdata = ggData ),
+   fitted( ggResultRan ), check.attributes = FALSE )
+all.equal( predict( ggResultRan, newdata = ggData ),
+   predict( ggResultRan ), check.attributes = FALSE )
 
 ## panel data with a shifter
-ggData$yearInt <- as.integer( as.character( ggData$year ) )
+ggData$yearInt <- as.numeric( as.character( ggData$year ) )
 ggData$tech <- exp( ggData$yearInt - min( ggData$yearInt ) )
 # fixed effects
 ggResShifter <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
    shifterNames = "tech" )
 coef( ggResShifter )
 printQuadFuncEst( ggResShifter )
+round( fitted( ggResShifter ), 2 )
+round( predict( ggResShifter ), 2 )
+all.equal( predict( ggResShifter ),
+   fitted( ggResShifter ), check.attributes = FALSE )
+round( predict( ggResShifter, newdata = ggData ), 2 )
+all.equal( predict( ggResShifter, newdata = ggData ),
+   fitted( ggResShifter ), check.attributes = FALSE )
+all.equal( predict( ggResShifter, newdata = ggData ),
+   predict( ggResShifter ), check.attributes = FALSE )
+
 # random effects
 ggResShifterRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
    shifterNames = "tech", model = "random", random.method = "amemiya" )
 coef( ggResShifterRan )
 printQuadFuncEst( ggResShifterRan )
+round( fitted( ggResShifterRan ), 2 )
+round( predict( ggResShifterRan ), 2 )
+all.equal( predict( ggResShifterRan ),
+   fitted( ggResShifterRan ), check.attributes = FALSE )
+round( predict( ggResShifterRan, newdata = ggData ), 2 )
+all.equal( predict( ggResShifterRan, newdata = ggData ),
+   fitted( ggResShifterRan ), check.attributes = FALSE )
+all.equal( predict( ggResShifterRan, newdata = ggData ),
+   predict( ggResShifterRan ), check.attributes = FALSE )
 
 ## panel data with a logical variable as shifter
 ggData$war <- ggData$yearInt >= 1939 & ggData$yearInt <= 1945
@@ -621,11 +698,30 @@ ggResShifterLogi <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
    shifterNames = "war" )
 coef( ggResShifterLogi )
 printQuadFuncEst( ggResShifterLogi )
+round( fitted( ggResShifterLogi ), 2 )
+round( predict( ggResShifterLogi ), 2 )
+all.equal( predict( ggResShifterLogi ),
+   fitted( ggResShifterLogi ), check.attributes = FALSE )
+round( predict( ggResShifterLogi, newdata = ggData ), 2 )
+all.equal( predict( ggResShifterLogi, newdata = ggData ),
+   fitted( ggResShifterLogi ), check.attributes = FALSE )
+all.equal( predict( ggResShifterLogi, newdata = ggData ),
+   predict( ggResShifterLogi ), check.attributes = FALSE )
+
 # random effects
 ggResShifterLogiRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
    shifterNames = "war", model = "random", random.method = "amemiya" )
 coef( ggResShifterLogiRan )
 printQuadFuncEst( ggResShifterLogiRan )
+round( fitted( ggResShifterLogiRan ), 2 )
+round( predict( ggResShifterLogiRan ), 2 )
+all.equal( predict( ggResShifterLogiRan ),
+   fitted( ggResShifterLogiRan ), check.attributes = FALSE )
+round( predict( ggResShifterLogiRan, newdata = ggData ), 2 )
+all.equal( predict( ggResShifterLogiRan, newdata = ggData ),
+   fitted( ggResShifterLogiRan ), check.attributes = FALSE )
+all.equal( predict( ggResShifterLogiRan, newdata = ggData ),
+   predict( ggResShifterLogiRan ), check.attributes = FALSE )
 
 ## panel data with a factor as shifter
 ggData$decade <- as.factor( ifelse( ggData$yearInt <= 1939, "30s",
@@ -635,11 +731,30 @@ ggResShifterFac <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
    shifterNames = "decade" )
 coef( ggResShifterFac )
 printQuadFuncEst( ggResShifterFac )
+round( fitted( ggResShifterFac ), 2 )
+round( predict( ggResShifterFac ), 2 )
+all.equal( predict( ggResShifterFac ),
+   fitted( ggResShifterFac ), check.attributes = FALSE )
+round( predict( ggResShifterFac, newdata = ggData ), 2 )
+all.equal( predict( ggResShifterFac, newdata = ggData ),
+   fitted( ggResShifterFac ), check.attributes = FALSE )
+all.equal( predict( ggResShifterFac, newdata = ggData ),
+   predict( ggResShifterFac ), check.attributes = FALSE )
+
 # random effects
 ggResShifterFacRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
    shifterNames = "decade", model = "random", random.method = "amemiya" )
 coef( ggResShifterFacRan )
 printQuadFuncEst( ggResShifterFacRan )
+round( fitted( ggResShifterFacRan ), 2 )
+round( predict( ggResShifterFacRan ), 2 )
+all.equal( predict( ggResShifterFacRan ),
+   fitted( ggResShifterFacRan ), check.attributes = FALSE )
+round( predict( ggResShifterFacRan, newdata = ggData ), 2 )
+all.equal( predict( ggResShifterFacRan, newdata = ggData ),
+   fitted( ggResShifterFacRan ), check.attributes = FALSE )
+all.equal( predict( ggResShifterFacRan, newdata = ggData ),
+   predict( ggResShifterFacRan ), check.attributes = FALSE )
 
 ## linear estimations with panel data
 # fixed effects
@@ -648,12 +763,30 @@ ggResultLin <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
 coef( ggResultLin )
 vcov( ggResultLin )
 print( ggResultLin )
+round( fitted( ggResultLin ), 2 )
+round( predict( ggResultLin ), 2 )
+all.equal( predict( ggResultLin ),
+   fitted( ggResultLin ), check.attributes = FALSE )
+round( predict( ggResultLin, newdata = ggData ), 2 )
+all.equal( predict( ggResultLin, newdata = ggData ),
+   fitted( ggResultLin ), check.attributes = FALSE )
+all.equal( predict( ggResultLin, newdata = ggData ),
+   predict( ggResultLin ), check.attributes = FALSE )
 # random effects
 ggResultLinRan <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
    linear = TRUE, model = "random", random.method = "amemiya" )
 coef( ggResultLinRan )
 vcov( ggResultLinRan )
 print( ggResultLinRan )
+round( fitted( ggResultLinRan ), 2 )
+round( predict( ggResultLinRan ), 2 )
+all.equal( predict( ggResultLinRan ),
+   fitted( ggResultLinRan ), check.attributes = FALSE )
+round( predict( ggResultLinRan, newdata = ggData ), 2 )
+all.equal( predict( ggResultLinRan, newdata = ggData ),
+   fitted( ggResultLinRan ), check.attributes = FALSE )
+all.equal( predict( ggResultLinRan, newdata = ggData ),
+   predict( ggResultLinRan ), check.attributes = FALSE )
 
 ## compute partial derivatives of linear estimation results with panel data
 # fixed effects
@@ -750,6 +883,9 @@ testResult <- quadFuncEst( yName = "y",
 coef( testResult )
 rownames( vcov( testResult ) )
 colnames( vcov( testResult ) )
+round( fitted( testResult ), 2 )
+all.equal( predict( testResult ), fitted( testResult ) )
+all.equal( predict( testResult, newdata = testData ), fitted( testResult ) )
 
 ########## scaling regressors ###########
 germanFarms$landAr <- germanFarms$land * 100

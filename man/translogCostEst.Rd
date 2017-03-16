@@ -22,7 +22,7 @@
       of the input prices.}
    \item{data}{data frame containing the data
       (possibly a panel data frame created with
-      \code{\link[plm]{plm.data}}).}
+      \code{\link[plm]{pdata.frame}}).}
    \item{fNames}{a vector of strings containing the names
       of fixed inputs.}
    \item{shifterNames}{a vector of strings containing the names

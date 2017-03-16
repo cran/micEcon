@@ -1,0 +1,85 @@
+
+R version 3.3.3 (2017-03-06) -- "Another Canoe"
+Copyright (C) 2017 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library( "micEcon" )
+
+If you have questions, suggestions, or comments regarding one of the 'micEcon' packages, please use a forum or 'tracker' at micEcon's R-Forge site:
+https://r-forge.r-project.org/projects/micecon/
+> data( "germanFarms" )
+> 
+> # add logical variable
+> germanFarms$landAboveAvg <- germanFarms$land > mean( germanFarms$land )
+> 
+> datLog1 <- logDataSet( germanFarms, c( "vAnimal", "vOutput", "vVarInput" ) )
+> summary( datLog1 )
+    vAnimal         vOutput        vVarInput    
+ Min.   :11.21   Min.   :11.42   Min.   :10.73  
+ 1st Qu.:11.42   1st Qu.:11.68   1st Qu.:11.07  
+ Median :11.57   Median :11.83   Median :11.20  
+ Mean   :11.56   Mean   :11.81   Mean   :11.16  
+ 3rd Qu.:11.70   3rd Qu.:11.97   3rd Qu.:11.27  
+ Max.   :11.80   Max.   :12.09   Max.   :11.38  
+> 
+> datLog2 <- logDataSet( germanFarms, c( "vAnimal", "vOutput" ),
++    c( "year", "vVarInput" ) )
+> summary( datLog2 )
+    vAnimal         vOutput           year      vVarInput    
+ Min.   :11.21   Min.   :11.42   75/76  : 1   Min.   :10.73  
+ 1st Qu.:11.42   1st Qu.:11.68   76/77  : 1   1st Qu.:11.07  
+ Median :11.57   Median :11.83   77/78  : 1   Median :11.20  
+ Mean   :11.56   Mean   :11.81   78/79  : 1   Mean   :11.16  
+ 3rd Qu.:11.70   3rd Qu.:11.97   79/80  : 1   3rd Qu.:11.27  
+ Max.   :11.80   Max.   :12.09   80/81  : 1   Max.   :11.38  
+                                 (Other):14                  
+> all.equal( datLog1, datLog2[ , -3 ] )
+[1] TRUE
+> 
+> datLog3 <- logDataSet( germanFarms, c( "vAnimal", "vOutput", "landAboveAvg" ) )
+> summary( datLog3 )
+    vAnimal         vOutput       landAboveAvg 
+ Min.   :11.21   Min.   :11.42   Min.   :-Inf  
+ 1st Qu.:11.42   1st Qu.:11.68   1st Qu.:-Inf  
+ Median :11.57   Median :11.83   Median :-Inf  
+ Mean   :11.56   Mean   :11.81   Mean   :-Inf  
+ 3rd Qu.:11.70   3rd Qu.:11.97   3rd Qu.:   0  
+ Max.   :11.80   Max.   :12.09   Max.   :   0  
+> 
+> datLog4 <- logDataSet( germanFarms, c( "vAnimal", "vOutput" ),
++    c( "landAboveAvg", "vVarInput" ) )
+> summary( datLog4 )
+    vAnimal         vOutput      landAboveAvg      vVarInput    
+ Min.   :11.21   Min.   :11.42   Mode :logical   Min.   :10.73  
+ 1st Qu.:11.42   1st Qu.:11.68   FALSE:11        1st Qu.:11.07  
+ Median :11.57   Median :11.83   TRUE :9         Median :11.20  
+ Mean   :11.56   Mean   :11.81   NA's :0         Mean   :11.16  
+ 3rd Qu.:11.70   3rd Qu.:11.97                   3rd Qu.:11.27  
+ Max.   :11.80   Max.   :12.09                   Max.   :11.38  
+> all.equal( datLog1, datLog4[ , -3 ] )
+[1] TRUE
+> 
+> 
+> try( logDataSet( germanFarms, c( "year", "vOutput", "vVarInput" ) ) )
+Error in Math.factor(data[[varNames[i]]]) : 
+  'log' not meaningful for factors
+> 
+> try( logDataSet( germanFarms, c( "abc", "vOutput", "vVarInput" ) ) )
+Error in log(data[[varNames[i]]]) : 
+  non-numeric argument to mathematical function
+> 
+> proc.time()
+   user  system elapsed 
+  1.692   0.028   1.714 

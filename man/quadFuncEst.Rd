@@ -19,7 +19,7 @@ quadFuncEst( yName, xNames, data, shifterNames = NULL,
       independent variables.}
    \item{data}{data frame containing the data
       (possibly a panel data frame created with
-      \code{\link[plm]{plm.data}}).}
+      \code{\link[plm]{pdata.frame}}).}
    \item{shifterNames}{a vector of strings containing the names
       of the independent variables that should be included
       as shifters only (not in quadratic or interaction terms).}

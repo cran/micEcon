@@ -5,6 +5,23 @@ A full ChangeLog is available in the log messages of the SVN repository
 on R-Forge.
 
 
+            CHANGES IN VERSION 0.6-14  (2017-03-16)
+
+* added predict() methods for objects returned by quadFuncEst() and
+translogEst()
+
+* moved function translogRayEst() and associated functions to a development
+version of a new package called micEconDist (not yet available on CRAN)
+
+* moved functions for calculating price and quantity indices to a development
+version of a new package called micEconIndex (not yet available on CRAN)
+
+* moved function logDataSet() from package "miscTools" to this package
+
+* logDataSet() now also works for (panel) data sets that were created by
+pdata.frame()
+
+
             CHANGES IN VERSION 0.6-12  (2014-04-22)
 
 * 'micEcon' no loger depends on package 'miscTools' but imports this package

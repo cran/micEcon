@@ -1,79 +1,21 @@
 quadFuncEst <- function( yName, xNames, data, shifterNames = NULL,
    linear = FALSE, homWeights = NULL, regScale = 1, ... ) {
 
-   checkNames( c( yName, xNames, shifterNames ), names( data ) )
-
-   # check argument 'homWeights'
-   .quadFuncCheckHomWeights( homWeights, xNames )
-
-   nExog   <- length( xNames )
-   nShifter <- length( shifterNames )
+   dat <- quadFuncModel( yName = yName, xNames = xNames, data = data,
+      shifterNames = shifterNames, linear = linear, homWeights = homWeights,
+      regScale = regScale )
+   isPanel    <- dat$isPanel
+   estData    <- dat$estData
+   estFormula <- dat$estFormula
+   iOmit      <- dat$iOmit
+   rm( dat )
+   
    result <- list()
    result$call <- match.call()
 
-   isPanel <- any( c( "plm.dim", "pdata.frame" ) %in% class( data ) )
+   result$nExog <- nExog <- length( xNames )
+   result$nShifter <- nShifter <- length( shifterNames )
 
-   if( isPanel ) {
-      estData <- data[ , 1:2 ]
-      estData$y <- data[[ yName ]]
-   } else {
-      estData <- data.frame( y = data[[  yName ]] )
-   }
-
-   if( !is.null( homWeights ) ) {
-      estData$deflator <- 0
-      for( i in seq( along = homWeights ) ) {
-         estData$deflator <- estData$deflator + 
-            homWeights[ i ] * data[[ names( homWeights )[ i ] ]]
-      }
-      whichHom <- which( xNames %in% names( homWeights ) )
-      xOmit <- names( homWeights )[ 1 ]
-      iOmit <- which( xNames == xOmit )
-   } else {
-      iOmit <- 0
-      xOmit <- NULL
-   }
-
-   estFormula <- "y ~ 1"
-   for( i in seq( along = xNames ) ) {
-      if( i != iOmit ) {
-         xName <- paste( "a", as.character( i ), sep = "_" )
-         estData[[ xName ]] <- .quadFuncVarHom( data, xNames[ i ], 
-            homWeights, estData$deflator, xOmit ) / regScale
-         estFormula <- paste( estFormula, "+", xName )
-      }
-   }
-   if( !linear ) {
-      for( i in seq( along = xNames ) ) {
-         for( j in i:nExog ) {
-            if( i != iOmit & j != iOmit ) {
-               xName <- paste( "b", as.character( i ), as.character( j ),
-                  sep = "_" )
-               estData[[ xName ]] <- 0.5 *
-                  ifelse( i == j, 1, 2 ) *
-                  .quadFuncVarHom( data, xNames[ i ], homWeights, 
-                     estData$deflator, xOmit ) * 
-                  .quadFuncVarHom( data, xNames[ j ], homWeights, 
-                     estData$deflator, xOmit ) / 
-                  regScale
-               estFormula <- paste( estFormula, "+", xName )
-            }
-         }
-      }
-   }
-   for( i in seq( along = shifterNames ) ) {
-      if( is.factor( data[[ shifterNames[ i ] ]] ) | 
-            is.logical( data[[ shifterNames[ i ] ]] ) ) {
-         xName <- paste( "d", "_", as.character( i ), "_", sep = "" )
-         estData[[ xName ]] <- data[[ shifterNames[ i ] ]]
-      } else {
-         xName <- paste( "d", as.character( i ), sep = "_" )
-         estData[[ xName ]] <- data[[ shifterNames[ i ] ]] / regScale
-      }
-      estFormula <- paste( estFormula, "+", xName )
-   }
-   result$nExog <- nExog
-   result$nShifter <- nShifter
    if( isPanel ) {
       result$est <- plm( as.formula( estFormula ), estData, ... )
       result$est$call$formula <- as.formula( estFormula )
@@ -100,6 +42,7 @@ quadFuncEst <- function( yName, xNames, data, shifterNames = NULL,
    # adding coefficients and covariances that have been dropped 
    # due to the homogeneity restriction
    if( !is.null( homWeights ) ) {
+      whichHom <- which( xNames %in% names( homWeights ) )
       # missing coefficients
       coefOmit <- 0
       for( i in whichHom[ whichHom != iOmit ] ) {
