@@ -44,7 +44,7 @@
    from a panel data set
    that is available in the data archive 
    of the Journal of Applied Econometrics: 
-   \url{www.econ.queensu.ca/jae/1996-v11.6/ivaldi-ladoux-ossard-simioni/}. 
+   \url{http://qed.econ.queensu.ca/jae/1996-v11.6/ivaldi-ladoux-ossard-simioni/}. 
 }
 
 \references{

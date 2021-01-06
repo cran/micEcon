@@ -1,0 +1,68 @@
+
+R version 4.0.0 (2020-04-24) -- "Arbor Day"
+Copyright (C) 2020 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library( "micEcon" )
+
+If you have questions, suggestions, or comments regarding one of the 'micEcon' packages, please use a forum or 'tracker' at micEcon's R-Forge site:
+https://r-forge.r-project.org/projects/micecon/
+> data( "utility" )
+> 
+> lapply( utility, summary )
+$firm
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1.00   18.50   37.00   36.51   54.50   72.00 
+
+$year
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  86.00   88.00   91.00   91.01   94.00   96.00 
+
+$y
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+  499166  5214805 10856320 13482200 18489327 75467870 
+
+$regu
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.0000  0.0000  1.0000  0.6245  1.0000  1.0000 
+
+$k
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  66549  279019  662773  904115 1278909 3878295 
+
+$labor
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+     80    1120    2345    3033    3904   23305 
+
+$fuel
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   6094   45249   93494  129742  175770  734273 
+
+$wl
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  9.944  19.882  23.140  23.621  26.695  45.733 
+
+$wf
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  1.135   1.797   1.934   1.952   2.091   3.562 
+
+$wk
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.07822 0.12073 0.13081 0.13212 0.14211 0.20503 
+
+> 
+> proc.time()
+   user  system elapsed 
+  0.423   0.020   0.437 

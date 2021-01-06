@@ -1,10 +1,10 @@
 Package: micEcon
-Version: 0.6-14
-Date: 2017-03-16
+Version: 0.6-16
+Date: 2021-01-05
 Title: Microeconomic Analysis and Modelling
 Author: Arne Henningsen
 Maintainer: Arne Henningsen <arne.henningsen@gmail.com>
-Depends: R (>= 2.4.0)
+Depends: R (>= 3.5.0)
 Imports: miscTools (>= 0.6-1), plm (>= 1.1-0)
 Suggests: Ecdat (>= 0.1-5), systemfit (>= 1.0-0)
 Description: Various tools for microeconomic analysis and microeconomic modelling,
@@ -15,6 +15,6 @@ Description: Various tools for microeconomic analysis and microeconomic modellin
 License: GPL (>= 2)
 URL: http://www.micEcon.org
 NeedsCompilation: no
-Packaged: 2017-03-16 18:04:18 UTC; arne
+Packaged: 2021-01-05 09:01:06 UTC; gsl324
 Repository: CRAN
-Date/Publication: 2017-03-16 23:17:16 UTC
+Date/Publication: 2021-01-06 16:00:42 UTC
