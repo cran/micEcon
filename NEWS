@@ -5,6 +5,14 @@ A full ChangeLog is available in the log messages of the SVN repository
 on R-Forge.
 
 
+            CHANGES IN VERSION 0.6-18  (2022-09-03)
+
+* clarified a warning message in predict.quadFuncEst()
+
+* updated the reference output of a test script due to changes in the "plm"
+package
+
+
             CHANGES IN VERSION 0.6-16  (2021-01-05)
 
 * added data set "utility"

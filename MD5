@@ -1,6 +1,6 @@
-dd0331d2751c19a25e0c8bf37846b875 *DESCRIPTION
+a18f8a11f7a90cfa0eab208a168558dd *DESCRIPTION
 73a2e075e1fe55120099167504ce19b1 *NAMESPACE
-916681bcea44d453a573378047fec7c0 *NEWS
+8e8932b6081dcd8381bbf1b54a41951f *NEWS
 7f1ac9fc32171a25edf10b562c8c652e *R/checkConsist.R
 e4ba091c04579272e6c1f8cf565e0c56 *R/cobbDouglasCalc.R
 b2cad53fb3a304aadca4859aaac1c081 *R/cobbDouglasDeriv.R
@@ -13,7 +13,7 @@ dc7a29552f3d991c1985f2fcfcef1a8f *R/elas.translogEst.R
 76f4832d952b4a24573593e97d53b2a1 *R/logDataSet.R
 47f6b0bcf8292ad34a55efaedd13038a *R/micEconCoefOrder.R
 a058c38339ebee433a5dcf34092ab804 *R/micEconVectorToDataFrame.R
-f0bcf8cac7c77d37473d17d24a48fcde *R/predict.quadFuncEst.R
+9646d0aa7e44f2c00947f1261b416589 *R/predict.quadFuncEst.R
 78a689ebc177c221f0ffb0d05bcbe683 *R/predict.translogEst.R
 9517f1448538d9046e18e7e69ec5f55a *R/print.summary.translogEst.R
 b219c1f948fbb51038b0f04b396e4622 *R/print.translogCheckCurvature.R
@@ -41,7 +41,7 @@ ca4191cf5e66aeaa378354a86f5f9376 *R/translogEla.R
 b3026c6fb9e6dd858074b809bec85091 *R/translogMonoRestr.R
 5b17b1bde1592bceb5dea60ecaebacc4 *R/translogProdFuncMargCost.R
 da5934d6c678b9aa138b6ae164093151 *R/zzz.R
-d41a3aea9670fc7fbc0d228789ec88bb *build/partial.rdb
+0c6ad5b3446721162c89589e8077ab1c *build/partial.rdb
 8f8d60a31d0447cbdf5993669ffafa3e *data/Bleymueller79E25.1.txt.gz
 3c597160e8c0f72efbd5eab9198c3b9f *data/Missong03E7.7.txt.gz
 583fc86925ccff8bad447e04eb8dd264 *data/appleProdFr86.RData
@@ -80,8 +80,8 @@ d6b676ba8881d22055276589bbb0d8bf *tests/cobbDouglasTest.R
 6b3cff007448b177936e687cef473a24 *tests/cobbDouglasTest.Rout.save
 335f37e07f1e961cdac84dd9f800244d *tests/logDataSetTest.R
 43080b849dc2024153eb35a7e681b74c *tests/logDataSetTest.Rout.save
-7f982b64407328c8b5ea4eb35ac80e59 *tests/quadFunc.R
-5777b3b601a2d533f414d54495939bf9 *tests/quadFunc.Rout.save
+08048d2891bd657d3b110180db973a4a *tests/quadFunc.R
+581d4a18b931119ea12578819ac907a4 *tests/quadFunc.Rout.save
 4d662c049112c66ed23cc82b1e155529 *tests/translog.R
 83db7e229914a5cb36305af002fff1bc *tests/translog.Rout.save
 9e308e1a06da527184abeef5ce02f487 *tests/translogCost.R

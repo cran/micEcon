@@ -634,7 +634,6 @@ ggResult <- quadFuncEst( "invest", c( "value", "capital" ), ggData )
 coef( ggResult )
 print( ggResult )
 round( fitted( ggResult ), 2 )
-unname( round( predict( ggResult ), 2 ) )
 all.equal( predict( ggResult ),
    fitted( ggResult ), check.attributes = FALSE )
 round( predict( ggResult, newdata = ggData ), 2 )
@@ -667,7 +666,6 @@ ggResShifter <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
 coef( ggResShifter )
 printQuadFuncEst( ggResShifter )
 round( fitted( ggResShifter ), 2 )
-unname( round( predict( ggResShifter ), 2 ) )
 all.equal( predict( ggResShifter ),
    fitted( ggResShifter ), check.attributes = FALSE )
 round( predict( ggResShifter, newdata = ggData ), 2 )
@@ -699,7 +697,6 @@ ggResShifterLogi <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
 coef( ggResShifterLogi )
 printQuadFuncEst( ggResShifterLogi )
 round( fitted( ggResShifterLogi ), 2 )
-unname( round( predict( ggResShifterLogi ), 2 ) )
 all.equal( predict( ggResShifterLogi ),
    fitted( ggResShifterLogi ), check.attributes = FALSE )
 round( predict( ggResShifterLogi, newdata = ggData ), 2 )
@@ -732,7 +729,6 @@ ggResShifterFac <- quadFuncEst( "invest", c( "value", "capital" ), ggData,
 coef( ggResShifterFac )
 printQuadFuncEst( ggResShifterFac )
 round( fitted( ggResShifterFac ), 2 )
-unname( round( predict( ggResShifterFac ), 2 ) )
 all.equal( predict( ggResShifterFac ),
    fitted( ggResShifterFac ), check.attributes = FALSE )
 round( predict( ggResShifterFac, newdata = ggData ), 2 )
@@ -764,7 +760,6 @@ coef( ggResultLin )
 vcov( ggResultLin )
 print( ggResultLin )
 round( fitted( ggResultLin ), 2 )
-unname( round( predict( ggResultLin ), 2 ) )
 all.equal( predict( ggResultLin ),
    fitted( ggResultLin ), check.attributes = FALSE )
 round( predict( ggResultLin, newdata = ggData ), 2 )

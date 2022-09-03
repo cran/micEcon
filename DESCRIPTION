@@ -1,6 +1,6 @@
 Package: micEcon
-Version: 0.6-16
-Date: 2021-01-05
+Version: 0.6-18
+Date: 2022-09-03
 Title: Microeconomic Analysis and Modelling
 Author: Arne Henningsen
 Maintainer: Arne Henningsen <arne.henningsen@gmail.com>
@@ -15,6 +15,6 @@ Description: Various tools for microeconomic analysis and microeconomic modellin
 License: GPL (>= 2)
 URL: http://www.micEcon.org
 NeedsCompilation: no
-Packaged: 2021-01-05 09:01:06 UTC; gsl324
+Packaged: 2022-09-03 20:03:18 UTC; gsl324
 Repository: CRAN
-Date/Publication: 2021-01-06 16:00:42 UTC
+Date/Publication: 2022-09-03 21:30:02 UTC
